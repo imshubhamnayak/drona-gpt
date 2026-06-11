@@ -30,16 +30,15 @@ function generatePlan() {
       
       <h4>Recommended Shops & Approach:</h4>
       <ul style="line-height: 1.8;">
-        <li><strong>Shop 1 (High Potential)</strong> — Focus on ${scheme || "new schemes"}</li>
-        <li><strong>Shop 2</strong> — Follow up on pending orders</li>
-        <li><strong>Shop 3</strong> — Introduce new products</li>
-        <li><strong>Remaining shops</strong> — Regular coverage + relationship building</li>
+        <li><strong>High Potential Shops</strong> — Focus on ${scheme || "new schemes"}</li>
+        <li><strong>Regular Shops</strong> — Follow up + relationship building</li>
+        <li><strong>Pending Shops</strong> — Collect orders & payments</li>
       </ul>
 
       <h4>Key Talking Points:</h4>
       <ul>
-        <li>Highlight benefits of current schemes</li>
-        <li>Ask about last month's sales feedback</li>
+        <li>Highlight current schemes & benefits</li>
+        <li>Ask about last month’s sales feedback</li>
         <li>Collect pending payments if any</li>
       </ul>
     </div>
@@ -50,12 +49,5 @@ function generatePlan() {
 }
 
 function savePlan() {
-  alert("Plan saved successfully! (We'll connect backend later)");
-  // Later we will save this to backend
+  alert("Plan saved! (We'll connect backend soon)");
 }
-
-function init() {
-  // You can add auto-login logic later using localStorage
-}
-
-init();
