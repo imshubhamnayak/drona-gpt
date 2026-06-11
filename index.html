@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DronaGPT • Daily Sales Coach</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div>
+      <strong>DronaGPT</strong>
+      <span style="color:#64748b; margin-left: 10px;">Daily Sales Coach</span>
+    </div>
+    <div>
+      <span id="userName">Guest</span>
+      <button onclick="logout()" style="margin-left: 15px; background:#334155; color:white; border:none; padding:6px 14px; border-radius:6px; cursor:pointer;">Logout</button>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="card">
+      <h2>Welcome to DronaGPT</h2>
+      <p style="color:#94a3b8;">Enter your name to continue</p>
+      <input type="text" id="loginInput" placeholder="Your Name (e.g. Ramesh)">
+      <br><br>
+      <button class="primary" onclick="login()">Continue</button>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" style="display:none;">
+      <h2>Good Morning, <span id="displayName"></span> 👋</h2>
+      <p style="color:#94a3b8;">Let's plan your day for better execution.</p>
+
+      <!-- Daily Plan Generator -->
+      <div class="card">
+        <h3>Generate Today's Plan</h3>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+          <div>
+            <label>Area / Territory</label>
+            <input type="text" id="areaInput" placeholder="e.g. MG Road, Indiranagar">
+          </div>
+          <div>
+            <label>Target Shops Today</label>
+            <input type="number" id="targetInput" placeholder="e.g. 12" value="10">
+          </div>
+        </div>
+
+        <div style="margin-top: 15px;">
+          <label>Any Special Schemes / Focus Today? (Optional)</label>
+          <input type="text" id="schemeInput" placeholder="e.g. New scheme on Nilkamal chairs">
+        </div>
+
+        <button class="primary" onclick="generatePlan()" style="margin-top: 20px; width: 100%;">
+          Generate Daily Plan
+        </button>
+      </div>
+
+      <!-- Generated Plan -->
+      <div id="planSection" class="card" style="display: none;">
+        <h3>Today's Recommended Plan</h3>
+        <div id="planContent"></div>
+        
+        <button onclick="savePlan()" style="margin-top: 20px; background:#22c55e; color:white; border:none; padding:12px 24px; border-radius:10px; cursor:pointer;">
+          Save This Plan
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
