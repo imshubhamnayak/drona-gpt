@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Prestige Pressure Cooker 5L",
+    "mrp": 3495,
+    "ecom_price": 2899,
+    "qcom_price": 2799,
+    "gap_percent": 20,
+    "talking_points": "Online pe ₹2,799 mein mil raha hai. Aap ₹2,649–2,699 mein de sakte ho aur accha margin bana sakte ho."
+  },
+  {
+    "id": 2,
+    "name": "Prestige Air Fryer 4L",
+    "mrp": 5995,
+    "ecom_price": 4499,
+    "qcom_price": 4299,
+    "gap_percent": 28,
+    "talking_points": "Q-commerce pe ₹4,299 chal raha hai. Aap ₹4,099–4,199 target kar sakte ho."
+  },
+  {
+    "id": 3,
+    "name": "Prestige Non-stick Pan 28cm",
+    "mrp": 1495,
+    "ecom_price": 1099,
+    "qcom_price": 999,
+    "gap_percent": 33,
+    "talking_points": "Online sabse sasta ₹999 mein mil raha hai. Aap ₹949–999 mein push kar sakte ho."
+  }
+]
