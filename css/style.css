@@ -9,14 +9,12 @@ body {
     scrollbar-color: #475569 #1e2937;
 }
 
-/* WebKit Scrollbar (Chrome, Edge, Safari) */
 .chat-container::-webkit-scrollbar {
     width: 6px;
 }
 
 .chat-container::-webkit-scrollbar-track {
     background: #1e2937;
-    border-radius: 3px;
 }
 
 .chat-container::-webkit-scrollbar-thumb {
@@ -28,22 +26,66 @@ body {
     background-color: #64748b;
 }
 
-/* Chat Message Bubbles */
 .message-user {
     background: linear-gradient(135deg, #ea580c, #c2410f);
     color: white;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
-.message-assistant {
-    background-color: #1e2937;
+/* ==================== TAB NAVIGATION ==================== */
+.tab-button {
+    transition: all 0.2s ease;
+    color: #94a3b8;
+}
+
+.tab-button:hover {
     color: #e2e8f0;
+}
+
+.tab-button.active {
+    background-color: #334155;
+    color: white;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+}
+
+/* ==================== STRATEGY X STYLES ==================== */
+#strategy-map {
+    background: #1e2937;
+    border-radius: 12px;
+}
+
+/* Leaflet Map Customization */
+.leaflet-popup-content-wrapper {
+    background: #1e2937;
+    color: #e2e8f0;
+    border-radius: 12px;
+    border: 1px solid #475569;
+}
+
+.leaflet-popup-tip {
+    background: #1e2937;
+    border: 1px solid #475569;
+}
+
+/* Territory Details Panel */
+#territory-details-panel {
+    animation: fadeInScale 0.2s ease-out forwards;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 /* ==================== RETAILER CARDS ==================== */
 .retailer-card {
-    transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
-    border: 1px solid transparent;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .retailer-card:hover {
@@ -72,8 +114,7 @@ body {
     color: #fde047;
 }
 
-.status-risk,
-.status-at-risk {
+.status-risk {
     background-color: #991b1b;
     color: #fca5a5;
 }
@@ -87,38 +128,7 @@ body {
     color: #64748b;
 }
 
-/* ==================== MODAL STYLES ==================== */
-.modal {
-    animation: fadeInScale 0.2s ease-out forwards;
-}
-
-@keyframes fadeInScale {
-    from {
-        opacity: 0;
-        transform: scale(0.96);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* ==================== QUICK VIEW MODAL ==================== */
-.quickview-content {
-    scrollbar-width: thin;
-    scrollbar-color: #475569 #1e2937;
-}
-
-.quickview-content::-webkit-scrollbar {
-    width: 5px;
-}
-
-.quickview-content::-webkit-scrollbar-thumb {
-    background-color: #475569;
-    border-radius: 20px;
-}
-
-/* ==================== BUTTONS & INTERACTIONS ==================== */
+/* ==================== BUTTONS ==================== */
 button {
     transition: all 0.15s ease;
 }
@@ -132,7 +142,7 @@ button:active {
     font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
 }
 
-/* Subtle card hover effect */
+/* Card hover effect */
 .card-hover {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -142,7 +152,7 @@ button:active {
     box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1);
 }
 
-/* Context indicator */
+/* Context indicator animation */
 #context-indicator {
     animation: fadeIn 0.2s ease;
 }
@@ -150,4 +160,10 @@ button:active {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+/* Active Plans styling */
+#active-plans-list {
+    max-height: 400px;
+    overflow-y: auto;
 }
