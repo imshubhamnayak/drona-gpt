@@ -314,5 +314,59 @@ function searchSKU() {
             resultDiv.classList.remove('hidden');
         });
 }
+// ==================== SKU INTELLIGENCE ====================
+function loadSKUTags() {
+    const container = document.getElementById('sku-tags');
+    if (!container) return;
 
+    fetch('data/skus.json')
+        .then(res => res.json())
+        .then(skus => {
+            container.innerHTML = '';
+            skus.forEach(sku => {
+                const tag = document.createElement('button');
+                tag.className = `px-4 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-2xl text-sm transition-colors`;
+                tag.innerText = sku.name;
+                tag.onclick = () => {
+                    document.getElementById('sku-search-input').value = sku.name;
+                    searchSKU();
+                };
+                container.appendChild(tag);
+            });
+        });
+}
+
+function searchSKU() {
+    const query = document.getElementById('sku-search-input').value.toLowerCase().trim();
+    const resultDiv = document.getElementById('sku-result');
+
+    fetch('data/skus.json')
+        .then(res => res.json())
+        .then(skus => {
+            const sku = skus.find(s => s.name.toLowerCase().includes(query));
+            if (sku) {
+                resultDiv.innerHTML = `
+                    <div class="font-semibold text-lg">${sku.name}</div>
+                    <div class="grid grid-cols-2 gap-4 mt-3 text-sm">
+                        <div>MRP: <span class="font-mono">₹${sku.mrp}</span></div>
+                        <div>E-commerce: <span class="font-mono">₹${sku.ecom_price}</span></div>
+                        <div>Q-commerce: <span class="font-mono">₹${sku.qcom_price}</span></div>
+                        <div class="text-orange-400">Gap vs MRP: <strong>${sku.gap_percent}%</strong></div>
+                    </div>
+                    <div class="mt-4 bg-slate-700 p-4 rounded-2xl text-sm">
+                        <strong>Talking Point:</strong><br>${sku.talking_points}
+                    </div>
+                `;
+                resultDiv.classList.remove('hidden');
+            } else {
+                resultDiv.innerHTML = `<div class="text-red-400">SKU not found.</div>`;
+                resultDiv.classList.remove('hidden');
+            }
+        });
+}
+
+// Call this when SKU Intelligence tab is opened
+function initializeSKUIntelligence() {
+    loadSKUTags();
+}
 window.onload = initializeApp;
