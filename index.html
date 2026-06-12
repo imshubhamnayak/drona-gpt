@@ -11,10 +11,12 @@
 </head>
 <body class="bg-slate-950 text-slate-200">
 
-    <!-- Top Navigation -->
+    <!-- Top Navigation Bar -->
     <div class="border-b border-slate-800 bg-slate-900 sticky top-0 z-50">
         <div class="max-w-screen-xl mx-auto px-6">
             <div class="flex items-center justify-between h-16">
+                
+                <!-- Logo -->
                 <div class="flex items-center gap-x-3">
                     <div class="w-10 h-10 bg-orange-600 rounded-2xl flex items-center justify-center">
                         <i class="fa-solid fa-robot text-white text-2xl"></i>
@@ -28,11 +30,16 @@
                 <!-- Main Tabs -->
                 <div class="flex items-center bg-slate-800 rounded-2xl p-1">
                     <button onclick="switchTab('drona-gpt')" id="tab-drona-gpt"
-                            class="tab-button active px-6 py-2 rounded-2xl text-sm font-medium">Drona GPT</button>
+                            class="tab-button active px-6 py-2 rounded-2xl text-sm font-medium">
+                        Drona GPT
+                    </button>
                     <button onclick="switchTab('strategy-x')" id="tab-strategy-x"
-                            class="tab-button px-6 py-2 rounded-2xl text-sm font-medium">Strategy X</button>
+                            class="tab-button px-6 py-2 rounded-2xl text-sm font-medium">
+                        Strategy X
+                    </button>
                 </div>
 
+                <!-- User Info -->
                 <div class="flex items-center gap-x-2 bg-slate-900 border border-slate-700 pl-2 pr-4 py-1.5 rounded-2xl">
                     <div class="w-9 h-9 bg-emerald-600 rounded-full flex items-center justify-center text-sm font-bold">RK</div>
                     <div>
@@ -48,7 +55,7 @@
     <div id="section-drona-gpt" class="max-w-screen-xl mx-auto px-6 pt-6">
         
         <!-- Sub Tabs -->
-        <div class="flex items-center gap-x-2 mb-4 border-b border-slate-800 pb-2">
+        <div class="flex items-center gap-x-1 mb-4 border-b border-slate-800 pb-1">
             <button onclick="switchDronaSubTab('chat')" id="subtab-chat"
                     class="subtab-button active px-5 py-2 text-sm font-medium">Chat</button>
             <button onclick="switchDronaSubTab('retailers')" id="subtab-retailers"
@@ -57,9 +64,10 @@
                     class="subtab-button px-5 py-2 text-sm font-medium">SKU Intelligence</button>
         </div>
 
-        <!-- Chat -->
+        <!-- ========== CHAT SUB TAB ========== -->
         <div id="drona-sub-chat">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
                 <!-- Chat Window -->
                 <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-3xl flex flex-col h-[calc(100vh-200px)]">
                     <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center">
@@ -101,39 +109,47 @@
             </div>
         </div>
 
-        <!-- Retailers Sub Tab -->
+        <!-- ========== RETAILERS SUB TAB ========== -->
         <div id="drona-sub-retailers" class="hidden">
             <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
                 <h3 class="text-xl font-semibold mb-4">Retailers</h3>
                 <button onclick="openRetailerSearch()" 
-                        class="bg-orange-600 hover:bg-orange-500 px-6 py-3 rounded-2xl font-medium">
-                    Search Retailers
+                        class="bg-orange-600 hover:bg-orange-500 px-6 py-3 rounded-2xl font-medium flex items-center gap-x-2">
+                    <i class="fa-solid fa-search"></i>
+                    <span>Search Retailers</span>
                 </button>
             </div>
         </div>
 
-        <!-- SKU Intelligence Sub Tab -->
+        <!-- ========== SKU INTELLIGENCE SUB TAB ========== -->
         <div id="drona-sub-sku-intelligence" class="hidden">
             <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
                 <h3 class="text-xl font-semibold mb-4">SKU Intelligence</h3>
+                
                 <div class="flex gap-x-3 mb-4">
                     <input id="sku-search-input" type="text" placeholder="Search SKU (e.g. Pressure Cooker 5L)" 
                            class="flex-1 bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-sm focus:outline-none">
-                    <button onclick="searchSKU()" class="bg-orange-600 hover:bg-orange-500 px-6 rounded-2xl font-medium">Search</button>
+                    <button onclick="searchSKU()" 
+                            class="bg-orange-600 hover:bg-orange-500 px-6 rounded-2xl font-medium">Search</button>
                 </div>
-                <div id="sku-result" class="hidden bg-slate-800 rounded-2xl p-5"></div>
+
+                <div id="sku-result" class="hidden bg-slate-800 rounded-2xl p-5">
+                    <!-- Results populated by JS -->
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- STRATEGY X SECTION -->
+    <!-- ==================== STRATEGY X SECTION ==================== -->
     <div id="section-strategy-x" class="max-w-screen-xl mx-auto px-6 pt-6 hidden">
-        <!-- Strategy X content will go here -->
-        <div class="text-center py-10 text-slate-400">
-            Strategy X section is under refinement. Coming soon.
+        <div class="text-center py-10">
+            <h2 class="text-2xl font-semibold mb-2">Strategy X</h2>
+            <p class="text-slate-400">Territory Heat Map & Focus Planning</p>
+            <p class="text-sm text-slate-500 mt-4">(Under active development)</p>
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="js/app.js"></script>
     <script src="js/strategy-x.js"></script>
