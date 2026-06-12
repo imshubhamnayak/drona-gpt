@@ -1,98 +1,89 @@
-// ==================== STRATEGY X MODULE (Supabase Version) ====================
+// ==================== STRATEGY X (Owner Mode) ====================
 let territories = [];
 let map = null;
 let territoryLayers = {};
 let activePlans = [];
 
-// Load territories from JSON
+// Load territories
 async function loadTerritories() {
     try {
         const res = await fetch('data/territories.json');
         territories = await res.json();
-    } catch (error) {
-        console.error("Failed to load territories.json", error);
+    } catch (e) {
+        console.error("Failed to load territories.json", e);
         territories = [];
     }
 }
 
-// Initialize Leaflet Map
+// Initialize Map
 function initializeMap() {
-    const mapContainer = document.getElementById('strategy-map');
-    if (!mapContainer) return;
+    const container = document.getElementById('strategy-map');
+    if (!container) return;
 
     if (map) map.remove();
 
     map = L.map('strategy-map').setView([12.912, 77.58], 12);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
+        attribution: '&copy; OpenStreetMap'
     }).addTo(map);
 
     addTerritoriesToMap();
     renderTerritoryList();
-    loadActivePlansFromSupabase(); // Load plans from Supabase
+    loadActivePlansFromSupabase();
 }
 
-// Add territories on map
 function addTerritoriesToMap() {
-    territories.forEach(territory => {
-        const color = getTerritoryColor(territory);
-        const radius = Math.max(territory.retailerCount * 50, 300);
+    territories.forEach(t => {
+        const color = getTerritoryColor(t);
+        const radius = Math.max(t.retailerCount * 50, 300);
 
-        const circle = L.circle([territory.lat, territory.lng], {
-            color: color,
-            fillColor: color,
-            fillOpacity: 0.6,
-            radius: radius,
-            weight: 2
+        const circle = L.circle([t.lat, t.lng], {
+            color, fillColor: color, fillOpacity: 0.55, radius, weight: 2
         }).addTo(map);
 
-        territoryLayers[territory.id] = circle;
+        territoryLayers[t.id] = circle;
 
         circle.on('click', () => {
-            showTerritoryDetails(territory);
-            highlightTerritoryInList(territory.id);
+            showTerritoryDetails(t);
+            highlightTerritoryInList(t.id);
         });
 
-        circle.bindTooltip(`<strong>${territory.name}</strong><br>Retailers: ${territory.retailerCount}`);
+        circle.bindTooltip(`<strong>${t.name}</strong><br>${t.retailerCount} retailers`);
     });
 }
 
-function getTerritoryColor(territory) {
-    const score = (territory.outstanding / 100000) + (territory.decliningSKUs * 2);
+function getTerritoryColor(t) {
+    const score = (t.outstanding / 100000) + (t.decliningSKUs * 2);
     if (score > 5) return '#ef4444';
     if (score > 3.2) return '#f59e0b';
     return '#22c55e';
 }
 
-// Render territory list
 function renderTerritoryList() {
     const container = document.getElementById('territory-list');
     if (!container) return;
-
     container.innerHTML = '';
 
-    territories.forEach(territory => {
+    territories.forEach(t => {
         const div = document.createElement('div');
         div.className = `territory-list-item flex justify-between items-center p-3 rounded-2xl cursor-pointer hover:bg-slate-800`;
-        div.dataset.id = territory.id;
+        div.dataset.id = t.id;
 
         div.innerHTML = `
             <div>
-                <div class="font-medium">${territory.name}</div>
-                <div class="text-xs text-slate-400">${territory.retailerCount} retailers</div>
+                <div class="font-medium">${t.name}</div>
+                <div class="text-xs text-slate-400">${t.retailerCount} retailers</div>
             </div>
             <div class="text-right">
-                <div class="text-sm font-mono">₹${(territory.outstanding / 100000).toFixed(1)}L</div>
-                <div class="text-xs text-orange-400">${territory.decliningSKUs} declining</div>
+                <div class="text-sm font-mono">₹${(t.outstanding/100000).toFixed(1)}L</div>
+                <div class="text-xs text-orange-400">${t.decliningSKUs} declining</div>
             </div>
         `;
-
         div.onclick = () => {
-            showTerritoryDetails(territory);
-            highlightTerritoryInList(territory.id);
+            showTerritoryDetails(t);
+            highlightTerritoryInList(t.id);
         };
-
         container.appendChild(div);
     });
 }
@@ -104,7 +95,6 @@ function highlightTerritoryInList(id) {
     });
 }
 
-// Show territory details
 function showTerritoryDetails(territory) {
     const panel = document.getElementById('territory-details-panel');
     if (!panel) return;
@@ -116,15 +106,14 @@ function showTerritoryDetails(territory) {
                     <h3 class="text-xl font-semibold">${territory.name}</h3>
                     <p class="text-sm text-slate-400">${territory.retailerCount} retailers</p>
                 </div>
-                <button onclick="closeTerritoryPanel()" class="text-slate-400 hover:text-white text-2xl">×</button>
+                <button onclick="closeTerritoryPanel()" class="text-2xl text-slate-400 hover:text-white">×</button>
             </div>
 
-            <div class="space-y-4">
+            <div class="space-y-3">
                 <div class="bg-slate-800 rounded-2xl p-4">
                     <div class="text-xs text-slate-400">OUTSTANDING</div>
-                    <div class="text-3xl font-semibold">₹${(territory.outstanding / 100000).toFixed(1)}L</div>
+                    <div class="text-3xl font-semibold">₹${(territory.outstanding/100000).toFixed(1)}L</div>
                 </div>
-
                 <div class="bg-slate-800 rounded-2xl p-4">
                     <div class="text-xs text-slate-400">DECLINING SKUs</div>
                     <div class="text-3xl font-semibold text-orange-400">${territory.decliningSKUs}</div>
@@ -133,20 +122,18 @@ function showTerritoryDetails(territory) {
 
             <button onclick="createFocusPlanForTerritory('${territory.id}')"
                     class="mt-5 w-full bg-orange-600 hover:bg-orange-500 py-3 rounded-2xl font-medium">
-                Create Focus Plan for this Territory
+                Create Focus Plan
             </button>
         </div>
     `;
-
     panel.classList.remove('hidden');
 }
 
 function closeTerritoryPanel() {
-    const panel = document.getElementById('territory-details-panel');
-    if (panel) panel.classList.add('hidden');
+    document.getElementById('territory-details-panel')?.classList.add('hidden');
 }
 
-// ==================== CREATE FOCUS PLAN (Supabase) ====================
+// ==================== CREATE FOCUS PLAN (Owner Mode) ====================
 function createFocusPlanForTerritory(territoryId) {
     closeTerritoryPanel();
 
@@ -155,7 +142,7 @@ function createFocusPlanForTerritory(territoryId) {
 
     modal.innerHTML = `
         <div class="bg-slate-900 border border-slate-700 w-full max-w-md mx-4 rounded-3xl p-6">
-            <h3 class="text-xl font-semibold mb-4">Create Focus Plan</h3>
+            <h3 class="text-xl font-semibold mb-4">Create Focus Plan <span class="text-xs text-orange-400">(Owner)</span></h3>
             
             <div class="space-y-4">
                 <div>
@@ -175,8 +162,8 @@ function createFocusPlanForTerritory(territoryId) {
                 <div>
                     <label class="text-sm text-slate-400">Priority Actions</label>
                     <div class="mt-2 space-y-2 text-sm">
-                        <label class="flex items-center gap-x-2"><input type="checkbox" value="Payment Collection"> Payment Collection</label>
-                        <label class="flex items-center gap-x-2"><input type="checkbox" value="New SKU Push"> New SKU Push</label>
+                        <label class="flex items-center gap-x-2"><input type="checkbox" value="Payment Collection" checked> Payment Collection</label>
+                        <label class="flex items-center gap-x-2"><input type="checkbox" value="New SKU Push" checked> New SKU Push</label>
                         <label class="flex items-center gap-x-2"><input type="checkbox" value="Churn Prevention"> Churn Prevention</label>
                     </div>
                 </div>
@@ -189,55 +176,62 @@ function createFocusPlanForTerritory(territoryId) {
 
             <div class="flex gap-x-3 mt-6">
                 <button onclick="this.closest('.fixed').remove()" class="flex-1 py-3 rounded-2xl border border-slate-700">Cancel</button>
-                <button onclick="saveFocusPlanToSupabase('${territoryId}', this)" class="flex-1 py-3 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">Publish Plan</button>
+                <button onclick="saveFocusPlan('${territoryId}', this)" class="flex-1 py-3 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">Publish Plan</button>
             </div>
         </div>
     `;
-
     document.body.appendChild(modal);
 }
 
-// Save Focus Plan to Supabase
-async function saveFocusPlanToSupabase(territoryId, element) {
-    const modal = element.closest('.fixed');
+// Save to Supabase (Owner)
+async function saveFocusPlan(territoryId, btn) {
+    const modal = btn.closest('.fixed');
     const supabase = window.supabaseClient;
 
+    if (!supabase) {
+        alert("Supabase is not connected. Please refresh the page.");
+        modal.remove();
+        return;
+    }
+
     const period = document.getElementById('plan-period').value;
-    const focusSKUs = document.getElementById('focus-skus').value.split(',').map(s => s.trim());
+    const focusSKUs = document.getElementById('focus-skus').value.split(',').map(s => s.trim()).filter(Boolean);
     const notes = document.getElementById('plan-notes').value;
 
     const checked = modal.querySelectorAll('input[type="checkbox"]:checked');
     const priorityActions = Array.from(checked).map(cb => cb.value);
 
-    const { error } = await supabase
-        .from('focus_plans')
-        .insert([{
-            period: period,
-            focus_skus: focusSKUs,
-            priority_actions: priorityActions,
-            territories: [territoryId],
-            notes: notes,
-            created_by: 'owner',           // For now we hardcode 'owner'
-            active: true
-        }]);
+    const { error } = await supabase.from('focus_plans').insert([{
+        period,
+        focus_skus: focusSKUs,
+        priority_actions: priorityActions,
+        territories: [territoryId],
+        notes,
+        created_by: 'owner',
+        active: true
+    }]);
 
     modal.remove();
 
     if (error) {
-        alert("Error saving plan: " + error.message);
+        alert("Failed to save plan: " + error.message);
         console.error(error);
     } else {
         alert("Focus Plan published successfully!");
-        loadActivePlansFromSupabase(); // Refresh list
+        loadActivePlansFromSupabase();
     }
 }
 
-// Load Active Plans from Supabase
+// Load plans from Supabase
 async function loadActivePlansFromSupabase() {
     const container = document.getElementById('active-plans-list');
     if (!container) return;
 
     const supabase = window.supabaseClient;
+    if (!supabase) {
+        container.innerHTML = `<p class="text-red-400 text-sm">Supabase not connected</p>`;
+        return;
+    }
 
     const { data, error } = await supabase
         .from('focus_plans')
@@ -246,8 +240,8 @@ async function loadActivePlansFromSupabase() {
         .order('created_at', { ascending: false });
 
     if (error) {
-        console.error("Error fetching plans:", error);
-        container.innerHTML = `<p class="text-red-400 text-sm">Failed to load plans.</p>`;
+        console.error(error);
+        container.innerHTML = `<p class="text-red-400 text-sm">Failed to load plans</p>`;
         return;
     }
 
@@ -260,22 +254,25 @@ async function loadActivePlansFromSupabase() {
 
     let html = '';
     activePlans.forEach(plan => {
-        const t = territories.find(x => x.id === plan.territories[0]);
+        const t = territories.find(x => x.id === plan.territories?.[0]);
         html += `
             <div class="bg-slate-800 rounded-2xl p-4 mb-3 text-sm">
-                <div class="font-medium">${plan.period} Focus Plan</div>
+                <div class="font-medium flex justify-between">
+                    <span>${plan.period} Focus Plan</span>
+                    <span class="text-xs text-orange-400">Owner</span>
+                </div>
                 <div class="text-xs text-slate-400">${new Date(plan.created_at).toLocaleDateString()}</div>
-                <div class="mt-2">Focus: ${plan.focus_skus.join(', ')}</div>
+                <div class="mt-2">Focus: ${plan.focus_skus?.join(', ') || '—'}</div>
                 ${t ? `<div class="text-xs text-slate-400 mt-1">${t.name}</div>` : ''}
             </div>
         `;
     });
-
     container.innerHTML = html;
 }
 
-// Main initialization
+// Main init for Strategy X (automatically Owner)
 async function initializeStrategyX() {
+    console.log('%c[Strategy X] Running in Owner Mode', 'color:#f59e0b');
     await loadTerritories();
     initializeMap();
 }
