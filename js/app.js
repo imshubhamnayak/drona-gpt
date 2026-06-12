@@ -3,7 +3,7 @@ let retailers = [];
 let currentContextRetailer = null;
 let currentQuickViewRetailer = null;
 
-// Load retailers
+// Load retailers data
 async function loadRetailers() {
     const res = await fetch('data/retailers.json');
     retailers = await res.json();
@@ -51,7 +51,7 @@ function generateSmartResponse(query) {
 
     if (q.includes("behind on payment")) {
         const behind = retailers.filter(r => r.outstanding > 15000).map(r => r.name);
-        return `High outstanding: ${behind.join(", ")}`;
+        return `High outstanding retailers: ${behind.join(", ")}`;
     }
 
     return "I can help with retailer details, payment status, and SKU patterns.";
@@ -75,7 +75,7 @@ function clearContext() {
     if (indicator) indicator.classList.add('hidden');
 }
 
-// ==================== QUICK VIEW (Fixed) ====================
+// ==================== QUICK VIEW ====================
 function showQuickView(retailer) {
     currentQuickViewRetailer = retailer;
 
@@ -112,8 +112,28 @@ function showQuickView(retailer) {
 
 function populateQuickViewContent(retailer) {
     const content = document.getElementById('quickview-content');
-    // You can paste your existing Quick View HTML content here
-    content.innerHTML = `<p class="text-slate-400">Quick View content for ${retailer.name} loaded.</p>`;
+    content.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <div class="section-header mb-2">Payment Position</div>
+                <div class="bg-slate-800 rounded-2xl p-4">
+                    <div class="text-3xl font-semibold">₹${retailer.outstanding.toLocaleString()}</div>
+                    <div class="text-xs text-slate-400">Total Outstanding</div>
+                </div>
+            </div>
+            <div>
+                <div class="section-header mb-2">SKU Pattern Recognition</div>
+                <div class="bg-slate-800 rounded-2xl p-4 text-sm">
+                    ${retailer.skuPatterns.map(p => `
+                        <div class="mb-2">
+                            <strong>${p.sku}</strong> — <span class="${p.status === 'Declining' ? 'text-red-400' : 'text-emerald-400'}">${p.status}</span><br>
+                            <span class="text-xs text-slate-400">${p.insight}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        </div>
+    `;
 }
 
 function setChatContextFromQuickView() {
@@ -128,6 +148,30 @@ function closeQuickView() {
     if (modal) modal.remove();
 }
 
+// ==================== QUICK ACTIONS ====================
+function showPaymentSummary() {
+    const total = retailers.reduce((sum, r) => sum + r.outstanding, 0);
+    addMessage(`Total Outstanding across all retailers: <strong>₹${total.toLocaleString()}</strong>`);
+}
+
+function showTargetSummary() {
+    let target = 0, achieved = 0;
+    retailers.forEach(r => {
+        target += r.monthlyTarget || 0;
+        achieved += r.achievedThisMonth || 0;
+    });
+    const pct = target > 0 ? ((achieved / target) * 100).toFixed(1) : 0;
+    addMessage(`Overall Target Achievement: <strong>${pct}%</strong>`);
+}
+
+function showSamplingView() {
+    addMessage("Sampling feature coming soon.");
+}
+
+function showAllRetailers() {
+    openRetailerSearch();
+}
+
 // ==================== SKU INTELLIGENCE ====================
 function searchSKU() {
     const query = document.getElementById('sku-search-input').value.toLowerCase().trim();
@@ -139,16 +183,15 @@ function searchSKU() {
             const sku = skus.find(s => s.name.toLowerCase().includes(query));
             if (sku) {
                 resultDiv.innerHTML = `
-                    <div class="font-semibold text-lg mb-2">${sku.name}</div>
-                    <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="font-semibold text-lg">${sku.name}</div>
+                    <div class="grid grid-cols-2 gap-4 mt-3 text-sm">
                         <div>MRP: <span class="font-mono">₹${sku.mrp}</span></div>
                         <div>E-commerce: <span class="font-mono">₹${sku.ecom_price}</span></div>
                         <div>Q-commerce: <span class="font-mono">₹${sku.qcom_price}</span></div>
                         <div class="text-orange-400">Gap vs MRP: ${sku.gap_percent}%</div>
                     </div>
                     <div class="mt-4 bg-slate-700 p-4 rounded-2xl text-sm">
-                        <strong>Talking Point:</strong><br>
-                        ${sku.talking_points}
+                        <strong>Talking Point:</strong><br>${sku.talking_points}
                     </div>
                 `;
                 resultDiv.classList.remove('hidden');
@@ -161,7 +204,20 @@ function searchSKU() {
 
 // ==================== TAB SWITCHING ====================
 function switchTab(tab) {
-    // Add your existing tab switching logic here
+    const dronaSection = document.getElementById('section-drona-gpt');
+    const strategySection = document.getElementById('section-strategy-x');
+
+    if (tab === 'drona-gpt') {
+        dronaSection.classList.remove('hidden');
+        strategySection.classList.add('hidden');
+        document.getElementById('tab-drona-gpt').classList.add('active');
+        document.getElementById('tab-strategy-x').classList.remove('active');
+    } else {
+        dronaSection.classList.add('hidden');
+        strategySection.classList.remove('hidden');
+        document.getElementById('tab-drona-gpt').classList.remove('active');
+        document.getElementById('tab-strategy-x').classList.add('active');
+    }
 }
 
 function switchDronaSubTab(tab) {
@@ -186,7 +242,18 @@ function switchDronaSubTab(tab) {
 // ==================== INITIALIZE ====================
 async function initializeApp() {
     await loadRetailers();
-    // Add welcome message logic here
+
+    const container = document.getElementById('chat-messages');
+    if (container) {
+        container.innerHTML = `
+            <div class="flex justify-start">
+                <div class="max-w-[82%] px-4 py-3 rounded-3xl bg-slate-800 text-sm">
+                    Hi Ramesh! I'm <strong>Drona GPT</strong>.<br>
+                    I can help with retailer details, payment status, and SKU patterns.
+                </div>
+            </div>
+        `;
+    }
 }
 
 window.onload = initializeApp;
