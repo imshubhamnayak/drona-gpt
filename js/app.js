@@ -256,4 +256,63 @@ async function initializeApp() {
     }
 }
 
+// ==================== SKU INTELLIGENCE ====================
+function switchDronaSubTab(tab) {
+    // Hide all sub sections
+    document.getElementById('drona-sub-chat').classList.add('hidden');
+    document.getElementById('drona-sub-retailers').classList.add('hidden');
+    document.getElementById('drona-sub-sku-intelligence').classList.add('hidden');
+
+    // Remove active class from all buttons
+    document.querySelectorAll('.subtab-button').forEach(el => el.classList.remove('active'));
+
+    if (tab === 'chat') {
+        document.getElementById('drona-sub-chat').classList.remove('hidden');
+        document.getElementById('subtab-chat').classList.add('active');
+    } 
+    else if (tab === 'retailers') {
+        document.getElementById('drona-sub-retailers').classList.remove('hidden');
+        document.getElementById('subtab-retailers').classList.add('active');
+    } 
+    else if (tab === 'sku-intelligence') {
+        document.getElementById('drona-sub-sku-intelligence').classList.remove('hidden');
+        document.getElementById('subtab-sku').classList.add('active');
+    }
+}
+
+function searchSKU() {
+    const query = document.getElementById('sku-search-input').value.toLowerCase().trim();
+    const resultDiv = document.getElementById('sku-result');
+
+    fetch('data/skus.json')
+        .then(res => res.json())
+        .then(skus => {
+            const sku = skus.find(s => s.name.toLowerCase().includes(query));
+            
+            if (sku) {
+                resultDiv.innerHTML = `
+                    <div class="font-semibold text-lg mb-2">${sku.name}</div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>MRP: <span class="font-mono">₹${sku.mrp}</span></div>
+                        <div>E-commerce: <span class="font-mono">₹${sku.ecom_price}</span></div>
+                        <div>Q-commerce: <span class="font-mono">₹${sku.qcom_price}</span></div>
+                        <div class="text-orange-400">Gap vs MRP: <strong>${sku.gap_percent}%</strong></div>
+                    </div>
+                    <div class="mt-4 bg-slate-700 p-4 rounded-2xl text-sm">
+                        <strong>Talking Point:</strong><br>
+                        ${sku.talking_points}
+                    </div>
+                `;
+                resultDiv.classList.remove('hidden');
+            } else {
+                resultDiv.innerHTML = `<div class="text-red-400">SKU not found in database.</div>`;
+                resultDiv.classList.remove('hidden');
+            }
+        })
+        .catch(() => {
+            resultDiv.innerHTML = `<div class="text-red-400">Error loading SKU data.</div>`;
+            resultDiv.classList.remove('hidden');
+        });
+}
+
 window.onload = initializeApp;
