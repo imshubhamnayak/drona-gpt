@@ -1,24 +1,24 @@
-// ==================== STRATEGY X MODULE ====================
+// ==================== STRATEGY X MODULE (Final) ====================
 let territories = [];
 let map = null;
 let territoryLayers = {};
 let activePlans = [];
 
-// Load territories data
+// Load territories from JSON
 async function loadTerritories() {
     try {
         const response = await fetch('data/territories.json');
         territories = await response.json();
     } catch (error) {
-        console.error("Failed to load territories.json", error);
+        console.error("Error loading territories.json", error);
         territories = [];
     }
 }
 
 // Initialize Leaflet Map
 function initializeMap() {
-    const mapContainer = document.getElementById('strategy-map');
-    if (!mapContainer) return;
+    const mapElement = document.getElementById('strategy-map');
+    if (!mapElement) return;
 
     map = L.map('strategy-map').setView([12.912, 77.58], 12);
 
@@ -31,11 +31,11 @@ function initializeMap() {
     renderTerritoryList();
 }
 
-// Add territories to map as colored circles
+// Add territories as colored circles on the map
 function addTerritoriesToMap() {
     territories.forEach(territory => {
         const color = getTerritoryColor(territory);
-        const radius = Math.max(territory.retailerCount / 1.8, 280);
+        const radius = Math.max(territory.retailerCount / 1.6, 300);
 
         const circle = L.circle([territory.lat, territory.lng], {
             color: color,
@@ -47,11 +47,13 @@ function addTerritoriesToMap() {
 
         territoryLayers[territory.id] = circle;
 
+        // Click on circle
         circle.on('click', () => {
             showTerritoryDetails(territory);
             highlightTerritoryInList(territory.id);
         });
 
+        // Tooltip
         circle.bindTooltip(`
             <strong>${territory.name}</strong><br>
             Outstanding: ₹${(territory.outstanding / 100000).toFixed(1)}L<br>
@@ -60,13 +62,13 @@ function addTerritoriesToMap() {
     });
 }
 
-// Color logic
+// Color logic for heat map
 function getTerritoryColor(territory) {
-    const score = (territory.outstanding / 100000) + (territory.decliningSKUs * 1.5);
-    
-    if (score > 4.5) return '#ef4444';      // Red
-    if (score > 3) return '#f59e0b';        // Orange
-    return '#22c55e';                       // Green
+    const score = (territory.outstanding / 100000) + (territory.decliningSKUs * 1.8);
+
+    if (score > 5) return '#ef4444';      // Red - Critical
+    if (score > 3.2) return '#f59e0b';    // Orange - Needs Attention
+    return '#22c55e';                     // Green - Good
 }
 
 // Render territory list in sidebar
@@ -78,7 +80,7 @@ function renderTerritoryList() {
 
     territories.forEach(territory => {
         const div = document.createElement('div');
-        div.className = `flex justify-between items-center p-3 rounded-2xl cursor-pointer hover:bg-slate-800 transition-colors territory-list-item`;
+        div.className = `territory-list-item flex justify-between items-center p-3 rounded-2xl cursor-pointer`;
         div.dataset.id = territory.id;
 
         div.innerHTML = `
@@ -86,8 +88,8 @@ function renderTerritoryList() {
                 <div class="font-medium">${territory.name}</div>
                 <div class="text-xs text-slate-400">${territory.retailerCount} retailers</div>
             </div>
-            <div class="text-right">
-                <div class="text-sm font-mono">₹${(territory.outstanding / 100000).toFixed(1)}L</div>
+            <div class="text-right text-sm">
+                <div class="font-mono">₹${(territory.outstanding / 100000).toFixed(1)}L</div>
                 <div class="text-xs text-orange-400">${territory.decliningSKUs} declining</div>
             </div>
         `;
@@ -110,7 +112,7 @@ function highlightTerritoryInList(territoryId) {
     });
 }
 
-// Show territory details
+// Show territory details panel
 function showTerritoryDetails(territory) {
     const panel = document.getElementById('territory-details-panel');
     if (!panel) return;
@@ -126,13 +128,11 @@ function showTerritoryDetails(territory) {
             </div>
 
             <div class="space-y-4">
-                <!-- Outstanding -->
                 <div class="bg-slate-800 rounded-2xl p-4">
                     <div class="text-xs text-slate-400">OUTSTANDING</div>
                     <div class="text-3xl font-semibold mt-1">₹${(territory.outstanding / 100000).toFixed(1)}L</div>
                 </div>
 
-                <!-- Declining SKUs -->
                 <div class="bg-slate-800 rounded-2xl p-4">
                     <div class="text-xs text-slate-400">DECLINING / AT-RISK SKUs</div>
                     <div class="text-3xl font-semibold text-orange-400 mt-1">${territory.decliningSKUs}</div>
@@ -154,7 +154,7 @@ function closeTerritoryPanel() {
     if (panel) panel.classList.add('hidden');
 }
 
-// Create Focus Plan
+// Create Focus Plan Modal
 function createFocusPlanForTerritory(territoryId) {
     closeTerritoryPanel();
 
@@ -175,7 +175,7 @@ function createFocusPlanForTerritory(territoryId) {
                 </div>
 
                 <div>
-                    <label class="text-sm text-slate-400">Focus SKUs (comma separated)</label>
+                    <label class="text-sm text-slate-400">Focus SKUs</label>
                     <input id="focus-skus" type="text" placeholder="Pressure Cooker 5L, Air Fryer 4L" 
                            class="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-2 mt-1">
                 </div>
@@ -190,14 +190,14 @@ function createFocusPlanForTerritory(territoryId) {
                 </div>
 
                 <div>
-                    <label class="text-sm text-slate-400">Notes</label>
+                    <label class="text-sm text-slate-400">Notes / Instructions</label>
                     <textarea id="plan-notes" rows="2" class="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-2 mt-1"></textarea>
                 </div>
             </div>
 
             <div class="flex gap-x-3 mt-6">
                 <button onclick="this.closest('.fixed').remove()" class="flex-1 py-3 rounded-2xl border border-slate-700">Cancel</button>
-                <button onclick="saveFocusPlan('${territoryId}', this)" class="flex-1 py-3 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">Publish</button>
+                <button onclick="saveFocusPlan('${territoryId}', this)" class="flex-1 py-3 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">Publish Plan</button>
             </div>
         </div>
     `;
@@ -205,6 +205,7 @@ function createFocusPlanForTerritory(territoryId) {
     document.body.appendChild(modal);
 }
 
+// Save Focus Plan
 function saveFocusPlan(territoryId, element) {
     const modal = element.closest('.fixed');
 
@@ -217,11 +218,11 @@ function saveFocusPlan(territoryId, element) {
 
     const newPlan = {
         id: Date.now(),
-        period,
-        focusSKUs,
-        priorityActions,
+        period: period,
+        focusSKUs: focusSKUs,
+        priorityActions: priorityActions,
         territories: [territoryId],
-        notes,
+        notes: notes,
         createdAt: new Date().toISOString().split('T')[0],
         active: true
     };
@@ -232,22 +233,25 @@ function saveFocusPlan(territoryId, element) {
     showActivePlans();
 }
 
+// Show Active Plans
 function showActivePlans() {
     const container = document.getElementById('active-plans-list');
     if (!container) return;
 
     if (activePlans.length === 0) {
-        container.innerHTML = `<p class="text-slate-400 text-sm">No active focus plans.</p>`;
+        container.innerHTML = `<p class="text-slate-400 text-sm">No active focus plans yet.</p>`;
         return;
     }
 
     let html = '';
     activePlans.forEach(plan => {
+        const territory = territories.find(t => t.id === plan.territories[0]);
         html += `
             <div class="bg-slate-800 rounded-2xl p-4 mb-3 text-sm">
                 <div class="font-medium">${plan.period} Focus Plan</div>
-                <div class="text-xs text-slate-400 mt-1">${plan.createdAt}</div>
+                <div class="text-xs text-slate-400">${plan.createdAt}</div>
                 <div class="mt-2">Focus: ${plan.focusSKUs.join(', ')}</div>
+                <div class="text-xs text-slate-400 mt-1">${territory ? territory.name : ''}</div>
             </div>
         `;
     });
@@ -261,6 +265,6 @@ async function initializeStrategyX() {
     initializeMap();
 }
 
-// Make available globally
+// Make functions globally available
 window.initializeStrategyX = initializeStrategyX;
 window.showActivePlans = showActivePlans;
