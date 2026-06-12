@@ -5,4 +5,4 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 window.supabaseClient = supabase;
 
-console.log('%c[Supabase] Client initialized successfully', 'color:#22c55e');
+console.log('%c✅ [Supabase] Client initialized and ready', 'color:#22c55e; font-weight:bold');
