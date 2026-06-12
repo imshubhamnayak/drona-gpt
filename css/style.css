@@ -13,17 +13,9 @@ body {
     width: 6px;
 }
 
-.chat-container::-webkit-scrollbar-track {
-    background: #1e2937;
-}
-
 .chat-container::-webkit-scrollbar-thumb {
     background-color: #475569;
     border-radius: 3px;
-}
-
-.chat-container::-webkit-scrollbar-thumb:hover {
-    background-color: #64748b;
 }
 
 .message-user {
@@ -48,13 +40,25 @@ body {
     box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
 }
 
+/* Sub-tabs inside Drona GPT */
+.subtab-button {
+    transition: all 0.2s ease;
+    color: #94a3b8;
+    border-bottom: 2px solid transparent;
+}
+
+.subtab-button.active {
+    color: white;
+    border-bottom: 2px solid #f97316;
+}
+
 /* ==================== STRATEGY X STYLES ==================== */
 #strategy-map {
     background: #1e2937;
-    border-radius: 12px;
+    border-radius: 16px;
 }
 
-/* Leaflet Map Customization */
+/* Leaflet Map Popups */
 .leaflet-popup-content-wrapper {
     background: #1e2937;
     color: #e2e8f0;
@@ -65,6 +69,20 @@ body {
 .leaflet-popup-tip {
     background: #1e2937;
     border: 1px solid #475569;
+}
+
+/* Territory List */
+.territory-list-item {
+    transition: all 0.2s ease;
+}
+
+.territory-list-item:hover {
+    background-color: #334155;
+}
+
+.territory-list-item.bg-slate-700 {
+    background-color: #475569;
+    border-left: 3px solid #f97316;
 }
 
 /* Territory Details Panel */
@@ -152,7 +170,7 @@ button:active {
     box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1);
 }
 
-/* Context indicator animation */
+/* Context indicator */
 #context-indicator {
     animation: fadeIn 0.2s ease;
 }
@@ -162,8 +180,8 @@ button:active {
     to { opacity: 1; }
 }
 
-/* Active Plans styling */
+/* Active Plans */
 #active-plans-list {
-    max-height: 400px;
+    max-height: 420px;
     overflow-y: auto;
 }
