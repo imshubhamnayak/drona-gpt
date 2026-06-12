@@ -1,56 +1,33 @@
 body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background: #0f172a;
-  color: #e2e8f0;
-  margin: 0;
-  padding: 0;
+    font-family: 'Inter', system-ui, sans-serif;
 }
 
-.top-bar {
-  background: #1e2937;
-  padding: 16px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #334155;
+.chat-container {
+    scrollbar-width: thin;
+    scrollbar-color: #334155 #1e2937;
 }
 
-.main {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 30px 20px;
+.message-user {
+    background: linear-gradient(to right, #ea580c, #c2410f);
 }
 
-.card {
-  background: #1e2937;
-  border-radius: 16px;
-  padding: 28px;
-  margin-bottom: 24px;
+.retailer-card {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-input {
-  width: 100%;
-  padding: 12px;
-  background: #334155;
-  border: 1px solid #475569;
-  border-radius: 10px;
-  color: white;
-  font-size: 16px;
-  margin-top: 6px;
+.retailer-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 }
 
-button.primary {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 14px 28px;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-}
+.status-regular, .status-growing { background-color: #166534; color: #86efac; }
+.status-declining { background-color: #854d0e; color: #fde047; }
+.status-risk { background-color: #991b1b; color: #fca5a5; }
 
-label {
-  font-size: 14px;
-  color: #94a3b8;
+.section-header {
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #64748b;
 }
