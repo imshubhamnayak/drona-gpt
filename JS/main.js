@@ -17,7 +17,7 @@ function login() {
   // Show dashboard
   document.getElementById("dashboard").style.display = "block";
 
-  // Update name in header and welcome message
+  // Update names
   document.getElementById("userName").textContent = name;
   document.getElementById("displayName").textContent = name;
 }
@@ -25,14 +25,10 @@ function login() {
 function logout() {
   currentUser = null;
 
-  // Show login screen
   document.getElementById("loginScreen").style.display = "block";
-  
-  // Hide dashboard + plan
   document.getElementById("dashboard").style.display = "none";
   document.getElementById("planSection").style.display = "none";
 
-  // Clear input
   document.getElementById("loginInput").value = "";
 }
 
@@ -50,7 +46,7 @@ function generatePlan() {
       <ul style="line-height: 1.8;">
         <li><strong>High Potential Shops</strong> — Focus on ${scheme}</li>
         <li><strong>Regular Shops</strong> — Follow up on pending orders</li>
-        <li><strong>New Shops</strong> — Introduce new products & schemes</li>
+        <li><strong>New Shops</strong> — Introduce new products</li>
       </ul>
 
       <h4>Key Talking Points:</h4>
@@ -67,11 +63,14 @@ function generatePlan() {
 }
 
 function savePlan() {
-  if (!currentUser) return alert("Please login first");
-  alert("Plan saved for " + currentUser + " (We'll add backend saving soon)");
+  if (!currentUser) {
+    alert("Please login first");
+    return;
+  }
+  alert("Plan saved for " + currentUser + " (Backend saving coming soon)");
 }
 
-// Auto-focus on input when page loads
+// Optional: Focus input on page load
 window.onload = function() {
   const input = document.getElementById("loginInput");
   if (input) input.focus();
