@@ -1,22 +1,26 @@
-// ==================== STRATEGY X MODULE ====================
+// ==================== STRATEGY X MODULE (Supabase Version) ====================
 let territories = [];
 let map = null;
 let territoryLayers = {};
 let activePlans = [];
 
+// Load territories from JSON
 async function loadTerritories() {
     try {
         const res = await fetch('data/territories.json');
         territories = await res.json();
-    } catch (e) {
-        console.error("Failed to load territories.json");
+    } catch (error) {
+        console.error("Failed to load territories.json", error);
         territories = [];
     }
 }
 
+// Initialize Leaflet Map
 function initializeMap() {
     const mapContainer = document.getElementById('strategy-map');
     if (!mapContainer) return;
+
+    if (map) map.remove();
 
     map = L.map('strategy-map').setView([12.912, 77.58], 12);
 
@@ -26,8 +30,10 @@ function initializeMap() {
 
     addTerritoriesToMap();
     renderTerritoryList();
+    loadActivePlansFromSupabase(); // Load plans from Supabase
 }
 
+// Add territories on map
 function addTerritoriesToMap() {
     territories.forEach(territory => {
         const color = getTerritoryColor(territory);
@@ -48,11 +54,7 @@ function addTerritoriesToMap() {
             highlightTerritoryInList(territory.id);
         });
 
-        circle.bindTooltip(`
-            <strong>${territory.name}</strong><br>
-            Retailers: ${territory.retailerCount}<br>
-            Outstanding: ₹${(territory.outstanding / 100000).toFixed(1)}L
-        `);
+        circle.bindTooltip(`<strong>${territory.name}</strong><br>Retailers: ${territory.retailerCount}`);
     });
 }
 
@@ -63,6 +65,7 @@ function getTerritoryColor(territory) {
     return '#22c55e';
 }
 
+// Render territory list
 function renderTerritoryList() {
     const container = document.getElementById('territory-list');
     if (!container) return;
@@ -101,6 +104,7 @@ function highlightTerritoryInList(id) {
     });
 }
 
+// Show territory details
 function showTerritoryDetails(territory) {
     const panel = document.getElementById('territory-details-panel');
     if (!panel) return;
@@ -142,7 +146,7 @@ function closeTerritoryPanel() {
     if (panel) panel.classList.add('hidden');
 }
 
-// ==================== CREATE FOCUS PLAN (Fixed z-index) ====================
+// ==================== CREATE FOCUS PLAN (Supabase) ====================
 function createFocusPlanForTerritory(territoryId) {
     closeTerritoryPanel();
 
@@ -185,7 +189,7 @@ function createFocusPlanForTerritory(territoryId) {
 
             <div class="flex gap-x-3 mt-6">
                 <button onclick="this.closest('.fixed').remove()" class="flex-1 py-3 rounded-2xl border border-slate-700">Cancel</button>
-                <button onclick="saveFocusPlan('${territoryId}', this)" class="flex-1 py-3 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">Publish Plan</button>
+                <button onclick="saveFocusPlanToSupabase('${territoryId}', this)" class="flex-1 py-3 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">Publish Plan</button>
             </div>
         </div>
     `;
@@ -193,8 +197,10 @@ function createFocusPlanForTerritory(territoryId) {
     document.body.appendChild(modal);
 }
 
-function saveFocusPlan(territoryId, element) {
+// Save Focus Plan to Supabase
+async function saveFocusPlanToSupabase(territoryId, element) {
     const modal = element.closest('.fixed');
+    const supabase = window.supabaseClient;
 
     const period = document.getElementById('plan-period').value;
     const focusSKUs = document.getElementById('focus-skus').value.split(',').map(s => s.trim());
@@ -203,26 +209,49 @@ function saveFocusPlan(territoryId, element) {
     const checked = modal.querySelectorAll('input[type="checkbox"]:checked');
     const priorityActions = Array.from(checked).map(cb => cb.value);
 
-    const newPlan = {
-        id: Date.now(),
-        period,
-        focusSKUs,
-        priorityActions,
-        territories: [territoryId],
-        notes,
-        createdAt: new Date().toISOString().split('T')[0],
-        active: true
-    };
+    const { error } = await supabase
+        .from('focus_plans')
+        .insert([{
+            period: period,
+            focus_skus: focusSKUs,
+            priority_actions: priorityActions,
+            territories: [territoryId],
+            notes: notes,
+            created_by: 'owner',           // For now we hardcode 'owner'
+            active: true
+        }]);
 
-    activePlans.push(newPlan);
     modal.remove();
-    alert("Focus Plan published successfully!");
-    showActivePlans();
+
+    if (error) {
+        alert("Error saving plan: " + error.message);
+        console.error(error);
+    } else {
+        alert("Focus Plan published successfully!");
+        loadActivePlansFromSupabase(); // Refresh list
+    }
 }
 
-function showActivePlans() {
+// Load Active Plans from Supabase
+async function loadActivePlansFromSupabase() {
     const container = document.getElementById('active-plans-list');
     if (!container) return;
+
+    const supabase = window.supabaseClient;
+
+    const { data, error } = await supabase
+        .from('focus_plans')
+        .select('*')
+        .eq('active', true)
+        .order('created_at', { ascending: false });
+
+    if (error) {
+        console.error("Error fetching plans:", error);
+        container.innerHTML = `<p class="text-red-400 text-sm">Failed to load plans.</p>`;
+        return;
+    }
+
+    activePlans = data || [];
 
     if (activePlans.length === 0) {
         container.innerHTML = `<p class="text-slate-400 text-sm">No active focus plans yet.</p>`;
@@ -235,8 +264,8 @@ function showActivePlans() {
         html += `
             <div class="bg-slate-800 rounded-2xl p-4 mb-3 text-sm">
                 <div class="font-medium">${plan.period} Focus Plan</div>
-                <div class="text-xs text-slate-400">${plan.createdAt}</div>
-                <div class="mt-2">Focus: ${plan.focusSKUs.join(', ')}</div>
+                <div class="text-xs text-slate-400">${new Date(plan.created_at).toLocaleDateString()}</div>
+                <div class="mt-2">Focus: ${plan.focus_skus.join(', ')}</div>
                 ${t ? `<div class="text-xs text-slate-400 mt-1">${t.name}</div>` : ''}
             </div>
         `;
@@ -245,6 +274,7 @@ function showActivePlans() {
     container.innerHTML = html;
 }
 
+// Main initialization
 async function initializeStrategyX() {
     await loadTerritories();
     initializeMap();
