@@ -1,7 +1,34 @@
 // ==================== GLOBAL VARIABLES ====================
 let retailers = [];
 let currentContextRetailer = null;
+// Tab switching between Drona GPT and Strategy X
+function switchTab(tab) {
+    const dronaSection = document.getElementById('section-drona-gpt');
+    const strategySection = document.getElementById('section-strategy-x');
 
+    const dronaTab = document.getElementById('tab-drona-gpt');
+    const strategyTab = document.getElementById('tab-strategy-x');
+
+    if (tab === 'drona-gpt') {
+        dronaSection.classList.remove('hidden');
+        strategySection.classList.add('hidden');
+        dronaTab.classList.add('active', 'bg-slate-700');
+        strategyTab.classList.remove('active', 'bg-slate-700');
+    } else {
+        dronaSection.classList.add('hidden');
+        strategySection.classList.remove('hidden');
+        strategyTab.classList.add('active', 'bg-slate-700');
+        dronaTab.classList.remove('active', 'bg-slate-700');
+
+        // Initialize map only when Strategy X tab is opened for the first time
+        if (!window.strategyXInitialized) {
+            if (typeof initializeStrategyX === 'function') {
+                initializeStrategyX();
+                window.strategyXInitialized = true;
+            }
+        }
+    }
+}
 // ==================== LOAD DATA ====================
 async function loadRetailers() {
     try {
