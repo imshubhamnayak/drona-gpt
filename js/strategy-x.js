@@ -1,10 +1,10 @@
-// ==================== STRATEGY X (Owner Mode) ====================
+// ==================== STRATEGY X - OWNER MODE (Supabase Fixed) ====================
 let territories = [];
 let map = null;
 let territoryLayers = {};
 let activePlans = [];
 
-// Load territories
+// Load territories from JSON
 async function loadTerritories() {
     try {
         const res = await fetch('data/territories.json');
@@ -15,7 +15,7 @@ async function loadTerritories() {
     }
 }
 
-// Initialize Map
+// Initialize Leaflet Map
 function initializeMap() {
     const container = document.getElementById('strategy-map');
     if (!container) return;
@@ -25,7 +25,7 @@ function initializeMap() {
     map = L.map('strategy-map').setView([12.912, 77.58], 12);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap'
+        attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
     addTerritoriesToMap();
@@ -39,7 +39,11 @@ function addTerritoriesToMap() {
         const radius = Math.max(t.retailerCount * 50, 300);
 
         const circle = L.circle([t.lat, t.lng], {
-            color, fillColor: color, fillOpacity: 0.55, radius, weight: 2
+            color: color,
+            fillColor: color,
+            fillOpacity: 0.55,
+            radius: radius,
+            weight: 2
         }).addTo(map);
 
         territoryLayers[t.id] = circle;
@@ -76,7 +80,7 @@ function renderTerritoryList() {
                 <div class="text-xs text-slate-400">${t.retailerCount} retailers</div>
             </div>
             <div class="text-right">
-                <div class="text-sm font-mono">₹${(t.outstanding/100000).toFixed(1)}L</div>
+                <div class="text-sm font-mono">₹${(t.outstanding / 100000).toFixed(1)}L</div>
                 <div class="text-xs text-orange-400">${t.decliningSKUs} declining</div>
             </div>
         `;
@@ -112,7 +116,7 @@ function showTerritoryDetails(territory) {
             <div class="space-y-3">
                 <div class="bg-slate-800 rounded-2xl p-4">
                     <div class="text-xs text-slate-400">OUTSTANDING</div>
-                    <div class="text-3xl font-semibold">₹${(territory.outstanding/100000).toFixed(1)}L</div>
+                    <div class="text-3xl font-semibold">₹${(territory.outstanding / 100000).toFixed(1)}L</div>
                 </div>
                 <div class="bg-slate-800 rounded-2xl p-4">
                     <div class="text-xs text-slate-400">DECLINING SKUs</div>
@@ -130,10 +134,11 @@ function showTerritoryDetails(territory) {
 }
 
 function closeTerritoryPanel() {
-    document.getElementById('territory-details-panel')?.classList.add('hidden');
+    const panel = document.getElementById('territory-details-panel');
+    if (panel) panel.classList.add('hidden');
 }
 
-// ==================== CREATE FOCUS PLAN (Owner Mode) ====================
+// ==================== CREATE FOCUS PLAN ====================
 function createFocusPlanForTerritory(territoryId) {
     closeTerritoryPanel();
 
@@ -183,13 +188,13 @@ function createFocusPlanForTerritory(territoryId) {
     document.body.appendChild(modal);
 }
 
-// Save to Supabase (Owner)
+// Save Focus Plan to Supabase (with safety check)
 async function saveFocusPlan(territoryId, btn) {
     const modal = btn.closest('.fixed');
     const supabase = window.supabaseClient;
 
     if (!supabase) {
-        alert("Supabase is not connected. Please refresh the page.");
+        alert("❌ Supabase is not connected. Please hard refresh the page (Ctrl + Shift + R) and try again.");
         modal.remove();
         return;
     }
@@ -202,11 +207,11 @@ async function saveFocusPlan(territoryId, btn) {
     const priorityActions = Array.from(checked).map(cb => cb.value);
 
     const { error } = await supabase.from('focus_plans').insert([{
-        period,
+        period: period,
         focus_skus: focusSKUs,
         priority_actions: priorityActions,
         territories: [territoryId],
-        notes,
+        notes: notes,
         created_by: 'owner',
         active: true
     }]);
@@ -217,12 +222,12 @@ async function saveFocusPlan(territoryId, btn) {
         alert("Failed to save plan: " + error.message);
         console.error(error);
     } else {
-        alert("Focus Plan published successfully!");
+        alert("✅ Focus Plan published successfully!");
         loadActivePlansFromSupabase();
     }
 }
 
-// Load plans from Supabase
+// Load active plans from Supabase
 async function loadActivePlansFromSupabase() {
     const container = document.getElementById('active-plans-list');
     if (!container) return;
@@ -270,7 +275,7 @@ async function loadActivePlansFromSupabase() {
     container.innerHTML = html;
 }
 
-// Main init for Strategy X (automatically Owner)
+// Main initialization (automatically runs as Owner)
 async function initializeStrategyX() {
     console.log('%c[Strategy X] Running in Owner Mode', 'color:#f59e0b');
     await loadTerritories();
