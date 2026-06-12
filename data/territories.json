@@ -6,7 +6,7 @@
     "lng": 77.5855,
     "outstanding": 245000,
     "decliningSKUs": 8,
-    "retailerCount": 72,
+    "retailerCount": 5,
     "color": "#ef4444"
   },
   {
@@ -16,7 +16,7 @@
     "lng": 77.5921,
     "outstanding": 178000,
     "decliningSKUs": 5,
-    "retailerCount": 65,
+    "retailerCount": 4,
     "color": "#f59e0b"
   },
   {
@@ -26,7 +26,7 @@
     "lng": 77.5987,
     "outstanding": 92000,
     "decliningSKUs": 3,
-    "retailerCount": 48,
+    "retailerCount": 3,
     "color": "#22c55e"
   },
   {
@@ -36,7 +36,7 @@
     "lng": 77.5932,
     "outstanding": 312000,
     "decliningSKUs": 11,
-    "retailerCount": 81,
+    "retailerCount": 5,
     "color": "#ef4444"
   },
   {
@@ -46,7 +46,7 @@
     "lng": 77.5621,
     "outstanding": 156000,
     "decliningSKUs": 6,
-    "retailerCount": 59,
+    "retailerCount": 4,
     "color": "#f59e0b"
   },
   {
@@ -56,7 +56,7 @@
     "lng": 77.5554,
     "outstanding": 87000,
     "decliningSKUs": 2,
-    "retailerCount": 41,
+    "retailerCount": 2,
     "color": "#22c55e"
   },
   {
@@ -66,7 +66,7 @@
     "lng": 77.5723,
     "outstanding": 134000,
     "decliningSKUs": 4,
-    "retailerCount": 53,
+    "retailerCount": 2,
     "color": "#f59e0b"
   }
 ]
