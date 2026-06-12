@@ -58,7 +58,7 @@ body {
     border-radius: 16px;
 }
 
-/* Leaflet Map Popups */
+/* Leaflet Map Customization */
 .leaflet-popup-content-wrapper {
     background: #1e2937;
     color: #e2e8f0;
@@ -99,6 +99,16 @@ body {
         opacity: 1;
         transform: scale(1);
     }
+}
+
+/* ==================== SKU INTELLIGENCE ==================== */
+#sku-tags button {
+    transition: all 0.2s ease;
+}
+
+#sku-tags button:hover {
+    background-color: #475569;
+    transform: translateY(-1px);
 }
 
 /* ==================== RETAILER CARDS ==================== */
