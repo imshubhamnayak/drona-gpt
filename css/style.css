@@ -1,33 +1,153 @@
+/* ==================== BASE STYLES ==================== */
 body {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+/* ==================== CHAT STYLES ==================== */
 .chat-container {
     scrollbar-width: thin;
-    scrollbar-color: #334155 #1e2937;
+    scrollbar-color: #475569 #1e2937;
 }
 
+/* WebKit Scrollbar (Chrome, Edge, Safari) */
+.chat-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-container::-webkit-scrollbar-track {
+    background: #1e2937;
+    border-radius: 3px;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+    background-color: #475569;
+    border-radius: 3px;
+}
+
+.chat-container::-webkit-scrollbar-thumb:hover {
+    background-color: #64748b;
+}
+
+/* Chat Message Bubbles */
 .message-user {
-    background: linear-gradient(to right, #ea580c, #c2410f);
+    background: linear-gradient(135deg, #ea580c, #c2410f);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
+.message-assistant {
+    background-color: #1e2937;
+    color: #e2e8f0;
+}
+
+/* ==================== RETAILER CARDS ==================== */
 .retailer-card {
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    border: 1px solid transparent;
 }
 
 .retailer-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    border-color: #475569;
 }
 
-.status-regular, .status-growing { background-color: #166534; color: #86efac; }
-.status-declining { background-color: #854d0e; color: #fde047; }
-.status-risk { background-color: #991b1b; color: #fca5a5; }
+/* ==================== STATUS BADGES ==================== */
+.status-badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 9999px;
+    letter-spacing: 0.3px;
+}
 
+.status-regular,
+.status-growing {
+    background-color: #166534;
+    color: #86efac;
+}
+
+.status-declining {
+    background-color: #854d0e;
+    color: #fde047;
+}
+
+.status-risk,
+.status-at-risk {
+    background-color: #991b1b;
+    color: #fca5a5;
+}
+
+/* ==================== SECTION HEADERS ==================== */
 .section-header {
-    font-size: 0.75rem;
-    letter-spacing: 0.5px;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
     text-transform: uppercase;
     font-weight: 600;
     color: #64748b;
+}
+
+/* ==================== MODAL STYLES ==================== */
+.modal {
+    animation: fadeInScale 0.2s ease-out forwards;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ==================== QUICK VIEW MODAL ==================== */
+.quickview-content {
+    scrollbar-width: thin;
+    scrollbar-color: #475569 #1e2937;
+}
+
+.quickview-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.quickview-content::-webkit-scrollbar-thumb {
+    background-color: #475569;
+    border-radius: 20px;
+}
+
+/* ==================== BUTTONS & INTERACTIONS ==================== */
+button {
+    transition: all 0.15s ease;
+}
+
+button:active {
+    transform: scale(0.985);
+}
+
+/* ==================== MISCELLANEOUS ==================== */
+.font-display {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+}
+
+/* Subtle card hover effect */
+.card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1);
+}
+
+/* Context indicator */
+#context-indicator {
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
