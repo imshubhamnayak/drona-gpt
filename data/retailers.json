@@ -1,0 +1,566 @@
+[
+  {
+    "id": 1,
+    "name": "Sharma Kirana Store",
+    "area": "JP Nagar 1st Phase",
+    "contact": "98765 43210",
+    "outstanding": 24500,
+    "paymentAging": { "0-7": 5000, "8-15": 12000, "16-30": 7500, "30+": 0 },
+    "lastOrderDate": "2026-06-05",
+    "recentOrders": [
+      { "date": "2026-06-05", "amount": 18500, "skus": ["Prestige Pressure Cooker 5L", "Non-stick Pan 28cm"] },
+      { "date": "2026-05-08", "amount": 14200, "skus": ["Prestige Pressure Cooker 5L", "Mixer Grinder 750W"] },
+      { "date": "2026-04-10", "amount": 22100, "skus": ["Prestige Pressure Cooker 5L", "Gas Stove 3 Burner"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Pressure Cooker 5L", "status": "Declining", "frequency": "Every 28 days → now 65+ days gap", "lastOrder": "2026-06-05", "insight": "At risk - follow up urgently" },
+      { "sku": "Non-stick Pan 28cm", "status": "Regular", "frequency": "Every 22 days", "lastOrder": "2026-06-05", "insight": "Consistent performer" }
+    ],
+    "monthlyTarget": 85000,
+    "achievedThisMonth": 62000,
+    "schemes": [{ "name": "Summer Cookware Fest", "target": 25000, "achieved": 18500, "status": "On Track" }],
+    "sampling": {
+      "newSKUs": [{ "sku": "Prestige Air Fryer 4L", "received": true, "date": "2026-05-20" }],
+      "existingSKUs": [{ "sku": "Prestige Pressure Cooker 5L", "received": true, "date": "2026-04-15" }]
+    }
+  },
+  {
+    "id": 2,
+    "name": "Ramesh General Stores",
+    "area": "JP Nagar 2nd Phase",
+    "contact": "99887 65432",
+    "outstanding": 8200,
+    "paymentAging": { "0-7": 8200, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-10",
+    "recentOrders": [
+      { "date": "2026-06-10", "amount": 9800, "skus": ["Non-stick Pan 28cm", "Pressure Cooker 3L"] },
+      { "date": "2026-05-20", "amount": 15400, "skus": ["Non-stick Pan 28cm", "Mixer Grinder 750W"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Non-stick Pan 28cm", "status": "Growing", "frequency": "Increasing quantity every month", "lastOrder": "2026-06-10", "insight": "Strong growth - push more variants" }
+    ],
+    "monthlyTarget": 65000,
+    "achievedThisMonth": 71000,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": [{ "sku": "Non-stick Pan 28cm", "received": true, "date": "2026-05-01" }]
+    }
+  },
+  {
+    "id": 3,
+    "name": "Sri Lakshmi Traders",
+    "area": "Jayanagar 4th Block",
+    "contact": "98450 12345",
+    "outstanding": 41000,
+    "paymentAging": { "0-7": 8000, "8-15": 15000, "16-30": 12000, "30+": 6000 },
+    "lastOrderDate": "2026-05-28",
+    "recentOrders": [
+      { "date": "2026-05-28", "amount": 12500, "skus": ["Prestige Pressure Cooker 5L"] },
+      { "date": "2026-04-15", "amount": 9800, "skus": ["Mixer Grinder 750W"] },
+      { "date": "2026-03-20", "amount": 15600, "skus": ["Prestige Pressure Cooker 5L", "Gas Stove"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Pressure Cooker 5L", "status": "At Risk", "frequency": "Stopped ordering after March", "lastOrder": "2026-05-28", "insight": "High risk of churn - urgent visit needed" },
+      { "sku": "Mixer Grinder 750W", "status": "Declining", "frequency": "Every 45 days → gap increasing", "lastOrder": "2026-04-15", "insight": "Losing interest in this category" }
+    ],
+    "monthlyTarget": 95000,
+    "achievedThisMonth": 38000,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": [{ "sku": "Prestige Pressure Cooker 5L", "received": true, "date": "2026-03-10" }]
+    }
+  },
+  {
+    "id": 4,
+    "name": "Banashankari Mart",
+    "area": "Banashankari 2nd Stage",
+    "contact": "99123 45678",
+    "outstanding": 15750,
+    "paymentAging": { "0-7": 15750, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-09",
+    "recentOrders": [
+      { "date": "2026-06-09", "amount": 22400, "skus": ["Prestige Gas Stove 4 Burner", "Induction Cooktop"] },
+      { "date": "2026-05-25", "amount": 16800, "skus": ["Prestige Air Fryer 4L", "Non-stick Pan 30cm"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Air Fryer 4L", "status": "Growing", "frequency": "New SKU - ordering every 15 days", "lastOrder": "2026-06-09", "insight": "Excellent adoption of new SKU" }
+    ],
+    "monthlyTarget": 78000,
+    "achievedThisMonth": 84500,
+    "schemes": [{ "name": "New Kitchen Launch", "target": 30000, "achieved": 22400, "status": "On Track" }],
+    "sampling": {
+      "newSKUs": [{ "sku": "Prestige Air Fryer 4L", "received": true, "date": "2026-04-20" }],
+      "existingSKUs": []
+    }
+  },
+  {
+    "id": 5,
+    "name": "Venkateshwara Stores",
+    "area": "JP Nagar 3rd Phase",
+    "contact": "98456 78901",
+    "outstanding": 3800,
+    "paymentAging": { "0-7": 3800, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-11",
+    "recentOrders": [
+      { "date": "2026-06-11", "amount": 6500, "skus": ["Non-stick Pan 28cm"] },
+      { "date": "2026-05-30", "amount": 9200, "skus": ["Pressure Cooker 5L", "Gas Stove"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Non-stick Pan 28cm", "status": "Regular", "frequency": "Every 18-22 days", "lastOrder": "2026-06-11", "insight": "Very consistent buyer" }
+    ],
+    "monthlyTarget": 55000,
+    "achievedThisMonth": 58000,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": [{ "sku": "Non-stick Pan 28cm", "received": true, "date": "2026-05-05" }]
+    }
+  },
+  {
+    "id": 6,
+    "name": "Ganesh Provision Store",
+    "area": "JP Nagar 4th Phase",
+    "contact": "99001 23456",
+    "outstanding": 31200,
+    "paymentAging": { "0-7": 4500, "8-15": 8700, "16-30": 9800, "30+": 8200 },
+    "lastOrderDate": "2026-05-15",
+    "recentOrders": [
+      { "date": "2026-05-15", "amount": 9800, "skus": ["Prestige Pressure Cooker 5L"] },
+      { "date": "2026-04-02", "amount": 14500, "skus": ["Mixer Grinder 1000W", "Non-stick Pan"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Pressure Cooker 5L", "status": "Declining", "frequency": "Irregular orders - last gap 48 days", "lastOrder": "2026-05-15", "insight": "Payment issues affecting ordering" },
+      { "sku": "Mixer Grinder 1000W", "status": "At Risk", "frequency": "Stopped after Feb", "lastOrder": "2026-04-02", "insight": "High outstanding impacting purchases" }
+    ],
+    "monthlyTarget": 72000,
+    "achievedThisMonth": 28500,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": [{ "sku": "Prestige Pressure Cooker 5L", "received": true, "date": "2026-02-10" }]
+    }
+  },
+  {
+    "id": 7,
+    "name": "Lakshmi Narasimha Traders",
+    "area": "Jayanagar 5th Block",
+    "contact": "98876 54321",
+    "outstanding": 12400,
+    "paymentAging": { "0-7": 12400, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-08",
+    "recentOrders": [
+      { "date": "2026-06-08", "amount": 15600, "skus": ["Prestige Pressure Cooker 6.5L", "Non-stick Pan 30cm"] },
+      { "date": "2026-05-18", "amount": 11200, "skus": ["Prestige Pressure Cooker 5L"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Pressure Cooker 6.5L", "status": "Growing", "frequency": "New larger size - ordering regularly", "lastOrder": "2026-06-08", "insight": "Good upsell opportunity" }
+    ],
+    "monthlyTarget": 68000,
+    "achievedThisMonth": 69500,
+    "schemes": [{ "name": "Family Pack Offer", "target": 18000, "achieved": 15600, "status": "On Track" }],
+    "sampling": {
+      "newSKUs": [{ "sku": "Prestige Pressure Cooker 6.5L", "received": true, "date": "2026-05-01" }],
+      "existingSKUs": []
+    }
+  },
+  {
+    "id": 8,
+    "name": "Sri Vinayaka Stores",
+    "area": "Banashankari 3rd Stage",
+    "contact": "99765 43210",
+    "outstanding": 6700,
+    "paymentAging": { "0-7": 6700, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-07",
+    "recentOrders": [
+      { "date": "2026-06-07", "amount": 8900, "skus": ["Non-stick Pan 28cm", "Induction Cooktop"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Non-stick Pan 28cm", "status": "Regular", "frequency": "Every 20 days", "lastOrder": "2026-06-07", "insight": "Reliable small buyer" }
+    ],
+    "monthlyTarget": 48000,
+    "achievedThisMonth": 51000,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": [{ "sku": "Non-stick Pan 28cm", "received": true, "date": "2026-04-25" }]
+    }
+  },
+  {
+    "id": 9,
+    "name": "Manjunatha Kirana",
+    "area": "Basavanagudi",
+    "contact": "98451 67890",
+    "outstanding": 28900,
+    "paymentAging": { "0-7": 6200, "8-15": 9500, "16-30": 7800, "30+": 5400 },
+    "lastOrderDate": "2026-05-22",
+    "recentOrders": [
+      { "date": "2026-05-22", "amount": 11200, "skus": ["Prestige Pressure Cooker 5L"] },
+      { "date": "2026-04-05", "amount": 13400, "skus": ["Mixer Grinder", "Gas Stove"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Pressure Cooker 5L", "status": "Declining", "frequency": "Irregular since April", "lastOrder": "2026-05-22", "insight": "Payment delay affecting repeat orders" }
+    ],
+    "monthlyTarget": 82000,
+    "achievedThisMonth": 31200,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": [{ "sku": "Prestige Pressure Cooker 5L", "received": true, "date": "2026-01-15" }]
+    }
+  },
+  {
+    "id": 10,
+    "name": "Padmavathi General Stores",
+    "area": "Wilson Garden",
+    "contact": "99112 33445",
+    "outstanding": 5400,
+    "paymentAging": { "0-7": 5400, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-10",
+    "recentOrders": [
+      { "date": "2026-06-10", "amount": 7200, "skus": ["Non-stick Pan 28cm"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Non-stick Pan 28cm", "status": "Regular", "frequency": "Every 25 days", "lastOrder": "2026-06-10", "insight": "Small but consistent" }
+    ],
+    "monthlyTarget": 42000,
+    "achievedThisMonth": 44500,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": []
+    }
+  },
+  {
+    "id": 11,
+    "name": "Sri Raghavendra Stores",
+    "area": "JP Nagar 5th Phase",
+    "contact": "98890 12345",
+    "outstanding": 18600,
+    "paymentAging": { "0-7": 18600, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-06",
+    "recentOrders": [
+      { "date": "2026-06-06", "amount": 14500, "skus": ["Prestige Pressure Cooker 5L", "Air Fryer 4L"] },
+      { "date": "2026-05-12", "amount": 9800, "skus": ["Non-stick Pan"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Air Fryer 4L", "status": "Growing", "frequency": "Strong repeat on new SKU", "lastOrder": "2026-06-06", "insight": "Good new SKU adoption" }
+    ],
+    "monthlyTarget": 61000,
+    "achievedThisMonth": 59800,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [{ "sku": "Prestige Air Fryer 4L", "received": true, "date": "2026-04-10" }],
+      "existingSKUs": []
+    }
+  },
+  {
+    "id": 12,
+    "name": "Annapurna Provision",
+    "area": "Jayanagar 7th Block",
+    "contact": "98452 56789",
+    "outstanding": 9300,
+    "paymentAging": { "0-7": 9300, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-04",
+    "recentOrders": [
+      { "date": "2026-06-04", "amount": 11200, "skus": ["Prestige Pressure Cooker 5L", "Gas Stove"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Pressure Cooker 5L", "status": "Regular", "frequency": "Every 30 days", "lastOrder": "2026-06-04", "insight": "Steady performer" }
+    ],
+    "monthlyTarget": 58000,
+    "achievedThisMonth": 56500,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": [{ "sku": "Prestige Pressure Cooker 5L", "received": true, "date": "2026-03-20" }]
+    }
+  },
+  {
+    "id": 13,
+    "name": "Balaji Mart",
+    "area": "Banashankari",
+    "contact": "99780 11223",
+    "outstanding": 0,
+    "paymentAging": { "0-7": 0, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-11",
+    "recentOrders": [
+      { "date": "2026-06-11", "amount": 25600, "skus": ["Prestige Pressure Cooker 6.5L", "Air Fryer", "Non-stick Set"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Pressure Cooker 6.5L", "status": "Growing", "frequency": "Increasing basket size", "lastOrder": "2026-06-11", "insight": "Premium segment buyer" }
+    ],
+    "monthlyTarget": 92000,
+    "achievedThisMonth": 98500,
+    "schemes": [{ "name": "Premium Kitchen Fest", "target": 35000, "achieved": 25600, "status": "On Track" }],
+    "sampling": {
+      "newSKUs": [{ "sku": "Prestige Air Fryer 6L", "received": true, "date": "2026-05-15" }],
+      "existingSKUs": []
+    }
+  },
+  {
+    "id": 14,
+    "name": "Durga Devi Stores",
+    "area": "JP Nagar 6th Phase",
+    "contact": "99012 34567",
+    "outstanding": 22400,
+    "paymentAging": { "0-7": 5400, "8-15": 7200, "16-30": 6800, "30+": 3000 },
+    "lastOrderDate": "2026-05-18",
+    "recentOrders": [
+      { "date": "2026-05-18", "amount": 8900, "skus": ["Non-stick Pan 28cm"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Non-stick Pan 28cm", "status": "Declining", "frequency": "Reduced frequency", "lastOrder": "2026-05-18", "insight": "Cash flow issues suspected" }
+    ],
+    "monthlyTarget": 55000,
+    "achievedThisMonth": 24500,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": [{ "sku": "Non-stick Pan 28cm", "received": true, "date": "2026-02-28" }]
+    }
+  },
+  {
+    "id": 15,
+    "name": "Sri Sai Traders",
+    "area": "Bannerghatta Road (near JP Nagar)",
+    "contact": "98865 43210",
+    "outstanding": 15700,
+    "paymentAging": { "0-7": 15700, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-03",
+    "recentOrders": [
+      { "date": "2026-06-03", "amount": 13400, "skus": ["Prestige Pressure Cooker 5L", "Mixer Grinder"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Pressure Cooker 5L", "status": "Regular", "frequency": "Every 25 days", "lastOrder": "2026-06-03", "insight": "Reliable mid-size buyer" }
+    ],
+    "monthlyTarget": 64000,
+    "achievedThisMonth": 61200,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": [{ "sku": "Prestige Pressure Cooker 5L", "received": true, "date": "2026-04-01" }]
+    }
+  },
+  {
+    "id": 16,
+    "name": "Kamakshi Kirana",
+    "area": "Jayanagar",
+    "contact": "98453 21098",
+    "outstanding": 4800,
+    "paymentAging": { "0-7": 4800, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-09",
+    "recentOrders": [
+      { "date": "2026-06-09", "amount": 5600, "skus": ["Non-stick Pan 28cm"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Non-stick Pan 28cm", "status": "Regular", "frequency": "Every 28 days", "lastOrder": "2026-06-09", "insight": "Small consistent buyer" }
+    ],
+    "monthlyTarget": 38000,
+    "achievedThisMonth": 39500,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": []
+    }
+  },
+  {
+    "id": 17,
+    "name": "Hanuman Provision Store",
+    "area": "Banashankari",
+    "contact": "99712 34567",
+    "outstanding": 0,
+    "paymentAging": { "0-7": 0, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-11",
+    "recentOrders": [
+      { "date": "2026-06-11", "amount": 18900, "skus": ["Prestige Pressure Cooker 5L", "Gas Stove 3 Burner", "Non-stick Set"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Pressure Cooker 5L", "status": "Growing", "frequency": "Increasing order value", "lastOrder": "2026-06-11", "insight": "Strong basket growth" }
+    ],
+    "monthlyTarget": 75000,
+    "achievedThisMonth": 81200,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [{ "sku": "Prestige Gas Stove 4 Burner", "received": true, "date": "2026-05-10" }],
+      "existingSKUs": []
+    }
+  },
+  {
+    "id": 18,
+    "name": "Sri Krishna Stores",
+    "area": "JP Nagar",
+    "contact": "99087 65432",
+    "outstanding": 27300,
+    "paymentAging": { "0-7": 4300, "8-15": 8900, "16-30": 7100, "30+": 7000 },
+    "lastOrderDate": "2026-05-10",
+    "recentOrders": [
+      { "date": "2026-05-10", "amount": 7600, "skus": ["Non-stick Pan 28cm"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Non-stick Pan 28cm", "status": "Declining", "frequency": "Reduced frequency + lower value", "lastOrder": "2026-05-10", "insight": "Payment pressure visible" }
+    ],
+    "monthlyTarget": 59000,
+    "achievedThisMonth": 19800,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": [{ "sku": "Non-stick Pan 28cm", "received": true, "date": "2026-01-20" }]
+    }
+  },
+  {
+    "id": 19,
+    "name": "Meenakshi General Stores",
+    "area": "Basavanagudi",
+    "contact": "98456 78912",
+    "outstanding": 11200,
+    "paymentAging": { "0-7": 11200, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-02",
+    "recentOrders": [
+      { "date": "2026-06-02", "amount": 9800, "skus": ["Prestige Pressure Cooker 5L"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Pressure Cooker 5L", "status": "Regular", "frequency": "Every 32 days", "lastOrder": "2026-06-02", "insight": "Steady mid-tier buyer" }
+    ],
+    "monthlyTarget": 52000,
+    "achievedThisMonth": 49800,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": [{ "sku": "Prestige Pressure Cooker 5L", "received": true, "date": "2026-03-05" }]
+    }
+  },
+  {
+    "id": 20,
+    "name": "Venkataramana Traders",
+    "area": "Jayanagar",
+    "contact": "98876 54321",
+    "outstanding": 0,
+    "paymentAging": { "0-7": 0, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-10",
+    "recentOrders": [
+      { "date": "2026-06-10", "amount": 21500, "skus": ["Prestige Pressure Cooker 6.5L", "Air Fryer 4L", "Non-stick Pan 30cm"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Pressure Cooker 6.5L", "status": "Growing", "frequency": "Premium buyer - increasing", "lastOrder": "2026-06-10", "insight": "High value consistent buyer" }
+    ],
+    "monthlyTarget": 88000,
+    "achievedThisMonth": 92500,
+    "schemes": [{ "name": "Premium Segment Push", "target": 28000, "achieved": 21500, "status": "On Track" }],
+    "sampling": {
+      "newSKUs": [{ "sku": "Prestige Air Fryer 6L", "received": true, "date": "2026-04-28" }],
+      "existingSKUs": []
+    }
+  },
+  {
+    "id": 21,
+    "name": "Sri Ganesha Mart",
+    "area": "JP Nagar",
+    "contact": "99123 45678",
+    "outstanding": 19500,
+    "paymentAging": { "0-7": 6200, "8-15": 5800, "16-30": 4500, "30+": 3000 },
+    "lastOrderDate": "2026-05-25",
+    "recentOrders": [
+      { "date": "2026-05-25", "amount": 8700, "skus": ["Non-stick Pan 28cm"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Non-stick Pan 28cm", "status": "Declining", "frequency": "Lower frequency", "lastOrder": "2026-05-25", "insight": "Cash flow strain visible" }
+    ],
+    "monthlyTarget": 51000,
+    "achievedThisMonth": 26500,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": [{ "sku": "Non-stick Pan 28cm", "received": true, "date": "2026-02-15" }]
+    }
+  },
+  {
+    "id": 22,
+    "name": "Padma Provision",
+    "area": "Banashankari",
+    "contact": "98451 23456",
+    "outstanding": 7300,
+    "paymentAging": { "0-7": 7300, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-05",
+    "recentOrders": [
+      { "date": "2026-06-05", "amount": 6400, "skus": ["Prestige Pressure Cooker 3L"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Pressure Cooker 3L", "status": "Regular", "frequency": "Every 35 days", "lastOrder": "2026-06-05", "insight": "Small but regular" }
+    ],
+    "monthlyTarget": 35000,
+    "achievedThisMonth": 36800,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": []
+    }
+  },
+  {
+    "id": 23,
+    "name": "Lakshmi Provision Store",
+    "area": "JP Nagar",
+    "contact": "99012 34567",
+    "outstanding": 14200,
+    "paymentAging": { "0-7": 14200, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-01",
+    "recentOrders": [
+      { "date": "2026-06-01", "amount": 9800, "skus": ["Prestige Pressure Cooker 5L"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Pressure Cooker 5L", "status": "Regular", "frequency": "Every 28 days", "lastOrder": "2026-06-01", "insight": "Consistent mid-size buyer" }
+    ],
+    "monthlyTarget": 58000,
+    "achievedThisMonth": 55200,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": [{ "sku": "Prestige Pressure Cooker 5L", "received": true, "date": "2026-03-25" }]
+    }
+  },
+  {
+    "id": 24,
+    "name": "Sri Ramakrishna Stores",
+    "area": "Jayanagar",
+    "contact": "98876 12345",
+    "outstanding": 0,
+    "paymentAging": { "0-7": 0, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-11",
+    "recentOrders": [
+      { "date": "2026-06-11", "amount": 17800, "skus": ["Prestige Pressure Cooker 5L", "Non-stick Pan 30cm", "Gas Stove"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Prestige Pressure Cooker 5L", "status": "Growing", "frequency": "Strong and increasing", "lastOrder": "2026-06-11", "insight": "Excellent consistent performer" }
+    ],
+    "monthlyTarget": 72000,
+    "achievedThisMonth": 78500,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": []
+    }
+  },
+  {
+    "id": 25,
+    "name": "Annapoorna Kirana",
+    "area": "Banashankari",
+    "contact": "99123 56789",
+    "outstanding": 8600,
+    "paymentAging": { "0-7": 8600, "8-15": 0, "16-30": 0, "30+": 0 },
+    "lastOrderDate": "2026-06-07",
+    "recentOrders": [
+      { "date": "2026-06-07", "amount": 7200, "skus": ["Non-stick Pan 28cm", "Pressure Cooker 3L"] }
+    ],
+    "skuPatterns": [
+      { "sku": "Non-stick Pan 28cm", "status": "Regular", "frequency": "Every 26 days", "lastOrder": "2026-06-07", "insight": "Reliable small buyer" }
+    ],
+    "monthlyTarget": 41000,
+    "achievedThisMonth": 43200,
+    "schemes": [],
+    "sampling": {
+      "newSKUs": [],
+      "existingSKUs": [{ "sku": "Non-stick Pan 28cm", "received": true, "date": "2026-04-12" }]
+    }
+  }
+]
