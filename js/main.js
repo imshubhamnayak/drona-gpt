@@ -466,12 +466,12 @@ function showPublishedPlan() {
     modal.innerHTML = `
         <div class="bg-slate-900 rounded-3xl w-full max-w-lg p-6">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="font-semibold text-xl">Tomorrow's Focus Plan</h3>
+                <h3 class="font-semibold text-xl">Today's Focus Plan</h3>
                 <button onclick="this.closest('.fixed').remove()" class="text-slate-400 hover:text-white text-2xl">×</button>
             </div>
 
             <div class="bg-slate-800 rounded-2xl p-5 mb-6">
-                <div class="text-emerald-400 text-sm mb-2">📅 16 June 2026 (Tomorrow)</div>
+                <div class="text-emerald-400 text-sm mb-2">📅 15 June 2026 (Today)</div>
                 <div class="text-lg font-medium">10 Visits Recommended</div>
                 <div class="text-xs text-slate-400 mt-1">6 Ordering Retailers + 4 Nearby</div>
             </div>
