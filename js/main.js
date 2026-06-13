@@ -13,6 +13,22 @@ const sampleRetailers = [
 function initializeApp() {
     console.log('%c[Drona GPT] Initializing...', 'color:#22c55e');
     
+    // Initialize Supabase
+    initSupabase();
+
+    // Load sample retailers (fallback)
+    retailers = sampleRetailers;
+
+    // Set default user
+    updateUserHeader('Ramesh', 'Salesman');
+
+    // Default view
+    document.getElementById('drona-gpt-view').classList.remove('hidden');
+    document.getElementById('strategy-x-view').classList.add('hidden');
+
+    console.log('%c[Drona GPT] App initialized', 'color:#22c55e');
+}
+    
     // Load sample data
     retailers = sampleRetailers;
 
