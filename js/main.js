@@ -278,25 +278,21 @@ function generateSmartResponse(message) {
         </div>
     `;
 }
-// ==================== TODAY'S PLAN / TARGET SUMMARY (Fixed Scrolling) ====================
+// ==============TARGET SUMMARY (Fixed Scrolling) ====================
 function showTargetSummary() {
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4';
     
     modal.innerHTML = `
         <div class="bg-slate-900 rounded-3xl w-full max-w-2xl max-h-[92vh] flex flex-col overflow-hidden">
-            
-            <!-- Header -->
             <div class="flex justify-between items-center p-6 border-b border-slate-700 flex-shrink-0">
                 <h3 class="font-semibold text-2xl">My Targets 2026</h3>
                 <button onclick="this.closest('.fixed').remove()" 
                         class="text-slate-400 hover:text-white text-3xl leading-none">×</button>
             </div>
 
-            <!-- Scrollable Content -->
-            <div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scroll">
-                
-                <!-- Overall Annual Target -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                <!-- Overall Target -->
                 <div class="bg-slate-800 rounded-3xl p-6">
                     <div class="flex justify-between mb-3">
                         <div>
@@ -313,37 +309,13 @@ function showTargetSummary() {
                     </div>
                 </div>
 
-                <!-- Monthly Progress -->
-                <div>
-                    <div class="text-sm text-slate-400 mb-3">MONTHLY PROGRESS (2026)</div>
-                    <div class="grid grid-cols-3 gap-3 text-center text-sm">
-                        <div class="bg-slate-800 p-4 rounded-2xl">
-                            <div class="text-emerald-400">Apr</div>
-                            <div class="font-medium">₹4.8 Cr</div>
-                            <div class="text-xs text-emerald-400">96%</div>
-                        </div>
-                        <div class="bg-slate-800 p-4 rounded-2xl">
-                            <div class="text-emerald-400">May</div>
-                            <div class="font-medium">₹5.2 Cr</div>
-                            <div class="text-xs text-emerald-400">104%</div>
-                        </div>
-                        <div class="bg-slate-800 p-4 rounded-2xl">
-                            <div class="text-orange-400">Jun</div>
-                            <div class="font-medium">₹3.1 Cr</div>
-                            <div class="text-xs text-orange-400">62%</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Retailer Scheme Progress -->
+                <!-- Retailer-wise Progress -->
                 <div>
                     <div class="text-sm text-slate-400 mb-3">RETAILER SCHEME PROGRESS (Annual - 500 pcs target each)</div>
                     <div id="retailer-target-list" class="space-y-3"></div>
                 </div>
-
             </div>
 
-            <!-- Footer Button -->
             <div class="p-6 border-t border-slate-700 flex-shrink-0">
                 <button onclick="this.closest('.fixed').remove()" 
                         class="w-full py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium">
@@ -358,53 +330,31 @@ function showTargetSummary() {
 }
 function renderAllRetailers() {
     const container = document.getElementById('retailer-target-list');
-    if (!container) return;
-
-    const retailersData = [
-        {name: "Sharma Kirana Store", achieved: 312, status: "On Track"},
-        {name: "Gupta General Stores", achieved: 428, status: "Strong"},
-        {name: "Lakshmi Provision Store", achieved: 95, status: "At Risk"},
-        {name: "Bharat Traders", achieved: 245, status: "Average"},
-        {name: "Royal Kirana", achieved: 389, status: "On Track"},
-        {name: "Anand Super Market", achieved: 156, status: "At Risk"},
-        {name: "Balaji Enterprises", achieved: 467, status: "Strong"},
-        {name: "Mohan Provision Store", achieved: 278, status: "Average"},
-        {name: "Sri Venkateshwara Stores", achieved: 342, status: "On Track"},
-        {name: "New Bangalore Mart", achieved: 189, status: "At Risk"},
-        {name: "Karnataka Traders", achieved: 412, status: "Strong"},
-        {name: "Sai Ram Kirana", achieved: 267, status: "Average"},
-        {name: "Ganesh General Store", achieved: 398, status: "On Track"},
-        {name: "Laxmi Narayana Stores", achieved: 134, status: "At Risk"},
-        {name: "Modern Provision Store", achieved: 456, status: "Strong"},
-        {name: "Vijayalakshmi Traders", achieved: 289, status: "Average"},
-        {name: "Krishna Super Market", achieved: 367, status: "On Track"},
-        {name: "Raju Kirana Store", achieved: 98, status: "At Risk"},
-        {name: "Srinivasa Enterprises", achieved: 445, status: "Strong"},
-        {name: "New India Mart", achieved: 312, status: "On Track"},
-        {name: "Bhavani Provision Store", achieved: 267, status: "Average"},
-        {name: "Uma Shankar Traders", achieved: 189, status: "At Risk"},
-        {name: "Maa Durga Kirana", achieved: 398, status: "On Track"},
-        {name: "Golden Mart", achieved: 456, status: "Strong"},
-        {name: "Classic Provision Store", achieved: 245, status: "Average"}
-    ];
+    if (!container || !retailers || retailers.length === 0) {
+        container.innerHTML = `<div class="text-slate-400 text-center py-8">No retailer data available</div>`;
+        return;
+    }
 
     let html = '';
 
-    retailersData.forEach((retailer, index) => {
-        const percent = Math.floor((retailer.achieved / 500) * 100);
-        let colorClass = percent >= 70 ? 'emerald' : percent >= 40 ? 'orange' : 'red';
-        let statusText = percent >= 70 ? 'On Track' : percent >= 40 ? 'Average' : 'At Risk';
+    retailers.forEach(retailer => {
+        // Calculate progress (randomized between 15-95% for demo)
+        const progress = Math.floor(15 + Math.random() * 80);
+        const achieved = Math.floor((progress / 100) * 500);
+        
+        let colorClass = progress >= 70 ? 'emerald' : progress >= 40 ? 'orange' : 'red';
+        let status = progress >= 70 ? 'On Track' : progress >= 40 ? 'Average' : 'At Risk';
 
         html += `
-            <div onclick="showQuickView(${index + 1}); this.closest('.fixed').remove();" 
+            <div onclick="showQuickView(${retailer.id}); this.closest('.fixed').remove();" 
                  class="bg-slate-800 p-4 rounded-2xl cursor-pointer hover:bg-slate-700 flex justify-between items-center">
                 <div class="flex-1 min-w-0">
                     <div class="font-medium truncate">${retailer.name}</div>
                     <div class="text-xs text-slate-400">Target: 500 pcs</div>
                 </div>
                 <div class="text-right flex-shrink-0">
-                    <div class="font-semibold">${retailer.achieved} / 500</div>
-                    <div class="text-xs text-${colorClass}-400">${percent}% • ${statusText}</div>
+                    <div class="font-semibold">${achieved} / 500</div>
+                    <div class="text-xs text-${colorClass}-400">${progress}% • ${status}</div>
                 </div>
             </div>
         `;
