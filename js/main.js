@@ -10,6 +10,24 @@ const sampleRetailers = [
     { id: 3, name: "Lakshmi Provision Store", area: "JP Nagar 3rd Phase", phone: "9876543212", outstanding: 15200, paymentStatus: "Paid on time", skuPatterns: [{ sku: "Prestige Non-Stick Pan", status: "At Risk", insight: "No order in 18 days" }], recentOrders: [] }
 ];
 
+// ==================== SUPABASE CONFIG ====================
+
+const SUPABASE_URL = 'https://tnqtejdulwlnajnaxtyq.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRucXRlamR1bHdsbmFqbmF4dHlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyNjY5OTMsImV4cCI6MjA5Njg0Mjk5M30.f0PWnl0eswhODndtv8Kw6a_A26m2uxIwCnNoDJZQwpk';
+
+let supabaseClient = null;
+
+// Initialize Supabase
+function initSupabase() {
+    if (typeof window.supabase === 'undefined') {
+        console.error("❌ Supabase JS library not loaded");
+        return false;
+    }
+
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    console.log("%c✅ Supabase Connected Successfully", "color:#22c55e; font-weight:bold");
+    return true;
+}
 function initializeApp() {
     console.log('%c[Drona GPT] Initializing...', 'color:#22c55e');
     
