@@ -414,8 +414,103 @@ function renderAllRetailers() {
 }
 // ==================== SKU INTELLIGENCE ====================
 function openSKUIntelligence() {
-    alert("SKU Intelligence feature coming in next update. It will show live pricing gaps vs e-commerce.");
-}
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4';
+    
+    modal.innerHTML = `
+        <div class="bg-slate-900 rounded-3xl w-full max-w-2xl max-h-[92vh] flex flex-col overflow-hidden">
+            <!-- Header -->
+            <div class="flex justify-between items-center p-6 border-b border-slate-700 flex-shrink-0">
+                <h3 class="font-semibold text-2xl">SKU Intelligence</h3>
+                <button onclick="this.closest('.fixed').remove()" 
+                        class="text-slate-400 hover:text-white text-3xl leading-none">×</button>
+            </div>
 
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                <div class="text-sm text-slate-400">Current Market Intelligence (TTK Prestige - Bangalore)</div>
+
+                <!-- SKU List -->
+                <div id="sku-list" class="space-y-4"></div>
+            </div>
+
+            <div class="p-6 border-t border-slate-700 flex-shrink-0">
+                <button onclick="this.closest('.fixed').remove()" 
+                        class="w-full py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium">
+                    Close
+                </button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    renderSKUs();
+}
+function renderSKUs() {
+    const container = document.getElementById('sku-list');
+    if (!container) return;
+
+    const skus = [
+        {
+            name: "Prestige Pressure Cooker 5L",
+            mrp: 2499,
+            ecomPrice: 1899,
+            gap: 600,
+            trend: "High Demand",
+            talkingPoint: "Retailers can easily sell at ₹2199-2299 with good margin"
+        },
+        {
+            name: "Prestige Mixer Grinder 750W",
+            mrp: 4299,
+            ecomPrice: 3199,
+            gap: 1100,
+            trend: "Declining",
+            talkingPoint: "Push combo offer with cooker to increase sales"
+        },
+        {
+            name: "Prestige Non-Stick Pan 30cm",
+            mrp: 1299,
+            ecomPrice: 899,
+            gap: 400,
+            trend: "Growing",
+            talkingPoint: "Best margin product right now. Highlight durability"
+        },
+        {
+            name: "Prestige Induction Base Kadai",
+            mrp: 1899,
+            ecomPrice: 1399,
+            gap: 500,
+            trend: "Stable",
+            talkingPoint: "Good for modern kitchens. Target young customers"
+        }
+    ];
+
+    let html = '';
+
+    skus.forEach(sku => {
+        html += `
+            <div class="bg-slate-800 rounded-3xl p-5 hover:bg-slate-700 transition-all cursor-pointer">
+                <div class="flex justify-between items-start">
+                    <div class="flex-1">
+                        <div class="font-semibold text-lg">${sku.name}</div>
+                        <div class="text-xs text-slate-400 mt-1">MRP: ₹${sku.mrp}</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-emerald-400 font-medium">₹${sku.gap} Gap</div>
+                        <div class="text-xs ${sku.trend === 'High Demand' || sku.trend === 'Growing' ? 'text-emerald-400' : 'text-orange-400'}">
+                            ${sku.trend}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 text-sm text-slate-300 bg-slate-900/50 p-4 rounded-2xl">
+                    ${sku.talkingPoint}
+                </div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+}
 // ==================== AUTO INITIALIZE ====================
 window.onload = initializeApp;
