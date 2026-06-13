@@ -89,11 +89,16 @@ async function createFocusPlanForTerritory(territoryId) {
     const territory = territories.find(t => t.id === territoryId);
     if (!territory) return;
 
+    // Create modal
     const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[120] p-4';
+    modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] p-4';
+    
     modal.innerHTML = `
-        <div class="bg-slate-900 rounded-3xl w-full max-w-md p-6">
-            <h3 class="font-semibold text-lg mb-4">Create Focus Plan - ${territory.name}</h3>
+        <div class="bg-slate-900 rounded-3xl w-full max-w-md p-6 relative" onclick="event.stopImmediatePropagation()">
+            <button onclick="this.closest('.fixed').remove()" 
+                    class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl leading-none">×</button>
+            
+            <h3 class="font-semibold text-lg mb-4 pr-8">Create Focus Plan - ${territory.name}</h3>
             
             <div class="space-y-4">
                 <div>
@@ -116,6 +121,14 @@ async function createFocusPlanForTerritory(territoryId) {
             </div>
         </div>
     `;
+
+    // Close modal when clicking on backdrop (outside the white card)
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    });
+
     document.body.appendChild(modal);
 }
 
