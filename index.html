@@ -12,19 +12,13 @@
             color: white;
             border-radius: 9999px;
         }
-        .mobile-card {
-            transition: all 0.2s ease;
-        }
-        .mobile-card:active {
-            transform: scale(0.98);
-        }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-200">
 
-    <!-- ==================== HEADER ==================== -->
+    <!-- Header -->
     <header class="border-b border-slate-800 bg-slate-900 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 md:px-6">
+        <div class="max-w-7xl mx-auto px-6">
             <div class="flex items-center justify-between h-16">
                 
                 <!-- Logo -->
@@ -35,94 +29,67 @@
                     <span class="font-semibold text-xl tracking-tight">Drona GPT</span>
                 </div>
 
-                <!-- Tab Navigation -->
+                <!-- Tabs -->
                 <div class="flex items-center bg-slate-800 p-1 rounded-2xl">
                     <button onclick="switchTab('drona-gpt')"
                             id="tab-drona-gpt"
-                            class="tab-active px-5 md:px-6 py-2 text-sm font-medium flex items-center gap-x-2">
+                            class="tab-active px-6 py-2 text-sm font-medium flex items-center gap-x-2">
                         <i class="fa-solid fa-comments"></i>
-                        <span class="hidden sm:inline">Drona GPT</span>
+                        <span>Drona GPT</span>
                     </button>
                     <button onclick="switchTab('strategy-x')"
                             id="tab-strategy-x"
-                            class="px-5 md:px-6 py-2 text-sm font-medium flex items-center gap-x-2 hover:bg-slate-700 rounded-2xl transition-all">
+                            class="px-6 py-2 text-sm font-medium flex items-center gap-x-2 hover:bg-slate-700 rounded-2xl transition-all">
                         <i class="fa-solid fa-map-marked"></i>
-                        <span class="hidden sm:inline">Strategy X</span>
+                        <span>Strategy X</span>
                     </button>
                 </div>
 
                 <!-- User Info -->
-                <div id="user-info" class="flex items-center gap-x-3">
-                    <!-- Dynamically updated via JS -->
-                </div>
+                <div id="user-info"></div>
 
             </div>
         </div>
     </header>
 
     <!-- ==================== DRONA GPT VIEW (Mobile Friendly) ==================== -->
-    <div id="drona-gpt-view" class="max-w-2xl mx-auto p-4 md:p-6">
-        
-        <!-- Greeting -->
+    <div id="drona-gpt-view" class="max-w-2xl mx-auto p-6">
         <div class="mb-8">
             <h2 class="text-3xl font-semibold">Good morning, Ramesh</h2>
             <p class="text-slate-400 mt-1">Ready for today's field visits?</p>
         </div>
 
-        <!-- Quick Actions - Large Mobile Friendly Cards -->
+        <!-- Quick Actions -->
         <div class="grid grid-cols-2 gap-4 mb-8">
-            <button onclick="openRetailerSearch()"
-                    class="mobile-card bg-slate-900 hover:bg-slate-800 active:bg-slate-700 border border-slate-700 p-6 rounded-3xl text-left">
-                <div class="w-12 h-12 bg-orange-600/20 rounded-2xl flex items-center justify-center mb-4">
-                    <i class="fa-solid fa-search text-orange-400 text-2xl"></i>
-                </div>
+            <button class="bg-slate-900 hover:bg-slate-800 border border-slate-700 p-6 rounded-3xl text-left active:scale-[0.98] transition">
+                <i class="fa-solid fa-search text-orange-400 text-2xl mb-3"></i>
                 <div class="font-semibold text-lg">Search Retailer</div>
-                <div class="text-sm text-slate-400 mt-1">Find retailer details quickly</div>
+                <div class="text-sm text-slate-400 mt-1">Find retailer quickly</div>
             </button>
 
-            <button class="mobile-card bg-slate-900 hover:bg-slate-800 active:bg-slate-700 border border-slate-700 p-6 rounded-3xl text-left">
-                <div class="w-12 h-12 bg-orange-600/20 rounded-2xl flex items-center justify-center mb-4">
-                    <i class="fa-solid fa-list-check text-orange-400 text-2xl"></i>
-                </div>
+            <button class="bg-slate-900 hover:bg-slate-800 border border-slate-700 p-6 rounded-3xl text-left active:scale-[0.98] transition">
+                <i class="fa-solid fa-list-check text-orange-400 text-2xl mb-3"></i>
                 <div class="font-semibold text-lg">Today's Plan</div>
                 <div class="text-sm text-slate-400 mt-1">View your daily tasks</div>
             </button>
         </div>
 
-        <!-- Chat Section -->
+        <!-- Chat Placeholder -->
         <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6">
-            <div class="flex items-center gap-x-3 mb-4">
-                <div class="w-10 h-10 bg-orange-600 rounded-2xl flex items-center justify-center">
-                    <i class="fa-solid fa-robot text-white"></i>
-                </div>
-                <div>
-                    <div class="font-semibold">Drona GPT</div>
-                    <div class="text-xs text-emerald-400">Online</div>
-                </div>
-            </div>
-            
-            <div class="bg-slate-800 rounded-2xl p-4 text-sm text-slate-300">
-                Hi Ramesh! How can I help you today?<br>
-                You can ask me about retailers, schemes, or daily plans.
-            </div>
-
-            <div class="mt-4 flex gap-2">
-                <input type="text" placeholder="Type your message..." 
-                       class="flex-1 bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-sm">
-                <button class="px-5 bg-orange-600 hover:bg-orange-500 rounded-2xl">
-                    <i class="fa-solid fa-paper-plane"></i>
-                </button>
+            <div class="text-center py-10">
+                <i class="fa-solid fa-robot text-4xl text-orange-400 mb-4"></i>
+                <p class="font-medium">Chat with Drona GPT</p>
+                <p class="text-sm text-slate-400 mt-1">Ask about retailers, schemes, or plans</p>
             </div>
         </div>
     </div>
 
-    <!-- ==================== STRATEGY X VIEW (Desktop/Web Layout) ==================== -->
+    <!-- ==================== STRATEGY X VIEW (Desktop Style) ==================== -->
     <div id="strategy-x-view" class="hidden max-w-7xl mx-auto p-6">
-        
         <div class="flex justify-between items-end mb-6">
             <div>
                 <h2 class="text-3xl font-semibold">Strategy X</h2>
-                <p class="text-slate-400">Territory intelligence & focus planning</p>
+                <p class="text-slate-400">Territory planning & focus plans</p>
             </div>
             <button class="px-6 py-3 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium flex items-center gap-x-2">
                 <i class="fa-solid fa-plus"></i>
@@ -132,117 +99,37 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             
-            <!-- Territory Map -->
-            <div class="lg:col-span-8 bg-slate-900 border border-slate-700 rounded-3xl p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="font-semibold">Territory Map</h3>
-                    <div class="text-xs px-3 py-1 bg-slate-800 rounded-full">7 Territories</div>
-                </div>
-                <div class="h-[420px] bg-slate-800 rounded-2xl flex items-center justify-center">
-                    <div class="text-center">
-                        <i class="fa-solid fa-map text-6xl text-slate-600 mb-4"></i>
-                        <p class="text-slate-400">Interactive Territory Map</p>
+            <!-- Map -->
+            <div class="lg:col-span-8 bg-slate-900 border border-slate-700 rounded-3xl p-6 h-[480px]">
+                <h3 class="font-semibold mb-4">Territory Map</h3>
+                <div class="h-full bg-slate-800 rounded-2xl flex items-center justify-center">
+                    <div class="text-center text-slate-400">
+                        <i class="fa-solid fa-map text-6xl mb-4"></i>
+                        <p>Interactive Territory Map</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Sidebar -->
+            <!-- Sidebar -->
             <div class="lg:col-span-4 space-y-6">
-                
-                <!-- Active Plans -->
                 <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6">
                     <h3 class="font-semibold mb-4">Active Focus Plans</h3>
-                    <div class="text-sm text-slate-400">No active focus plans yet.</div>
+                    <p class="text-sm text-slate-400">No active plans yet.</p>
                 </div>
 
-                <!-- Quick Stats -->
                 <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6">
                     <h3 class="font-semibold mb-4">Overview</h3>
-                    <div class="space-y-4 text-sm">
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">Total Retailers</span>
-                            <span class="font-medium">248</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">High Risk Territories</span>
-                            <span class="font-medium text-red-400">2</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">Focus Plans Created</span>
-                            <span class="font-medium">14</span>
-                        </div>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between"><span>Total Territories</span> <span class="font-medium">7</span></div>
+                        <div class="flex justify-between"><span>Retailers Covered</span> <span class="font-medium">248</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // ==================== TAB SWITCHING ====================
-        function switchTab(tab) {
-            const dronaView = document.getElementById('drona-gpt-view');
-            const strategyView = document.getElementById('strategy-x-view');
-
-            const tabDrona = document.getElementById('tab-drona-gpt');
-            const tabStrategy = document.getElementById('tab-strategy-x');
-
-            if (tab === 'drona-gpt') {
-                dronaView.classList.remove('hidden');
-                strategyView.classList.add('hidden');
-
-                tabDrona.classList.add('tab-active');
-                tabStrategy.classList.remove('tab-active');
-
-                updateUserHeader('Ramesh', 'Salesman');
-
-            } else if (tab === 'strategy-x') {
-                dronaView.classList.add('hidden');
-                strategyView.classList.remove('hidden');
-
-                tabStrategy.classList.add('tab-active');
-                tabDrona.classList.remove('tab-active');
-
-                updateUserHeader('Admin', 'Owner');
-            }
-        }
-
-        // ==================== UPDATE USER HEADER ====================
-        function updateUserHeader(name, role) {
-            const userInfo = document.getElementById('user-info');
-            const isAdmin = role === 'Owner';
-
-            userInfo.innerHTML = `
-                <div class="flex items-center gap-x-3 bg-slate-800 px-4 py-1.5 rounded-2xl">
-                    <div class="text-right">
-                        <div class="font-medium">${name}</div>
-                        <div class="text-xs ${isAdmin ? 'text-orange-400' : 'text-blue-400'}">${role}</div>
-                    </div>
-                    <div class="w-9 h-9 ${isAdmin ? 'bg-orange-600' : 'bg-blue-600'} rounded-2xl flex items-center justify-center">
-                        <i class="fa-solid fa-user text-white text-sm"></i>
-                    </div>
-                </div>
-            `;
-        }
-
-        // ==================== INITIALIZE ====================
-        function initializeApp() {
-            const dronaView = document.getElementById('drona-gpt-view');
-            const strategyView = document.getElementById('strategy-x-view');
-            const tabDrona = document.getElementById('tab-drona-gpt');
-
-            // Default to Drona GPT view
-            dronaView.classList.remove('hidden');
-            strategyView.classList.add('hidden');
-            tabDrona.classList.add('tab-active');
-
-            // Set default user as Ramesh (Salesman)
-            updateUserHeader('Ramesh', 'Salesman');
-
-            console.log('%c[Drona GPT] Dual UI structure initialized successfully', 'color:#22c55e');
-        }
-
-        window.onload = initializeApp;
-    </script>
-
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
