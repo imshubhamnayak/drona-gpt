@@ -1,22 +1,24 @@
-// ==================== DRONA GPT - MAIN JS ====================
+// ==================== DRONA GPT - MAIN JAVASCRIPT ====================
+// This file handles tab switching, user context (Ramesh / Admin), 
+// and Supabase initialization.
 
-// Supabase Configuration
+// ==================== SUPABASE CONFIGURATION ====================
 const SUPABASE_URL = 'https://tnqtejdulwlnajnaxtyq.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRucXRlamR1bHdsbmFqbmF4dHlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyNjY5OTMsImV4cCI6MjA5Njg0Mjk5M30.f0PWnl0eswhODndtv8Kw6a_A26m2uxIwCnNoDJZQwpk';
 
 let supabase = null;
 
-// Initialize Supabase
+// ==================== INITIALIZE SUPABASE ====================
 function initSupabase() {
     if (typeof window.supabase !== 'undefined') {
         supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        console.log('%c[Supabase] Connected successfully', 'color:#22c55e');
+        console.log('%c[Supabase] Client initialized successfully', 'color:#22c55e');
     } else {
-        console.warn('Supabase CDN not loaded');
+        console.warn('%c[Supabase] CDN not loaded. Make sure you included the Supabase script in index.html', 'color:orange');
     }
 }
 
-// Switch between Drona GPT and Strategy X
+// ==================== TAB SWITCHING ====================
 function switchTab(tab) {
     const dronaView = document.getElementById('drona-gpt-view');
     const strategyView = document.getElementById('strategy-x-view');
@@ -25,6 +27,7 @@ function switchTab(tab) {
     const tabStrategy = document.getElementById('tab-strategy-x');
 
     if (tab === 'drona-gpt') {
+        // Show Drona GPT View (Mobile Friendly)
         dronaView.classList.remove('hidden');
         strategyView.classList.add('hidden');
 
@@ -34,6 +37,7 @@ function switchTab(tab) {
         updateUserHeader('Ramesh', 'Salesman');
 
     } else if (tab === 'strategy-x') {
+        // Show Strategy X View (Desktop/Web Style)
         dronaView.classList.add('hidden');
         strategyView.classList.remove('hidden');
 
@@ -44,15 +48,15 @@ function switchTab(tab) {
     }
 }
 
-// Update user name and role in header
+// ==================== UPDATE USER HEADER ====================
 function updateUserHeader(name, role) {
-    const container = document.getElementById('user-info');
-    if (!container) return;
+    const userInfoContainer = document.getElementById('user-info');
+    if (!userInfoContainer) return;
 
     const isAdmin = role === 'Owner';
     const badgeColor = isAdmin ? 'bg-orange-600' : 'bg-blue-600';
 
-    container.innerHTML = `
+    userInfoContainer.innerHTML = `
         <div class="flex items-center gap-x-3 bg-slate-800 px-4 py-1.5 rounded-2xl">
             <div class="text-right">
                 <div class="font-medium">${name}</div>
@@ -65,24 +69,38 @@ function updateUserHeader(name, role) {
     `;
 }
 
-// Initialize the application
+// ==================== INITIALIZE APPLICATION ====================
 function initializeApp() {
+    // Initialize Supabase
     initSupabase();
 
     const dronaView = document.getElementById('drona-gpt-view');
     const strategyView = document.getElementById('strategy-x-view');
     const tabDrona = document.getElementById('tab-drona-gpt');
 
-    // Default view
-    dronaView.classList.remove('hidden');
-    strategyView.classList.add('hidden');
-    tabDrona.classList.add('tab-active');
+    // Set default view to Drona GPT
+    if (dronaView && strategyView) {
+        dronaView.classList.remove('hidden');
+        strategyView.classList.add('hidden');
+    }
 
-    // Set default user
+    // Highlight default tab
+    if (tabDrona) {
+        tabDrona.classList.add('tab-active');
+    }
+
+    // Set default user as Ramesh (Salesman)
     updateUserHeader('Ramesh', 'Salesman');
 
-    console.log('%c[Drona GPT] Application initialized', 'color:#22c55e');
+    console.log('%c[Drona GPT] Application initialized successfully', 'color:#22c55e');
 }
 
-// Run on page load
+// ==================== PLACEHOLDER FUNCTIONS ====================
+// You can expand these functions later
+
+function openRetailerSearch() {
+    alert("Retailer Search will be implemented here.");
+}
+
+// ==================== RUN ON PAGE LOAD ====================
 window.onload = initializeApp;
