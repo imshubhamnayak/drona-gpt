@@ -278,7 +278,118 @@ function generateSmartResponse(message) {
         </div>
     `;
 }
+// ==================== TODAY'S PLAN / TARGET SUMMARY (Detailed) ====================
+function showTargetSummary() {
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4';
+    
+    modal.innerHTML = `
+        <div class="bg-slate-900 rounded-3xl w-full max-w-2xl p-6 max-h-[92vh] overflow-hidden flex flex-col">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="font-semibold text-2xl">My Targets 2026</h3>
+                <button onclick="this.closest('.fixed').remove()" 
+                        class="text-slate-400 hover:text-white text-3xl leading-none">×</button>
+            </div>
 
+            <!-- Overall Annual Target -->
+            <div class="bg-slate-800 rounded-3xl p-6 mb-6">
+                <div class="flex justify-between mb-3">
+                    <div>
+                        <div class="text-sm text-slate-400">ANNUAL TARGET</div>
+                        <div class="text-3xl font-semibold">₹32.5 Cr / ₹50 Cr</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-emerald-400 text-2xl font-medium">65%</div>
+                        <div class="text-sm text-slate-400">1625 / 2500 Pressure Cookers</div>
+                    </div>
+                </div>
+                <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
+                    <div class="h-3 bg-emerald-500 rounded-full w-[65%]"></div>
+                </div>
+            </div>
+
+            <!-- Monthly Breakdown -->
+            <div class="mb-6">
+                <div class="text-sm text-slate-400 mb-3">MONTHLY PROGRESS (2026)</div>
+                <div class="grid grid-cols-3 gap-3 text-center text-sm">
+                    <div class="bg-slate-800 p-3 rounded-2xl">
+                        <div class="text-emerald-400">Apr</div>
+                        <div class="font-medium">₹4.8 Cr</div>
+                        <div class="text-xs text-emerald-400">96%</div>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-2xl">
+                        <div class="text-emerald-400">May</div>
+                        <div class="font-medium">₹5.2 Cr</div>
+                        <div class="text-xs text-emerald-400">104%</div>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-2xl">
+                        <div class="text-orange-400">Jun</div>
+                        <div class="font-medium">₹3.1 Cr</div>
+                        <div class="text-xs text-orange-400">62%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Retailer-wise Scheme Progress -->
+            <div class="flex-1 overflow-y-auto">
+                <div class="text-sm text-slate-400 mb-3 sticky top-0 bg-slate-900 py-2">RETAILER SCHEME PROGRESS (Annual - 500 pcs target each)</div>
+                
+                <div id="retailer-target-list" class="space-y-3 pr-2"></div>
+            </div>
+
+            <button onclick="this.closest('.fixed').remove()" 
+                    class="w-full mt-6 py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium">
+                Close
+            </button>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Populate all 25 retailers
+    renderAllRetailers();
+}
+
+function renderAllRetailers() {
+    const container = document.getElementById('retailer-target-list');
+    if (!container) return;
+
+    // Sample 25 retailers with realistic progress
+    const retailersData = [
+        {name: "Sharma Kirana Store", achieved: 320, target: 500, status: "On Track"},
+        {name: "Gupta General Stores", achieved: 410, target: 500, status: "Strong"},
+        {name: "Lakshmi Provision Store", achieved: 85, target: 500, status: "At Risk"},
+        {name: "Bharat Traders", achieved: 245, target: 500, status: "Average"},
+        {name: "Royal Kirana", achieved: 380, target: 500, status: "On Track"},
+        // ... (I'll add the rest below for brevity, but you can expand)
+    ];
+
+    // For demo, repeating pattern to make 25
+    let html = '';
+    for (let i = 1; i <= 25; i++) {
+        const base = retailersData[(i-1) % retailersData.length];
+        const achieved = Math.floor(base.achieved * (0.8 + Math.random()*0.4));
+        const percent = Math.floor((achieved / 500) * 100);
+        
+        let color = percent > 70 ? 'emerald' : percent > 40 ? 'orange' : 'red';
+        
+        html += `
+            <div onclick="showQuickView(${i}); this.closest('.fixed').remove();" 
+                 class="bg-slate-800 p-4 rounded-2xl cursor-pointer hover:bg-slate-700 flex justify-between items-center">
+                <div class="flex-1">
+                    <div class="font-medium">${base.name} ${i > 5 ? `#${i}` : ''}</div>
+                    <div class="text-xs text-slate-400">Target: 500 pcs</div>
+                </div>
+                <div class="text-right">
+                    <div class="font-semibold">${achieved} / 500</div>
+                    <div class="text-xs text-${color}-400">${percent}% • ${base.status}</div>
+                </div>
+            </div>
+        `;
+    }
+
+    container.innerHTML = html;
+}
 // ==================== SKU INTELLIGENCE ====================
 function openSKUIntelligence() {
     alert("SKU Intelligence feature coming in next update. It will show live pricing gaps vs e-commerce.");
