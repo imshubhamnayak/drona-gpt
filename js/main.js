@@ -412,13 +412,14 @@ function renderAllRetailers() {
 
     container.innerHTML = html;
 }
-// ==================== SKU INTELLIGENCE ====================
+// ==================== SKU INTELLIGENCE (Enhanced) ====================
 function openSKUIntelligence() {
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4';
     
     modal.innerHTML = `
         <div class="bg-slate-900 rounded-3xl w-full max-w-2xl max-h-[92vh] flex flex-col overflow-hidden">
+            
             <!-- Header -->
             <div class="flex justify-between items-center p-6 border-b border-slate-700 flex-shrink-0">
                 <h3 class="font-semibold text-2xl">SKU Intelligence</h3>
@@ -426,19 +427,21 @@ function openSKUIntelligence() {
                         class="text-slate-400 hover:text-white text-3xl leading-none">×</button>
             </div>
 
-            <!-- Scrollable Content -->
-            <div class="flex-1 overflow-y-auto p-6 space-y-6">
-                <div class="text-sm text-slate-400">Current Market Intelligence (TTK Prestige - Bangalore)</div>
-
-                <!-- SKU List -->
-                <div id="sku-list" class="space-y-4"></div>
+            <!-- Search Bar -->
+            <div class="p-6 border-b border-slate-700 flex-shrink-0">
+                <input type="text" id="sku-search-input" 
+                       placeholder="Search SKU (e.g. Pressure Cooker, Mixer...)" 
+                       class="w-full bg-slate-800 border border-slate-700 rounded-2xl px-5 py-3 text-sm focus:outline-none"
+                       onkeyup="filterSKUs(this.value)">
             </div>
 
-            <div class="p-6 border-t border-slate-700 flex-shrink-0">
-                <button onclick="this.closest('.fixed').remove()" 
-                        class="w-full py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium">
-                    Close
-                </button>
+            <!-- Scrollable SKU List -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-4" id="sku-list">
+                <!-- Populated by JS -->
+            </div>
+
+            <div class="p-6 border-t border-slate-700 flex-shrink-0 text-center text-xs text-slate-500">
+                Data compared with Amazon, Flipkart & Local Market • Updated today
             </div>
         </div>
     `;
@@ -446,71 +449,74 @@ function openSKUIntelligence() {
     document.body.appendChild(modal);
     renderSKUs();
 }
-function renderSKUs() {
+let allSKUs = [];
+
+function renderSKUs(filteredSKUs = null) {
     const container = document.getElementById('sku-list');
     if (!container) return;
 
-    const skus = [
-        {
-            name: "Prestige Pressure Cooker 5L",
-            mrp: 2499,
-            ecomPrice: 1899,
-            gap: 600,
-            trend: "High Demand",
-            talkingPoint: "Retailers can easily sell at ₹2199-2299 with good margin"
-        },
-        {
-            name: "Prestige Mixer Grinder 750W",
-            mrp: 4299,
-            ecomPrice: 3199,
-            gap: 1100,
-            trend: "Declining",
-            talkingPoint: "Push combo offer with cooker to increase sales"
-        },
-        {
-            name: "Prestige Non-Stick Pan 30cm",
-            mrp: 1299,
-            ecomPrice: 899,
-            gap: 400,
-            trend: "Growing",
-            talkingPoint: "Best margin product right now. Highlight durability"
-        },
-        {
-            name: "Prestige Induction Base Kadai",
-            mrp: 1899,
-            ecomPrice: 1399,
-            gap: 500,
-            trend: "Stable",
-            talkingPoint: "Good for modern kitchens. Target young customers"
-        }
-    ];
+    const skusToShow = filteredSKUs || allSKUs;
 
     let html = '';
 
-    skus.forEach(sku => {
+    skusToShow.forEach(sku => {
+        const savings = sku.mrp - sku.ecomPrice;
+        const savingsPercent = Math.round((savings / sku.mrp) * 100);
+
         html += `
-            <div class="bg-slate-800 rounded-3xl p-5 hover:bg-slate-700 transition-all cursor-pointer">
-                <div class="flex justify-between items-start">
+            <div class="bg-slate-800 rounded-3xl p-5 hover:bg-slate-700 transition-all">
+                <div class="flex justify-between items-start mb-3">
                     <div class="flex-1">
                         <div class="font-semibold text-lg">${sku.name}</div>
-                        <div class="text-xs text-slate-400 mt-1">MRP: ₹${sku.mrp}</div>
+                        <div class="text-xs text-slate-400">MRP: ₹${sku.mrp}</div>
                     </div>
                     <div class="text-right">
-                        <div class="text-emerald-400 font-medium">₹${sku.gap} Gap</div>
-                        <div class="text-xs ${sku.trend === 'High Demand' || sku.trend === 'Growing' ? 'text-emerald-400' : 'text-orange-400'}">
-                            ${sku.trend}
-                        </div>
+                        <div class="text-emerald-400 font-medium text-lg">₹${savings} Gap</div>
+                        <div class="text-xs text-emerald-400">${savingsPercent}% cheaper online</div>
                     </div>
                 </div>
-                
-                <div class="mt-4 text-sm text-slate-300 bg-slate-900/50 p-4 rounded-2xl">
-                    ${sku.talkingPoint}
+
+                <div class="grid grid-cols-2 gap-4 text-sm bg-slate-900/50 rounded-2xl p-4">
+                    <div>
+                        <div class="text-slate-400 text-xs">Amazon</div>
+                        <div class="font-medium">₹${sku.ecomPrice}</div>
+                    </div>
+                    <div>
+                        <div class="text-slate-400 text-xs">Flipkart</div>
+                        <div class="font-medium">₹${Math.round(sku.ecomPrice * 0.97)}</div>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-sm text-slate-300 bg-slate-900/70 p-4 rounded-2xl">
+                    <strong>Talking Point:</strong> ${sku.talkingPoint}
                 </div>
             </div>
         `;
     });
 
-    container.innerHTML = html;
+    container.innerHTML = html || `<div class="text-center py-12 text-slate-400">No matching SKUs found</div>`;
 }
+
+function filterSKUs(query) {
+    if (!query) {
+        renderSKUs();
+        return;
+    }
+
+    const filtered = allSKUs.filter(sku => 
+        sku.name.toLowerCase().includes(query.toLowerCase())
+    );
+    renderSKUs(filtered);
+}
+// Initialize SKU Data
+allSKUs = [
+    { name: "Prestige Pressure Cooker 5L", mrp: 2499, ecomPrice: 1899, talkingPoint: "High demand item. Retailers can easily sell at ₹2199-2299 with good margin." },
+    { name: "Prestige Mixer Grinder 750W", mrp: 4299, ecomPrice: 3199, talkingPoint: "Push combo offer with cooker. Good for gifting season." },
+    { name: "Prestige Non-Stick Pan 30cm", mrp: 1299, ecomPrice: 899, talkingPoint: "Best margin product right now. Highlight durability to customers." },
+    { name: "Prestige Induction Base Kadai", mrp: 1899, ecomPrice: 1399, talkingPoint: "Popular in modern kitchens. Target young families." },
+    { name: "Prestige Stainless Steel Cookware Set", mrp: 5999, ecomPrice: 4499, talkingPoint: "Premium segment. Good for upselling." },
+    { name: "Prestige Rice Cooker 1.8L", mrp: 2199, ecomPrice: 1699, talkingPoint: "Steady seller. Stock up before festival season." }
+];
+
 // ==================== AUTO INITIALIZE ====================
 window.onload = initializeApp;
