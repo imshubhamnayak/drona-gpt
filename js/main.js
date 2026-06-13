@@ -278,72 +278,78 @@ function generateSmartResponse(message) {
         </div>
     `;
 }
-// ==================== TODAY'S PLAN / TARGET SUMMARY (Scrollable) ====================
+// ==================== TODAY'S PLAN / TARGET SUMMARY (Fixed Scrolling) ====================
 function showTargetSummary() {
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4';
     
     modal.innerHTML = `
-        <div class="bg-slate-900 rounded-3xl w-full max-w-2xl p-6 max-h-[92vh] flex flex-col">
-            <div class="flex justify-between items-center mb-6 flex-shrink-0">
+        <div class="bg-slate-900 rounded-3xl w-full max-w-2xl max-h-[92vh] flex flex-col overflow-hidden">
+            
+            <!-- Header -->
+            <div class="flex justify-between items-center p-6 border-b border-slate-700 flex-shrink-0">
                 <h3 class="font-semibold text-2xl">My Targets 2026</h3>
                 <button onclick="this.closest('.fixed').remove()" 
                         class="text-slate-400 hover:text-white text-3xl leading-none">×</button>
             </div>
 
-            <!-- Overall Annual Target -->
-            <div class="bg-slate-800 rounded-3xl p-6 mb-6 flex-shrink-0">
-                <div class="flex justify-between mb-3">
-                    <div>
-                        <div class="text-sm text-slate-400">ANNUAL TARGET</div>
-                        <div class="text-3xl font-semibold">₹32.5 Cr / ₹50 Cr</div>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-emerald-400 text-2xl font-medium">65%</div>
-                        <div class="text-sm text-slate-400">1625 / 2500 Pressure Cookers</div>
-                    </div>
-                </div>
-                <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
-                    <div class="h-3 bg-emerald-500 rounded-full w-[65%]"></div>
-                </div>
-            </div>
-
-            <!-- Monthly Progress -->
-            <div class="mb-6 flex-shrink-0">
-                <div class="text-sm text-slate-400 mb-3">MONTHLY PROGRESS (2026)</div>
-                <div class="grid grid-cols-3 gap-3 text-center text-sm">
-                    <div class="bg-slate-800 p-4 rounded-2xl">
-                        <div class="text-emerald-400">Apr</div>
-                        <div class="font-medium">₹4.8 Cr</div>
-                        <div class="text-xs text-emerald-400">96%</div>
-                    </div>
-                    <div class="bg-slate-800 p-4 rounded-2xl">
-                        <div class="text-emerald-400">May</div>
-                        <div class="font-medium">₹5.2 Cr</div>
-                        <div class="text-xs text-emerald-400">104%</div>
-                    </div>
-                    <div class="bg-slate-800 p-4 rounded-2xl">
-                        <div class="text-orange-400">Jun</div>
-                        <div class="font-medium">₹3.1 Cr</div>
-                        <div class="text-xs text-orange-400">62%</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Scrollable Retailer List -->
-            <div class="flex-1 flex flex-col min-h-0">
-                <div class="text-sm text-slate-400 mb-3 flex-shrink-0">RETAILER SCHEME PROGRESS (Annual - 500 pcs target each)</div>
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scroll">
                 
-                <div id="retailer-target-list" 
-                     class="flex-1 overflow-y-auto pr-2 space-y-3 custom-scroll">
-                    <!-- Populated by JS -->
+                <!-- Overall Annual Target -->
+                <div class="bg-slate-800 rounded-3xl p-6">
+                    <div class="flex justify-between mb-3">
+                        <div>
+                            <div class="text-sm text-slate-400">ANNUAL TARGET</div>
+                            <div class="text-3xl font-semibold">₹32.5 Cr / ₹50 Cr</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-emerald-400 text-2xl font-medium">65%</div>
+                            <div class="text-sm text-slate-400">1625 / 2500 Pressure Cookers</div>
+                        </div>
+                    </div>
+                    <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-3 bg-emerald-500 rounded-full w-[65%]"></div>
+                    </div>
                 </div>
+
+                <!-- Monthly Progress -->
+                <div>
+                    <div class="text-sm text-slate-400 mb-3">MONTHLY PROGRESS (2026)</div>
+                    <div class="grid grid-cols-3 gap-3 text-center text-sm">
+                        <div class="bg-slate-800 p-4 rounded-2xl">
+                            <div class="text-emerald-400">Apr</div>
+                            <div class="font-medium">₹4.8 Cr</div>
+                            <div class="text-xs text-emerald-400">96%</div>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded-2xl">
+                            <div class="text-emerald-400">May</div>
+                            <div class="font-medium">₹5.2 Cr</div>
+                            <div class="text-xs text-emerald-400">104%</div>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded-2xl">
+                            <div class="text-orange-400">Jun</div>
+                            <div class="font-medium">₹3.1 Cr</div>
+                            <div class="text-xs text-orange-400">62%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Retailer Scheme Progress -->
+                <div>
+                    <div class="text-sm text-slate-400 mb-3">RETAILER SCHEME PROGRESS (Annual - 500 pcs target each)</div>
+                    <div id="retailer-target-list" class="space-y-3"></div>
+                </div>
+
             </div>
 
-            <button onclick="this.closest('.fixed').remove()" 
-                    class="w-full mt-6 py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium flex-shrink-0">
-                Close
-            </button>
+            <!-- Footer Button -->
+            <div class="p-6 border-t border-slate-700 flex-shrink-0">
+                <button onclick="this.closest('.fixed').remove()" 
+                        class="w-full py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium">
+                    Close
+                </button>
+            </div>
         </div>
     `;
 
