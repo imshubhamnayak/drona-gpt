@@ -66,7 +66,7 @@
     </header>
 
 <!-- ==================== DRONA GPT VIEW ==================== -->
-<div id="drona-gpt-view" class="max-w-2xl mx-auto p-4 md:p-6 flex flex-col" style="height: 100vh; max-height: 100vh;">
+<div id="drona-gpt-view" class="max-w-2xl mx-auto p-4 md:p-6 flex flex-col h-screen">
 
     <!-- Header -->
     <div class="mb-6 flex-shrink-0">
@@ -74,28 +74,23 @@
         <p class="text-slate-400 mt-1">Ready for today's field visits?</p>
     </div>
 
-    <!-- Quick Actions - Clean 2x2 Grid -->
+    <!-- Quick Actions - 2x2 Grid -->
     <div class="grid grid-cols-2 gap-4 mb-6 flex-shrink-0">
-
-        <!-- Search Retailer -->
-        <button onclick="openRetailerSearch()" 
-                class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
+        <button onclick="openRetailerSearch()" class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
             <div class="flex items-center gap-3">
-                <div class="w-11 h-11 bg-orange-600/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <div class="w-11 h-11 bg-orange-600/20 rounded-2xl flex items-center justify-center">
                     <i class="fa-solid fa-search text-orange-400 text-xl"></i>
                 </div>
                 <div>
                     <div class="font-semibold">Search Retailer</div>
-                    <div class="text-xs text-slate-400">Find retailer details quickly</div>
+                    <div class="text-xs text-slate-400">Find details quickly</div>
                 </div>
             </div>
         </button>
 
-        <!-- Today's Plan -->
-        <button onclick="showPublishedPlan()" 
-                class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
+        <button onclick="showPublishedPlan()" class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
             <div class="flex items-center gap-3">
-                <div class="w-11 h-11 bg-emerald-600/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <div class="w-11 h-11 bg-emerald-600/20 rounded-2xl flex items-center justify-center">
                     <i class="fa-solid fa-calendar-check text-emerald-400 text-xl"></i>
                 </div>
                 <div>
@@ -105,25 +100,21 @@
             </div>
         </button>
 
-        <!-- SKU Intelligence -->
-        <button onclick="openSKUIntelligence()" 
-                class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
+        <button onclick="openSKUIntelligence()" class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
             <div class="flex items-center gap-3">
-                <div class="w-11 h-11 bg-orange-600/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <div class="w-11 h-11 bg-orange-600/20 rounded-2xl flex items-center justify-center">
                     <i class="fa-solid fa-tags text-orange-400 text-xl"></i>
                 </div>
                 <div>
                     <div class="font-semibold">SKU Intelligence</div>
-                    <div class="text-xs text-slate-400">Pricing, gaps & talking points</div>
+                    <div class="text-xs text-slate-400">Pricing & talking points</div>
                 </div>
             </div>
         </button>
 
-        <!-- Target / Reach -->
-        <button onclick="showTargetSummary()" 
-                class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
+        <button onclick="showTargetSummary()" class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
             <div class="flex items-center gap-3">
-                <div class="w-11 h-11 bg-orange-600/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <div class="w-11 h-11 bg-orange-600/20 rounded-2xl flex items-center justify-center">
                     <i class="fa-solid fa-chart-line text-orange-400 text-xl"></i>
                 </div>
                 <div>
@@ -132,15 +123,13 @@
                 </div>
             </div>
         </button>
-
     </div>
 
-    <!-- Chat Section - Properly Sized -->
+    <!-- Chat Section - Much Taller Now -->
     <div class="bg-slate-900 border border-slate-700 rounded-3xl p-5 flex flex-col flex-1 min-h-0">
-        
         <!-- Chat Header -->
         <div class="flex items-center gap-x-3 mb-4 flex-shrink-0">
-            <div class="w-9 h-9 bg-orange-600 rounded-2xl flex items-center justify-center">
+            <div class="w-10 h-10 bg-orange-600 rounded-2xl flex items-center justify-center">
                 <i class="fa-solid fa-robot text-white"></i>
             </div>
             <div>
@@ -149,23 +138,22 @@
             </div>
         </div>
 
-        <!-- Chat Messages -->
-        <div id="chat-messages" class="flex-1 overflow-y-auto mb-4 pr-1 space-y-4 custom-scroll">
-            <!-- Messages will be added here by JS -->
+        <!-- Chat Messages - Much Taller -->
+        <div id="chat-messages" class="flex-1 overflow-y-auto mb-4 space-y-4 pr-2 custom-scroll">
+            <!-- Welcome message added by JS -->
         </div>
 
-        <!-- Chat Input -->
+        <!-- Input -->
         <div class="flex gap-2 flex-shrink-0">
-            <input id="chat-input" type="text" placeholder="Ask about retailers, targets, SKUs..." 
+            <input id="chat-input" type="text" placeholder="Ask about any retailer, target or SKU..." 
                    class="flex-1 bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-sm focus:outline-none"
                    onkeypress="if(event.key === 'Enter') sendMessage()">
             <button onclick="sendMessage()" 
-                    class="px-5 bg-orange-600 hover:bg-orange-500 rounded-2xl flex items-center justify-center">
+                    class="px-6 bg-orange-600 hover:bg-orange-500 rounded-2xl">
                 <i class="fa-solid fa-paper-plane"></i>
             </button>
         </div>
     </div>
-
 </div>
     <!-- ==================== STRATEGY X VIEW ==================== -->
     <div id="strategy-x-view" class="hidden max-w-7xl mx-auto p-6">
