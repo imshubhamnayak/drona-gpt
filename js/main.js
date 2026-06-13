@@ -278,21 +278,21 @@ function generateSmartResponse(message) {
         </div>
     `;
 }
-// ==================== TODAY'S PLAN / TARGET SUMMARY (Detailed) ====================
+// ==================== TODAY'S PLAN / TARGET SUMMARY (Scrollable) ====================
 function showTargetSummary() {
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4';
     
     modal.innerHTML = `
-        <div class="bg-slate-900 rounded-3xl w-full max-w-2xl p-6 max-h-[92vh] overflow-hidden flex flex-col">
-            <div class="flex justify-between items-center mb-6">
+        <div class="bg-slate-900 rounded-3xl w-full max-w-2xl p-6 max-h-[92vh] flex flex-col">
+            <div class="flex justify-between items-center mb-6 flex-shrink-0">
                 <h3 class="font-semibold text-2xl">My Targets 2026</h3>
                 <button onclick="this.closest('.fixed').remove()" 
                         class="text-slate-400 hover:text-white text-3xl leading-none">×</button>
             </div>
 
             <!-- Overall Annual Target -->
-            <div class="bg-slate-800 rounded-3xl p-6 mb-6">
+            <div class="bg-slate-800 rounded-3xl p-6 mb-6 flex-shrink-0">
                 <div class="flex justify-between mb-3">
                     <div>
                         <div class="text-sm text-slate-400">ANNUAL TARGET</div>
@@ -308,21 +308,21 @@ function showTargetSummary() {
                 </div>
             </div>
 
-            <!-- Monthly Breakdown -->
-            <div class="mb-6">
+            <!-- Monthly Progress -->
+            <div class="mb-6 flex-shrink-0">
                 <div class="text-sm text-slate-400 mb-3">MONTHLY PROGRESS (2026)</div>
                 <div class="grid grid-cols-3 gap-3 text-center text-sm">
-                    <div class="bg-slate-800 p-3 rounded-2xl">
+                    <div class="bg-slate-800 p-4 rounded-2xl">
                         <div class="text-emerald-400">Apr</div>
                         <div class="font-medium">₹4.8 Cr</div>
                         <div class="text-xs text-emerald-400">96%</div>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-2xl">
+                    <div class="bg-slate-800 p-4 rounded-2xl">
                         <div class="text-emerald-400">May</div>
                         <div class="font-medium">₹5.2 Cr</div>
                         <div class="text-xs text-emerald-400">104%</div>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-2xl">
+                    <div class="bg-slate-800 p-4 rounded-2xl">
                         <div class="text-orange-400">Jun</div>
                         <div class="font-medium">₹3.1 Cr</div>
                         <div class="text-xs text-orange-400">62%</div>
@@ -330,63 +330,79 @@ function showTargetSummary() {
                 </div>
             </div>
 
-            <!-- Retailer-wise Scheme Progress -->
-            <div class="flex-1 overflow-y-auto">
-                <div class="text-sm text-slate-400 mb-3 sticky top-0 bg-slate-900 py-2">RETAILER SCHEME PROGRESS (Annual - 500 pcs target each)</div>
+            <!-- Scrollable Retailer List -->
+            <div class="flex-1 flex flex-col min-h-0">
+                <div class="text-sm text-slate-400 mb-3 flex-shrink-0">RETAILER SCHEME PROGRESS (Annual - 500 pcs target each)</div>
                 
-                <div id="retailer-target-list" class="space-y-3 pr-2"></div>
+                <div id="retailer-target-list" 
+                     class="flex-1 overflow-y-auto pr-2 space-y-3 custom-scroll">
+                    <!-- Populated by JS -->
+                </div>
             </div>
 
             <button onclick="this.closest('.fixed').remove()" 
-                    class="w-full mt-6 py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium">
+                    class="w-full mt-6 py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium flex-shrink-0">
                 Close
             </button>
         </div>
     `;
 
     document.body.appendChild(modal);
-
-    // Populate all 25 retailers
     renderAllRetailers();
 }
-
 function renderAllRetailers() {
     const container = document.getElementById('retailer-target-list');
     if (!container) return;
 
-    // Sample 25 retailers with realistic progress
     const retailersData = [
-        {name: "Sharma Kirana Store", achieved: 320, target: 500, status: "On Track"},
-        {name: "Gupta General Stores", achieved: 410, target: 500, status: "Strong"},
-        {name: "Lakshmi Provision Store", achieved: 85, target: 500, status: "At Risk"},
-        {name: "Bharat Traders", achieved: 245, target: 500, status: "Average"},
-        {name: "Royal Kirana", achieved: 380, target: 500, status: "On Track"},
-        // ... (I'll add the rest below for brevity, but you can expand)
+        {name: "Sharma Kirana Store", achieved: 312, status: "On Track"},
+        {name: "Gupta General Stores", achieved: 428, status: "Strong"},
+        {name: "Lakshmi Provision Store", achieved: 95, status: "At Risk"},
+        {name: "Bharat Traders", achieved: 245, status: "Average"},
+        {name: "Royal Kirana", achieved: 389, status: "On Track"},
+        {name: "Anand Super Market", achieved: 156, status: "At Risk"},
+        {name: "Balaji Enterprises", achieved: 467, status: "Strong"},
+        {name: "Mohan Provision Store", achieved: 278, status: "Average"},
+        {name: "Sri Venkateshwara Stores", achieved: 342, status: "On Track"},
+        {name: "New Bangalore Mart", achieved: 189, status: "At Risk"},
+        {name: "Karnataka Traders", achieved: 412, status: "Strong"},
+        {name: "Sai Ram Kirana", achieved: 267, status: "Average"},
+        {name: "Ganesh General Store", achieved: 398, status: "On Track"},
+        {name: "Laxmi Narayana Stores", achieved: 134, status: "At Risk"},
+        {name: "Modern Provision Store", achieved: 456, status: "Strong"},
+        {name: "Vijayalakshmi Traders", achieved: 289, status: "Average"},
+        {name: "Krishna Super Market", achieved: 367, status: "On Track"},
+        {name: "Raju Kirana Store", achieved: 98, status: "At Risk"},
+        {name: "Srinivasa Enterprises", achieved: 445, status: "Strong"},
+        {name: "New India Mart", achieved: 312, status: "On Track"},
+        {name: "Bhavani Provision Store", achieved: 267, status: "Average"},
+        {name: "Uma Shankar Traders", achieved: 189, status: "At Risk"},
+        {name: "Maa Durga Kirana", achieved: 398, status: "On Track"},
+        {name: "Golden Mart", achieved: 456, status: "Strong"},
+        {name: "Classic Provision Store", achieved: 245, status: "Average"}
     ];
 
-    // For demo, repeating pattern to make 25
     let html = '';
-    for (let i = 1; i <= 25; i++) {
-        const base = retailersData[(i-1) % retailersData.length];
-        const achieved = Math.floor(base.achieved * (0.8 + Math.random()*0.4));
-        const percent = Math.floor((achieved / 500) * 100);
-        
-        let color = percent > 70 ? 'emerald' : percent > 40 ? 'orange' : 'red';
-        
+
+    retailersData.forEach((retailer, index) => {
+        const percent = Math.floor((retailer.achieved / 500) * 100);
+        let colorClass = percent >= 70 ? 'emerald' : percent >= 40 ? 'orange' : 'red';
+        let statusText = percent >= 70 ? 'On Track' : percent >= 40 ? 'Average' : 'At Risk';
+
         html += `
-            <div onclick="showQuickView(${i}); this.closest('.fixed').remove();" 
+            <div onclick="showQuickView(${index + 1}); this.closest('.fixed').remove();" 
                  class="bg-slate-800 p-4 rounded-2xl cursor-pointer hover:bg-slate-700 flex justify-between items-center">
-                <div class="flex-1">
-                    <div class="font-medium">${base.name} ${i > 5 ? `#${i}` : ''}</div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-medium truncate">${retailer.name}</div>
                     <div class="text-xs text-slate-400">Target: 500 pcs</div>
                 </div>
-                <div class="text-right">
-                    <div class="font-semibold">${achieved} / 500</div>
-                    <div class="text-xs text-${color}-400">${percent}% • ${base.status}</div>
+                <div class="text-right flex-shrink-0">
+                    <div class="font-semibold">${retailer.achieved} / 500</div>
+                    <div class="text-xs text-${colorClass}-400">${percent}% • ${statusText}</div>
                 </div>
             </div>
         `;
-    }
+    });
 
     container.innerHTML = html;
 }
