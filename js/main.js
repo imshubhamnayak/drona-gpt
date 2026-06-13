@@ -458,6 +458,53 @@ function filterSKUs(query) {
     );
     renderSKUs(filtered);
 }
+// ==================== SHOW PUBLISHED FOCUS PLAN FOR RAMESH ====================
+function showPublishedPlan() {
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4';
+    
+    modal.innerHTML = `
+        <div class="bg-slate-900 rounded-3xl w-full max-w-lg p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="font-semibold text-xl">Tomorrow's Focus Plan</h3>
+                <button onclick="this.closest('.fixed').remove()" class="text-slate-400 hover:text-white text-2xl">×</button>
+            </div>
+
+            <div class="bg-slate-800 rounded-2xl p-5 mb-6">
+                <div class="text-emerald-400 text-sm mb-2">📅 15 June 2026 (Tomorrow)</div>
+                <div class="text-lg font-medium">10 Visits Recommended</div>
+                <div class="text-xs text-slate-400 mt-1">6 Ordering Retailers + 4 Nearby</div>
+            </div>
+
+            <div class="space-y-4 mb-6">
+                <div class="bg-slate-800 p-4 rounded-2xl">
+                    <div class="font-medium">Priority Retailers (Must Visit)</div>
+                    <div class="text-sm text-slate-300 mt-2">• Sharma Kirana Store (High Outstanding)</div>
+                    <div class="text-sm text-slate-300">• Lakshmi Provision Store (Declining SKUs)</div>
+                    <div class="text-sm text-slate-300">• Bharat Traders</div>
+                </div>
+
+                <div class="bg-slate-800 p-4 rounded-2xl">
+                    <div class="font-medium">Nearby Retailers (Geographical Vicinity)</div>
+                    <div class="text-sm text-slate-300 mt-2">• Royal Kirana • Anand Super Market • Balaji Enterprises</div>
+                </div>
+            </div>
+
+            <div class="text-xs text-slate-400 bg-slate-800/50 p-4 rounded-2xl">
+                Drona's Note: Focus on recovery from high-outstanding retailers first. Push Prestige Pressure Cooker in this area.
+            </div>
+
+            <button onclick="this.closest('.fixed').remove()" 
+                    class="w-full mt-6 py-4 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">
+                Got it, I'll follow this plan
+            </button>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+}
+
+
 // Initialize SKU Data
 allSKUs = [
     { name: "Prestige Pressure Cooker 5L", mrp: 2499, ecomPrice: 1899, talkingPoint: "High demand item. Retailers can easily sell at ₹2199-2299 with good margin." },
