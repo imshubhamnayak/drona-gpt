@@ -43,40 +43,44 @@ async function loadRetailers() {
 function switchTab(tab) {
     const dronaView = document.getElementById('drona-gpt-view');
     const strategyView = document.getElementById('strategy-x-view');
+
     const tabDrona = document.getElementById('tab-drona-gpt');
     const tabStrategy = document.getElementById('tab-strategy-x');
 
     if (tab === 'drona-gpt') {
+        // Show Drona GPT View
         dronaView.classList.remove('hidden');
         strategyView.classList.add('hidden');
+
         tabDrona.classList.add('tab-active');
         tabStrategy.classList.remove('tab-active');
+
         updateUserHeader('Ramesh', 'Salesman');
-    } else {
+
+    } else if (tab === 'strategy-x') {
+        // Show Strategy X View
         dronaView.classList.add('hidden');
         strategyView.classList.remove('hidden');
+
         tabStrategy.classList.add('tab-active');
         tabDrona.classList.remove('tab-active');
+
         updateUserHeader('Admin', 'Owner');
+
+        // ✅ Initialize Strategy X only once
+        setTimeout(() => {
+            if (typeof initializeStrategyX === 'function' && !window.strategyXInitialized) {
+                initializeStrategyX();
+                window.strategyXInitialized = true;
+                console.log('%c[Strategy X] Initialized successfully', 'color:#22c55e');
+            } else if (typeof initializeStrategyX === 'function') {
+                // If already initialized, just refresh the map (optional)
+                console.log('%c[Strategy X] Already initialized', 'color:#f59e0b');
+            } else {
+                console.warn('%c[Strategy X] initializeStrategyX function not found. Make sure strategy-x.js is loaded.', 'color:orange');
+            }
+        }, 300); // Small delay to ensure DOM is ready
     }
-}
-
-function updateUserHeader(name, role) {
-    const container = document.getElementById('user-info');
-    const isAdmin = role === 'Owner';
-    const badgeColor = isAdmin ? 'bg-orange-600' : 'bg-blue-600';
-
-    container.innerHTML = `
-        <div class="flex items-center gap-x-3 bg-slate-800 px-4 py-1.5 rounded-2xl">
-            <div class="text-right">
-                <div class="font-medium">${name}</div>
-                <div class="text-xs ${isAdmin ? 'text-orange-400' : 'text-blue-400'}">${role}</div>
-            </div>
-            <div class="w-9 h-9 ${badgeColor} rounded-2xl flex items-center justify-center">
-                <i class="fa-solid fa-user text-white text-sm"></i>
-            </div>
-        </div>
-    `;
 }
 
 // ==================== CHAT ====================
