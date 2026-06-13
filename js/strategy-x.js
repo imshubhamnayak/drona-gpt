@@ -113,29 +113,49 @@ function showTerritoryDetails(territoryId) {
 }
 
 async function createFocusPlanForTerritory(territoryId) {
-    const draft = createDefaultFocusPlanForNextDay();
-    
+    const territory = territories.find(t => t.id === territoryId);
+    if (!territory) return;
+
     const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[120] p-4';
+    modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[99999] p-4';
+    
     modal.innerHTML = `
-        <div class="bg-slate-900 rounded-3xl w-full max-w-md p-6">
-            <h3 class="font-semibold mb-4">Default Focus Plan Draft</h3>
-            <div class="bg-slate-800 p-4 rounded-2xl text-sm mb-4">
-                <div><strong>Date:</strong> ${draft.date}</div>
-                <div><strong>Visits:</strong> ${draft.totalVisits}</div>
-                <div><strong>Priority:</strong> ${draft.priorityRetailers.length} ordering retailers</div>
-                <div><strong>Nearby:</strong> ${draft.nearbyRetailers.length} retailers</div>
-            </div>
-            <div class="text-xs text-slate-400 mb-4">${draft.message}</div>
+        <div class="bg-slate-900 rounded-3xl w-full max-w-md p-6 relative max-h-[90vh] overflow-y-auto" 
+             onclick="event.stopImmediatePropagation()">
             
-            <div class="flex gap-3">
+            <button onclick="this.closest('.fixed').remove()" 
+                    class="absolute top-4 right-4 text-3xl text-slate-400 hover:text-white z-10">×</button>
+            
+            <h3 class="font-semibold text-xl mb-5 pr-8">Create Focus Plan - ${territory.name}</h3>
+            
+            <div class="space-y-5">
+                <div>
+                    <label class="text-xs text-slate-400 block mb-1">Focus SKUs</label>
+                    <input type="text" id="focus-skus" class="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3" 
+                           placeholder="Prestige Pressure Cooker 5L, Mixer Grinder" value="Prestige Pressure Cooker 5L">
+                </div>
+                
+                <div>
+                    <label class="text-xs text-slate-400 block mb-1">Priority Actions</label>
+                    <textarea id="priority-actions" class="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 h-28" 
+                            placeholder="Visit top ordering retailers...">Visit 6 active order retailers + 4 nearby in same area</textarea>
+                </div>
+            </div>
+
+            <div class="flex gap-3 mt-8">
                 <button onclick="this.closest('.fixed').remove()" 
-                        class="flex-1 py-3 bg-slate-700 rounded-2xl">Edit Draft</button>
-                <button onclick="alert('Focus Plan Published to Ramesh!'); this.closest('.fixed').remove()" 
-                        class="flex-1 py-3 bg-orange-600 rounded-2xl font-medium">Publish to Ramesh</button>
+                        class="flex-1 py-3.5 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium">Cancel</button>
+                <button onclick="saveFocusPlan(${territoryId}, this)" 
+                        class="flex-1 py-3.5 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">Publish Draft to Ramesh</button>
             </div>
         </div>
     `;
+
+    // Close on backdrop click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove();
+    });
+
     document.body.appendChild(modal);
 }
 
