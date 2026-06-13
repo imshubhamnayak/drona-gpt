@@ -1,11 +1,10 @@
-// ==================== STRATEGY X - OWNER MODE (Fixed) ====================
+// ==================== STRATEGY X - OWNER MODE (Final) ====================
 
 let map;
 let territories = [];
 window.strategyXInitialized = false;
 
 async function loadTerritories() {
-    // You can replace this with fetch from data/territories.json later
     territories = [
         { id: 1, name: "JP Nagar Phase 1", lat: 12.912, lng: 77.58, outstanding: 124500, decliningSKUs: 3, retailerCount: 8 },
         { id: 2, name: "JP Nagar Phase 2", lat: 12.905, lng: 77.59, outstanding: 87000, decliningSKUs: 1, retailerCount: 6 },
@@ -19,30 +18,20 @@ async function loadTerritories() {
 
 function initializeMap() {
     const mapContainer = document.getElementById('strategy-map');
-    if (!mapContainer) {
-        console.error("[Strategy X] Map container not found");
-        return;
-    }
+    if (!mapContainer) return;
 
-    // Remove old map if exists
     if (map) {
         map.remove();
         map = null;
     }
 
-    try {
-        map = L.map('strategy-map').setView([12.912, 77.58], 12);
+    map = L.map('strategy-map').setView([12.912, 77.58], 12);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
 
-        addTerritoriesToMap();
-        console.log('%c[Strategy X] Map initialized successfully', 'color:#22c55e');
-    } catch (err) {
-        console.error("[Strategy X] Map initialization failed:", err);
-        mapContainer.innerHTML = `<div class="flex items-center justify-center h-full text-red-400">Map failed to load. Please refresh.</div>`;
-    }
+    addTerritoriesToMap();
 }
 
 function addTerritoriesToMap() {
@@ -50,9 +39,9 @@ function addTerritoriesToMap() {
 
     territories.forEach(territory => {
         const riskScore = (territory.outstanding / 100000) + (territory.decliningSKUs * 2);
-        let color = '#22c55e'; // Green
-        if (riskScore > 4) color = '#ef4444';      // Red
-        else if (riskScore > 2) color = '#f59e0b'; // Orange
+        let color = '#22c55e';
+        if (riskScore > 4) color = '#ef4444';
+        else if (riskScore > 2) color = '#f59e0b';
 
         const circle = L.circle([territory.lat, territory.lng], {
             color: color,
@@ -157,7 +146,7 @@ async function saveFocusPlan(territoryId, btnElement) {
         await loadActivePlansFromSupabase();
     } catch (err) {
         console.error(err);
-        alert("Failed to save plan. Check console for details.");
+        alert("Failed to save plan.");
     }
 }
 
@@ -193,7 +182,6 @@ async function loadActivePlansFromSupabase() {
             </div>
         `).join('');
     } catch (err) {
-        console.error(err);
         container.innerHTML = `<div class="text-xs text-red-400">Failed to load plans</div>`;
     }
 }
@@ -205,7 +193,6 @@ async function initializeStrategyX() {
     initializeMap();
     await loadActivePlansFromSupabase();
 
-    // Render territory list
     const listContainer = document.getElementById('territory-list');
     if (listContainer) {
         listContainer.innerHTML = territories.map(t => `
@@ -218,7 +205,7 @@ async function initializeStrategyX() {
     }
 
     window.strategyXInitialized = true;
-    console.log('%c[Strategy X] Fully initialized', 'color:#22c55e');
+    console.log('%c[Strategy X] Ready', 'color:#22c55e');
 }
 
 window.initializeStrategyX = initializeStrategyX;
