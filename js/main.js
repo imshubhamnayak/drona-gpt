@@ -471,7 +471,7 @@ function showPublishedPlan() {
             </div>
 
             <div class="bg-slate-800 rounded-2xl p-5 mb-6">
-                <div class="text-emerald-400 text-sm mb-2">📅 15 June 2026 (Tomorrow)</div>
+                <div class="text-emerald-400 text-sm mb-2">📅 16 June 2026 (Tomorrow)</div>
                 <div class="text-lg font-medium">10 Visits Recommended</div>
                 <div class="text-xs text-slate-400 mt-1">6 Ordering Retailers + 4 Nearby</div>
             </div>
