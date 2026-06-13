@@ -299,7 +299,63 @@ function setChatContext(retailer) {
 function clearContext() {
     currentContextRetailer = null;
 }
+// ==================== SKU INTELLIGENCE ====================
+function openSKUIntelligence() {
+    const modal = document.createElement('div');
+    modal.className = `fixed inset-0 bg-black/70 flex items-center justify-center z-[70]`;
 
+    modal.innerHTML = `
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-lg mx-4 rounded-3xl overflow-hidden">
+            <div class="p-5 border-b border-slate-800 flex justify-between items-center">
+                <div class="font-semibold">SKU Intelligence</div>
+                <button onclick="this.closest('.fixed').remove()" class="text-2xl text-slate-400 hover:text-white">×</button>
+            </div>
+            <div class="p-5">
+                <input id="sku-search-input" type="text" placeholder="Search SKU name..." 
+                       class="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-sm mb-4"
+                       onkeyup="if(event.key === 'Enter') searchSKU()">
+                
+                <div id="sku-result" class="hidden bg-slate-800 rounded-2xl p-4 text-sm"></div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.getElementById('sku-search-input').focus();
+}
+
+async function searchSKU() {
+    const query = document.getElementById('sku-search-input').value.toLowerCase().trim();
+    const resultDiv = document.getElementById('sku-result');
+
+    try {
+        const res = await fetch('data/skus.json');
+        const skus = await res.json();
+
+        const sku = skus.find(s => s.name.toLowerCase().includes(query));
+
+        if (sku) {
+            resultDiv.innerHTML = `
+                <div class="font-semibold text-lg">${sku.name}</div>
+                <div class="grid grid-cols-2 gap-4 mt-3 text-sm">
+                    <div>MRP: <span class="font-mono">₹${sku.mrp}</span></div>
+                    <div>E-commerce: <span class="font-mono">₹${sku.ecom_price}</span></div>
+                    <div>Q-commerce: <span class="font-mono">₹${sku.qcom_price}</span></div>
+                    <div class="text-orange-400">Gap vs MRP: <strong>${sku.gap_percent}%</strong></div>
+                </div>
+                <div class="mt-4 bg-slate-700 p-4 rounded-2xl text-sm">
+                    <strong>Talking Point:</strong><br>${sku.talking_points}
+                </div>
+            `;
+            resultDiv.classList.remove('hidden');
+        } else {
+            resultDiv.innerHTML = `<div class="text-red-400">SKU not found.</div>`;
+            resultDiv.classList.remove('hidden');
+        }
+    } catch (e) {
+        resultDiv.innerHTML = `<div class="text-red-400">Error loading SKU data.</div>`;
+        resultDiv.classList.remove('hidden');
+    }
+}
 // ==================== QUICK ACTIONS ====================
 function showPaymentSummary() {
     const total = retailers.reduce((sum, r) => sum + r.outstanding, 0);
