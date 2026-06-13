@@ -1,313 +1,288 @@
-// ==================== DRONA GPT - MAIN JS ====================
+// ==================== DRONA GPT - MAIN LOGIC ====================
 
 let retailers = [];
 let currentContextRetailer = null;
-let currentQuickViewRetailer = null;
 
-// ==================== INITIALIZE ====================
-async function initializeApp() {
-    await loadRetailers();
+// Sample data (replace with fetch from data/retailers.json later)
+const sampleRetailers = [
+    { id: 1, name: "Sharma Kirana Store", area: "JP Nagar 1st Phase", phone: "9876543210", outstanding: 24500, paymentStatus: "Overdue 12 days", skuPatterns: [{ sku: "Prestige Pressure Cooker 5L", status: "Declining", insight: "Orders dropped 35% last month" }], recentOrders: [{ date: "2026-06-10", amount: 12500 }] },
+    { id: 2, name: "Gupta General Stores", area: "JP Nagar 2nd Phase", phone: "9876543211", outstanding: 8700, paymentStatus: "Due in 5 days", skuPatterns: [{ sku: "Prestige Mixer Grinder", status: "Growing", insight: "Strong repeat orders" }], recentOrders: [{ date: "2026-06-11", amount: 5600 }] },
+    { id: 3, name: "Lakshmi Provision Store", area: "JP Nagar 3rd Phase", phone: "9876543212", outstanding: 15200, paymentStatus: "Paid on time", skuPatterns: [{ sku: "Prestige Non-Stick Pan", status: "At Risk", insight: "No order in 18 days" }], recentOrders: [] }
+];
 
-    // Default view
-    document.getElementById('drona-gpt-view').classList.remove('hidden');
-    document.getElementById('strategy-x-view').classList.add('hidden');
-    document.getElementById('tab-drona-gpt').classList.add('tab-active');
+function initializeApp() {
+    console.log('%c[Drona GPT] Initializing...', 'color:#22c55e');
+    
+    // Load sample data
+    retailers = sampleRetailers;
 
+    // Set default user as Ramesh (Salesman)
     updateUserHeader('Ramesh', 'Salesman');
 
-    // Welcome message
-    const chatContainer = document.getElementById('chat-messages');
-    if (chatContainer) {
-        chatContainer.innerHTML = `
-            <div class="flex justify-start">
-                <div class="max-w-[82%] px-4 py-3 rounded-3xl bg-slate-800 text-sm">
-                    Hi Ramesh! I'm <strong>Drona GPT</strong>.<br>
-                    I can help with retailer details, payment status, and SKU patterns.
+    // Show Drona GPT view by default
+    const dronaView = document.getElementById('drona-gpt-view');
+    const strategyView = document.getElementById('strategy-x-view');
+    
+    if (dronaView && strategyView) {
+        dronaView.classList.remove('hidden');
+        strategyView.classList.add('hidden');
+    }
+
+    // Initialize chat with welcome message
+    const chatMessages = document.getElementById('chat-messages');
+    if (chatMessages) {
+        chatMessages.innerHTML = `
+            <div class="flex gap-3 mb-4">
+                <div class="w-8 h-8 bg-orange-600 rounded-2xl flex-shrink-0 flex items-center justify-center">
+                    <i class="fa-solid fa-robot text-white text-sm"></i>
+                </div>
+                <div class="bg-slate-800 px-4 py-3 rounded-3xl text-sm max-w-[80%]">
+                    Hi Ramesh! How can I help you today? You can ask about any retailer, SKU, or today's plan.
                 </div>
             </div>
         `;
     }
+
+    console.log('%c[Drona GPT] App initialized successfully', 'color:#22c55e');
 }
 
-// ==================== LOAD RETAILERS ====================
-async function loadRetailers() {
-    try {
-        const res = await fetch('data/retailers.json');
-        retailers = await res.json();
-    } catch (e) {
-        retailers = [];
-    }
+function updateUserHeader(name, role) {
+    const userInfo = document.getElementById('user-info');
+    if (!userInfo) return;
+
+    const isAdmin = role === 'Owner' || role === 'Admin';
+    
+    userInfo.innerHTML = `
+        <div class="flex items-center gap-x-3 bg-slate-800 px-4 py-1.5 rounded-2xl">
+            <div class="text-right">
+                <div class="font-medium">${name}</div>
+                <div class="text-xs ${isAdmin ? 'text-orange-400' : 'text-blue-400'}">${role}</div>
+            </div>
+            <div class="w-9 h-9 ${isAdmin ? 'bg-orange-600' : 'bg-blue-600'} rounded-2xl flex items-center justify-center">
+                <i class="fa-solid fa-user text-white text-sm"></i>
+            </div>
+        </div>
+    `;
 }
 
-// ==================== TAB SWITCHING ====================
 function switchTab(tab) {
     const dronaView = document.getElementById('drona-gpt-view');
     const strategyView = document.getElementById('strategy-x-view');
-
     const tabDrona = document.getElementById('tab-drona-gpt');
     const tabStrategy = document.getElementById('tab-strategy-x');
 
+    if (!dronaView || !strategyView) return;
+
     if (tab === 'drona-gpt') {
-        // Show Drona GPT View
         dronaView.classList.remove('hidden');
         strategyView.classList.add('hidden');
-
         tabDrona.classList.add('tab-active');
         tabStrategy.classList.remove('tab-active');
-
         updateUserHeader('Ramesh', 'Salesman');
-
     } else if (tab === 'strategy-x') {
-        // Show Strategy X View
         dronaView.classList.add('hidden');
         strategyView.classList.remove('hidden');
-
-        tabStrategy.classList.add('tab-active');
         tabDrona.classList.remove('tab-active');
-
+        tabStrategy.classList.add('tab-active');
         updateUserHeader('Admin', 'Owner');
 
-        // ✅ Initialize Strategy X only once
-        setTimeout(() => {
-            if (typeof initializeStrategyX === 'function' && !window.strategyXInitialized) {
-                initializeStrategyX();
+        // Initialize Strategy X only once
+        if (window.initializeStrategyX && !window.strategyXInitialized) {
+            setTimeout(() => {
+                window.initializeStrategyX();
                 window.strategyXInitialized = true;
-                console.log('%c[Strategy X] Initialized successfully', 'color:#22c55e');
-            } else if (typeof initializeStrategyX === 'function') {
-                // If already initialized, just refresh the map (optional)
-                console.log('%c[Strategy X] Already initialized', 'color:#f59e0b');
-            } else {
-                console.warn('%c[Strategy X] initializeStrategyX function not found. Make sure strategy-x.js is loaded.', 'color:orange');
-            }
-        }, 300); // Small delay to ensure DOM is ready
+            }, 300);
+        }
     }
 }
 
-// ==================== CHAT ====================
-function addMessage(text, isUser = false) {
-    const container = document.getElementById('chat-messages');
-    if (!container) return;
-    const div = document.createElement('div');
-    div.className = `flex ${isUser ? 'justify-end' : 'justify-start'} mb-3`;
-    const bubble = document.createElement('div');
-    bubble.className = `max-w-[82%] px-4 py-3 rounded-3xl text-sm ${isUser ? 'bg-orange-600 text-white' : 'bg-slate-800'}`;
-    bubble.innerHTML = text;
-    div.appendChild(bubble);
-    container.appendChild(div);
-    container.scrollTop = container.scrollHeight;
+// ==================== RETAILER FUNCTIONS ====================
+function openRetailerSearch() {
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4';
+    modal.innerHTML = `
+        <div class="bg-slate-900 rounded-3xl w-full max-w-md p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-semibold text-lg">Search Retailer</h3>
+                <button onclick="this.closest('.fixed').remove()" class="text-slate-400 hover:text-white">✕</button>
+            </div>
+            <input type="text" id="retailer-search-input" placeholder="Type retailer name..." 
+                   class="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 mb-4" 
+                   onkeyup="filterRetailers(this.value)">
+            <div id="retailer-search-results" class="max-h-80 overflow-y-auto space-y-2"></div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    filterRetailers('');
 }
 
-function sendMessage() {
-    const input = document.getElementById('chat-input');
-    const text = input.value.trim();
-    if (!text) return;
+function filterRetailers(query) {
+    const container = document.getElementById('retailer-search-results');
+    if (!container) return;
 
-    addMessage(text, true);
-    input.value = '';
+    const filtered = retailers.filter(r => 
+        r.name.toLowerCase().includes(query.toLowerCase()) || 
+        r.area.toLowerCase().includes(query.toLowerCase())
+    );
 
+    container.innerHTML = filtered.map(r => `
+        <div onclick="showQuickView(${r.id}); this.closest('.fixed').remove();" 
+             class="p-4 bg-slate-800 hover:bg-slate-700 rounded-2xl cursor-pointer flex justify-between items-center">
+            <div>
+                <div class="font-medium">${r.name}</div>
+                <div class="text-xs text-slate-400">${r.area}</div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-slate-500"></i>
+        </div>
+    `).join('');
+}
+
+function showQuickView(retailerId) {
+    const retailer = retailers.find(r => r.id === retailerId);
+    if (!retailer) return;
+
+    currentContextRetailer = retailer;
+
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4';
+    modal.innerHTML = `
+        <div class="bg-slate-900 rounded-3xl w-full max-w-lg p-6">
+            <div class="flex justify-between mb-4">
+                <div>
+                    <h3 class="font-semibold text-xl">${retailer.name}</h3>
+                    <p class="text-sm text-slate-400">${retailer.area}</p>
+                </div>
+                <button onclick="this.closest('.fixed').remove()" class="text-slate-400">✕</button>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Payment Summary -->
+                <div class="bg-slate-800 p-4 rounded-2xl">
+                    <div class="text-xs text-slate-400 mb-1">OUTSTANDING</div>
+                    <div class="text-2xl font-semibold">₹${retailer.outstanding.toLocaleString()}</div>
+                    <div class="text-sm ${retailer.paymentStatus.includes('Overdue') ? 'text-red-400' : 'text-emerald-400'}">${retailer.paymentStatus}</div>
+                </div>
+
+                <!-- SKU Pattern -->
+                <div>
+                    <div class="text-xs text-slate-400 mb-2">SKU PATTERN RECOGNITION</div>
+                    ${retailer.skuPatterns.map(p => `
+                        <div class="bg-slate-800 p-3 rounded-2xl mb-2">
+                            <div class="font-medium">${p.sku}</div>
+                            <div class="text-sm ${p.status === 'Declining' || p.status === 'At Risk' ? 'text-red-400' : 'text-emerald-400'}">${p.status}</div>
+                            <div class="text-xs text-slate-400 mt-1">${p.insight}</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="setChatContextFromQuickView(${retailer.id}); this.closest('.fixed').remove();" 
+                            class="flex-1 py-3 bg-orange-600 rounded-2xl font-medium">Talk to Drona about this retailer</button>
+                    <button onclick="this.closest('.fixed').remove()" 
+                            class="flex-1 py-3 bg-slate-700 rounded-2xl">Close</button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+
+function setChatContextFromQuickView(retailerId) {
+    const retailer = retailers.find(r => r.id === retailerId);
+    if (!retailer) return;
+
+    currentContextRetailer = retailer;
+    
+    const chatMessages = document.getElementById('chat-messages');
+    if (chatMessages) {
+        chatMessages.innerHTML += `
+            <div class="flex justify-end mb-3">
+                <div class="bg-orange-600 px-4 py-2 rounded-3xl text-sm max-w-[80%]">
+                    Tell me about ${retailer.name}
+                </div>
+            </div>
+        `;
+    }
+    
+    // Auto respond with context
     setTimeout(() => {
-        const response = generateSmartResponse(text);
-        addMessage(response);
+        const response = generateSmartResponse(`Tell me about ${retailer.name}`);
+        if (chatMessages) {
+            chatMessages.innerHTML += response;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
     }, 600);
 }
 
-function generateSmartResponse(query) {
-    const q = query.toLowerCase();
-    if (currentContextRetailer) {
-        const r = currentContextRetailer;
-        if (q.includes("payment") || q.includes("outstanding")) {
-            return `Outstanding for <strong>${r.name}</strong>: ₹${r.outstanding.toLocaleString()}`;
-        }
-    }
-    if (q.includes("behind on payment")) {
-        const behind = retailers.filter(r => r.outstanding > 15000).map(r => r.name);
-        return `High outstanding: ${behind.join(", ")}`;
-    }
-    return "I can help with retailer details, payments, and SKU patterns.";
-}
+// ==================== CHAT ====================
+function sendMessage() {
+    const input = document.getElementById('chat-input');
+    if (!input || !input.value.trim()) return;
 
-// ==================== RETAILER SEARCH ====================
-function openRetailerSearch() {
-    const modal = document.createElement('div');
-    modal.id = 'search-modal';
-    modal.className = `fixed inset-0 bg-black/70 flex items-center justify-center z-50`;
+    const chatMessages = document.getElementById('chat-messages');
+    const userMessage = input.value.trim();
 
-    modal.innerHTML = `
-        <div onclick="event.target.id === 'search-modal' && closeSearchModal()" 
-             class="bg-slate-900 border border-slate-700 w-full max-w-lg mx-4 rounded-3xl overflow-hidden">
-            <div class="p-5 border-b border-slate-800 flex justify-between items-center">
-                <div class="font-semibold">Search Retailers</div>
-                <button onclick="closeSearchModal()" class="text-2xl text-slate-400">×</button>
-            </div>
-            <div class="p-4">
-                <input id="search-input" type="text" placeholder="Type retailer name or area..." 
-                       class="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-sm mb-4"
-                       onkeyup="filterRetailers()">
-                <div id="retailer-list" class="max-h-[420px] overflow-y-auto space-y-1"></div>
-            </div>
+    chatMessages.innerHTML += `
+        <div class="flex justify-end mb-3">
+            <div class="bg-orange-600 px-4 py-2 rounded-3xl text-sm max-w-[80%]">${userMessage}</div>
         </div>
     `;
-    document.body.appendChild(modal);
-    document.getElementById('search-input').focus();
-    renderRetailerList(retailers);
+
+    const response = generateSmartResponse(userMessage);
+    setTimeout(() => {
+        chatMessages.innerHTML += response;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 700);
+
+    input.value = '';
 }
 
-function closeSearchModal() {
-    const modal = document.getElementById('search-modal');
-    if (modal) modal.remove();
-}
-
-function filterRetailers() {
-    const term = document.getElementById('search-input').value.toLowerCase();
-    const filtered = retailers.filter(r => 
-        r.name.toLowerCase().includes(term) || r.area.toLowerCase().includes(term)
-    );
-    renderRetailerList(filtered);
-}
-
-function renderRetailerList(list) {
-    const container = document.getElementById('retailer-list');
-    container.innerHTML = '';
-    list.forEach(retailer => {
-        const div = document.createElement('div');
-        div.className = `flex justify-between items-center p-3 hover:bg-slate-800 rounded-2xl cursor-pointer`;
-        div.innerHTML = `
-            <div>
-                <div class="font-medium">${retailer.name}</div>
-                <div class="text-xs text-slate-400">${retailer.area}</div>
-            </div>
-            <div class="text-right">
-                <div class="text-sm font-mono">₹${retailer.outstanding.toLocaleString()}</div>
+function generateSmartResponse(message) {
+    const lowerMsg = message.toLowerCase();
+    
+    if (currentContextRetailer && lowerMsg.includes(currentContextRetailer.name.toLowerCase())) {
+        return `
+            <div class="flex gap-3 mb-4">
+                <div class="w-8 h-8 bg-orange-600 rounded-2xl flex-shrink-0 flex items-center justify-center">
+                    <i class="fa-solid fa-robot text-white text-sm"></i>
+                </div>
+                <div class="bg-slate-800 px-4 py-3 rounded-3xl text-sm max-w-[80%]">
+                    ${currentContextRetailer.name} has ₹${currentContextRetailer.outstanding} outstanding. 
+                    Their ${currentContextRetailer.skuPatterns[0]?.sku} is ${currentContextRetailer.skuPatterns[0]?.status.toLowerCase()}.
+                </div>
             </div>
         `;
-        div.onclick = () => {
-            closeSearchModal();
-            showQuickView(retailer);
-        };
-        container.appendChild(div);
-    });
-}
-
-// ==================== QUICK VIEW ====================
-function showQuickView(retailer) {
-    currentQuickViewRetailer = retailer;
-    const modal = document.createElement('div');
-    modal.id = 'quickview-modal';
-    modal.className = `fixed inset-0 bg-black/70 flex items-center justify-center z-[60]`;
-
-    modal.innerHTML = `
-        <div class="bg-slate-900 border border-slate-700 w-full max-w-2xl mx-4 rounded-3xl overflow-hidden">
-            <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center">
-                <div>
-                    <div class="font-semibold text-xl">${retailer.name}</div>
-                    <div class="text-sm text-slate-400">${retailer.area}</div>
-                </div>
-                <button onclick="setChatContextFromQuickView()" class="bg-emerald-600 px-4 py-2 rounded-2xl text-sm">
-                    Chat about this
-                </button>
-            </div>
-            <div class="p-6" id="quickview-content"></div>
-        </div>
-    `;
-    document.body.appendChild(modal);
-    populateQuickViewContent(retailer);
-}
-
-function populateQuickViewContent(retailer) {
-    const content = document.getElementById('quickview-content');
-    content.innerHTML = `
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-                <div class="font-semibold mb-2">Payment Position</div>
-                <div class="bg-slate-800 rounded-2xl p-4">
-                    <div class="text-3xl font-semibold">₹${retailer.outstanding.toLocaleString()}</div>
-                </div>
-            </div>
-            <div>
-                <div class="font-semibold mb-2">SKU Pattern</div>
-                <div class="bg-slate-800 rounded-2xl p-4 text-sm">
-                    ${retailer.skuPatterns ? retailer.skuPatterns.map(p => `
-                        <div class="mb-2">
-                            <strong>${p.sku}</strong> — <span class="${p.status === 'Declining' ? 'text-red-400' : 'text-emerald-400'}">${p.status}</span>
-                        </div>
-                    `).join('') : 'No SKU data available'}
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function setChatContextFromQuickView() {
-    if (currentQuickViewRetailer) {
-        closeQuickView();
-        currentContextRetailer = currentQuickViewRetailer;
-        addMessage(`Now focused on <strong>${currentQuickViewRetailer.name}</strong>.`);
     }
-}
+    
+    if (lowerMsg.includes('outstanding') || lowerMsg.includes('payment')) {
+        return `
+            <div class="flex gap-3 mb-4">
+                <div class="w-8 h-8 bg-orange-600 rounded-2xl flex-shrink-0 flex items-center justify-center">
+                    <i class="fa-solid fa-robot text-white text-sm"></i>
+                </div>
+                <div class="bg-slate-800 px-4 py-3 rounded-3xl text-sm max-w-[80%]">
+                    Sharma Kirana has the highest outstanding at ₹24,500 (Overdue 12 days). Would you like me to suggest a recovery script?
+                </div>
+            </div>
+        `;
+    }
 
-function closeQuickView() {
-    const modal = document.getElementById('quickview-modal');
-    if (modal) modal.remove();
-}
-
-// ==================== QUICK ACTIONS ====================
-function showTargetSummary() {
-    addMessage("Target achievement summary will be added soon.");
+    return `
+        <div class="flex gap-3 mb-4">
+            <div class="w-8 h-8 bg-orange-600 rounded-2xl flex-shrink-0 flex items-center justify-center">
+                <i class="fa-solid fa-robot text-white text-sm"></i>
+            </div>
+            <div class="bg-slate-800 px-4 py-3 rounded-3xl text-sm max-w-[80%]">
+                Got it. I'm analyzing this. What specific detail do you need?
+            </div>
+        </div>
+    `;
 }
 
 // ==================== SKU INTELLIGENCE ====================
 function openSKUIntelligence() {
-    const modal = document.createElement('div');
-    modal.className = `fixed inset-0 bg-black/70 flex items-center justify-center z-[70]`;
-    modal.innerHTML = `
-        <div class="bg-slate-900 border border-slate-700 w-full max-w-lg mx-4 rounded-3xl overflow-hidden">
-            <div class="p-5 border-b border-slate-800 flex justify-between items-center">
-                <div class="font-semibold">SKU Intelligence</div>
-                <button onclick="this.closest('.fixed').remove()" class="text-2xl text-slate-400">×</button>
-            </div>
-            <div class="p-5">
-                <input id="sku-search-input" type="text" placeholder="Search SKU name..." 
-                       class="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-sm mb-4"
-                       onkeyup="if(event.key === 'Enter') searchSKU()">
-                <div id="sku-result" class="hidden bg-slate-800 rounded-2xl p-4 text-sm"></div>
-            </div>
-        </div>
-    `;
-    document.body.appendChild(modal);
-    document.getElementById('sku-search-input').focus();
+    alert("SKU Intelligence feature coming in next update. It will show live pricing gaps vs e-commerce.");
 }
 
-async function searchSKU() {
-    const query = document.getElementById('sku-search-input').value.toLowerCase().trim();
-    const resultDiv = document.getElementById('sku-result');
-
-    try {
-        const res = await fetch('data/skus.json');
-        const skus = await res.json();
-        const sku = skus.find(s => s.name.toLowerCase().includes(query));
-
-        if (sku) {
-            resultDiv.innerHTML = `
-                <div class="font-semibold text-lg">${sku.name}</div>
-                <div class="grid grid-cols-2 gap-4 mt-3 text-sm">
-                    <div>MRP: <span class="font-mono">₹${sku.mrp}</span></div>
-                    <div>E-commerce: <span class="font-mono">₹${sku.ecom_price}</span></div>
-                    <div class="text-orange-400">Gap vs MRP: <strong>${sku.gap_percent}%</strong></div>
-                </div>
-                <div class="mt-4 bg-slate-700 p-4 rounded-2xl text-sm">
-                    <strong>Talking Point:</strong><br>${sku.talking_points}
-                </div>
-            `;
-            resultDiv.classList.remove('hidden');
-        } else {
-            resultDiv.innerHTML = `<div class="text-red-400">SKU not found.</div>`;
-            resultDiv.classList.remove('hidden');
-        }
-    } catch (e) {
-        resultDiv.innerHTML = `<div class="text-red-400">Error loading SKU data.</div>`;
-        resultDiv.classList.remove('hidden');
-    }
-}
-
-// ==================== INITIALIZE ====================
+// ==================== AUTO INITIALIZE ====================
 window.onload = initializeApp;
