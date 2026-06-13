@@ -4,7 +4,7 @@ let map = null;
 let territoryLayers = {};
 let activePlans = [];
 
-// Load territories from JSON
+// ==================== LOAD TERRITORIES ====================
 async function loadTerritories() {
     try {
         const res = await fetch('data/territories.json');
@@ -15,10 +15,13 @@ async function loadTerritories() {
     }
 }
 
-// Initialize Leaflet Map
+// ==================== INITIALIZE MAP ====================
 function initializeMap() {
     const container = document.getElementById('strategy-map');
-    if (!container) return;
+    if (!container) {
+        console.warn("Strategy map container not found");
+        return;
+    }
 
     if (map) map.remove();
 
@@ -64,6 +67,7 @@ function getTerritoryColor(t) {
     return '#22c55e';
 }
 
+// ==================== TERRITORY LIST ====================
 function renderTerritoryList() {
     const container = document.getElementById('territory-list');
     if (!container) return;
@@ -99,6 +103,7 @@ function highlightTerritoryInList(id) {
     });
 }
 
+// ==================== TERRITORY DETAILS ====================
 function showTerritoryDetails(territory) {
     const panel = document.getElementById('territory-details-panel');
     if (!panel) return;
@@ -188,10 +193,10 @@ function createFocusPlanForTerritory(territoryId) {
     document.body.appendChild(modal);
 }
 
-// Save Focus Plan to Supabase
+// ==================== SAVE FOCUS PLAN TO SUPABASE ====================
 async function saveFocusPlan(territoryId, btn) {
     const modal = btn.closest('.fixed');
-    const supabase = window.supabase;
+    const supabase = window.supabase; // Using global supabase from main.js
 
     if (!supabase) {
         alert("Supabase is not connected. Please refresh the page.");
@@ -227,7 +232,7 @@ async function saveFocusPlan(territoryId, btn) {
     }
 }
 
-// Load active plans from Supabase
+// ==================== LOAD ACTIVE PLANS FROM SUPABASE ====================
 async function loadActivePlansFromSupabase() {
     const container = document.getElementById('active-plans-list');
     if (!container) return;
@@ -277,10 +282,10 @@ async function loadActivePlansFromSupabase() {
 
 // ==================== MAIN INITIALIZATION ====================
 async function initializeStrategyX() {
-    console.log('%c[Strategy X] Initializing in Owner Mode...', 'color:#f59e0b');
+    console.log('%c[Strategy X] Initializing Owner Mode...', 'color:#f59e0b');
     await loadTerritories();
     initializeMap();
 }
 
-// Expose function globally so it can be called from main.js
+// Expose globally so it can be called from main.js
 window.initializeStrategyX = initializeStrategyX;
