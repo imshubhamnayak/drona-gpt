@@ -1,4 +1,4 @@
-// ==================== STRATEGY X - OWNER MODE (Supabase Fixed) ====================
+// ==================== STRATEGY X - OWNER MODE ====================
 let territories = [];
 let map = null;
 let territoryLayers = {};
@@ -188,13 +188,13 @@ function createFocusPlanForTerritory(territoryId) {
     document.body.appendChild(modal);
 }
 
-// Save Focus Plan to Supabase (with safety check)
+// Save Focus Plan to Supabase
 async function saveFocusPlan(territoryId, btn) {
     const modal = btn.closest('.fixed');
-    const supabase = window.supabaseClient;
+    const supabase = window.supabase;
 
     if (!supabase) {
-        alert("❌ Supabase is not connected. Please hard refresh the page (Ctrl + Shift + R) and try again.");
+        alert("Supabase is not connected. Please refresh the page.");
         modal.remove();
         return;
     }
@@ -222,7 +222,7 @@ async function saveFocusPlan(territoryId, btn) {
         alert("Failed to save plan: " + error.message);
         console.error(error);
     } else {
-        alert("✅ Focus Plan published successfully!");
+        alert("Focus Plan published successfully!");
         loadActivePlansFromSupabase();
     }
 }
@@ -232,7 +232,7 @@ async function loadActivePlansFromSupabase() {
     const container = document.getElementById('active-plans-list');
     if (!container) return;
 
-    const supabase = window.supabaseClient;
+    const supabase = window.supabase;
     if (!supabase) {
         container.innerHTML = `<p class="text-red-400 text-sm">Supabase not connected</p>`;
         return;
@@ -275,11 +275,12 @@ async function loadActivePlansFromSupabase() {
     container.innerHTML = html;
 }
 
-// Main initialization (automatically runs as Owner)
+// ==================== MAIN INITIALIZATION ====================
 async function initializeStrategyX() {
-    console.log('%c[Strategy X] Running in Owner Mode', 'color:#f59e0b');
+    console.log('%c[Strategy X] Initializing in Owner Mode...', 'color:#f59e0b');
     await loadTerritories();
     initializeMap();
 }
 
+// Expose function globally so it can be called from main.js
 window.initializeStrategyX = initializeStrategyX;
