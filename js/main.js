@@ -10,6 +10,7 @@ async function initializeApp() {
     
     await loadRetailersFromJSON();
     
+    // Make sure user header is updated
     updateUserHeader('Ramesh', 'Salesman');
     
     // Default view
@@ -20,7 +21,7 @@ async function initializeApp() {
         strategyView.classList.add('hidden');
     }
 
-    // Welcome message
+    // Welcome chat message
     const chatMessages = document.getElementById('chat-messages');
     if (chatMessages) {
         chatMessages.innerHTML = `
@@ -53,7 +54,10 @@ async function loadRetailersFromJSON() {
 
 function updateUserHeader(name, role) {
     const userInfo = document.getElementById('user-info');
-    if (!userInfo) return;
+    if (!userInfo) {
+        console.error("user-info element not found");
+        return;
+    }
 
     const isAdmin = role === 'Owner' || role === 'Admin';
     userInfo.innerHTML = `
