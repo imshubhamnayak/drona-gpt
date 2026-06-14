@@ -559,5 +559,4 @@ allSKUs = [
     { name: "Prestige Rice Cooker 1.8L", mrp: 2199, ecomPrice: 1699, talkingPoint: "Steady seller. Stock up before festival season." }
 ];
 
-// ==================== AUTO INITIALIZE ====================
-window.onload = initializeApp;
+
