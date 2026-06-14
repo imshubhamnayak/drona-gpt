@@ -2,16 +2,16 @@
 
 let retailers = [];
 let currentContextRetailer = null;
+let allSKUs = [];
 
+// ==================== INITIALIZE APP ====================
 async function initializeApp() {
     console.log('%c[Drona GPT] Initializing...', 'color:#22c55e');
     
-    // Load real data from JSON
     await loadRetailersFromJSON();
-
-    // Set default user
+    
     updateUserHeader('Ramesh', 'Salesman');
-
+    
     // Default view
     const dronaView = document.getElementById('drona-gpt-view');
     const strategyView = document.getElementById('strategy-x-view');
@@ -20,22 +20,7 @@ async function initializeApp() {
         strategyView.classList.add('hidden');
     }
 
-    console.log(`%cLoaded ${retailers.length} retailers from JSON`, 'color:#22c55e');
-}
-
-async function loadRetailersFromJSON() {
-    try {
-        const response = await fetch('data/retailers.json');
-        const data = await response.json();
-        retailers = data.retailers || [];
-        console.log(`%c✅ Successfully loaded ${retailers.length} retailers`, 'color:#22c55e');
-    } catch (err) {
-        console.error("Failed to load retailers.json", err);
-        retailers = []; // fallback
-    }
-}
-
-    // Initialize chat with welcome message
+    // Initialize welcome chat message
     const chatMessages = document.getElementById('chat-messages');
     if (chatMessages) {
         chatMessages.innerHTML = `
@@ -44,13 +29,25 @@ async function loadRetailersFromJSON() {
                     <i class="fa-solid fa-robot text-white text-sm"></i>
                 </div>
                 <div class="bg-slate-800 px-4 py-3 rounded-3xl text-sm max-w-[80%]">
-                    Hi Ramesh! How can I help you today? You can ask about any retailer, SKU, or today's plan.
+                    Hi Ramesh! How can I help you today?
                 </div>
             </div>
         `;
     }
 
-    console.log('%c[Drona GPT] App initialized successfully', 'color:#22c55e');
+    console.log(`%cLoaded ${retailers.length} retailers`, 'color:#22c55e');
+}
+
+// Load retailers from JSON
+async function loadRetailersFromJSON() {
+    try {
+        const response = await fetch('data/retailers.json');
+        const data = await response.json();
+        retailers = data.retailers || [];
+    } catch (err) {
+        console.error("Failed to load retailers.json", err);
+        retailers = [];
+    }
 }
 
 function updateUserHeader(name, role) {
@@ -58,7 +55,6 @@ function updateUserHeader(name, role) {
     if (!userInfo) return;
 
     const isAdmin = role === 'Owner' || role === 'Admin';
-    
     userInfo.innerHTML = `
         <div class="flex items-center gap-x-3 bg-slate-800 px-4 py-1.5 rounded-2xl">
             <div class="text-right">
@@ -93,7 +89,6 @@ function switchTab(tab) {
         tabStrategy.classList.add('tab-active');
         updateUserHeader('Admin', 'Owner');
 
-        // Initialize Strategy X only once
         if (window.initializeStrategyX && !window.strategyXInitialized) {
             setTimeout(() => {
                 window.initializeStrategyX();
@@ -102,6 +97,51 @@ function switchTab(tab) {
         }
     }
 }
+
+// ==================== RETAILER FUNCTIONS ====================
+function openRetailerSearch() {
+    // ... (your existing function - keep it as is)
+}
+
+function filterRetailers(query) {
+    // ... (your existing function - keep it as is)
+}
+
+function showQuickView(retailerId) {
+    // ... (your existing function - keep it as is)
+}
+
+function setChatContextFromQuickView(retailerId) {
+    // ... (your existing function - keep it as is)
+}
+
+// ==================== CHAT ====================
+function sendMessage() {
+    // ... (your existing function - keep it as is)
+}
+
+function generateSmartResponse(message) {
+    // ... (your existing function - keep it as is)
+}
+
+// ==================== TARGET SUMMARY ====================
+function showTargetSummary() {
+    // ... (the latest version I gave you earlier - keep it)
+}
+
+// ==================== SKU INTELLIGENCE ====================
+function openSKUIntelligence() {
+    // ... (the latest version I gave you - keep it)
+}
+
+// Initialize SKU Data
+allSKUs = [
+    { name: "Prestige Pressure Cooker 5L", mrp: 2499, ecomPrice: 1899, talkingPoint: "High demand item." },
+    { name: "Prestige Mixer Grinder 750W", mrp: 4299, ecomPrice: 3199, talkingPoint: "Push combo offer." }
+];
+
+// ==================== AUTO INITIALIZE ====================
+window.onload = initializeApp;
 
 // ==================== RETAILER FUNCTIONS ====================
 function openRetailerSearch() {
