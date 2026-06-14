@@ -215,53 +215,51 @@ function setChatContextFromQuickView(retailerId) {
 }
 
 // ==================== CHAT ====================
-function sendMessage() {
-    const input = document.getElementById('chat-input');
-    if (!input || !input.value.trim()) return;
+// ==================== DRONA GPT - FIXED & RAG READY ====================
 
-    const chatMessages = document.getElementById('chat-messages');
-    const userMessage = input.value.trim();
+let retailers = [];
 
-    chatMessages.innerHTML += `
-        <div class="flex justify-end mb-3">
-            <div class="bg-orange-600 px-4 py-2 rounded-3xl text-sm max-w-[80%]">${userMessage}</div>
-        </div>
-    `;
-
-    const response = generateSmartResponse(userMessage);
-    setTimeout(() => {
-        chatMessages.innerHTML += response;
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }, 700);
-
-    input.value = '';
+// Load Data
+async function loadRetailers() {
+    try {
+        const res = await fetch('data/retailers.json');
+        const data = await res.json();
+        retailers = data.retailers || [];
+        console.log(`✅ Loaded ${retailers.length} retailers`);
+    } catch (e) {
+        console.error("Failed to load retailers", e);
+    }
 }
 
-// RAG - Enhanced Smart Response
-async function generateSmartResponse(userMessage) {
-    // Step 1: Retrieve relevant data
-    let context = "Relevant Context:\n";
+// Add Message
+function addMessage(text, sender) {
+    const container = document.getElementById('chat-messages');
+    if (!container) return;
     
-    // Search retailers
-    const relevantRetailers = retailers.filter(r => 
-        r.name.toLowerCase().includes(userMessage.toLowerCase()) || 
-        r.area.toLowerCase().includes(userMessage.toLowerCase())
-    ).slice(0, 3);
-    
-    if (relevantRetailers.length > 0) {
-        context += "Retailers:\n";
-        relevantRetailers.forEach(r => {
-            context += `- ${r.name} (${r.area}): Outstanding ₹${r.outstanding}, Last visit ${r.lastVisitDaysAgo} days ago\n`;
-        });
+    const div = document.createElement('div');
+    div.className = `mb-4 flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
+    div.innerHTML = `
+        <div class="${sender === 'user' ? 'bg-orange-600 text-white' : 'bg-slate-700'} rounded-2xl px-4 py-3 max-w-[75%]">
+            ${text}
+        </div>
+    `;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+}
+
+// RAG Response with Fallback
+async function generateSmartResponse(message) {
+    // Simple RAG retrieval
+    let context = "You are helping a salesman in Bangalore. ";
+    const relevant = retailers.filter(r => 
+        r.name.toLowerCase().includes(message.toLowerCase()) || 
+        r.area.toLowerCase().includes(message.toLowerCase())
+    );
+
+    if (relevant.length > 0) {
+        context += `Context about ${relevant[0].name}: Outstanding ₹${relevant[0].outstanding || 0}. `;
     }
-    
-    // General business context
-    context += "\nBusiness Rules:\n";
-    context += "- Prioritize high-outstanding retailers (>15k)\n";
-    context += "- Push Pressure Cooker & Non-Stick Pan\n";
-    context += "- Visit ordering retailers + nearby ones\n";
-    
-    // Step 2: Call Grok API with context (RAG)
+
     try {
         const response = await fetch('https://api.x.ai/v1/chat/completions', {
             method: 'POST',
@@ -272,37 +270,58 @@ async function generateSmartResponse(userMessage) {
             body: JSON.stringify({
                 model: "grok-beta",
                 messages: [
-                    { role: "system", content: "You are Drona, a helpful sales coach for Prestige kitchenware. Use the provided context to give practical advice." },
-                    { role: "user", content: context + "\n\nUser: " + userMessage }
+                    { role: "system", content: "You are Drona, a practical sales coach for Prestige products." },
+                    { role: "user", content: context + message }
                 ],
                 temperature: 0.7,
-                max_tokens: 400
+                max_tokens: 300
             })
         });
-        
+
+        if (!response.ok) throw new Error("API error");
         const data = await response.json();
         return data.choices[0].message.content;
     } catch (e) {
-        return "I found some useful retailer info. Focus on high-outstanding stores and push Pressure Cooker today.";
+        console.error("API failed, using fallback", e);
+        return "Focus on high-outstanding retailers like Sharma Kirana. Push Pressure Cooker today.";
     }
 }
+
+// Send Message
 async function sendMessage() {
     const input = document.getElementById('chat-input');
-    const message = input.value.trim();
-    if (!message) return;
+    const text = input.value.trim();
+    if (!text) return;
 
-    addMessage(message, 'user');
-    input.value = '';
+    addMessage(text, 'user');
+    input.value = "";
 
-    // Show typing indicator
-    const typing = addTypingIndicator();
+    const typing = document.createElement('div');
+    typing.id = 'typing';
+    typing.className = "flex justify-start mb-4";
+    typing.innerHTML = `<div class="bg-slate-700 rounded-2xl px-4 py-3">Drona is thinking...</div>`;
+    document.getElementById('chat-messages').appendChild(typing);
 
-    // Get RAG-powered response
-    const reply = await generateSmartResponse(message);
-    
-    removeTypingIndicator(typing);
+    const reply = await generateSmartResponse(text);
+
+    typing.remove();
     addMessage(reply, 'bot');
 }
+
+// Initialize
+async function initializeApp() {
+    console.log("%c[Drona GPT] Initializing...", "color:#22c55e");
+    await loadRetailers();
+    
+    addMessage("Hi Ramesh! How can I help you today? Ask about any retailer, SKU, or plan.", 'bot');
+    console.log("%c✅ App ready with RAG", "color:#22c55e");
+}
+
+window.onload = initializeApp;
+
+// Global functions for onclick
+window.sendMessage = sendMessage;
+
 // ==============TARGET SUMMARY (Fixed Scrolling) ====================
 function showTargetSummary() {
     const modal = document.createElement('div');
