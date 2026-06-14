@@ -237,46 +237,71 @@ function sendMessage() {
     input.value = '';
 }
 
-function generateSmartResponse(message) {
-    const lowerMsg = message.toLowerCase();
+// RAG - Enhanced Smart Response
+async function generateSmartResponse(userMessage) {
+    // Step 1: Retrieve relevant data
+    let context = "Relevant Context:\n";
     
-    if (currentContextRetailer && lowerMsg.includes(currentContextRetailer.name.toLowerCase())) {
-        return `
-            <div class="flex gap-3 mb-4">
-                <div class="w-8 h-8 bg-orange-600 rounded-2xl flex-shrink-0 flex items-center justify-center">
-                    <i class="fa-solid fa-robot text-white text-sm"></i>
-                </div>
-                <div class="bg-slate-800 px-4 py-3 rounded-3xl text-sm max-w-[80%]">
-                    ${currentContextRetailer.name} has ₹${currentContextRetailer.outstanding} outstanding. 
-                    Their ${currentContextRetailer.skuPatterns[0]?.sku} is ${currentContextRetailer.skuPatterns[0]?.status.toLowerCase()}.
-                </div>
-            </div>
-        `;
+    // Search retailers
+    const relevantRetailers = retailers.filter(r => 
+        r.name.toLowerCase().includes(userMessage.toLowerCase()) || 
+        r.area.toLowerCase().includes(userMessage.toLowerCase())
+    ).slice(0, 3);
+    
+    if (relevantRetailers.length > 0) {
+        context += "Retailers:\n";
+        relevantRetailers.forEach(r => {
+            context += `- ${r.name} (${r.area}): Outstanding ₹${r.outstanding}, Last visit ${r.lastVisitDaysAgo} days ago\n`;
+        });
     }
     
-    if (lowerMsg.includes('outstanding') || lowerMsg.includes('payment')) {
-        return `
-            <div class="flex gap-3 mb-4">
-                <div class="w-8 h-8 bg-orange-600 rounded-2xl flex-shrink-0 flex items-center justify-center">
-                    <i class="fa-solid fa-robot text-white text-sm"></i>
-                </div>
-                <div class="bg-slate-800 px-4 py-3 rounded-3xl text-sm max-w-[80%]">
-                    Sharma Kirana has the highest outstanding at ₹24,500 (Overdue 12 days). Would you like me to suggest a recovery script?
-                </div>
-            </div>
-        `;
+    // General business context
+    context += "\nBusiness Rules:\n";
+    context += "- Prioritize high-outstanding retailers (>15k)\n";
+    context += "- Push Pressure Cooker & Non-Stick Pan\n";
+    context += "- Visit ordering retailers + nearby ones\n";
+    
+    // Step 2: Call Grok API with context (RAG)
+    try {
+        const response = await fetch('https://api.x.ai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer xai-4UBN0aOmhm1QzLo0wfLvM8Dkw3wtmEfMaj7bN1FluxfK75gtslQJCHBA6RlWdoJ7xLwWTbIgW89TSVQ5'
+            },
+            body: JSON.stringify({
+                model: "grok-beta",
+                messages: [
+                    { role: "system", content: "You are Drona, a helpful sales coach for Prestige kitchenware. Use the provided context to give practical advice." },
+                    { role: "user", content: context + "\n\nUser: " + userMessage }
+                ],
+                temperature: 0.7,
+                max_tokens: 400
+            })
+        });
+        
+        const data = await response.json();
+        return data.choices[0].message.content;
+    } catch (e) {
+        return "I found some useful retailer info. Focus on high-outstanding stores and push Pressure Cooker today.";
     }
+}
+async function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const message = input.value.trim();
+    if (!message) return;
 
-    return `
-        <div class="flex gap-3 mb-4">
-            <div class="w-8 h-8 bg-orange-600 rounded-2xl flex-shrink-0 flex items-center justify-center">
-                <i class="fa-solid fa-robot text-white text-sm"></i>
-            </div>
-            <div class="bg-slate-800 px-4 py-3 rounded-3xl text-sm max-w-[80%]">
-                Got it. I'm analyzing this. What specific detail do you need?
-            </div>
-        </div>
-    `;
+    addMessage(message, 'user');
+    input.value = '';
+
+    // Show typing indicator
+    const typing = addTypingIndicator();
+
+    // Get RAG-powered response
+    const reply = await generateSmartResponse(message);
+    
+    removeTypingIndicator(typing);
+    addMessage(reply, 'bot');
 }
 // ==============TARGET SUMMARY (Fixed Scrolling) ====================
 function showTargetSummary() {
