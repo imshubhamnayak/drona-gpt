@@ -4,10 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drona GPT</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Leaflet CSS (for Strategy X Map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         .tab-active {
             background-color: #334155;
@@ -20,21 +26,16 @@
         .mobile-card:active {
             transform: scale(0.98);
         }
-        .custom-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .custom-scroll::-webkit-scrollbar-thumb {
-            background-color: #475569;
-            border-radius: 20px;
-        }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-200">
 
-    <!-- HEADER -->
+    <!-- ==================== HEADER ==================== -->
     <header class="border-b border-slate-800 bg-slate-900 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 md:px-6">
             <div class="flex items-center justify-between h-16">
+               
+                <!-- Logo -->
                 <div class="flex items-center gap-x-3">
                     <div class="w-9 h-9 bg-orange-600 rounded-2xl flex items-center justify-center">
                         <span class="font-bold text-white text-xl">D</span>
@@ -42,112 +43,119 @@
                     <span class="font-semibold text-xl tracking-tight">Drona GPT</span>
                 </div>
 
+                <!-- Tab Navigation -->
                 <div class="flex items-center bg-slate-800 p-1 rounded-2xl">
-                    <button onclick="switchTab('drona-gpt')" id="tab-drona-gpt"
-                            class="tab-active px-6 py-2 text-sm font-medium flex items-center gap-x-2">
+                    <button onclick="switchTab('drona-gpt')"
+                            id="tab-drona-gpt"
+                            class="tab-active px-5 md:px-6 py-2 text-sm font-medium flex items-center gap-x-2">
                         <i class="fa-solid fa-comments"></i>
-                        <span>Drona GPT</span>
+                        <span class="hidden sm:inline">Drona GPT</span>
                     </button>
-                    <button onclick="switchTab('strategy-x')" id="tab-strategy-x"
-                            class="px-6 py-2 text-sm font-medium flex items-center gap-x-2 hover:bg-slate-700 rounded-2xl transition-all">
+                    <button onclick="switchTab('strategy-x')"
+                            id="tab-strategy-x"
+                            class="px-5 md:px-6 py-2 text-sm font-medium flex items-center gap-x-2 hover:bg-slate-700 rounded-2xl transition-all">
                         <i class="fa-solid fa-map-marked"></i>
-                        <span>Strategy X</span>
+                        <span class="hidden sm:inline">Strategy X</span>
                     </button>
                 </div>
 
+                <!-- User Info -->
                 <div id="user-info" class="flex items-center gap-x-3"></div>
             </div>
         </div>
     </header>
+<!-- ==================== DRONA GPT VIEW ==================== -->
+<div id="drona-gpt-view" class="max-w-2xl mx-auto p-4 md:p-6 flex flex-col h-screen">
 
-    <!-- DRONA GPT VIEW -->
-    <div id="drona-gpt-view" class="max-w-2xl mx-auto p-4 md:p-6 flex flex-col h-screen">
-
-        <!-- Header -->
-        <div class="mb-6 flex-shrink-0">
-            <h2 class="text-3xl font-semibold">Good morning, Ramesh</h2>
-            <p class="text-slate-400 mt-1">Ready for today's field visits?</p>
-        </div>
-
-        <!-- Quick Actions - Balanced 2x2 -->
-        <div class="grid grid-cols-2 gap-4 mb-6 flex-shrink-0">
-            <button onclick="openRetailerSearch()" class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
-                <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 bg-orange-600/20 rounded-2xl flex items-center justify-center">
-                        <i class="fa-solid fa-search text-orange-400 text-xl"></i>
-                    </div>
-                    <div>
-                        <div class="font-semibold">Search Retailer</div>
-                        <div class="text-xs text-slate-400">Find details quickly</div>
-                    </div>
-                </div>
-            </button>
-
-            <button onclick="showPublishedPlan()" class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
-                <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 bg-emerald-600/20 rounded-2xl flex items-center justify-center">
-                        <i class="fa-solid fa-calendar-check text-emerald-400 text-xl"></i>
-                    </div>
-                    <div>
-                        <div class="font-semibold">Today's Plan</div>
-                        <div class="text-xs text-emerald-400">Auto-published by Admin</div>
-                    </div>
-                </div>
-            </button>
-
-            <button onclick="openSKUIntelligence()" class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
-                <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 bg-orange-600/20 rounded-2xl flex items-center justify-center">
-                        <i class="fa-solid fa-tags text-orange-400 text-xl"></i>
-                    </div>
-                    <div>
-                        <div class="font-semibold">SKU Intelligence</div>
-                        <div class="text-xs text-slate-400">Pricing & talking points</div>
-                    </div>
-                </div>
-            </button>
-
-            <button onclick="showTargetSummary()" class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
-                <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 bg-orange-600/20 rounded-2xl flex items-center justify-center">
-                        <i class="fa-solid fa-chart-line text-orange-400 text-xl"></i>
-                    </div>
-                    <div>
-                        <div class="font-semibold">Target</div>
-                        <div class="text-xs text-slate-400">View your reach</div>
-                    </div>
-                </div>
-            </button>
-        </div>
-
-        <!-- Chat Section - Much Taller -->
-        <div class="bg-slate-900 border border-slate-700 rounded-3xl p-5 flex flex-col flex-1 min-h-0">
-            <div class="flex items-center gap-x-3 mb-4 flex-shrink-0">
-                <div class="w-10 h-10 bg-orange-600 rounded-2xl flex items-center justify-center">
-                    <i class="fa-solid fa-robot text-white"></i>
-                </div>
-                <div>
-                    <div class="font-semibold">Drona GPT</div>
-                    <div class="text-xs text-emerald-400">Online • Always Ready</div>
-                </div>
-            </div>
-
-            <div id="chat-messages" class="flex-1 overflow-y-auto mb-4 space-y-4 pr-2 custom-scroll" style="min-height: 380px;">
-                <!-- Messages populated by JS -->
-            </div>
-
-            <div class="flex gap-2 flex-shrink-0">
-                <input id="chat-input" type="text" placeholder="Ask about retailers, targets, SKUs..." 
-                       class="flex-1 bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-sm focus:outline-none"
-                       onkeypress="if(event.key === 'Enter') sendMessage()">
-                <button onclick="sendMessage()" class="px-6 bg-orange-600 hover:bg-orange-500 rounded-2xl">
-                    <i class="fa-solid fa-paper-plane"></i>
-                </button>
-            </div>
-        </div>
+    <!-- Header -->
+    <div class="mb-5 flex-shrink-0">
+        <h2 class="text-3xl font-semibold">Good morning, Ramesh</h2>
+        <p class="text-slate-400 mt-1">Ready for today's field visits?</p>
     </div>
 
-<!-- ==================== STRATEGY X VIEW ==================== -->
+    <!-- Quick Actions -->
+    <div class="grid grid-cols-2 gap-4 mb-5 flex-shrink-0">
+        <button onclick="openRetailerSearch()" class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 bg-orange-600/20 rounded-2xl flex items-center justify-center">
+                    <i class="fa-solid fa-search text-orange-400 text-xl"></i>
+                </div>
+                <div>
+                    <div class="font-semibold">Search Retailer</div>
+                    <div class="text-xs text-slate-400">Find details quickly</div>
+                </div>
+            </div>
+        </button>
+
+        <button onclick="showPublishedPlan()" class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 bg-emerald-600/20 rounded-2xl flex items-center justify-center">
+                    <i class="fa-solid fa-calendar-check text-emerald-400 text-xl"></i>
+                </div>
+                <div>
+                    <div class="font-semibold">Today's Plan</div>
+                    <div class="text-xs text-emerald-400">Auto-published by Admin</div>
+                </div>
+            </div>
+        </button>
+
+        <button onclick="openSKUIntelligence()" class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 bg-orange-600/20 rounded-2xl flex items-center justify-center">
+                    <i class="fa-solid fa-tags text-orange-400 text-xl"></i>
+                </div>
+                <div>
+                    <div class="font-semibold">SKU Intelligence</div>
+                    <div class="text-xs text-slate-400">Pricing & talking points</div>
+                </div>
+            </div>
+        </button>
+
+        <button onclick="showTargetSummary()" class="mobile-card bg-slate-900 hover:bg-slate-800 border border-slate-700 p-5 rounded-3xl text-left">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 bg-orange-600/20 rounded-2xl flex items-center justify-center">
+                    <i class="fa-solid fa-chart-line text-orange-400 text-xl"></i>
+                </div>
+                <div>
+                    <div class="font-semibold">Target</div>
+                    <div class="text-xs text-slate-400">View your reach</div>
+                </div>
+            </div>
+        </button>
+    </div>
+
+    <!-- Chat Section - EVEN TALLER -->
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl p-5 flex flex-col flex-1 min-h-0" style="min-height: 420px;">
+        
+        <!-- Chat Header -->
+        <div class="flex items-center gap-x-3 mb-4 flex-shrink-0">
+            <div class="w-10 h-10 bg-orange-600 rounded-2xl flex items-center justify-center">
+                <i class="fa-solid fa-robot text-white"></i>
+            </div>
+            <div>
+                <div class="font-semibold">Drona GPT</div>
+                <div class="text-xs text-emerald-400">Online • Always Ready</div>
+            </div>
+        </div>
+
+        <!-- Chat Messages - Maximized Height -->
+        <div id="chat-messages" class="flex-1 overflow-y-auto mb-4 space-y-4 pr-2 custom-scroll" style="min-height: 320px;">
+            <!-- Welcome message added by JS -->
+        </div>
+
+        <!-- Input -->
+        <div class="flex gap-2 flex-shrink-0">
+            <input id="chat-input" type="text" placeholder="Ask about any retailer, target or SKU..." 
+                   class="flex-1 bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-sm focus:outline-none"
+                   onkeypress="if(event.key === 'Enter') sendMessage()">
+            <button onclick="sendMessage()" 
+                    class="px-6 bg-orange-600 hover:bg-orange-500 rounded-2xl">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
+    <!-- ==================== STRATEGY X VIEW ==================== -->
     <div id="strategy-x-view" class="hidden max-w-7xl mx-auto p-6">
         <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-6 gap-4">
             <div>
@@ -199,11 +207,17 @@
              class="hidden mt-6 bg-slate-900 border border-slate-700 rounded-3xl p-6 max-w-2xl mx-auto"></div>
     </div>
 
-
-    <!-- Scripts -->
+    <!-- ==================== SCRIPTS ==================== -->
+    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Leaflet JS (for Map) -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Main App Logic -->
     <script src="js/main.js"></script>
+    
+    <!-- Strategy X Logic -->
     <script src="js/strategy-x.js"></script>
 </body>
 </html>
