@@ -98,50 +98,7 @@ function switchTab(tab) {
     }
 }
 
-// ==================== RETAILER FUNCTIONS ====================
-function openRetailerSearch() {
-    // ... (your existing function - keep it as is)
-}
 
-function filterRetailers(query) {
-    // ... (your existing function - keep it as is)
-}
-
-function showQuickView(retailerId) {
-    // ... (your existing function - keep it as is)
-}
-
-function setChatContextFromQuickView(retailerId) {
-    // ... (your existing function - keep it as is)
-}
-
-// ==================== CHAT ====================
-function sendMessage() {
-    // ... (your existing function - keep it as is)
-}
-
-function generateSmartResponse(message) {
-    // ... (your existing function - keep it as is)
-}
-
-// ==================== TARGET SUMMARY ====================
-function showTargetSummary() {
-    // ... (the latest version I gave you earlier - keep it)
-}
-
-// ==================== SKU INTELLIGENCE ====================
-function openSKUIntelligence() {
-    // ... (the latest version I gave you - keep it)
-}
-
-// Initialize SKU Data
-allSKUs = [
-    { name: "Prestige Pressure Cooker 5L", mrp: 2499, ecomPrice: 1899, talkingPoint: "High demand item." },
-    { name: "Prestige Mixer Grinder 750W", mrp: 4299, ecomPrice: 3199, talkingPoint: "Push combo offer." }
-];
-
-// ==================== AUTO INITIALIZE ====================
-window.onload = initializeApp;
 
 // ==================== RETAILER FUNCTIONS ====================
 function openRetailerSearch() {
