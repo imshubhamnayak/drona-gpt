@@ -20,7 +20,7 @@ async function initializeApp() {
         strategyView.classList.add('hidden');
     }
 
-    // Initialize welcome chat message
+    // Welcome message
     const chatMessages = document.getElementById('chat-messages');
     if (chatMessages) {
         chatMessages.innerHTML = `
@@ -44,6 +44,7 @@ async function loadRetailersFromJSON() {
         const response = await fetch('data/retailers.json');
         const data = await response.json();
         retailers = data.retailers || [];
+        console.log(`%c✅ Loaded ${retailers.length} retailers from JSON`, 'color:#22c55e');
     } catch (err) {
         console.error("Failed to load retailers.json", err);
         retailers = [];
@@ -97,8 +98,6 @@ function switchTab(tab) {
         }
     }
 }
-
-
 
 // ==================== RETAILER FUNCTIONS ====================
 function openRetailerSearch() {
@@ -160,28 +159,13 @@ function showQuickView(retailerId) {
             </div>
 
             <div class="space-y-4">
-                <!-- Payment Summary -->
                 <div class="bg-slate-800 p-4 rounded-2xl">
                     <div class="text-xs text-slate-400 mb-1">OUTSTANDING</div>
-                    <div class="text-2xl font-semibold">₹${retailer.outstanding.toLocaleString()}</div>
-                    <div class="text-sm ${retailer.paymentStatus.includes('Overdue') ? 'text-red-400' : 'text-emerald-400'}">${retailer.paymentStatus}</div>
+                    <div class="text-2xl font-semibold">₹${(retailer.outstanding || 0).toLocaleString()}</div>
                 </div>
-
-                <!-- SKU Pattern -->
-                <div>
-                    <div class="text-xs text-slate-400 mb-2">SKU PATTERN RECOGNITION</div>
-                    ${retailer.skuPatterns.map(p => `
-                        <div class="bg-slate-800 p-3 rounded-2xl mb-2">
-                            <div class="font-medium">${p.sku}</div>
-                            <div class="text-sm ${p.status === 'Declining' || p.status === 'At Risk' ? 'text-red-400' : 'text-emerald-400'}">${p.status}</div>
-                            <div class="text-xs text-slate-400 mt-1">${p.insight}</div>
-                        </div>
-                    `).join('')}
-                </div>
-
                 <div class="flex gap-3">
                     <button onclick="setChatContextFromQuickView(${retailer.id}); this.closest('.fixed').remove();" 
-                            class="flex-1 py-3 bg-orange-600 rounded-2xl font-medium">Talk to Drona about this retailer</button>
+                            class="flex-1 py-3 bg-orange-600 rounded-2xl font-medium">Talk to Drona</button>
                     <button onclick="this.closest('.fixed').remove()" 
                             class="flex-1 py-3 bg-slate-700 rounded-2xl">Close</button>
                 </div>
@@ -208,7 +192,6 @@ function setChatContextFromQuickView(retailerId) {
         `;
     }
     
-    // Auto respond with context
     setTimeout(() => {
         const response = generateSmartResponse(`Tell me about ${retailer.name}`);
         if (chatMessages) {
@@ -251,37 +234,25 @@ function generateSmartResponse(message) {
                     <i class="fa-solid fa-robot text-white text-sm"></i>
                 </div>
                 <div class="bg-slate-800 px-4 py-3 rounded-3xl text-sm max-w-[80%]">
-                    ${currentContextRetailer.name} has ₹${currentContextRetailer.outstanding} outstanding. 
-                    Their ${currentContextRetailer.skuPatterns[0]?.sku} is ${currentContextRetailer.skuPatterns[0]?.status.toLowerCase()}.
+                    ${currentContextRetailer.name} has ₹${currentContextRetailer.outstanding} outstanding.
                 </div>
             </div>
         `;
     }
     
-    if (lowerMsg.includes('outstanding') || lowerMsg.includes('payment')) {
-        return `
-            <div class="flex gap-3 mb-4">
-                <div class="w-8 h-8 bg-orange-600 rounded-2xl flex-shrink-0 flex items-center justify-center">
-                    <i class="fa-solid fa-robot text-white text-sm"></i>
-                </div>
-                <div class="bg-slate-800 px-4 py-3 rounded-3xl text-sm max-w-[80%]">
-                    Sharma Kirana has the highest outstanding at ₹24,500 (Overdue 12 days). Would you like me to suggest a recovery script?
-                </div>
-            </div>
-        `;
-    }
-
     return `
         <div class="flex gap-3 mb-4">
             <div class="w-8 h-8 bg-orange-600 rounded-2xl flex-shrink-0 flex items-center justify-center">
                 <i class="fa-solid fa-robot text-white text-sm"></i>
             </div>
             <div class="bg-slate-800 px-4 py-3 rounded-3xl text-sm max-w-[80%]">
-                Got it. I'm analyzing this. What specific detail do you need?
+                Got it. What specific detail do you need?
             </div>
         </div>
     `;
 }
+
+// ==================== TARGET SUMMARY ====================
 function showTargetSummary() {
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4';
@@ -295,11 +266,23 @@ function showTargetSummary() {
 
             <div class="flex-1 overflow-y-auto p-6 space-y-6">
                 <div class="bg-slate-800 rounded-3xl p-6">
-                    ${getOverallTargetHTML()}
+                    <div class="flex justify-between mb-3">
+                        <div>
+                            <div class="text-sm text-slate-400">ANNUAL TARGET</div>
+                            <div class="text-3xl font-semibold">₹32.5 Cr / ₹50 Cr</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-emerald-400 text-2xl font-medium">65%</div>
+                            <div class="text-sm text-slate-400">1625 / 2500 Pressure Cookers</div>
+                        </div>
+                    </div>
+                    <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-3 bg-emerald-500 rounded-full w-[65%]"></div>
+                    </div>
                 </div>
 
                 <div>
-                    <div class="text-sm text-slate-400 mb-3">RETAILER SCHEME PROGRESS (Annual - 500 pcs target each)</div>
+                    <div class="text-sm text-slate-400 mb-3">RETAILER SCHEME PROGRESS</div>
                     <div id="retailer-target-list" class="space-y-3"></div>
                 </div>
             </div>
@@ -313,6 +296,7 @@ function showTargetSummary() {
     document.body.appendChild(modal);
     renderAllRetailers();
 }
+
 function renderAllRetailers() {
     const container = document.getElementById('retailer-target-list');
     if (!container) return;
@@ -335,7 +319,7 @@ function renderAllRetailers() {
                  class="bg-slate-800 p-4 rounded-2xl cursor-pointer hover:bg-slate-700 flex justify-between items-center">
                 <div class="flex-1 min-w-0">
                     <div class="font-medium truncate">${retailer.name}</div>
-                    <div class="text-xs text-slate-400">Target: 500 pcs</div>
+                    <div class="text-xs text-slate-400">${retailer.area}</div>
                 </div>
                 <div class="text-right flex-shrink-0">
                     <div class="font-semibold">${achieved} / 500</div>
