@@ -1,12 +1,12 @@
-// ==================== DRONA GPT - COMPLETE REFACTORED MAIN.JS ====================
+// ==================== DRONA GPT - FULL COMPLETE MAIN.JS ====================
 
 let retailers = [];
 let currentContextRetailer = null;
 let allSKUs = [];
 
-// Sample fallback data
+// Sample fallback
 const sampleRetailers = [
-    { id: 1, name: "Sharma Kirana Store", area: "JP Nagar 1st Phase", outstanding: 24500, paymentStatus: "Overdue 12 days", skuPatterns: [{ sku: "Pressure Cooker 5L", status: "Declining", insight: "Orders dropped 35%" }] },
+    { id: 1, name: "Sharma Kirana Store", area: "JP Nagar 1st Phase", outstanding: 24500, paymentStatus: "Overdue 12 days", skuPatterns: [{ sku: "Pressure Cooker 5L", status: "Declining" }] },
     { id: 2, name: "Gupta General Stores", area: "JP Nagar 2nd Phase", outstanding: 8700, paymentStatus: "Good", skuPatterns: [{ sku: "Mixer Grinder", status: "Growing" }] },
     { id: 3, name: "Lakshmi Provision Store", area: "JP Nagar 3rd Phase", outstanding: 15200, paymentStatus: "Overdue", skuPatterns: [{ sku: "Non-Stick Pan", status: "At Risk" }] }
 ];
@@ -17,14 +17,12 @@ async function loadRetailers() {
         const res = await fetch('data/retailers.json');
         const data = await res.json();
         retailers = data.retailers || sampleRetailers;
-        console.log(`✅ Loaded ${retailers.length} retailers`);
     } catch (e) {
-        console.error("JSON failed, using sample", e);
         retailers = sampleRetailers;
     }
 }
 
-// Add Message to Chat
+// Add Message
 function addMessage(text, sender) {
     const container = document.getElementById('chat-messages');
     if (!container) return;
@@ -40,18 +38,16 @@ function addMessage(text, sender) {
     container.scrollTop = container.scrollHeight;
 }
 
-// RAG Smart Response
+// RAG Response
 async function generateSmartResponse(message) {
-    let context = "You are Drona, a practical sales coach for Prestige kitchenware.\n\n";
+    let context = "You are Drona, practical sales coach.\n\n";
     const relevant = retailers.filter(r => 
         r.name.toLowerCase().includes(message.toLowerCase()) || 
         r.area.toLowerCase().includes(message.toLowerCase())
-    ).slice(0, 3);
+    );
 
     if (relevant.length > 0) {
-        relevant.forEach(r => {
-            context += `- ${r.name} (${r.area}): Outstanding ₹${r.outstanding}, Status: ${r.paymentStatus}\n`;
-        });
+        context += `Context: ${relevant[0].name} has ₹${relevant[0].outstanding} outstanding.\n`;
     }
 
     try {
@@ -68,15 +64,14 @@ async function generateSmartResponse(message) {
                     { role: "user", content: message }
                 ],
                 temperature: 0.7,
-                max_tokens: 350
+                max_tokens: 300
             })
         });
 
         const data = await res.json();
         return data.choices[0].message.content;
     } catch (e) {
-        console.error(e);
-        return "Focus on high-outstanding retailers like Sharma Kirana. Push Pressure Cooker today.";
+        return "Focus on high-outstanding retailers. Push Pressure Cooker today.";
     }
 }
 
@@ -99,23 +94,58 @@ async function sendMessage() {
     addMessage(reply, 'bot');
 }
 
+// User Header (Ramesh / Admin)
+function updateUserHeader(name, role) {
+    const userInfo = document.getElementById('user-info');
+    if (!userInfo) return;
+
+    const isAdmin = role === 'Owner' || role === 'Admin';
+    userInfo.innerHTML = `
+        <div class="flex items-center gap-x-3 bg-slate-800 px-4 py-1.5 rounded-2xl">
+            <div class="text-right">
+                <div class="font-medium">${name}</div>
+                <div class="text-xs ${isAdmin ? 'text-orange-400' : 'text-blue-400'}">${role}</div>
+            </div>
+            <div class="w-9 h-9 ${isAdmin ? 'bg-orange-600' : 'bg-blue-600'} rounded-2xl flex items-center justify-center">
+                <i class="fa-solid fa-user text-white text-sm"></i>
+            </div>
+        </div>
+    `;
+}
+
+// Tab Switching
+function switchTab(tab) {
+    const dronaView = document.getElementById('drona-gpt-view');
+    const strategyView = document.getElementById('strategy-x-view');
+    const tabDrona = document.getElementById('tab-drona-gpt');
+    const tabStrategy = document.getElementById('tab-strategy-x');
+
+    if (tab === 'drona-gpt') {
+        dronaView.classList.remove('hidden');
+        strategyView.classList.add('hidden');
+        tabDrona.classList.add('tab-active');
+        tabStrategy.classList.remove('tab-active');
+        updateUserHeader('Ramesh', 'Salesman');
+    } else {
+        dronaView.classList.add('hidden');
+        strategyView.classList.remove('hidden');
+        tabDrona.classList.remove('tab-active');
+        tabStrategy.classList.add('tab-active');
+        updateUserHeader('Admin', 'Owner');
+    }
+}
+
 // Target Summary
 function showTargetSummary() {
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4';
     modal.innerHTML = `
         <div class="bg-slate-900 rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
-            <div class="p-6 border-b border-slate-700 flex justify-between items-center">
+            <div class="p-6 border-b flex justify-between">
                 <h3 class="text-2xl font-bold">My Targets 2026</h3>
-                <button onclick="this.closest('.fixed').remove()" class="text-3xl text-slate-400">×</button>
+                <button onclick="this.closest('.fixed').remove()" class="text-3xl">×</button>
             </div>
-            <div class="flex-1 overflow-y-auto p-6 space-y-6">
-                <div class="bg-slate-800 p-6 rounded-3xl">
-                    <div class="text-sm text-slate-400">ANNUAL TARGET</div>
-                    <div class="text-3xl font-bold">₹32.5 Cr / ₹50 Cr (65%)</div>
-                </div>
-                <div id="retailer-target-list" class="space-y-3"></div>
-            </div>
+            <div class="flex-1 overflow-y-auto p-6" id="target-content"></div>
         </div>
     `;
     document.body.appendChild(modal);
@@ -123,10 +153,10 @@ function showTargetSummary() {
 }
 
 function renderAllRetailers() {
-    const container = document.getElementById('retailer-target-list');
+    const container = document.getElementById('target-content');
     if (!container) return;
 
-    let html = '';
+    let html = '<div class="space-y-4">';
     retailers.forEach(r => {
         html += `
             <div onclick="showQuickView(${r.id}); this.closest('.fixed').remove()" class="bg-slate-800 p-4 rounded-2xl cursor-pointer hover:bg-slate-700">
@@ -143,6 +173,7 @@ function renderAllRetailers() {
             </div>
         `;
     });
+    html += '</div>';
     container.innerHTML = html;
 }
 
@@ -154,11 +185,7 @@ function openSKUIntelligence() {
         <div class="bg-slate-900 rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
             <div class="p-6 border-b flex justify-between">
                 <h3 class="text-2xl font-bold">SKU Intelligence</h3>
-                <button onclick="this.closest('.fixed').remove()" class="text-3xl text-slate-400">×</button>
-            </div>
-            <div class="p-6 border-b">
-                <input type="text" id="sku-search" placeholder="Search SKU..." 
-                       class="w-full bg-slate-800 rounded-2xl px-5 py-3" onkeyup="filterSKUs(this.value)">
+                <button onclick="this.closest('.fixed').remove()" class="text-3xl">×</button>
             </div>
             <div class="flex-1 overflow-y-auto p-6" id="sku-list"></div>
         </div>
@@ -167,12 +194,12 @@ function openSKUIntelligence() {
     renderSKUs();
 }
 
-function renderSKUs(filtered = null) {
+function renderSKUs() {
     const container = document.getElementById('sku-list');
-    const skus = filtered || allSKUs;
-    let html = '';
+    if (!container) return;
 
-    skus.forEach(sku => {
+    let html = '';
+    allSKUs.forEach(sku => {
         html += `
             <div class="bg-slate-800 p-5 rounded-3xl mb-4">
                 <div class="font-semibold">${sku.name}</div>
@@ -181,56 +208,34 @@ function renderSKUs(filtered = null) {
             </div>
         `;
     });
-    container.innerHTML = html || '<div class="text-center py-12 text-slate-400">No SKUs found</div>';
-}
-
-function filterSKUs(query) {
-    const filtered = allSKUs.filter(s => s.name.toLowerCase().includes(query.toLowerCase()));
-    renderSKUs(filtered);
+    container.innerHTML = html;
 }
 
 // Show Quick View
 function showQuickView(id) {
     const retailer = retailers.find(r => r.id === id);
     if (!retailer) return;
-
     currentContextRetailer = retailer;
-    alert(`Quick View for ${retailer.name}\nOutstanding: ₹${retailer.outstanding}\nStatus: ${retailer.paymentStatus}`);
+    alert(`Quick View:\n${retailer.name}\nOutstanding: ₹${retailer.outstanding}`);
 }
 
-// Tab Switching
-function switchTab(tab) {
-    const dronaView = document.getElementById('drona-gpt-view');
-    const strategyView = document.getElementById('strategy-x-view');
-
-    if (tab === 'strategy-x') {
-        dronaView.classList.add('hidden');
-        strategyView.classList.remove('hidden');
-    } else {
-        dronaView.classList.remove('hidden');
-        strategyView.classList.add('hidden');
-    }
-}
-
-// Initialize App
+// Initialize
 async function initializeApp() {
     console.log("%c[Drona GPT] Initializing...", "color:#22c55e");
-    
     await loadRetailers();
 
     allSKUs = [
-        { name: "Prestige Pressure Cooker 5L", mrp: 2499, ecomPrice: 1899, talkingPoint: "High demand item. Good margin." },
-        { name: "Prestige Mixer Grinder", mrp: 4299, ecomPrice: 3199, talkingPoint: "Push combo offer." },
-        { name: "Prestige Non-Stick Pan", mrp: 1299, ecomPrice: 899, talkingPoint: "Best margin product." }
+        { name: "Prestige Pressure Cooker 5L", mrp: 2499, ecomPrice: 1899, talkingPoint: "High demand item." },
+        { name: "Prestige Mixer Grinder", mrp: 4299, ecomPrice: 3199, talkingPoint: "Push combo offer." }
     ];
 
-    addMessage("Hi Ramesh! How can I help you today? Ask about any retailer, SKU, or plan.", 'bot');
-    console.log("%c✅ Drona GPT Ready", "color:lime");
+    addMessage("Hi Ramesh! How can I help you today?", 'bot');
+    console.log("%c✅ Ready", "color:lime");
 }
 
 window.onload = initializeApp;
 
-// Expose all functions globally for onclick handlers
+// Expose all functions
 window.sendMessage = sendMessage;
 window.showTargetSummary = showTargetSummary;
 window.openSKUIntelligence = openSKUIntelligence;
