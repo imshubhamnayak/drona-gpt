@@ -3,30 +3,37 @@
 let retailers = [];
 let currentContextRetailer = null;
 
-// Sample data (replace with fetch from data/retailers.json later)
-const sampleRetailers = [
-    { id: 1, name: "Sharma Kirana Store", area: "JP Nagar 1st Phase", phone: "9876543210", outstanding: 24500, paymentStatus: "Overdue 12 days", skuPatterns: [{ sku: "Prestige Pressure Cooker 5L", status: "Declining", insight: "Orders dropped 35% last month" }], recentOrders: [{ date: "2026-06-10", amount: 12500 }] },
-    { id: 2, name: "Gupta General Stores", area: "JP Nagar 2nd Phase", phone: "9876543211", outstanding: 8700, paymentStatus: "Due in 5 days", skuPatterns: [{ sku: "Prestige Mixer Grinder", status: "Growing", insight: "Strong repeat orders" }], recentOrders: [{ date: "2026-06-11", amount: 5600 }] },
-    { id: 3, name: "Lakshmi Provision Store", area: "JP Nagar 3rd Phase", phone: "9876543212", outstanding: 15200, paymentStatus: "Paid on time", skuPatterns: [{ sku: "Prestige Non-Stick Pan", status: "At Risk", insight: "No order in 18 days" }], recentOrders: [] }
-];
-
-function initializeApp() {
+async function initializeApp() {
     console.log('%c[Drona GPT] Initializing...', 'color:#22c55e');
     
-    // Load sample data
-    retailers = sampleRetailers;
+    // Load real data from JSON
+    await loadRetailersFromJSON();
 
-    // Set default user as Ramesh (Salesman)
+    // Set default user
     updateUserHeader('Ramesh', 'Salesman');
 
-    // Show Drona GPT view by default
+    // Default view
     const dronaView = document.getElementById('drona-gpt-view');
     const strategyView = document.getElementById('strategy-x-view');
-    
     if (dronaView && strategyView) {
         dronaView.classList.remove('hidden');
         strategyView.classList.add('hidden');
     }
+
+    console.log(`%cLoaded ${retailers.length} retailers from JSON`, 'color:#22c55e');
+}
+
+async function loadRetailersFromJSON() {
+    try {
+        const response = await fetch('data/retailers.json');
+        const data = await response.json();
+        retailers = data.retailers || [];
+        console.log(`%c✅ Successfully loaded ${retailers.length} retailers`, 'color:#22c55e');
+    } catch (err) {
+        console.error("Failed to load retailers.json", err);
+        retailers = []; // fallback
+    }
+}
 
     // Initialize chat with welcome message
     const chatMessages = document.getElementById('chat-messages');
@@ -278,7 +285,6 @@ function generateSmartResponse(message) {
         </div>
     `;
 }
-// ==============TARGET SUMMARY (Fixed Scrolling) ====================
 function showTargetSummary() {
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4';
@@ -287,29 +293,14 @@ function showTargetSummary() {
         <div class="bg-slate-900 rounded-3xl w-full max-w-2xl max-h-[92vh] flex flex-col overflow-hidden">
             <div class="flex justify-between items-center p-6 border-b border-slate-700 flex-shrink-0">
                 <h3 class="font-semibold text-2xl">My Targets 2026</h3>
-                <button onclick="this.closest('.fixed').remove()" 
-                        class="text-slate-400 hover:text-white text-3xl leading-none">×</button>
+                <button onclick="this.closest('.fixed').remove()" class="text-slate-400 hover:text-white text-3xl">×</button>
             </div>
 
             <div class="flex-1 overflow-y-auto p-6 space-y-6">
-                <!-- Overall Target -->
                 <div class="bg-slate-800 rounded-3xl p-6">
-                    <div class="flex justify-between mb-3">
-                        <div>
-                            <div class="text-sm text-slate-400">ANNUAL TARGET</div>
-                            <div class="text-3xl font-semibold">₹32.5 Cr / ₹50 Cr</div>
-                        </div>
-                        <div class="text-right">
-                            <div class="text-emerald-400 text-2xl font-medium">65%</div>
-                            <div class="text-sm text-slate-400">1625 / 2500 Pressure Cookers</div>
-                        </div>
-                    </div>
-                    <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
-                        <div class="h-3 bg-emerald-500 rounded-full w-[65%]"></div>
-                    </div>
+                    ${getOverallTargetHTML()}
                 </div>
 
-                <!-- Retailer-wise Progress -->
                 <div>
                     <div class="text-sm text-slate-400 mb-3">RETAILER SCHEME PROGRESS (Annual - 500 pcs target each)</div>
                     <div id="retailer-target-list" class="space-y-3"></div>
@@ -317,10 +308,7 @@ function showTargetSummary() {
             </div>
 
             <div class="p-6 border-t border-slate-700 flex-shrink-0">
-                <button onclick="this.closest('.fixed').remove()" 
-                        class="w-full py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium">
-                    Close
-                </button>
+                <button onclick="this.closest('.fixed').remove()" class="w-full py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium">Close</button>
             </div>
         </div>
     `;
@@ -330,20 +318,20 @@ function showTargetSummary() {
 }
 function renderAllRetailers() {
     const container = document.getElementById('retailer-target-list');
-    if (!container || !retailers || retailers.length === 0) {
-        container.innerHTML = `<div class="text-slate-400 text-center py-8">No retailer data available</div>`;
+    if (!container) return;
+
+    if (!retailers || retailers.length === 0) {
+        container.innerHTML = `<div class="text-slate-400 text-center py-8">No retailer data loaded</div>`;
         return;
     }
 
     let html = '';
 
     retailers.forEach(retailer => {
-        // Calculate progress (randomized between 15-95% for demo)
-        const progress = Math.floor(15 + Math.random() * 80);
+        const progress = Math.max(15, 100 - Math.floor((retailer.outstanding || 0) / 800));
         const achieved = Math.floor((progress / 100) * 500);
-        
-        let colorClass = progress >= 70 ? 'emerald' : progress >= 40 ? 'orange' : 'red';
-        let status = progress >= 70 ? 'On Track' : progress >= 40 ? 'Average' : 'At Risk';
+        const colorClass = progress >= 70 ? 'emerald' : progress >= 40 ? 'orange' : 'red';
+        const status = progress >= 70 ? 'On Track' : progress >= 40 ? 'Average' : 'At Risk';
 
         html += `
             <div onclick="showQuickView(${retailer.id}); this.closest('.fixed').remove();" 
