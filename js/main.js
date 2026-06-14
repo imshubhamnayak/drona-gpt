@@ -4,27 +4,22 @@ let retailers = [];
 let currentContextRetailer = null;
 let allSKUs = [];
 
-// ==================== INITIALIZE APP ====================
+// ==================== INITIALIZE ====================
 async function initializeApp() {
     console.log('%c[Drona GPT] Initializing...', 'color:#22c55e');
     
     await loadRetailersFromJSON();
     
-    // Make sure user header is updated
     updateUserHeader('Ramesh', 'Salesman');
     
-    // Default view
-    const dronaView = document.getElementById('drona-gpt-view');
-    const strategyView = document.getElementById('strategy-x-view');
-    if (dronaView && strategyView) {
-        dronaView.classList.remove('hidden');
-        strategyView.classList.add('hidden');
-    }
+    // Show Drona GPT by default
+    document.getElementById('drona-gpt-view').classList.remove('hidden');
+    document.getElementById('strategy-x-view').classList.add('hidden');
 
-    // Welcome chat message
-    const chatMessages = document.getElementById('chat-messages');
-    if (chatMessages) {
-        chatMessages.innerHTML = `
+    // Welcome message
+    const chat = document.getElementById('chat-messages');
+    if (chat) {
+        chat.innerHTML = `
             <div class="flex gap-3 mb-4">
                 <div class="w-8 h-8 bg-orange-600 rounded-2xl flex-shrink-0 flex items-center justify-center">
                     <i class="fa-solid fa-robot text-white text-sm"></i>
@@ -39,25 +34,21 @@ async function initializeApp() {
     console.log(`%cLoaded ${retailers.length} retailers`, 'color:#22c55e');
 }
 
-// Load retailers from JSON
 async function loadRetailersFromJSON() {
     try {
         const response = await fetch('data/retailers.json');
         const data = await response.json();
         retailers = data.retailers || [];
-        console.log(`%c✅ Loaded ${retailers.length} retailers from JSON`, 'color:#22c55e');
     } catch (err) {
         console.error("Failed to load retailers.json", err);
         retailers = [];
     }
 }
 
+// ==================== UI FUNCTIONS ====================
 function updateUserHeader(name, role) {
     const userInfo = document.getElementById('user-info');
-    if (!userInfo) {
-        console.error("user-info element not found");
-        return;
-    }
+    if (!userInfo) return;
 
     const isAdmin = role === 'Owner' || role === 'Admin';
     userInfo.innerHTML = `
@@ -79,27 +70,18 @@ function switchTab(tab) {
     const tabDrona = document.getElementById('tab-drona-gpt');
     const tabStrategy = document.getElementById('tab-strategy-x');
 
-    if (!dronaView || !strategyView) return;
-
     if (tab === 'drona-gpt') {
         dronaView.classList.remove('hidden');
         strategyView.classList.add('hidden');
         tabDrona.classList.add('tab-active');
         tabStrategy.classList.remove('tab-active');
         updateUserHeader('Ramesh', 'Salesman');
-    } else if (tab === 'strategy-x') {
+    } else {
         dronaView.classList.add('hidden');
         strategyView.classList.remove('hidden');
         tabDrona.classList.remove('tab-active');
         tabStrategy.classList.add('tab-active');
         updateUserHeader('Admin', 'Owner');
-
-        if (window.initializeStrategyX && !window.strategyXInitialized) {
-            setTimeout(() => {
-                window.initializeStrategyX();
-                window.strategyXInitialized = true;
-            }, 300);
-        }
     }
 }
 
