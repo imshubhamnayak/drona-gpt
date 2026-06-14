@@ -1,7 +1,6 @@
-// ==================== STRATEGY X - 200 RETAILERS + GEO DRAFTING ====================
+// ==================== STRATEGY X - FIXED VERSION ====================
 
 let map = null;
-let territories = [];
 let allRetailers = [];
 window.strategyXInitialized = false;
 
@@ -35,14 +34,13 @@ function initializeMap() {
 function addTerritoriesToMap() {
     if (!map || !allRetailers.length) return;
 
-    // Group retailers by area for map
     const areaMap = {};
     allRetailers.forEach(r => {
         if (!areaMap[r.area]) areaMap[r.area] = [];
         areaMap[r.area].push(r);
     });
 
-    Object.keys(areaMap).forEach((areaName, index) => {
+    Object.keys(areaMap).forEach(areaName => {
         const retailersInArea = areaMap[areaName];
         const avgLat = retailersInArea.reduce((sum, r) => sum + (r.lat || 12.91), 0) / retailersInArea.length;
         const avgLng = retailersInArea.reduce((sum, r) => sum + (r.lng || 77.58), 0) / retailersInArea.length;
@@ -79,28 +77,20 @@ function showTerritoryDetails(areaName) {
     panel.classList.remove('hidden');
 }
 
-// ==================== AUTO DRAFTING LOGIC (60% ordering + 40% vicinity) ====================
 function createFocusPlanForArea(areaName) {
     const retailersInArea = allRetailers.filter(r => r.area === areaName);
-    
-    // 60% ordering retailers
-    const orderingRetailers = retailersInArea.filter(r => r.monthlyOrders).slice(0, 6);
-    
-    // 40% nearby (rest from same area)
-    const remaining = retailersInArea.filter(r => !orderingRetailers.includes(r)).slice(0, 4);
+    const ordering = retailersInArea.filter(r => r.monthlyOrders).slice(0, 6);
+    const nearby = retailersInArea.filter(r => !ordering.includes(r)).slice(0, 4);
 
     const draft = {
-        date: "2026-06-15",
         area: areaName,
-        totalVisits: orderingRetailers.length + remaining.length,
-        priorityRetailers: orderingRetailers.map(r => r.name),
-        nearbyRetailers: remaining.map(r => r.name),
-        message: "60% ordering retailers + 40% geographical vicinity"
+        totalVisits: ordering.length + nearby.length,
+        priority: ordering.map(r => r.name),
+        nearby: nearby.map(r => r.name)
     };
 
-    alert(`Draft Focus Plan Created for ${areaName}\n\nTotal Visits: ${draft.totalVisits}\nPriority: ${draft.priorityRetailers.length}\nNearby: ${draft.nearbyRetailers.length}`);
-    console.log("Draft Plan:", draft);
-    return draft;
+    alert(`✅ Draft Focus Plan for ${areaName}\nTotal Visits: ${draft.totalVisits}`);
+    console.log("Draft:", draft);
 }
 
 // ==================== INITIALIZE ====================
@@ -110,10 +100,11 @@ async function initializeStrategyX() {
 
     const listContainer = document.getElementById('territory-list');
     if (listContainer) {
-        listContainer.innerHTML = territories.map(t => `
-            <div onclick="showTerritoryDetails('${t.name}')" 
+        const uniqueAreas = [...new Set(allRetailers.map(r => r.area))];
+        listContainer.innerHTML = uniqueAreas.map(area => `
+            <div onclick="showTerritoryDetails('${area}')" 
                  class="p-3 hover:bg-slate-800 rounded-2xl cursor-pointer text-sm">
-                ${t.name} <span class="text-slate-400">(${t.retailerCount} retailers)</span>
+                ${area} <span class="text-slate-400">(${allRetailers.filter(r => r.area === area).length} retailers)</span>
             </div>
         `).join('');
     }
