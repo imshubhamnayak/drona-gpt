@@ -1,12 +1,12 @@
-// ==================== DRONA GPT - COMPLETE WORKING MAIN.JS ====================
+// ==================== DRONA GPT - COMPLETE REFACTORED MAIN.JS ====================
 
 let retailers = [];
 let currentContextRetailer = null;
 let allSKUs = [];
 
-// Sample data as fallback
+// Sample fallback data
 const sampleRetailers = [
-    { id: 1, name: "Sharma Kirana Store", area: "JP Nagar 1st Phase", outstanding: 24500, paymentStatus: "Overdue 12 days", skuPatterns: [{ sku: "Pressure Cooker 5L", status: "Declining" }] },
+    { id: 1, name: "Sharma Kirana Store", area: "JP Nagar 1st Phase", outstanding: 24500, paymentStatus: "Overdue 12 days", skuPatterns: [{ sku: "Pressure Cooker 5L", status: "Declining", insight: "Orders dropped 35%" }] },
     { id: 2, name: "Gupta General Stores", area: "JP Nagar 2nd Phase", outstanding: 8700, paymentStatus: "Good", skuPatterns: [{ sku: "Mixer Grinder", status: "Growing" }] },
     { id: 3, name: "Lakshmi Provision Store", area: "JP Nagar 3rd Phase", outstanding: 15200, paymentStatus: "Overdue", skuPatterns: [{ sku: "Non-Stick Pan", status: "At Risk" }] }
 ];
@@ -19,12 +19,12 @@ async function loadRetailers() {
         retailers = data.retailers || sampleRetailers;
         console.log(`✅ Loaded ${retailers.length} retailers`);
     } catch (e) {
-        console.error("JSON load failed, using sample");
+        console.error("JSON failed, using sample", e);
         retailers = sampleRetailers;
     }
 }
 
-// Add Message
+// Add Message to Chat
 function addMessage(text, sender) {
     const container = document.getElementById('chat-messages');
     if (!container) return;
@@ -40,16 +40,18 @@ function addMessage(text, sender) {
     container.scrollTop = container.scrollHeight;
 }
 
-// RAG Response
+// RAG Smart Response
 async function generateSmartResponse(message) {
-    let context = "Context: ";
+    let context = "You are Drona, a practical sales coach for Prestige kitchenware.\n\n";
     const relevant = retailers.filter(r => 
         r.name.toLowerCase().includes(message.toLowerCase()) || 
         r.area.toLowerCase().includes(message.toLowerCase())
-    );
+    ).slice(0, 3);
 
     if (relevant.length > 0) {
-        context += `${relevant[0].name} has ₹${relevant[0].outstanding} outstanding. `;
+        relevant.forEach(r => {
+            context += `- ${r.name} (${r.area}): Outstanding ₹${r.outstanding}, Status: ${r.paymentStatus}\n`;
+        });
     }
 
     try {
@@ -62,18 +64,19 @@ async function generateSmartResponse(message) {
             body: JSON.stringify({
                 model: "grok-beta",
                 messages: [
-                    { role: "system", content: "You are Drona, a practical sales coach." },
-                    { role: "user", content: context + message }
+                    { role: "system", content: context },
+                    { role: "user", content: message }
                 ],
                 temperature: 0.7,
-                max_tokens: 300
+                max_tokens: 350
             })
         });
 
         const data = await res.json();
         return data.choices[0].message.content;
     } catch (e) {
-        return "Focus on high-outstanding retailers. Push Pressure Cooker today.";
+        console.error(e);
+        return "Focus on high-outstanding retailers like Sharma Kirana. Push Pressure Cooker today.";
     }
 }
 
@@ -127,7 +130,7 @@ function renderAllRetailers() {
     retailers.forEach(r => {
         html += `
             <div onclick="showQuickView(${r.id}); this.closest('.fixed').remove()" class="bg-slate-800 p-4 rounded-2xl cursor-pointer hover:bg-slate-700">
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between">
                     <div>
                         <div class="font-medium">${r.name}</div>
                         <div class="text-xs text-slate-400">${r.area}</div>
@@ -149,11 +152,11 @@ function openSKUIntelligence() {
     modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4';
     modal.innerHTML = `
         <div class="bg-slate-900 rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
-            <div class="p-6 border-b border-slate-700 flex justify-between">
+            <div class="p-6 border-b flex justify-between">
                 <h3 class="text-2xl font-bold">SKU Intelligence</h3>
                 <button onclick="this.closest('.fixed').remove()" class="text-3xl text-slate-400">×</button>
             </div>
-            <div class="p-6 border-b border-slate-700">
+            <div class="p-6 border-b">
                 <input type="text" id="sku-search" placeholder="Search SKU..." 
                        class="w-full bg-slate-800 rounded-2xl px-5 py-3" onkeyup="filterSKUs(this.value)">
             </div>
@@ -178,7 +181,7 @@ function renderSKUs(filtered = null) {
             </div>
         `;
     });
-    container.innerHTML = html;
+    container.innerHTML = html || '<div class="text-center py-12 text-slate-400">No SKUs found</div>';
 }
 
 function filterSKUs(query) {
@@ -192,7 +195,7 @@ function showQuickView(id) {
     if (!retailer) return;
 
     currentContextRetailer = retailer;
-    alert(`Quick View:\n${retailer.name}\nOutstanding: ₹${retailer.outstanding}\nStatus: ${retailer.paymentStatus}`);
+    alert(`Quick View for ${retailer.name}\nOutstanding: ₹${retailer.outstanding}\nStatus: ${retailer.paymentStatus}`);
 }
 
 // Tab Switching
@@ -209,23 +212,25 @@ function switchTab(tab) {
     }
 }
 
-// Initialize
+// Initialize App
 async function initializeApp() {
     console.log("%c[Drona GPT] Initializing...", "color:#22c55e");
+    
     await loadRetailers();
 
     allSKUs = [
-        { name: "Prestige Pressure Cooker 5L", mrp: 2499, ecomPrice: 1899, talkingPoint: "High demand. Good margin at ₹2199." },
-        { name: "Prestige Mixer Grinder", mrp: 4299, ecomPrice: 3199, talkingPoint: "Push combo offers." }
+        { name: "Prestige Pressure Cooker 5L", mrp: 2499, ecomPrice: 1899, talkingPoint: "High demand item. Good margin." },
+        { name: "Prestige Mixer Grinder", mrp: 4299, ecomPrice: 3199, talkingPoint: "Push combo offer." },
+        { name: "Prestige Non-Stick Pan", mrp: 1299, ecomPrice: 899, talkingPoint: "Best margin product." }
     ];
 
     addMessage("Hi Ramesh! How can I help you today? Ask about any retailer, SKU, or plan.", 'bot');
-    console.log("%c✅ Ready", "color:lime");
+    console.log("%c✅ Drona GPT Ready", "color:lime");
 }
 
 window.onload = initializeApp;
 
-// Global exposure
+// Expose all functions globally for onclick handlers
 window.sendMessage = sendMessage;
 window.showTargetSummary = showTargetSummary;
 window.openSKUIntelligence = openSKUIntelligence;
