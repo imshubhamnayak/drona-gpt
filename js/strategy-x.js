@@ -1,23 +1,12 @@
-// ==================== STRATEGY X - COMPLETE & CLEAN ====================
+// ==================== STRATEGY X - COMPLETE & WORKING WITH RENDER BACKEND ====================
 
 let allRetailers = [];
 let currentMap = null;
 let currentMarkers = [];
 let currentDraftPlan = null;
 
-// ==================== SUPABASE ====================
-let supabaseClient = null;
-
-function initSupabase() {
-    if (supabaseClient) return supabaseClient;
-
-    const supabaseUrl = 'https://tnqtejdulwlnajnaxtyq.supabase.co';
-    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRucXRlamR1bHdsbmFqbmF4dHlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyNjY5OTMsImV4cCI6MjA5Njg0Mjk5M30.f0PWnl0eswhODndtv8Kw6a_A26m2uxIwCnNoDJZQwpk';
-
-    supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
-    console.log("%c✅ Supabase Initialized", "color:#22c55e");
-    return supabaseClient;
-}
+// ==================== RENDER BACKEND URL ====================
+const BACKEND_URL = 'https://YOUR-BACKEND-NAME.onrender.com';   // ← CHANGE THIS TO YOUR RENDER URL
 
 // ==================== LOAD DATA ====================
 async function loadStrategyData() {
@@ -104,7 +93,7 @@ function populateTerritoryList() {
     container.innerHTML = html;
 }
 
-// ==================== FOCUS PLAN WITH DRAFT & DATE ====================
+// ==================== FOCUS PLAN DRAFT + SAVE ====================
 async function createFocusPlan(areaName) {
     if (!areaName) return;
 
@@ -147,53 +136,34 @@ function showDraftModal(draft) {
         <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-auto">
             <div class="p-6">
                 <h2 class="text-2xl font-bold mb-2">Draft Focus Plan</h2>
-                <p class="text-slate-400 mb-6">Area: <strong>${draft.area}</strong></p>
+                <p class="text-slate-400 mb-4">Area: <strong>${draft.area}</strong></p>
 
-                <!-- Stylish Date Picker -->
                 <div class="mb-6">
-                    <label class="block text-sm text-slate-400 mb-2 font-medium">Plan Date</label>
-                    <div class="relative">
-                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-                            <i class="fa-solid fa-calendar-day"></i>
-                        </div>
-                        <input type="date" id="plan-date" 
-                               value="${draft.plan_date || new Date().toISOString().split('T')[0]}"
-                               class="w-full bg-slate-800 border border-slate-600 rounded-2xl pl-11 pr-4 py-4 text-white focus:outline-none focus:border-orange-500 transition-colors">
-                    </div>
+                    <label class="block text-sm text-slate-400 mb-2">Plan Date</label>
+                    <input type="date" id="plan-date" value="${draft.plan_date}" 
+                           class="bg-slate-800 border border-slate-600 rounded-2xl px-4 py-4 w-full text-white">
                 </div>
 
                 <div class="mb-6">
                     <h3 class="font-medium mb-3 text-orange-400">Selected Retailers (${draft.totalRetailers})</h3>
                     <div class="max-h-64 overflow-auto space-y-2 text-sm">
                         ${draft.selectedRetailers.map(r => `
-                            <div class="bg-slate-800 p-3 rounded-2xl flex justify-between items-center">
-                                <div>
-                                    <div class="font-medium">${r.name}</div>
-                                    <div class="text-xs text-slate-400">${r.monthlyOrders ? 'Regular Order Dealer' : 'Vicinity Coverage'}</div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="text-orange-400 font-medium">₹${(r.outstanding || 0).toLocaleString()}</div>
-                                </div>
+                            <div class="bg-slate-800 p-3 rounded-2xl flex justify-between">
+                                <div><div>${r.name}</div><div class="text-xs text-slate-400">${r.monthlyOrders ? 'Regular' : 'Vicinity'}</div></div>
+                                <div class="text-right text-orange-400">₹${(r.outstanding || 0).toLocaleString()}</div>
                             </div>
                         `).join('')}
                     </div>
                 </div>
 
                 <div class="flex gap-4">
-                    <button onclick="closeDraftModal()" 
-                            class="flex-1 py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium transition-colors">
-                        Cancel
-                    </button>
-                    <button onclick="saveDraftToSupabase()" 
-                            class="flex-1 py-4 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium transition-colors">
-                        Save to Supabase
-                    </button>
+                    <button onclick="closeDraftModal()" class="flex-1 py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium">Cancel</button>
+                    <button onclick="saveDraftToSupabase()" class="flex-1 py-4 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">Save to Backend</button>
                 </div>
             </div>
         </div>
     </div>`;
 
-    // Remove old modal
     const old = document.getElementById('draft-modal');
     if (old) old.remove();
 
@@ -209,11 +179,9 @@ function closeDraftModal() {
 
 async function saveDraftToSupabase() {
     if (!currentDraftPlan) return;
-    closeDraftModal();
 
     const selectedDate = document.getElementById('plan-date')?.value || new Date().toISOString().split('T')[0];
-
-    const sb = initSupabase();
+    closeDraftModal();
 
     const plan = {
         active: true,
@@ -233,21 +201,25 @@ async function saveDraftToSupabase() {
     };
 
     try {
-        const { data, error } = await sb
-            .from('focus_plans')
-            .insert([plan])
-            .select();
+        const res = await fetch(`${BACKEND_URL}/focus-plans`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(plan)
+        });
 
-        if (error) throw error;
+        const data = await res.json();
 
-        console.log("%c✅ Plan Saved Successfully!", "color:lime", data[0]);
+        if (!res.ok) throw new Error(data.message || 'Failed');
+
+        console.log("%c✅ Plan Saved to Render Backend!", "color:lime", data);
         alert(`✅ Focus Plan saved for ${selectedDate}!`);
 
     } catch (err) {
-        console.error("Supabase Error Details:", err);
-        alert("Save failed: " + (err.message || JSON.stringify(err)));
+        console.error(err);
+        alert("Save failed: " + err.message);
     }
 }
+
 // ==================== INITIALIZE ====================
 async function initializeStrategyX() {
     await loadStrategyData();
