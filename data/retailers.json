@@ -1,4 +1,5 @@
-[
+{
+  "retailers":[
     {
       "id": 1,
       "name": "Raju Kirana",
@@ -5000,4 +5001,5 @@
       "paymentTrend": "65% on time"
     }
   ]
+}
 
