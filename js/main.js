@@ -93,6 +93,32 @@ async function sendMessage() {
     typing.remove();
     addMessage(reply, 'bot');
 }
+// Dynamic Greeting based on Time
+function setDynamicGreeting() {
+    const mainGreeting = document.getElementById('greeting-main');
+    const subGreeting = document.getElementById('greeting-sub');
+    
+    const hour = new Date().getHours();
+    
+    let mainText = "";
+    let subText = "";
+    
+    if (hour >= 5 && hour < 12) {
+        mainText = "Good morning, Ramesh";
+        subText = "Ready for today's field visits?";
+    } 
+    else if (hour >= 12 && hour < 17) {
+        mainText = "Good afternoon, Ramesh";
+        subText = "Let me help you with anything you need!";
+    } 
+    else {
+        mainText = "Good evening, Ramesh";
+        subText = "Check Today's plan to ensure everything is taken care of";
+    }
+    
+    mainGreeting.textContent = mainText;
+    subGreeting.textContent = subText;
+}
 
 // User Header (Ramesh / Admin)
 function updateUserHeader(name, role) {
@@ -228,7 +254,7 @@ async function initializeApp() {
         { name: "Prestige Pressure Cooker 5L", mrp: 2499, ecomPrice: 1899, talkingPoint: "High demand item." },
         { name: "Prestige Mixer Grinder", mrp: 4299, ecomPrice: 3199, talkingPoint: "Push combo offer." }
     ];
-
+setDynamicGreeting();
     addMessage("Hi Ramesh! How can I help you today?", 'bot');
     console.log("%c✅ Ready", "color:lime");
 }
