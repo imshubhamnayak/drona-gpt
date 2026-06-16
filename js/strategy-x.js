@@ -1,6 +1,7 @@
-// ==================== STRATEGY X - FINAL FIXED VERSION ====================
+// ==================== STRATEGY X - FULLY FIXED ====================
 
 let allRetailers = [];
+let currentMap = null;
 
 // Load Data
 async function loadStrategyData() {
@@ -15,30 +16,33 @@ async function loadStrategyData() {
     }
 }
 
-// Initialize Strategy X Map
-function initializeStrategyX() {
+// Initialize Everything
+async function initializeStrategyX() {
+    await loadStrategyData();
+    initializeMap();
+    populateTerritoryList();
+    console.log("%c✅ Strategy X Fully Initialized", "color:#22c55e");
+}
+
+// Initialize Map
+function initializeMap() {
     const mapContainer = document.getElementById('strategy-map');
-    if (!mapContainer) {
-        console.error("Map container not found");
-        return;
-    }
+    if (!mapContainer) return;
 
     mapContainer.innerHTML = '';
 
-    const map = L.map('strategy-map').setView([12.92, 77.60], 12);
+    currentMap = L.map('strategy-map').setView([12.92, 77.60], 12);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap'
-    }).addTo(map);
+    }).addTo(currentMap);
 
-    plotRetailersOnMap(map);
-    populateTerritoryList();
-
-    console.log("%c✅ Strategy X Map Initialized Successfully", "color:#22c55e");
+    plotRetailersOnMap();
 }
 
-function plotRetailersOnMap(map) {
-    if (!allRetailers.length) return;
+// Plot Retailers
+function plotRetailersOnMap() {
+    if (!currentMap || !allRetailers.length) return;
 
     allRetailers.forEach(retailer => {
         if (!retailer.lat || !retailer.lng) return;
@@ -53,17 +57,17 @@ function plotRetailersOnMap(map) {
             weight: 1.5,
             opacity: 1,
             fillOpacity: 0.85
-        }).addTo(map);
+        }).addTo(currentMap);
 
         marker.bindPopup(`
             <b>${retailer.name}</b><br>
             ${retailer.area}<br><br>
-            Outstanding: <b>₹${retailer.outstanding}</b><br>
-            Last Visit: ${retailer.lastVisitDaysAgo} days ago
+            Outstanding: <b>₹${retailer.outstanding}</b>
         `);
     });
 }
 
+// Populate Territory List
 function populateTerritoryList() {
     const container = document.getElementById('territory-list');
     if (!container) return;
@@ -89,13 +93,37 @@ function populateTerritoryList() {
     container.innerHTML = html;
 }
 
+// Show Territory Details
 function showTerritoryDetails(areaName) {
-    alert(`Showing details for ${areaName} (Feature coming soon)`);
+    const retailersInArea = allRetailers.filter(r => r.area === areaName);
+    const panel = document.getElementById('territory-details-panel');
+    if (!panel) return;
+
+    panel.innerHTML = `
+        <div class="p-4">
+            <h4 class="font-semibold text-xl mb-2">${areaName}</h4>
+            <p class="text-sm text-slate-400 mb-4">${retailersInArea.length} retailers</p>
+            <button onclick="createFocusPlanForArea('${areaName}')" 
+                    class="w-full py-3 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">
+                Create Focus Plan
+            </button>
+        </div>
+    `;
+    panel.classList.remove('hidden');
 }
 
+// Create Focus Plan
 function createFocusPlanForArea(areaName) {
-    alert(`Focus Plan created for ${areaName}`);
+    const retailersInArea = allRetailers.filter(r => r.area === areaName)
+        .sort((a, b) => b.outstanding - a.outstanding);
+
+    const priority = retailersInArea.slice(0, 6).map(r => r.name);
+
+    alert(`✅ Focus Plan Created for ${areaName}\n\nPriority Retailers:\n${priority.join("\n")}`);
+    console.log("Focus Plan Draft for", areaName, priority);
 }
 
-// Global
+// Make functions globally available
 window.initializeStrategyX = initializeStrategyX;
+window.showTerritoryDetails = showTerritoryDetails;
+window.createFocusPlanForArea = createFocusPlanForArea;
