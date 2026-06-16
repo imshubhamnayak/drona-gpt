@@ -328,6 +328,13 @@ function switchTab(tab) {
         tabDrona.classList.remove('tab-active');
         tabStrategy.classList.add('tab-active');
         updateUserHeader('Admin', 'Owner');
+        // Initialize Strategy X when switching
+        if (window.initializeStrategyX && !window.strategyXInitialized) {
+            setTimeout(() => {
+                window.initializeStrategyX();
+                window.strategyXInitialized = true;
+            }, 300);
+        }
     }
 }
 
