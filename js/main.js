@@ -1,10 +1,10 @@
-// ==================== DRONA GPT - COMPLETE CLEAN MAIN.JS ====================
+// ==================== DRONA GPT - COMPLETE FIXED MAIN.JS (with Strategy X) ====================
 
 let retailers = [];
 let currentContextRetailer = null;
 let allSKUs = [];
 
-// Sample fallback data
+// Sample fallback
 const sampleRetailers = [
     { id: 1, name: "Sharma Kirana Store", area: "JP Nagar 1st Phase", outstanding: 24500, paymentStatus: "Overdue 12 days" },
     { id: 2, name: "Gupta General Stores", area: "JP Nagar 2nd Phase", outstanding: 8700, paymentStatus: "Good" },
@@ -17,9 +17,7 @@ async function loadRetailers() {
         const res = await fetch('data/retailers.json');
         const data = await res.json();
         retailers = data.retailers || sampleRetailers;
-        console.log(`✅ Loaded ${retailers.length} retailers`);
     } catch (e) {
-        console.error("JSON failed, using sample");
         retailers = sampleRetailers;
     }
 }
@@ -40,8 +38,10 @@ function setDynamicGreeting() {
         sub = "Check Today's plan to ensure everything is taken care of";
     }
 
-    document.getElementById('greeting-main').textContent = main;
-    document.getElementById('greeting-sub').textContent = sub;
+    const mainEl = document.getElementById('greeting-main');
+    const subEl = document.getElementById('greeting-sub');
+    if (mainEl) mainEl.textContent = main;
+    if (subEl) subEl.textContent = sub;
 }
 
 // Add Message
@@ -236,7 +236,7 @@ function showPublishedPlan() {
     document.body.appendChild(modal);
 }
 
-// Tab Switching
+// Tab Switching with Strategy X Init
 function switchTab(tab) {
     const dronaView = document.getElementById('drona-gpt-view');
     const strategyView = document.getElementById('strategy-x-view');
@@ -255,6 +255,14 @@ function switchTab(tab) {
         tabDrona.classList.remove('tab-active');
         tabStrategy.classList.add('tab-active');
         updateUserHeader('Admin', 'Owner');
+
+        // Initialize Strategy X when switching
+        if (window.initializeStrategyX && !window.strategyXInitialized) {
+            setTimeout(() => {
+                window.initializeStrategyX();
+                window.strategyXInitialized = true;
+            }, 300);
+        }
     }
 }
 
@@ -295,7 +303,7 @@ async function initializeApp() {
 
 window.onload = initializeApp;
 
-// Expose all functions globally
+// Global functions for onclick handlers
 window.sendMessage = sendMessage;
 window.showTargetSummary = showTargetSummary;
 window.openSKUIntelligence = openSKUIntelligence;
