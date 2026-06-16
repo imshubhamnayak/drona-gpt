@@ -147,36 +147,53 @@ function showDraftModal(draft) {
         <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-auto">
             <div class="p-6">
                 <h2 class="text-2xl font-bold mb-2">Draft Focus Plan</h2>
-                <p class="text-slate-400 mb-4">Area: <strong>${draft.area}</strong></p>
+                <p class="text-slate-400 mb-6">Area: <strong>${draft.area}</strong></p>
 
-                <!-- Date Picker -->
+                <!-- Stylish Date Picker -->
                 <div class="mb-6">
-                    <label class="block text-sm text-slate-400 mb-1">Plan Date</label>
-                    <input type="date" id="plan-date" 
-                           value="${draft.plan_date || new Date().toISOString().split('T')[0]}"
-                           class="bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 w-full text-white">
+                    <label class="block text-sm text-slate-400 mb-2 font-medium">Plan Date</label>
+                    <div class="relative">
+                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+                            <i class="fa-solid fa-calendar-day"></i>
+                        </div>
+                        <input type="date" id="plan-date" 
+                               value="${draft.plan_date || new Date().toISOString().split('T')[0]}"
+                               class="w-full bg-slate-800 border border-slate-600 rounded-2xl pl-11 pr-4 py-4 text-white focus:outline-none focus:border-orange-500 transition-colors">
+                    </div>
                 </div>
 
                 <div class="mb-6">
                     <h3 class="font-medium mb-3 text-orange-400">Selected Retailers (${draft.totalRetailers})</h3>
                     <div class="max-h-64 overflow-auto space-y-2 text-sm">
                         ${draft.selectedRetailers.map(r => `
-                            <div class="bg-slate-800 p-3 rounded-2xl flex justify-between">
-                                <div><div>${r.name}</div><div class="text-xs text-slate-400">${r.monthlyOrders ? 'Regular' : 'Vicinity'}</div></div>
-                                <div class="text-right text-orange-400">₹${(r.outstanding || 0).toLocaleString()}</div>
+                            <div class="bg-slate-800 p-3 rounded-2xl flex justify-between items-center">
+                                <div>
+                                    <div class="font-medium">${r.name}</div>
+                                    <div class="text-xs text-slate-400">${r.monthlyOrders ? 'Regular Order Dealer' : 'Vicinity Coverage'}</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-orange-400 font-medium">₹${(r.outstanding || 0).toLocaleString()}</div>
+                                </div>
                             </div>
                         `).join('')}
                     </div>
                 </div>
 
                 <div class="flex gap-4">
-                    <button onclick="closeDraftModal()" class="flex-1 py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium">Cancel</button>
-                    <button onclick="saveDraftToSupabase()" class="flex-1 py-4 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">Save to Supabase</button>
+                    <button onclick="closeDraftModal()" 
+                            class="flex-1 py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium transition-colors">
+                        Cancel
+                    </button>
+                    <button onclick="saveDraftToSupabase()" 
+                            class="flex-1 py-4 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium transition-colors">
+                        Save to Supabase
+                    </button>
                 </div>
             </div>
         </div>
     </div>`;
 
+    // Remove old modal
     const old = document.getElementById('draft-modal');
     if (old) old.remove();
 
