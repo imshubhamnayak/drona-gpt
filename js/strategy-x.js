@@ -1,11 +1,11 @@
-// ==================== STRATEGY X - FINAL WORKING VERSION ====================
+// ==================== STRATEGY X - COMPLETE & CLEAN ====================
 
 let allRetailers = [];
 let currentMap = null;
 let currentMarkers = [];
 let currentDraftPlan = null;
 
-// ==================== SUPABASE CLIENT (Fixed) ====================
+// ==================== SUPABASE ====================
 let supabaseClient = null;
 
 function initSupabase() {
@@ -14,14 +14,12 @@ function initSupabase() {
     const supabaseUrl = 'https://tnqtejdulwlnajnaxtyq.supabase.co';
     const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRucXRlamR1bHdsbmFqbmF4dHlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyNjY5OTMsImV4cCI6MjA5Njg0Mjk5M30.f0PWnl0eswhODndtv8Kw6a_A26m2uxIwCnNoDJZQwpk';
 
-    // Correct way for CDN version
     supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
-    
-    console.log("%c✅ Supabase Client Initialized", "color:#22c55e");
+    console.log("%c✅ Supabase Initialized", "color:#22c55e");
     return supabaseClient;
 }
 
-// ==================== LOAD RETAILERS ====================
+// ==================== LOAD DATA ====================
 async function loadStrategyData() {
     try {
         const response = await fetch('data/retailers.json');
@@ -106,7 +104,7 @@ function populateTerritoryList() {
     container.innerHTML = html;
 }
 
-// ==================== FOCUS PLAN - DRAFT + SAVE ====================
+// ==================== FOCUS PLAN WITH DRAFT & DATE ====================
 async function createFocusPlan(areaName) {
     if (!areaName) return;
 
@@ -136,7 +134,8 @@ async function createFocusPlan(areaName) {
         selectedRetailers: selected,
         focus_skus: ["Prestige Pressure Cooker 5L", "Prestige Mixer Grinder 750W"],
         priority_actions: ["Meet regular dealers", "Cover vicinity", "Recover outstanding", "Push key SKUs"],
-        notes: `Smart plan for ${areaName}`
+        notes: `Smart plan for ${areaName}`,
+        plan_date: new Date().toISOString().split('T')[0]
     };
 
     showDraftModal(currentDraftPlan);
@@ -148,10 +147,16 @@ function showDraftModal(draft) {
         <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-auto">
             <div class="p-6">
                 <h2 class="text-2xl font-bold mb-2">Draft Focus Plan</h2>
-                <p class="text-slate-400 mb-6">Area: <strong>${draft.area}</strong> • ${draft.totalRetailers} Retailers</p>
+                <p class="text-slate-400 mb-4">Area: <strong>${draft.area}</strong></p>
 
                 <div class="mb-6">
-                    <h3 class="font-medium mb-3 text-orange-400">Selected Retailers</h3>
+                    <label class="block text-sm text-slate-400 mb-1">Plan Date</label>
+                    <input type="date" id="plan-date" value="${draft.plan_date}" 
+                           class="bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 w-full">
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-medium mb-3 text-orange-400">Selected Retailers (${draft.totalRetailers})</h3>
                     <div class="max-h-64 overflow-auto space-y-2 text-sm">
                         ${draft.selectedRetailers.map(r => `
                             <div class="bg-slate-800 p-3 rounded-2xl flex justify-between">
@@ -185,10 +190,13 @@ function closeDraftModal() {
 
 async function saveDraftToSupabase() {
     if (!currentDraftPlan) return;
+
+    const selectedDate = document.getElementById('plan-date') ? 
+        document.getElementById('plan-date').value : currentDraftPlan.plan_date;
+
     closeDraftModal();
 
     const sb = initSupabase();
-    const today = new Date().toISOString().split('T')[0];
 
     const plan = {
         active: true,
@@ -198,32 +206,24 @@ async function saveDraftToSupabase() {
         period: "Week",
         priority_actions: currentDraftPlan.priority_actions,
         territories: [currentDraftPlan.area],
-        plan_date: today,
+        plan_date: selectedDate,
         priorityRetailers: currentDraftPlan.selectedRetailers.map(r => ({
             id: r.id,
             name: r.name,
             outstanding: r.outstanding || 0,
-            lastVisitDaysAgo: r.lastVisitDaysAgo || 0,
-            reason: r.monthlyOrders ? "Regular Order Dealer" : "Vicinity Coverage",
-            suggestedAction: (r.outstanding || 0) > 15000 ? "Payment Recovery + Scheme Push" : "Order Boost"
+            reason: r.monthlyOrders ? "Regular Order Dealer" : "Vicinity Coverage"
         }))
     };
 
     try {
-        const { data, error } = await sb
-            .from('focus_plans')
-            .insert([plan])
-            .select();
-
+        const { data, error } = await sb.from('focus_plans').insert([plan]).select();
         if (error) throw error;
 
-        console.log("%c✅ Focus Plan Saved with priorityRetailers!", "color:lime;font-size:16px", data[0]);
-        alert(`✅ Focus Plan for ${currentDraftPlan.area} saved successfully!`);
-
-        if (typeof showPublishedPlans === 'function') showPublishedPlans();
+        console.log("%c✅ Plan Saved!", "color:lime", data[0]);
+        alert(`✅ Focus Plan saved for ${selectedDate}!`);
 
     } catch (err) {
-        console.error("Supabase Error:", err);
+        console.error(err);
         alert("Save failed: " + err.message);
     }
 }
