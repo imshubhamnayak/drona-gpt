@@ -6,7 +6,7 @@ let currentMarkers = [];
 let currentDraftPlan = null;
 
 // ==================== RENDER BACKEND URL ====================
-const BACKEND_URL = 'https://YOUR-BACKEND-NAME.onrender.com';   // ← CHANGE THIS TO YOUR RENDER URL
+const BACKEND_URL = 'https://drona-gpt.onrender.com';   // 
 
 // ==================== LOAD DATA ====================
 async function loadStrategyData() {
