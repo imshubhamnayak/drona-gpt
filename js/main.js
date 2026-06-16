@@ -1,24 +1,22 @@
-// ==================== DRONA GPT - COMPLETE FIXED MAIN.JS ====================
+// ==================== DRONA GPT - COMPLETE FIXED WITH STRONG RAG ====================
 
 let retailers = [];
 let currentContextRetailer = null;
 let allSKUs = [];
 
-// Sample fallback
-const sampleRetailers = [
-    { id: 1, name: "Sharma Kirana Store", area: "JP Nagar 1st Phase", outstanding: 24500, paymentStatus: "Overdue 12 days" },
-    { id: 2, name: "Gupta General Stores", area: "JP Nagar 2nd Phase", outstanding: 8700, paymentStatus: "Good" },
-    { id: 3, name: "Lakshmi Provision Store", area: "JP Nagar 3rd Phase", outstanding: 15200, paymentStatus: "Overdue" }
-];
+// New API Key
+const GROK_API_KEY = "xai-APCxJXdH2aCVQEEpbQEX1aYjA00HWhf3CQli9ynDvxn1suRYRta64Cz7fKqZAyymJ2RzpC5LmfBaXy4O";
 
 // Load Retailers
 async function loadRetailers() {
     try {
         const res = await fetch('data/retailers.json');
         const data = await res.json();
-        retailers = data.retailers || sampleRetailers;
+        retailers = data.retailers || [];
+        console.log(`%c✅ Loaded ${retailers.length} retailers for RAG`, 'color:#22c55e');
     } catch (e) {
-        retailers = sampleRetailers;
+        console.error("Failed to load retailers", e);
+        retailers = [];
     }
 }
 
@@ -58,44 +56,25 @@ function addMessage(text, sender) {
     container.scrollTop = container.scrollHeight;
 }
 
-// RAG Response
-async function generateSmartResponse(message) {
-    let context = "You are Drona, a practical sales coach.\n\n";
+// Strong RAG Context
+function buildRAGContext(query) {
+    const lowerQuery = query.toLowerCase();
     const relevant = retailers.filter(r => 
-        r.name.toLowerCase().includes(message.toLowerCase()) || 
-        r.area.toLowerCase().includes(message.toLowerCase())
-    );
+        r.name.toLowerCase().includes(lowerQuery) || 
+        r.area.toLowerCase().includes(lowerQuery) ||
+        (r.outstanding && r.outstanding > 10000)
+    ).slice(0, 6);
 
-    if (relevant.length > 0) {
-        context += `Context: ${relevant[0].name} has ₹${relevant[0].outstanding} outstanding.\n`;
-    }
+    if (relevant.length === 0) return "";
 
-    try {
-        const res = await fetch('https://api.x.ai/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer xai-4APCxJXdH2aCVQEEpbQEX1aYjA00HWhf3CQli9ynDvxn1suRYRta64Cz7fKqZAyymJ2RzpC5LmfBaXy4O'
-            },
-            body: JSON.stringify({
-                model: "grok-beta",
-                messages: [
-                    { role: "system", content: context },
-                    { role: "user", content: message }
-                ],
-                temperature: 0.7,
-                max_tokens: 300
-            })
-        });
-
-        const data = await res.json();
-        return data.choices[0].message.content;
-    } catch (e) {
-        return "Focus on high-outstanding retailers like Sharma Kirana. Push Pressure Cooker today.";
-    }
+    let context = "\nRelevant Retailers:\n";
+    relevant.forEach(r => {
+        context += `- ${r.name} (${r.area}): ₹${r.outstanding || 0} outstanding, Last visit: ${r.lastVisitDaysAgo || 'N/A'} days ago\n`;
+    });
+    return context;
 }
 
-// Send Message
+// Send Message with Strong RAG
 async function sendMessage() {
     const input = document.getElementById('chat-input');
     const text = input.value.trim();
@@ -109,12 +88,44 @@ async function sendMessage() {
     typing.innerHTML = `<div class="bg-slate-700 rounded-2xl px-4 py-3">Drona is thinking...</div>`;
     document.getElementById('chat-messages').appendChild(typing);
 
-    const reply = await generateSmartResponse(text);
-    typing.remove();
-    addMessage(reply, 'bot');
+    const context = buildRAGContext(text);
+
+    try {
+        const res = await fetch('https://api.x.ai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${GROK_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: "grok-beta",
+                messages: [
+                    { 
+                        role: "system", 
+                        content: `You are Drona, a practical AI sales coach for field salesmen. Be direct and actionable.${context}` 
+                    },
+                    { role: "user", content: text }
+                ],
+                temperature: 0.7,
+                max_tokens: 500
+            })
+        });
+
+        const data = await res.json();
+        const reply = data.choices?.[0]?.message?.content || "I couldn't get a response. Try asking about a retailer or target.";
+
+        typing.remove();
+        addMessage(reply, 'bot');
+
+    } catch (e) {
+        console.error(e);
+        typing.remove();
+        addMessage("I'm having trouble connecting. Ask me about any retailer or today's plan.", 'bot');
+    }
 }
 
-// User Header (Ramesh / Admin)
+// ==================== EXISTING FUNCTIONS (Kept as-is) ====================
+
 function updateUserHeader(name, role) {
     const userInfo = document.getElementById('user-info');
     if (!userInfo) return;
@@ -133,7 +144,6 @@ function updateUserHeader(name, role) {
     `;
 }
 
-// Tab Switching
 function switchTab(tab) {
     const dronaView = document.getElementById('drona-gpt-view');
     const strategyView = document.getElementById('strategy-x-view');
@@ -155,7 +165,9 @@ function switchTab(tab) {
     }
 }
 
-function openRetailerSearch() {
+// ... (keep all your other functions like openRetailerSearch, filterRetailers, showTargetSummary, renderAllRetailers, openSKUIntelligence, renderSKUs, showQuickView, showPublishedPlan as they are)
+
+function openRetailerSearch() { 
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4';
     modal.innerHTML = `
@@ -173,8 +185,7 @@ function openRetailerSearch() {
     document.body.appendChild(modal);
     filterRetailers(''); // Show all initially
 }
-
-function filterRetailers(query) {
+function filterRetailers(query) { 
     const container = document.getElementById('retailer-search-results');
     if (!container) return;
 
@@ -194,8 +205,7 @@ function filterRetailers(query) {
         </div>
     `).join('');
 }
-// Target Summary
-function showTargetSummary() {
+function showTargetSummary() { 
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4';
     modal.innerHTML = `
@@ -210,7 +220,6 @@ function showTargetSummary() {
     document.body.appendChild(modal);
     renderAllRetailers();
 }
-
 function renderAllRetailers() {
     const container = document.getElementById('retailer-target-list');
     if (!container) return;
@@ -234,9 +243,7 @@ function renderAllRetailers() {
     });
     container.innerHTML = html;
 }
-
-// SKU Intelligence
-function openSKUIntelligence() {
+function openSKUIntelligence() { 
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4';
     modal.innerHTML = `
@@ -251,8 +258,7 @@ function openSKUIntelligence() {
     document.body.appendChild(modal);
     renderSKUs();
 }
-
-function renderSKUs() {
+function renderSKUs() { 
     const container = document.getElementById('sku-list');
     if (!container) return;
 
@@ -268,17 +274,13 @@ function renderSKUs() {
     });
     container.innerHTML = html;
 }
-
-// Show Quick View
-function showQuickView(id) {
+function showQuickView(id) { 
     const retailer = retailers.find(r => r.id === id);
     if (!retailer) return;
     currentContextRetailer = retailer;
     alert(`Quick View for ${retailer.name}\nOutstanding: ₹${retailer.outstanding}`);
 }
-
-// Show Published Plan
-function showPublishedPlan() {
+function showPublishedPlan() { 
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4';
     modal.innerHTML = `
@@ -312,7 +314,7 @@ function showPublishedPlan() {
 
 // Initialize
 async function initializeApp() {
-    console.log("%c[Drona GPT] Initializing...", "color:#22c55e");
+    console.log("%c[Drona GPT] Initializing with strong RAG...", "color:#22c55e");
     
     await loadRetailers();
 
@@ -322,64 +324,16 @@ async function initializeApp() {
     ];
 
     setDynamicGreeting();
-    addMessage("Hi Ramesh! How can I help you today? Ask about any retailer, SKU, or plan.", 'bot');
+    addMessage("Hi Ramesh! I'm Drona GPT. How can I help you today? Ask about any retailer, SKU, or plan.", 'bot');
     
-    // Default to Drona GPT view with Ramesh
     updateUserHeader('Ramesh', 'Salesman');
     
-    console.log("%c✅ Drona GPT Ready", "color:lime");
-}
-
-function updateUserHeader(name, role) {
-    const userInfo = document.getElementById('user-info');
-    if (!userInfo) return;
-
-    const isAdmin = role === 'Owner' || role === 'Admin';
-    userInfo.innerHTML = `
-        <div class="flex items-center gap-x-3 bg-slate-800 px-4 py-1.5 rounded-2xl">
-            <div class="text-right">
-                <div class="font-medium">${name}</div>
-                <div class="text-xs ${isAdmin ? 'text-orange-400' : 'text-blue-400'}">${role}</div>
-            </div>
-            <div class="w-9 h-9 ${isAdmin ? 'bg-orange-600' : 'bg-blue-600'} rounded-2xl flex items-center justify-center">
-                <i class="fa-solid fa-user text-white text-sm"></i>
-            </div>
-        </div>
-    `;
-}
-
-// Tab Switching
-function switchTab(tab) {
-    const dronaView = document.getElementById('drona-gpt-view');
-    const strategyView = document.getElementById('strategy-x-view');
-    const tabDrona = document.getElementById('tab-drona-gpt');
-    const tabStrategy = document.getElementById('tab-strategy-x');
-
-    if (tab === 'drona-gpt') {
-        dronaView.classList.remove('hidden');
-        strategyView.classList.add('hidden');
-        tabDrona.classList.add('tab-active');
-        tabStrategy.classList.remove('tab-active');
-        updateUserHeader('Ramesh', 'Salesman');
-    } else {
-        dronaView.classList.add('hidden');
-        strategyView.classList.remove('hidden');
-        tabDrona.classList.remove('tab-active');
-        tabStrategy.classList.add('tab-active');
-        updateUserHeader('Admin', 'Owner');
-        // Initialize Strategy X when switching
-        if (window.initializeStrategyX && !window.strategyXInitialized) {
-            setTimeout(() => {
-                window.initializeStrategyX();
-                window.strategyXInitialized = true;
-            }, 300);
-        }
-    }
+    console.log("%c✅ Drona GPT Ready with Strong RAG", "color:lime");
 }
 
 window.onload = initializeApp;
 
-// Global functions for onclick
+// Global functions
 window.sendMessage = sendMessage;
 window.showTargetSummary = showTargetSummary;
 window.openSKUIntelligence = openSKUIntelligence;
