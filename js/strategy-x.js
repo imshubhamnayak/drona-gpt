@@ -1,4 +1,4 @@
-// ==================== STRATEGY X - FULLY FIXED & WORKING ====================
+// ==================== STRATEGY X - DEBUGGED & WORKING ====================
 
 let allRetailers = [];
 let currentMap = null;
@@ -16,18 +16,21 @@ async function loadStrategyData() {
     }
 }
 
-// Initialize Strategy X
+// Main Initialization
 async function initializeStrategyX() {
     await loadStrategyData();
     initMap();
     populateTerritoryList();
-    console.log("%c✅ Strategy X Fully Ready", "color:#22c55e");
+    console.log("%c✅ Strategy X Fully Initialized", "color:#22c55e");
 }
 
 // Initialize Map
 function initMap() {
     const container = document.getElementById('strategy-map');
-    if (!container) return;
+    if (!container) {
+        console.error("Map container not found");
+        return;
+    }
 
     container.innerHTML = '';
 
@@ -38,8 +41,10 @@ function initMap() {
     drawAreaCircles();
 }
 
-// Draw Area Circles
+// Draw Area Circles (Orange Orbits)
 function drawAreaCircles() {
+    if (!currentMap || !allRetailers.length) return;
+
     const areas = {};
 
     allRetailers.forEach(r => {
@@ -49,23 +54,27 @@ function drawAreaCircles() {
 
     Object.keys(areas).forEach(areaName => {
         const group = areas[areaName];
-        const avgLat = group.reduce((s, r) => s + (r.lat || 12.91), 0) / group.length;
-        const avgLng = group.reduce((s, r) => s + (r.lng || 77.58), 0) / group.length;
+        const avgLat = group.reduce((sum, r) => sum + (r.lat || 12.91), 0) / group.length;
+        const avgLng = group.reduce((sum, r) => sum + (r.lng || 77.58), 0) / group.length;
 
         const circle = L.circle([avgLat, avgLng], {
             color: "#f59e0b",
             fillColor: "#f59e0b",
-            fillOpacity: 0.3,
-            radius: 1400
+            fillOpacity: 0.25,
+            radius: 1400,
+            weight: 3
         }).addTo(currentMap);
 
         circle.bindPopup(`<b>${areaName}</b><br>${group.length} retailers`);
 
-        circle.on('click', () => showRetailersInArea(areaName, avgLat, avgLng));
+        // Click to show retailers
+        circle.on('click', () => {
+            showRetailersInArea(areaName, avgLat, avgLng);
+        });
     });
 }
 
-// Show Retailers when Area is Clicked
+// Show Retailers when Area Clicked
 function showRetailersInArea(areaName, centerLat, centerLng) {
     // Clear old markers
     currentMarkers.forEach(m => currentMap.removeLayer(m));
@@ -117,7 +126,7 @@ function populateTerritoryList() {
 
 // Create Focus Plan
 function createFocusPlanForArea(areaName = "Selected Area") {
-    alert(`✅ Focus Plan Created for ${areaName}\n\nThis will be expanded soon with AI suggestions.`);
+    alert(`✅ Focus Plan Created for ${areaName}\n\nThis will be expanded with AI suggestions soon.`);
 }
 
 // Global Exposure
