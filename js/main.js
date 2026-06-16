@@ -162,11 +162,17 @@ function switchTab(tab) {
         tabDrona.classList.remove('tab-active');
         tabStrategy.classList.add('tab-active');
         updateUserHeader('Admin', 'Owner');
+         // Initialize Strategy X when switching
+        if (window.initializeStrategyX && !window.strategyXInitialized) {
+            setTimeout(() => {
+                window.initializeStrategyX();
+                window.strategyXInitialized = true;
+            }, 300);
+        }
     }
 }
 
-// ... (keep all your other functions like openRetailerSearch, filterRetailers, showTargetSummary, renderAllRetailers, openSKUIntelligence, renderSKUs, showQuickView, showPublishedPlan as they are)
-
+// ... 
 function openRetailerSearch() { 
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4';
