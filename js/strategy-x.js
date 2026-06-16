@@ -207,8 +207,129 @@ async function createFocusPlan(areaName) {
     }
 }
 
+// ==================== SHOW DRAFT PREVIEW ====================
+function showFocusPlanDraft(areaName) {
+    if (!retailers || retailers.length === 0) {
+        alert("Retailers data not loaded. Please refresh.");
+        return;
+    }
+
+    const normalizedArea = String(areaName).trim();
+    const areaRetailers = retailers.filter(r => String(r.area).trim() === normalizedArea);
+
+    if (areaRetailers.length === 0) {
+        alert(`No retailers found in "${areaName}"`);
+        return;
+    }
+
+    // Smart selection: 60% regular + 40% vicinity
+    let regular = areaRetailers.filter(r => r.monthlyOrders === true)
+        .sort((a, b) => (b.outstanding || 0) - (a.outstanding || 0));
+
+    let others = areaRetailers.filter(r => r.monthlyOrders !== true)
+        .sort((a, b) => (b.outstanding || 0) - (a.outstanding || 0));
+
+    let selected = [
+        ...regular.slice(0, Math.ceil(areaRetailers.length * 0.6)),
+        ...others.slice(0, Math.ceil(areaRetailers.length * 0.4))
+    ].slice(0, 12);
+
+    // Create draft object
+    const draftPlan = {
+        area: areaName,
+        totalRetailers: selected.length,
+        totalOutstanding: selected.reduce((sum, r) => sum + (r.outstanding || 0), 0),
+        selectedRetailers: selected,
+        focus_skus: ["Prestige Pressure Cooker 5L", "Prestige Mixer Grinder 750W"],
+        priority_actions: [
+            "Meet all regular monthly order dealers first",
+            "Cover nearby retailers in same area",
+            "Focus on high outstanding recovery",
+            "Push Pressure Cooker & Mixer schemes"
+        ],
+        notes: `Smart Visit Plan for ${areaName} - Regular + Vicinity coverage.`
+    };
+
+    // Show modal
+    showDraftModal(draftPlan);
+}
+
+// Modal UI
+function showDraftModal(draft) {
+    let html = `
+    <div class="fixed inset-0 bg-black/80 flex items-center justify-center z-[1000]" id="draft-modal">
+        <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-auto">
+            <div class="p-6">
+                <h2 class="text-2xl font-bold mb-2">Draft Focus Plan</h2>
+                <p class="text-slate-400 mb-6">Area: <strong>${draft.area}</strong> • ${draft.totalRetailers} Retailers</p>
+
+                <div class="mb-6">
+                    <h3 class="font-medium mb-3 text-orange-400">Selected Retailers</h3>
+                    <div class="max-h-64 overflow-auto space-y-2">
+                        ${draft.selectedRetailers.map(r => `
+                            <div class="bg-slate-800 p-3 rounded-2xl flex justify-between items-center">
+                                <div>
+                                    <div class="font-medium">${r.name}</div>
+                                    <div class="text-xs text-slate-400">${r.reason || (r.monthlyOrders ? 'Regular' : 'Vicinity')}</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-orange-400 font-medium">₹${(r.outstanding || 0).toLocaleString()}</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 p-4 rounded-2xl mb-6">
+                    <h3 class="font-medium mb-2">Key Actions</h3>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        ${draft.priority_actions.map(a => `<li>${a}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="flex gap-4">
+                    <button onclick="closeDraftModal()" 
+                            class="flex-1 py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium">
+                        Cancel
+                    </button>
+                    <button onclick="saveDraftToSupabase()" 
+                            class="flex-1 py-4 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">
+                        Save to Supabase
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>`;
+
+    // Remove old modal if exists
+    const old = document.getElementById('draft-modal');
+    if (old) old.remove();
+
+    const modal = document.createElement('div');
+    modal.innerHTML = html;
+    document.body.appendChild(modal);
+}
+
+function closeDraftModal() {
+    const modal = document.getElementById('draft-modal');
+    if (modal) modal.remove();
+}
+
+// ==================== SAVE TO SUPABASE ====================
+async function saveDraftToSupabase() {
+    // This should ideally store the current draft globally, but for simplicity we'll re-generate for the last area
+    // Better to store draft in a global variable in production
+    closeDraftModal();
+    alert("✅ Plan saved to Supabase (Demo mode).\n\nIn real implementation this will call Supabase.");
+    
+    // TODO: Call actual Supabase insert here later
+    if (typeof showPublishedPlans === 'function') showPublishedPlans();
+}
+
+// Expose main function
+window.createFocusPlanForArea = showFocusPlanDraft;
+
 window.createFocusPlanForArea = createFocusPlan;
-// Global Exposure
 window.initializeStrategyX = initializeStrategyX;
 window.createFocusPlanForArea = createFocusPlanForArea;
 window.showRetailersInArea = showRetailersInArea;
