@@ -124,43 +124,53 @@ function populateTerritoryList() {
     container.innerHTML = html;
 }
 
-// Create Focus Plan
-// ==================== CREATE FOCUS PLAN - Smart Visit Logic ====================
+// ==================== CREATE FOCUS PLAN - FIXED ====================
 async function createFocusPlan(areaName) {
-    const areaRetailers = retailers.filter(r => r.area === areaName);
+    console.log(`Creating plan for area: "${areaName}"`);
 
-    if (areaRetailers.length === 0) {
-        alert("No retailers in this area!");
+    if (!retailers || retailers.length === 0) {
+        console.error("Retailers data not loaded yet!");
+        alert("Please wait for retailers to load or refresh the page.");
         return;
     }
 
-    // 1. Regular order placers (monthlyOrders = true)
-    let regular = areaRetailers
-        .filter(r => r.monthlyOrders === true)
+    // Trim and normalize area name for better matching
+    const normalizedArea = areaName.trim();
+
+    const areaRetailers = retailers.filter(r => 
+        r.area && r.area.trim() === normalizedArea
+    );
+
+    console.log(`Found ${areaRetailers.length} retailers in "${normalizedArea}"`);
+
+    if (areaRetailers.length === 0) {
+        alert(`No retailers found in "${areaName}".\n\nAvailable areas: ${[...new Set(retailers.map(r => r.area))].join(", ")}`);
+        return;
+    }
+
+    // Smart selection: 60% regular + 40% vicinity + priority on high outstanding
+    let regular = areaRetailers.filter(r => r.monthlyOrders === true)
         .sort((a, b) => (b.outstanding || 0) - (a.outstanding || 0));
 
-    // 2. Vicinity / other retailers in same area
-    let vicinity = areaRetailers
-        .filter(r => r.monthlyOrders === false)
+    let others = areaRetailers.filter(r => r.monthlyOrders !== true)
         .sort((a, b) => (b.outstanding || 0) - (a.outstanding || 0));
 
-    // Take 60% regular + 40% vicinity (max 10-12 retailers per plan)
     let selected = [
         ...regular.slice(0, Math.ceil(areaRetailers.length * 0.6)),
-        ...vicinity.slice(0, Math.ceil(areaRetailers.length * 0.4))
-    ].slice(0, 12);   // Cap at 12 for practicality
+        ...others.slice(0, Math.ceil(areaRetailers.length * 0.4))
+    ].slice(0, 12);
 
     const plan = {
         active: true,
         created_by: "Admin",
         focus_skus: ["Prestige Pressure Cooker 5L", "Prestige Mixer Grinder 750W"],
-        notes: `Smart Visit Plan for ${areaName}. Regular order dealers + vicinity coverage.`,
+        notes: `Smart Visit Plan for ${areaName} - Regular orderers + vicinity coverage.`,
         period: "Week",
         priority_actions: [
             "Meet all regular monthly order dealers first",
             "Cover nearby retailers in same area",
             "Focus on high outstanding recovery",
-            "Push Pressure Cooker + Mixer schemes"
+            "Push Pressure Cooker & Mixer schemes"
         ],
         territories: [areaName],
         priorityRetailers: selected.map(r => ({
@@ -181,15 +191,14 @@ async function createFocusPlan(areaName) {
 
         if (error) throw error;
 
-        console.log("%c✅ Smart Focus Plan Created!", "color:lime;font-size:16px", data[0]);
-        alert(`Focus Plan for ${areaName} created!\n${selected.length} retailers selected (Regular + Vicinity)`);
+        console.log("%c✅ Focus Plan Saved Successfully!", "color:lime;font-size:16px", data[0]);
+        alert(`✅ Focus Plan created for ${areaName}!\n${selected.length} retailers selected.`);
 
         if (typeof showPublishedPlans === 'function') showPublishedPlans();
-        return data[0];
 
     } catch (err) {
-        console.error(err);
-        alert("Failed to save: " + err.message);
+        console.error("Supabase Error:", err);
+        alert("Failed to save plan: " + (err.message || err));
     }
 }
 
