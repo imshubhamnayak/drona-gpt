@@ -1,26 +1,25 @@
-// ==================== STRATEGY X - FULL CLEANED & FIXED ====================
+// ==================== STRATEGY X - FINAL FIXED VERSION ====================
 
 let allRetailers = [];
 let currentMap = null;
 let currentMarkers = [];
 let currentDraftPlan = null;
 
-// ==================== SUPABASE INITIALIZATION ====================
-let supabaseClient = null;
+// ==================== SUPABASE CLIENT ====================
+let supabase = null;
 
 function initSupabase() {
-    if (supabaseClient) return supabaseClient;
-    
-    // Replace with your actual Supabase URL and Anon Key
-    const supabaseUrl = 'https://tnqtejdulwlnajnaxtyq.supabase.co';  // ← Your project URL
-    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRucXRlamR1bHdsbmFqbmF4dHlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyNjY5OTMsImV4cCI6MjA5Njg0Mjk5M30.f0PWnl0eswhODndtv8Kw6a_A26m2uxIwCnNoDJZQwpk'; // ← Your anon key
+    if (supabase) return supabase;
 
-    supabaseClient = Supabase.createClient(supabaseUrl, supabaseAnonKey);
-    console.log("%c✅ Supabase Client Initialized", "color:#22c55e");
-    return supabaseClient;
+    const supabaseUrl = 'https://tnqtejdulwlnajnaxtyq.supabase.co';
+    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRucXRlamR1bHdsbmFqbmF4dHlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyNjY5OTMsImV4cCI6MjA5Njg0Mjk5M30.f0PWnl0eswhODndtv8Kw6a_A26m2uxIwCnNoDJZQwpk';
+
+    supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+    console.log("%c✅ Supabase Client Ready", "color:#22c55e");
+    return supabase;
 }
 
-// ==================== LOAD RETAILERS DATA ====================
+// ==================== LOAD DATA ====================
 async function loadStrategyData() {
     try {
         const response = await fetch('data/retailers.json');
@@ -29,16 +28,15 @@ async function loadStrategyData() {
         console.log(`%c✅ Loaded ${allRetailers.length} retailers`, 'color:#22c55e');
     } catch (err) {
         console.error("Failed to load retailers.json", err);
-        allRetailers = [];
     }
 }
 
-// ==================== MAP FUNCTIONS ====================
+// ==================== MAP ====================
 function initMap() {
     const container = document.getElementById('strategy-map');
     if (!container) return;
-
     container.innerHTML = '';
+
     currentMap = L.map('strategy-map').setView([12.92, 77.60], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(currentMap);
     drawAreaCircles();
@@ -76,7 +74,6 @@ function showRetailersInArea(areaName, centerLat, centerLng) {
     currentMarkers = [];
 
     const filtered = allRetailers.filter(r => r.area === areaName);
-
     filtered.forEach(r => {
         if (!r.lat || !r.lng) return;
         const marker = L.circleMarker([r.lat, r.lng], {
@@ -162,19 +159,12 @@ function showDraftModal(draft) {
                             <div class="bg-slate-800 p-3 rounded-2xl flex justify-between">
                                 <div>
                                     <div>${r.name}</div>
-                                    <div class="text-xs text-slate-400">${r.monthlyOrders ? 'Regular Order' : 'Vicinity'}</div>
+                                    <div class="text-xs text-slate-400">${r.monthlyOrders ? 'Regular' : 'Vicinity'}</div>
                                 </div>
                                 <div class="text-right text-orange-400">₹${(r.outstanding || 0).toLocaleString()}</div>
                             </div>
                         `).join('')}
                     </div>
-                </div>
-
-                <div class="bg-slate-800 p-4 rounded-2xl mb-6">
-                    <h3 class="font-medium mb-2">Key Actions</h3>
-                    <ul class="list-disc pl-5 space-y-1">
-                        ${draft.priority_actions.map(a => `<li>${a}</li>`).join('')}
-                    </ul>
                 </div>
 
                 <div class="flex gap-4">
@@ -202,7 +192,7 @@ async function saveDraftToSupabase() {
     if (!currentDraftPlan) return;
     closeDraftModal();
 
-    const supabase = initSupabase();
+    const sb = initSupabase();
 
     const plan = {
         active: true,
@@ -216,21 +206,20 @@ async function saveDraftToSupabase() {
             id: r.id,
             name: r.name,
             outstanding: r.outstanding || 0,
-            reason: r.monthlyOrders ? "Regular" : "Vicinity"
+            reason: r.monthlyOrders ? "Regular Order Dealer" : "Vicinity Coverage"
         }))
     };
 
     try {
-        const { data, error } = await supabase
+        const { data, error } = await sb
             .from('focus_plans')
             .insert([plan])
             .select();
 
         if (error) throw error;
 
-        console.log("%c✅ Saved to Supabase!", "color:lime", data);
-        alert("✅ Focus Plan saved successfully!");
-        if (typeof showPublishedPlans === 'function') showPublishedPlans();
+        console.log("%c✅ Saved to Supabase!", "color:lime", data[0]);
+        alert(`✅ Focus Plan for ${currentDraftPlan.area} saved!`);
 
     } catch (err) {
         console.error(err);
