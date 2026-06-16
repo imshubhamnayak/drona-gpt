@@ -155,6 +155,45 @@ function switchTab(tab) {
     }
 }
 
+function openRetailerSearch() {
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4';
+    modal.innerHTML = `
+        <div class="bg-slate-900 rounded-3xl w-full max-w-md p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-semibold text-lg">Search Retailer</h3>
+                <button onclick="this.closest('.fixed').remove()" class="text-slate-400 hover:text-white text-xl">✕</button>
+            </div>
+            <input type="text" id="retailer-search-input" placeholder="Type retailer name..." 
+                   class="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 mb-4 focus:outline-none" 
+                   onkeyup="filterRetailers(this.value)">
+            <div id="retailer-search-results" class="max-h-80 overflow-y-auto space-y-2"></div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    filterRetailers(''); // Show all initially
+}
+
+function filterRetailers(query) {
+    const container = document.getElementById('retailer-search-results');
+    if (!container) return;
+
+    const filtered = retailers.filter(r => 
+        r.name.toLowerCase().includes(query.toLowerCase()) || 
+        r.area.toLowerCase().includes(query.toLowerCase())
+    );
+
+    container.innerHTML = filtered.map(r => `
+        <div onclick="showQuickView(${r.id}); this.closest('.fixed').remove();" 
+             class="p-4 bg-slate-800 hover:bg-slate-700 rounded-2xl cursor-pointer flex justify-between items-center">
+            <div>
+                <div class="font-medium">${r.name}</div>
+                <div class="text-xs text-slate-400">${r.area}</div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-slate-500"></i>
+        </div>
+    `).join('');
+}
 // Target Summary
 function showTargetSummary() {
     const modal = document.createElement('div');
