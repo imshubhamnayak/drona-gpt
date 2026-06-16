@@ -124,31 +124,36 @@ function populateTerritoryList() {
     container.innerHTML = html;
 }
 
-// ==================== CREATE FOCUS PLAN - FIXED ====================
+// ==================== CREATE FOCUS PLAN - FIXED & ROBUST ====================
 async function createFocusPlan(areaName) {
-    console.log(`Creating plan for area: "${areaName}"`);
-
-    if (!retailers || retailers.length === 0) {
-        console.error("Retailers data not loaded yet!");
-        alert("Please wait for retailers to load or refresh the page.");
+    // Fallback if areaName is missing
+    if (!areaName || areaName === "undefined") {
+        alert("Area name is missing. Please try again.");
+        console.error("createFocusPlan called with undefined area");
         return;
     }
 
-    // Trim and normalize area name for better matching
-    const normalizedArea = areaName.trim();
+    console.log(`Creating plan for area: "${areaName}"`);
+
+    if (!retailers || retailers.length === 0) {
+        alert("Retailers data not loaded yet. Please refresh the page.");
+        return;
+    }
+
+    const normalizedArea = String(areaName).trim();
 
     const areaRetailers = retailers.filter(r => 
-        r.area && r.area.trim() === normalizedArea
+        r.area && String(r.area).trim() === normalizedArea
     );
 
     console.log(`Found ${areaRetailers.length} retailers in "${normalizedArea}"`);
 
     if (areaRetailers.length === 0) {
-        alert(`No retailers found in "${areaName}".\n\nAvailable areas: ${[...new Set(retailers.map(r => r.area))].join(", ")}`);
+        alert(`No retailers found in "${areaName}".\n\nTry one of these areas:\n${[...new Set(retailers.map(r => r.area))].join("\n")}`);
         return;
     }
 
-    // Smart selection: 60% regular + 40% vicinity + priority on high outstanding
+    // Smart 60% regular + 40% vicinity logic
     let regular = areaRetailers.filter(r => r.monthlyOrders === true)
         .sort((a, b) => (b.outstanding || 0) - (a.outstanding || 0));
 
@@ -164,7 +169,7 @@ async function createFocusPlan(areaName) {
         active: true,
         created_by: "Admin",
         focus_skus: ["Prestige Pressure Cooker 5L", "Prestige Mixer Grinder 750W"],
-        notes: `Smart Visit Plan for ${areaName} - Regular orderers + vicinity coverage.`,
+        notes: `Smart Visit Plan for ${areaName} - Regular + Vicinity coverage.`,
         period: "Week",
         priority_actions: [
             "Meet all regular monthly order dealers first",
@@ -191,17 +196,18 @@ async function createFocusPlan(areaName) {
 
         if (error) throw error;
 
-        console.log("%c✅ Focus Plan Saved Successfully!", "color:lime;font-size:16px", data[0]);
+        console.log("%c✅ Focus Plan Saved!", "color:lime;font-size:16px", data[0]);
         alert(`✅ Focus Plan created for ${areaName}!\n${selected.length} retailers selected.`);
 
         if (typeof showPublishedPlans === 'function') showPublishedPlans();
 
     } catch (err) {
         console.error("Supabase Error:", err);
-        alert("Failed to save plan: " + (err.message || err));
+        alert("Failed to save: " + (err.message || err));
     }
 }
 
+window.createFocusPlanForArea = createFocusPlan;
 // Global Exposure
 window.initializeStrategyX = initializeStrategyX;
 window.createFocusPlanForArea = createFocusPlanForArea;
