@@ -210,9 +210,8 @@ function closeDraftModal() {
 async function saveDraftToSupabase() {
     if (!currentDraftPlan) return;
 
-    // Read the selected date from the input field
     const dateInput = document.getElementById('plan-date');
-    const selectedDate = dateInput ? dateInput.value : currentDraftPlan.plan_date || new Date().toISOString().split('T')[0];
+    const selectedDate = dateInput ? dateInput.value : new Date().toISOString().split('T')[0];
 
     closeDraftModal();
 
@@ -243,12 +242,12 @@ async function saveDraftToSupabase() {
 
         if (error) throw error;
 
-        console.log("%c✅ Plan Saved with Selected Date!", "color:lime", data[0]);
-        alert(`✅ Focus Plan saved for ${selectedDate}!`);
+        console.log("%c✅ Plan Saved Successfully!", "color:lime;font-size:16px", data[0]);
+        alert(`✅ Focus Plan for ${currentDraftPlan.area} saved for ${selectedDate}!`);
 
     } catch (err) {
-        console.error(err);
-        alert("Save failed: " + err.message);
+        console.error("Supabase Error:", err);
+        alert("Save failed: " + (err.message || JSON.stringify(err)));
     }
 }
 // ==================== INITIALIZE ====================
