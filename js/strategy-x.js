@@ -188,6 +188,7 @@ async function saveDraftToSupabase() {
     closeDraftModal();
 
     const sb = initSupabase();
+    const today = new Date().toISOString().split('T')[0];
 
     const plan = {
         active: true,
@@ -197,23 +198,32 @@ async function saveDraftToSupabase() {
         period: "Week",
         priority_actions: currentDraftPlan.priority_actions,
         territories: [currentDraftPlan.area],
+        plan_date: today,
         priorityRetailers: currentDraftPlan.selectedRetailers.map(r => ({
             id: r.id,
             name: r.name,
             outstanding: r.outstanding || 0,
-            reason: r.monthlyOrders ? "Regular Order Dealer" : "Vicinity Coverage"
+            lastVisitDaysAgo: r.lastVisitDaysAgo || 0,
+            reason: r.monthlyOrders ? "Regular Order Dealer" : "Vicinity Coverage",
+            suggestedAction: (r.outstanding || 0) > 15000 ? "Payment Recovery + Scheme Push" : "Order Boost"
         }))
     };
 
     try {
-        const { data, error } = await sb.from('focus_plans').insert([plan]).select();
+        const { data, error } = await sb
+            .from('focus_plans')
+            .insert([plan])
+            .select();
+
         if (error) throw error;
 
-        console.log("%c✅ Saved to Supabase!", "color:lime", data);
+        console.log("%c✅ Focus Plan Saved with priorityRetailers!", "color:lime;font-size:16px", data[0]);
         alert(`✅ Focus Plan for ${currentDraftPlan.area} saved successfully!`);
 
+        if (typeof showPublishedPlans === 'function') showPublishedPlans();
+
     } catch (err) {
-        console.error(err);
+        console.error("Supabase Error:", err);
         alert("Save failed: " + err.message);
     }
 }
