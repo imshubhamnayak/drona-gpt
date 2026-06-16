@@ -1,25 +1,27 @@
-// ==================== STRATEGY X - FINAL FIXED VERSION ====================
+// ==================== STRATEGY X - FINAL WORKING VERSION ====================
 
 let allRetailers = [];
 let currentMap = null;
 let currentMarkers = [];
 let currentDraftPlan = null;
 
-// ==================== SUPABASE CLIENT ====================
-let supabase = null;
+// ==================== SUPABASE CLIENT (Fixed) ====================
+let supabaseClient = null;
 
 function initSupabase() {
-    if (supabase) return supabase;
+    if (supabaseClient) return supabaseClient;
 
     const supabaseUrl = 'https://tnqtejdulwlnajnaxtyq.supabase.co';
     const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRucXRlamR1bHdsbmFqbmF4dHlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyNjY5OTMsImV4cCI6MjA5Njg0Mjk5M30.f0PWnl0eswhODndtv8Kw6a_A26m2uxIwCnNoDJZQwpk';
 
-    supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
-    console.log("%c✅ Supabase Client Ready", "color:#22c55e");
-    return supabase;
+    // Correct way for CDN version
+    supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+    
+    console.log("%c✅ Supabase Client Initialized", "color:#22c55e");
+    return supabaseClient;
 }
 
-// ==================== LOAD DATA ====================
+// ==================== LOAD RETAILERS ====================
 async function loadStrategyData() {
     try {
         const response = await fetch('data/retailers.json');
@@ -99,16 +101,12 @@ function populateTerritoryList() {
 
     let html = '';
     Object.keys(areas).forEach(area => {
-        html += `
-            <div onclick="createFocusPlanForArea('${area}')" 
-                 class="p-4 hover:bg-slate-800 rounded-2xl cursor-pointer border border-slate-700">
-                ${area} <span class="text-slate-400">(${areas[area]})</span>
-            </div>`;
+        html += `<div onclick="createFocusPlanForArea('${area}')" class="p-4 hover:bg-slate-800 rounded-2xl cursor-pointer border border-slate-700">${area} <span class="text-slate-400">(${areas[area]})</span></div>`;
     });
     container.innerHTML = html;
 }
 
-// ==================== FOCUS PLAN DRAFT + SAVE ====================
+// ==================== FOCUS PLAN - DRAFT + SAVE ====================
 async function createFocusPlan(areaName) {
     if (!areaName) return;
 
@@ -157,10 +155,7 @@ function showDraftModal(draft) {
                     <div class="max-h-64 overflow-auto space-y-2 text-sm">
                         ${draft.selectedRetailers.map(r => `
                             <div class="bg-slate-800 p-3 rounded-2xl flex justify-between">
-                                <div>
-                                    <div>${r.name}</div>
-                                    <div class="text-xs text-slate-400">${r.monthlyOrders ? 'Regular' : 'Vicinity'}</div>
-                                </div>
+                                <div><div>${r.name}</div><div class="text-xs text-slate-400">${r.monthlyOrders ? 'Regular' : 'Vicinity'}</div></div>
                                 <div class="text-right text-orange-400">₹${(r.outstanding || 0).toLocaleString()}</div>
                             </div>
                         `).join('')}
@@ -211,15 +206,11 @@ async function saveDraftToSupabase() {
     };
 
     try {
-        const { data, error } = await sb
-            .from('focus_plans')
-            .insert([plan])
-            .select();
-
+        const { data, error } = await sb.from('focus_plans').insert([plan]).select();
         if (error) throw error;
 
-        console.log("%c✅ Saved to Supabase!", "color:lime", data[0]);
-        alert(`✅ Focus Plan for ${currentDraftPlan.area} saved!`);
+        console.log("%c✅ Saved to Supabase!", "color:lime", data);
+        alert(`✅ Focus Plan for ${currentDraftPlan.area} saved successfully!`);
 
     } catch (err) {
         console.error(err);
