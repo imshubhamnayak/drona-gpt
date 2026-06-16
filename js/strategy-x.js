@@ -125,8 +125,72 @@ function populateTerritoryList() {
 }
 
 // Create Focus Plan
-function createFocusPlanForArea(areaName = "Selected Area") {
-    alert(`✅ Focus Plan Created for ${areaName}\n\nThis will be expanded with AI suggestions soon.`);
+// ==================== CREATE FOCUS PLAN - Smart Visit Logic ====================
+async function createFocusPlan(areaName) {
+    const areaRetailers = retailers.filter(r => r.area === areaName);
+
+    if (areaRetailers.length === 0) {
+        alert("No retailers in this area!");
+        return;
+    }
+
+    // 1. Regular order placers (monthlyOrders = true)
+    let regular = areaRetailers
+        .filter(r => r.monthlyOrders === true)
+        .sort((a, b) => (b.outstanding || 0) - (a.outstanding || 0));
+
+    // 2. Vicinity / other retailers in same area
+    let vicinity = areaRetailers
+        .filter(r => r.monthlyOrders === false)
+        .sort((a, b) => (b.outstanding || 0) - (a.outstanding || 0));
+
+    // Take 60% regular + 40% vicinity (max 10-12 retailers per plan)
+    let selected = [
+        ...regular.slice(0, Math.ceil(areaRetailers.length * 0.6)),
+        ...vicinity.slice(0, Math.ceil(areaRetailers.length * 0.4))
+    ].slice(0, 12);   // Cap at 12 for practicality
+
+    const plan = {
+        active: true,
+        created_by: "Admin",
+        focus_skus: ["Prestige Pressure Cooker 5L", "Prestige Mixer Grinder 750W"],
+        notes: `Smart Visit Plan for ${areaName}. Regular order dealers + vicinity coverage.`,
+        period: "Week",
+        priority_actions: [
+            "Meet all regular monthly order dealers first",
+            "Cover nearby retailers in same area",
+            "Focus on high outstanding recovery",
+            "Push Pressure Cooker + Mixer schemes"
+        ],
+        territories: [areaName],
+        priorityRetailers: selected.map(r => ({
+            id: r.id,
+            name: r.name,
+            outstanding: r.outstanding || 0,
+            lastVisitDaysAgo: r.lastVisitDaysAgo || 0,
+            reason: r.monthlyOrders ? "Regular Order Dealer" : "Vicinity Coverage",
+            suggestedAction: (r.outstanding || 0) > 15000 ? "Payment Recovery + Scheme Push" : "Order Boost"
+        }))
+    };
+
+    try {
+        const { data, error } = await supabase
+            .from('focus_plans')
+            .insert([plan])
+            .select();
+
+        if (error) throw error;
+
+        console.log("%c✅ Smart Focus Plan Created!", "color:lime;font-size:16px", data[0]);
+        alert(`Focus Plan for ${areaName} created!\n${selected.length} retailers selected (Regular + Vicinity)`);
+
+        if (typeof showPublishedPlans === 'function') showPublishedPlans();
+        return data[0];
+
+    } catch (err) {
+        console.error(err);
+        alert("Failed to save: " + err.message);
+    }
 }
 
 // Global Exposure
