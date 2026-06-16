@@ -75,7 +75,7 @@ async function generateSmartResponse(message) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer xai-4UBN0aOmhm1QzLo0wfLvM8Dkw3wtmEfMaj7bN1FluxfK75gtslQJCHBA6RlWdoJ7xLwWTbIgW89TSVQ5'
+                'Authorization': 'Bearer xai-4APCxJXdH2aCVQEEpbQEX1aYjA00HWhf3CQli9ynDvxn1suRYRta64Cz7fKqZAyymJ2RzpC5LmfBaXy4O'
             },
             body: JSON.stringify({
                 model: "grok-beta",
