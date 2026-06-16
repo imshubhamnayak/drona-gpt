@@ -11,7 +11,7 @@ let supabaseClient = null;
 function initSupabase() {
     if (supabaseClient) return supabaseClient;
 
-    const supabaseUrl = 'https://tnqtejdulwlnajnaxtyq.supabase.co';
+    const supabaseUrl = 'https://tnqtejdulwlnajnaxtyq.supabase.co/rest/v1';
     const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRucXRlamR1bHdsbmFqbmF4dHlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyNjY5OTMsImV4cCI6MjA5Njg0Mjk5M30.f0PWnl0eswhODndtv8Kw6a_A26m2uxIwCnNoDJZQwpk';
 
     supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
