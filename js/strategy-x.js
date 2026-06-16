@@ -1,9 +1,24 @@
-// ==================== STRATEGY X - FULL CLEANED VERSION ====================
+// ==================== STRATEGY X - FULL CLEANED & FIXED ====================
 
 let allRetailers = [];
 let currentMap = null;
 let currentMarkers = [];
 let currentDraftPlan = null;
+
+// ==================== SUPABASE INITIALIZATION ====================
+let supabaseClient = null;
+
+function initSupabase() {
+    if (supabaseClient) return supabaseClient;
+    
+    // Replace with your actual Supabase URL and Anon Key
+    const supabaseUrl = 'https://tnqtejdulwlnajnaxtyq.supabase.co';  // ← Your project URL
+    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRucXRlamR1bHdsbmFqbmF4dHlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyNjY5OTMsImV4cCI6MjA5Njg0Mjk5M30.f0PWnl0eswhODndtv8Kw6a_A26m2uxIwCnNoDJZQwpk'; // ← Your anon key
+
+    supabaseClient = Supabase.createClient(supabaseUrl, supabaseAnonKey);
+    console.log("%c✅ Supabase Client Initialized", "color:#22c55e");
+    return supabaseClient;
+}
 
 // ==================== LOAD RETAILERS DATA ====================
 async function loadStrategyData() {
@@ -11,32 +26,24 @@ async function loadStrategyData() {
         const response = await fetch('data/retailers.json');
         const data = await response.json();
         allRetailers = data.retailers || [];
-        console.log(`%c✅ Loaded ${allRetailers.length} retailers from JSON`, 'color:#22c55e');
+        console.log(`%c✅ Loaded ${allRetailers.length} retailers`, 'color:#22c55e');
     } catch (err) {
         console.error("Failed to load retailers.json", err);
         allRetailers = [];
     }
 }
 
-// ==================== MAP INITIALIZATION ====================
+// ==================== MAP FUNCTIONS ====================
 function initMap() {
     const container = document.getElementById('strategy-map');
-    if (!container) {
-        console.error("Map container '#strategy-map' not found");
-        return;
-    }
+    if (!container) return;
 
     container.innerHTML = '';
-
     currentMap = L.map('strategy-map').setView([12.92, 77.60], 12);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(currentMap);
-
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(currentMap);
     drawAreaCircles();
 }
 
-// Draw orange area circles
 function drawAreaCircles() {
     if (!currentMap || !allRetailers.length) return;
 
@@ -60,14 +67,10 @@ function drawAreaCircles() {
         }).addTo(currentMap);
 
         circle.bindPopup(`<b>${areaName}</b><br>${group.length} retailers`);
-
-        circle.on('click', () => {
-            showRetailersInArea(areaName, avgLat, avgLng);
-        });
+        circle.on('click', () => showRetailersInArea(areaName, avgLat, avgLng));
     });
 }
 
-// Show retailers in selected area
 function showRetailersInArea(areaName, centerLat, centerLng) {
     currentMarkers.forEach(m => currentMap.removeLayer(m));
     currentMarkers = [];
@@ -76,7 +79,6 @@ function showRetailersInArea(areaName, centerLat, centerLng) {
 
     filtered.forEach(r => {
         if (!r.lat || !r.lng) return;
-
         const marker = L.circleMarker([r.lat, r.lng], {
             radius: 7,
             fillColor: (r.outstanding || 0) > 30000 ? "#ef4444" : "#22c55e",
@@ -84,62 +86,43 @@ function showRetailersInArea(areaName, centerLat, centerLng) {
             weight: 2,
             fillOpacity: 0.9
         }).addTo(currentMap);
-
-        marker.bindPopup(`<b>${r.name}</b><br>Outstanding: ₹${(r.outstanding || 0).toLocaleString()}`);
+        marker.bindPopup(`<b>${r.name}</b><br>₹${(r.outstanding || 0).toLocaleString()}`);
         currentMarkers.push(marker);
     });
 
     currentMap.flyTo([centerLat, centerLng], 14);
 }
 
-// Populate territory list in sidebar
 function populateTerritoryList() {
     const container = document.getElementById('territory-list');
     if (!container) return;
 
     const areas = {};
-    allRetailers.forEach(r => {
-        if (!areas[r.area]) areas[r.area] = 0;
-        areas[r.area]++;
-    });
+    allRetailers.forEach(r => areas[r.area] = (areas[r.area] || 0) + 1);
 
     let html = '';
     Object.keys(areas).forEach(area => {
         html += `
             <div onclick="createFocusPlanForArea('${area}')" 
-                 class="p-4 hover:bg-slate-800 rounded-2xl cursor-pointer border border-slate-700 flex justify-between items-center">
-                <span>${area}</span>
-                <span class="text-slate-400">(${areas[area]})</span>
-            </div>
-        `;
+                 class="p-4 hover:bg-slate-800 rounded-2xl cursor-pointer border border-slate-700">
+                ${area} <span class="text-slate-400">(${areas[area]})</span>
+            </div>`;
     });
-
     container.innerHTML = html;
 }
 
-// ==================== FOCUS PLAN - DRAFT FIRST ====================
+// ==================== FOCUS PLAN DRAFT + SAVE ====================
 async function createFocusPlan(areaName) {
-    if (!areaName) {
-        alert("Area name is missing.");
-        return;
-    }
-
-    console.log(`Creating draft for: ${areaName}`);
-
-    if (!allRetailers || allRetailers.length === 0) {
-        alert("Retailers data not loaded. Please refresh.");
-        return;
-    }
+    if (!areaName) return;
 
     const normalizedArea = String(areaName).trim();
     const areaRetailers = allRetailers.filter(r => String(r.area).trim() === normalizedArea);
 
     if (areaRetailers.length === 0) {
-        alert(`No retailers found in "${areaName}".`);
+        alert(`No retailers found in "${areaName}"`);
         return;
     }
 
-    // Smart selection: 60% regular orderers + 40% vicinity
     let regular = areaRetailers.filter(r => r.monthlyOrders === true)
         .sort((a, b) => (b.outstanding || 0) - (a.outstanding || 0));
 
@@ -157,19 +140,13 @@ async function createFocusPlan(areaName) {
         totalOutstanding: selected.reduce((sum, r) => sum + (r.outstanding || 0), 0),
         selectedRetailers: selected,
         focus_skus: ["Prestige Pressure Cooker 5L", "Prestige Mixer Grinder 750W"],
-        priority_actions: [
-            "Meet all regular monthly order dealers first",
-            "Cover nearby retailers in same area",
-            "Focus on high outstanding recovery",
-            "Push Pressure Cooker & Mixer schemes"
-        ],
-        notes: `Smart Visit Plan for ${areaName} - Regular + Vicinity coverage.`
+        priority_actions: ["Meet regular dealers", "Cover vicinity", "Recover outstanding", "Push key SKUs"],
+        notes: `Smart plan for ${areaName}`
     };
 
     showDraftModal(currentDraftPlan);
 }
 
-// Draft Modal
 function showDraftModal(draft) {
     let html = `
     <div class="fixed inset-0 bg-black/80 flex items-center justify-center z-[10000]" id="draft-modal">
@@ -223,8 +200,9 @@ function closeDraftModal() {
 
 async function saveDraftToSupabase() {
     if (!currentDraftPlan) return;
-
     closeDraftModal();
+
+    const supabase = initSupabase();
 
     const plan = {
         active: true,
@@ -238,9 +216,7 @@ async function saveDraftToSupabase() {
             id: r.id,
             name: r.name,
             outstanding: r.outstanding || 0,
-            lastVisitDaysAgo: r.lastVisitDaysAgo || 0,
-            reason: r.monthlyOrders ? "Regular Order Dealer" : "Vicinity Coverage",
-            suggestedAction: (r.outstanding || 0) > 15000 ? "Payment Recovery + Scheme Push" : "Order Boost"
+            reason: r.monthlyOrders ? "Regular" : "Vicinity"
         }))
     };
 
@@ -252,9 +228,8 @@ async function saveDraftToSupabase() {
 
         if (error) throw error;
 
-        console.log("%c✅ Plan Saved to Supabase!", "color:lime", data[0]);
-        alert(`✅ Focus Plan for ${currentDraftPlan.area} saved successfully!`);
-
+        console.log("%c✅ Saved to Supabase!", "color:lime", data);
+        alert("✅ Focus Plan saved successfully!");
         if (typeof showPublishedPlans === 'function') showPublishedPlans();
 
     } catch (err) {
@@ -268,10 +243,10 @@ async function initializeStrategyX() {
     await loadStrategyData();
     initMap();
     populateTerritoryList();
-    console.log("%c✅ Strategy X Fully Initialized", "color:#22c55e");
+    console.log("%c✅ Strategy X Initialized", "color:#22c55e");
 }
 
-// Expose functions globally
+// Global exports
 window.initializeStrategyX = initializeStrategyX;
 window.createFocusPlanForArea = createFocusPlan;
 window.showRetailersInArea = showRetailersInArea;
