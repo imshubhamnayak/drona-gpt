@@ -1,4 +1,4 @@
-// ==================== DRONA GPT - COMPLETE FIXED MAIN.JS (with Strategy X) ====================
+// ==================== DRONA GPT - COMPLETE FIXED MAIN.JS ====================
 
 let retailers = [];
 let currentContextRetailer = null;
@@ -38,10 +38,8 @@ function setDynamicGreeting() {
         sub = "Check Today's plan to ensure everything is taken care of";
     }
 
-    const mainEl = document.getElementById('greeting-main');
-    const subEl = document.getElementById('greeting-sub');
-    if (mainEl) mainEl.textContent = main;
-    if (subEl) subEl.textContent = sub;
+    document.getElementById('greeting-main').textContent = main;
+    document.getElementById('greeting-sub').textContent = sub;
 }
 
 // Add Message
@@ -114,6 +112,47 @@ async function sendMessage() {
     const reply = await generateSmartResponse(text);
     typing.remove();
     addMessage(reply, 'bot');
+}
+
+// User Header (Ramesh / Admin)
+function updateUserHeader(name, role) {
+    const userInfo = document.getElementById('user-info');
+    if (!userInfo) return;
+
+    const isAdmin = role === 'Owner' || role === 'Admin';
+    userInfo.innerHTML = `
+        <div class="flex items-center gap-x-3 bg-slate-800 px-4 py-1.5 rounded-2xl">
+            <div class="text-right">
+                <div class="font-medium">${name}</div>
+                <div class="text-xs ${isAdmin ? 'text-orange-400' : 'text-blue-400'}">${role}</div>
+            </div>
+            <div class="w-9 h-9 ${isAdmin ? 'bg-orange-600' : 'bg-blue-600'} rounded-2xl flex items-center justify-center">
+                <i class="fa-solid fa-user text-white text-sm"></i>
+            </div>
+        </div>
+    `;
+}
+
+// Tab Switching
+function switchTab(tab) {
+    const dronaView = document.getElementById('drona-gpt-view');
+    const strategyView = document.getElementById('strategy-x-view');
+    const tabDrona = document.getElementById('tab-drona-gpt');
+    const tabStrategy = document.getElementById('tab-strategy-x');
+
+    if (tab === 'drona-gpt') {
+        dronaView.classList.remove('hidden');
+        strategyView.classList.add('hidden');
+        tabDrona.classList.add('tab-active');
+        tabStrategy.classList.remove('tab-active');
+        updateUserHeader('Ramesh', 'Salesman');
+    } else {
+        dronaView.classList.add('hidden');
+        strategyView.classList.remove('hidden');
+        tabDrona.classList.remove('tab-active');
+        tabStrategy.classList.add('tab-active');
+        updateUserHeader('Admin', 'Owner');
+    }
 }
 
 // Target Summary
@@ -221,10 +260,6 @@ function showPublishedPlan() {
                     <div class="text-sm text-slate-300 mt-2">• Sharma Kirana Store (High Outstanding)</div>
                     <div class="text-sm text-slate-300">• Lakshmi Provision Store</div>
                 </div>
-                <div class="bg-slate-800 p-4 rounded-2xl">
-                    <div class="font-medium">Nearby Retailers</div>
-                    <div class="text-sm text-slate-300 mt-2">• Royal Kirana • Anand Super Market</div>
-                </div>
             </div>
 
             <button onclick="this.closest('.fixed').remove()" 
@@ -236,34 +271,24 @@ function showPublishedPlan() {
     document.body.appendChild(modal);
 }
 
-// Tab Switching with Strategy X Init
-function switchTab(tab) {
-    const dronaView = document.getElementById('drona-gpt-view');
-    const strategyView = document.getElementById('strategy-x-view');
-    const tabDrona = document.getElementById('tab-drona-gpt');
-    const tabStrategy = document.getElementById('tab-strategy-x');
+// Initialize
+async function initializeApp() {
+    console.log("%c[Drona GPT] Initializing...", "color:#22c55e");
+    
+    await loadRetailers();
 
-    if (tab === 'drona-gpt') {
-        dronaView.classList.remove('hidden');
-        strategyView.classList.add('hidden');
-        tabDrona.classList.add('tab-active');
-        tabStrategy.classList.remove('tab-active');
-        updateUserHeader('Ramesh', 'Salesman');
-    } else {
-        dronaView.classList.add('hidden');
-        strategyView.classList.remove('hidden');
-        tabDrona.classList.remove('tab-active');
-        tabStrategy.classList.add('tab-active');
-        updateUserHeader('Admin', 'Owner');
+    allSKUs = [
+        { name: "Prestige Pressure Cooker 5L", mrp: 2499, ecomPrice: 1899, talkingPoint: "High demand item." },
+        { name: "Prestige Mixer Grinder", mrp: 4299, ecomPrice: 3199, talkingPoint: "Push combo offer." }
+    ];
 
-        // Initialize Strategy X when switching
-        if (window.initializeStrategyX && !window.strategyXInitialized) {
-            setTimeout(() => {
-                window.initializeStrategyX();
-                window.strategyXInitialized = true;
-            }, 300);
-        }
-    }
+    setDynamicGreeting();
+    addMessage("Hi Ramesh! How can I help you today? Ask about any retailer, SKU, or plan.", 'bot');
+    
+    // Default to Drona GPT view with Ramesh
+    updateUserHeader('Ramesh', 'Salesman');
+    
+    console.log("%c✅ Drona GPT Ready", "color:lime");
 }
 
 function updateUserHeader(name, role) {
@@ -284,26 +309,31 @@ function updateUserHeader(name, role) {
     `;
 }
 
-// Initialize
-async function initializeApp() {
-    console.log("%c[Drona GPT] Initializing...", "color:#22c55e");
-    
-    await loadRetailers();
+// Tab Switching
+function switchTab(tab) {
+    const dronaView = document.getElementById('drona-gpt-view');
+    const strategyView = document.getElementById('strategy-x-view');
+    const tabDrona = document.getElementById('tab-drona-gpt');
+    const tabStrategy = document.getElementById('tab-strategy-x');
 
-    allSKUs = [
-        { name: "Prestige Pressure Cooker 5L", mrp: 2499, ecomPrice: 1899, talkingPoint: "High demand item. Good margin." },
-        { name: "Prestige Mixer Grinder", mrp: 4299, ecomPrice: 3199, talkingPoint: "Push combo offer." }
-    ];
-
-    setDynamicGreeting();
-    addMessage("Hi Ramesh! How can I help you today? Ask about any retailer, SKU, or plan.", 'bot');
-    
-    console.log("%c✅ Drona GPT Ready", "color:lime");
+    if (tab === 'drona-gpt') {
+        dronaView.classList.remove('hidden');
+        strategyView.classList.add('hidden');
+        tabDrona.classList.add('tab-active');
+        tabStrategy.classList.remove('tab-active');
+        updateUserHeader('Ramesh', 'Salesman');
+    } else {
+        dronaView.classList.add('hidden');
+        strategyView.classList.remove('hidden');
+        tabDrona.classList.remove('tab-active');
+        tabStrategy.classList.add('tab-active');
+        updateUserHeader('Admin', 'Owner');
+    }
 }
 
 window.onload = initializeApp;
 
-// Global functions for onclick handlers
+// Global functions for onclick
 window.sendMessage = sendMessage;
 window.showTargetSummary = showTargetSummary;
 window.openSKUIntelligence = openSKUIntelligence;
