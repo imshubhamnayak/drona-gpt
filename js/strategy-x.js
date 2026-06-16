@@ -1,7 +1,8 @@
-// ==================== STRATEGY X - FULLY FIXED ====================
+// ==================== STRATEGY X - AREA CIRCLES + FILTERED RETAILERS ====================
 
 let allRetailers = [];
 let currentMap = null;
+let currentAreaMarkers = [];
 
 // Load Data
 async function loadStrategyData() {
@@ -9,23 +10,14 @@ async function loadStrategyData() {
         const response = await fetch('data/retailers.json');
         const data = await response.json();
         allRetailers = data.retailers || [];
-        console.log(`%c✅ Strategy X: Loaded ${allRetailers.length} retailers`, 'color:#22c55e');
+        console.log(`%c✅ Loaded ${allRetailers.length} retailers`, 'color:#22c55e');
     } catch (err) {
-        console.error("Failed to load retailers.json", err);
-        allRetailers = [];
+        console.error("Failed to load data", err);
     }
 }
 
-// Initialize Everything
-async function initializeStrategyX() {
-    await loadStrategyData();
-    initializeMap();
-    populateTerritoryList();
-    console.log("%c✅ Strategy X Fully Initialized", "color:#22c55e");
-}
-
 // Initialize Map
-function initializeMap() {
+function initializeStrategyX() {
     const mapContainer = document.getElementById('strategy-map');
     if (!mapContainer) return;
 
@@ -37,93 +29,76 @@ function initializeMap() {
         attribution: '© OpenStreetMap'
     }).addTo(currentMap);
 
-    plotRetailersOnMap();
+    drawAreaCircles();
 }
 
-// Plot Retailers
-function plotRetailersOnMap() {
-    if (!currentMap || !allRetailers.length) return;
-
-    allRetailers.forEach(retailer => {
-        if (!retailer.lat || !retailer.lng) return;
-
-        const color = retailer.outstanding > 30000 ? "#ef4444" : 
-                     (retailer.outstanding > 15000 ? "#f59e0b" : "#22c55e");
-
-        const marker = L.circleMarker([retailer.lat, retailer.lng], {
-            radius: 5,
-            fillColor: color,
-            color: "#fff",
-            weight: 1.5,
-            opacity: 1,
-            fillOpacity: 0.85
-        }).addTo(currentMap);
-
-        marker.bindPopup(`
-            <b>${retailer.name}</b><br>
-            ${retailer.area}<br><br>
-            Outstanding: <b>₹${retailer.outstanding}</b>
-        `);
-    });
-}
-
-// Populate Territory List
-function populateTerritoryList() {
-    const container = document.getElementById('territory-list');
-    if (!container) return;
-
+// Draw Circular Orbits per Area
+function drawAreaCircles() {
     const areas = {};
+
     allRetailers.forEach(r => {
         if (!areas[r.area]) areas[r.area] = [];
         areas[r.area].push(r);
     });
 
-    let html = '';
-    Object.keys(areas).forEach(area => {
-        const count = areas[area].length;
-        html += `
-            <div onclick="showTerritoryDetails('${area}')" 
-                 class="p-3 hover:bg-slate-800 rounded-2xl cursor-pointer border border-slate-700">
-                <div class="font-medium">${area}</div>
-                <div class="text-xs text-slate-400">${count} retailers</div>
-            </div>
-        `;
+    Object.keys(areas).forEach(areaName => {
+        const retailersInArea = areas[areaName];
+        
+        // Calculate center of area
+        const avgLat = retailersInArea.reduce((sum, r) => sum + (r.lat || 12.91), 0) / retailersInArea.length;
+        const avgLng = retailersInArea.reduce((sum, r) => sum + (r.lng || 77.58), 0) / retailersInArea.length;
+
+        // Draw big circle for area
+        const areaCircle = L.circle([avgLat, avgLng], {
+            color: "#f59e0b",
+            fillColor: "#f59e0b",
+            fillOpacity: 0.25,
+            radius: 1400,
+            weight: 3
+        }).addTo(currentMap);
+
+        areaCircle.bindPopup(`<b>${areaName}</b><br>${retailersInArea.length} retailers`);
+
+        // Click on area circle → show only retailers in that area
+        areaCircle.on('click', () => {
+            showRetailersInArea(areaName, avgLat, avgLng);
+        });
+    });
+}
+
+// Show only retailers of selected area
+function showRetailersInArea(areaName, centerLat, centerLng) {
+    // Remove previous markers
+    currentAreaMarkers.forEach(marker => currentMap.removeLayer(marker));
+    currentAreaMarkers = [];
+
+    const filtered = allRetailers.filter(r => r.area === areaName);
+
+    filtered.forEach(retailer => {
+        if (!retailer.lat || !retailer.lng) return;
+
+        const color = retailer.outstanding > 30000 ? "#ef4444" : "#22c55e";
+
+        const marker = L.circleMarker([retailer.lat, retailer.lng], {
+            radius: 6,
+            fillColor: color,
+            color: "#fff",
+            weight: 2,
+            fillOpacity: 0.9
+        }).addTo(currentMap);
+
+        marker.bindPopup(`
+            <b>${retailer.name}</b><br>
+            Outstanding: ₹${retailer.outstanding}<br>
+            Last Visit: ${retailer.lastVisitDaysAgo} days ago
+        `);
+
+        currentAreaMarkers.push(marker);
     });
 
-    container.innerHTML = html;
+    // Zoom to area
+    currentMap.flyTo([centerLat, centerLng], 14);
 }
 
-// Show Territory Details
-function showTerritoryDetails(areaName) {
-    const retailersInArea = allRetailers.filter(r => r.area === areaName);
-    const panel = document.getElementById('territory-details-panel');
-    if (!panel) return;
-
-    panel.innerHTML = `
-        <div class="p-4">
-            <h4 class="font-semibold text-xl mb-2">${areaName}</h4>
-            <p class="text-sm text-slate-400 mb-4">${retailersInArea.length} retailers</p>
-            <button onclick="createFocusPlanForArea('${areaName}')" 
-                    class="w-full py-3 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">
-                Create Focus Plan
-            </button>
-        </div>
-    `;
-    panel.classList.remove('hidden');
-}
-
-// Create Focus Plan
-function createFocusPlanForArea(areaName) {
-    const retailersInArea = allRetailers.filter(r => r.area === areaName)
-        .sort((a, b) => b.outstanding - a.outstanding);
-
-    const priority = retailersInArea.slice(0, 6).map(r => r.name);
-
-    alert(`✅ Focus Plan Created for ${areaName}\n\nPriority Retailers:\n${priority.join("\n")}`);
-    console.log("Focus Plan Draft for", areaName, priority);
-}
-
-// Make functions globally available
+// Global function
 window.initializeStrategyX = initializeStrategyX;
-window.showTerritoryDetails = showTerritoryDetails;
-window.createFocusPlanForArea = createFocusPlanForArea;
