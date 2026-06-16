@@ -1,9 +1,8 @@
-// ==================== STRATEGY X - CLEAN & OPTIMIZED ====================
+// ==================== STRATEGY X - FIXED & CLEAN ====================
 
 let allRetailers = [];
-let currentMap = null;
 
-// Load Retailers from JSON
+// Load Data
 async function loadStrategyData() {
     try {
         const response = await fetch('data/retailers.json');
@@ -11,7 +10,7 @@ async function loadStrategyData() {
         allRetailers = data.retailers || [];
         console.log(`%c✅ Strategy X: Loaded ${allRetailers.length} retailers`, 'color:#22c55e');
     } catch (err) {
-        console.error("Failed to load retailers.json for Strategy X", err);
+        console.error("Failed to load retailers.json", err);
         allRetailers = [];
     }
 }
@@ -19,24 +18,30 @@ async function loadStrategyData() {
 // Initialize Map
 function initializeStrategyX() {
     const mapContainer = document.getElementById('strategy-map');
-    if (!mapContainer) return;
+    if (!mapContainer) {
+        console.error("Map container not found");
+        return;
+    }
 
     // Clear previous map
     mapContainer.innerHTML = '';
 
-    currentMap = L.map('strategy-map').setView([12.92, 77.60], 12);
+    // Create map
+    const map = L.map('strategy-map').setView([12.92, 77.60], 12);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap'
-    }).addTo(currentMap);
+    }).addTo(map);
 
-    plotRetailersOnMap();
+    // Plot retailers
+    plotRetailers(map);
+
+    // Populate sidebar list
     populateTerritoryList();
 }
 
-// Plot all retailers as colored markers
-function plotRetailersOnMap() {
-    if (!currentMap || !allRetailers.length) return;
+function plotRetailers(map) {
+    if (!allRetailers.length) return;
 
     allRetailers.forEach(retailer => {
         if (!retailer.lat || !retailer.lng) return;
@@ -47,29 +52,26 @@ function plotRetailersOnMap() {
         const marker = L.circleMarker([retailer.lat, retailer.lng], {
             radius: 5,
             fillColor: color,
-            color: "#ffffff",
+            color: "#fff",
             weight: 1.5,
             opacity: 1,
-            fillOpacity: 0.9
-        }).addTo(currentMap);
+            fillOpacity: 0.85
+        }).addTo(map);
 
         marker.bindPopup(`
             <b>${retailer.name}</b><br>
             <span class="text-xs">${retailer.area}</span><br><br>
             Outstanding: <b>₹${retailer.outstanding.toLocaleString()}</b><br>
-            Last Visit: ${retailer.lastVisitDaysAgo} days ago<br>
-            Payment Trend: ${retailer.paymentTrend || 'N/A'}
+            Last Visit: ${retailer.lastVisitDaysAgo} days ago
         `);
     });
 }
 
-// Populate Territory List (Sidebar)
 function populateTerritoryList() {
     const container = document.getElementById('territory-list');
     if (!container) return;
 
     const areas = {};
-
     allRetailers.forEach(r => {
         if (!areas[r.area]) areas[r.area] = [];
         areas[r.area].push(r);
@@ -78,13 +80,12 @@ function populateTerritoryList() {
     let html = '';
     Object.keys(areas).forEach(area => {
         const count = areas[area].length;
-        const totalOutstanding = areas[area].reduce((sum, r) => sum + r.outstanding, 0);
-
+        const totalOut = areas[area].reduce((sum, r) => sum + (r.outstanding || 0), 0);
+        
         html += `
-            <div onclick="showTerritoryDetails('${area}')" 
-                 class="p-4 hover:bg-slate-800 rounded-2xl cursor-pointer border border-slate-700">
+            <div onclick="showTerritoryDetails('${area}')" class="p-3 hover:bg-slate-800 rounded-2xl cursor-pointer border border-slate-700">
                 <div class="font-medium">${area}</div>
-                <div class="text-xs text-slate-400">${count} retailers • ₹${(totalOutstanding/100000).toFixed(1)}L outstanding</div>
+                <div class="text-xs text-slate-400">${count} retailers • ₹${(totalOut/100000).toFixed(1)}L</div>
             </div>
         `;
     });
@@ -92,21 +93,19 @@ function populateTerritoryList() {
     container.innerHTML = html;
 }
 
-// Show Territory Details
 function showTerritoryDetails(areaName) {
     const retailersInArea = allRetailers.filter(r => r.area === areaName);
     const panel = document.getElementById('territory-details-panel');
     if (!panel) return;
 
     let html = `
-        <div class="flex justify-between items-start mb-4">
-            <div>
-                <h4 class="font-semibold text-xl">${areaName}</h4>
-                <p class="text-sm text-slate-400">${retailersInArea.length} retailers</p>
-            </div>
+        <div class="p-4">
+            <h4 class="font-semibold text-xl mb-2">${areaName}</h4>
+            <p class="text-sm text-slate-400 mb-4">${retailersInArea.length} retailers</p>
+            
             <button onclick="createFocusPlanForArea('${areaName}')" 
-                    class="px-6 py-2 bg-orange-600 hover:bg-orange-500 rounded-2xl text-sm font-medium">
-                Create Focus Plan
+                    class="w-full py-3 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">
+                Create Focus Plan for ${areaName}
             </button>
         </div>
     `;
@@ -115,29 +114,17 @@ function showTerritoryDetails(areaName) {
     panel.classList.remove('hidden');
 }
 
-// Create Focus Plan for Area
 function createFocusPlanForArea(areaName) {
-    const retailersInArea = allRetailers.filter(r => r.area === areaName);
+    const retailersInArea = allRetailers.filter(r => r.area === areaName)
+        .sort((a, b) => b.outstanding - a.outstanding);
+
+    const priority = retailersInArea.slice(0, 6).map(r => r.name);
     
-    // Sort by outstanding amount (highest first)
-    const sorted = [...retailersInArea].sort((a, b) => b.outstanding - a.outstanding);
-
-    const priority = sorted.slice(0, 6).map(r => r.name);
-    const nearby = sorted.slice(6, 10).map(r => r.name);
-
-    const draft = {
-        area: areaName,
-        date: new Date().toLocaleDateString('en-IN'),
-        totalVisits: priority.length + nearby.length,
-        priorityRetailers: priority,
-        nearbyRetailers: nearby
-    };
-
-    alert(`✅ Draft Focus Plan Created for ${areaName}\n\nPriority Visits: ${priority.length}\nTotal Visits: ${draft.totalVisits}`);
-    console.log("Focus Plan Draft:", draft);
+    alert(`✅ Focus Plan Created for ${areaName}\n\nPriority Retailers:\n${priority.join("\n")}`);
+    console.log("Focus Plan for", areaName, priority);
 }
 
-// Initialize
+// Global Initialization
 async function initializeStrategyX() {
     await loadStrategyData();
     initializeMap();
