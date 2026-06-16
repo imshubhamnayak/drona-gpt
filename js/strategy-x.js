@@ -149,10 +149,12 @@ function showDraftModal(draft) {
                 <h2 class="text-2xl font-bold mb-2">Draft Focus Plan</h2>
                 <p class="text-slate-400 mb-4">Area: <strong>${draft.area}</strong></p>
 
+                <!-- Date Picker -->
                 <div class="mb-6">
                     <label class="block text-sm text-slate-400 mb-1">Plan Date</label>
-                    <input type="date" id="plan-date" value="${draft.plan_date}" 
-                           class="bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 w-full">
+                    <input type="date" id="plan-date" 
+                           value="${draft.plan_date || new Date().toISOString().split('T')[0]}"
+                           class="bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 w-full text-white">
                 </div>
 
                 <div class="mb-6">
@@ -191,8 +193,9 @@ function closeDraftModal() {
 async function saveDraftToSupabase() {
     if (!currentDraftPlan) return;
 
-    const selectedDate = document.getElementById('plan-date') ? 
-        document.getElementById('plan-date').value : currentDraftPlan.plan_date;
+    // Read the selected date from the input field
+    const dateInput = document.getElementById('plan-date');
+    const selectedDate = dateInput ? dateInput.value : currentDraftPlan.plan_date || new Date().toISOString().split('T')[0];
 
     closeDraftModal();
 
@@ -216,10 +219,14 @@ async function saveDraftToSupabase() {
     };
 
     try {
-        const { data, error } = await sb.from('focus_plans').insert([plan]).select();
+        const { data, error } = await sb
+            .from('focus_plans')
+            .insert([plan])
+            .select();
+
         if (error) throw error;
 
-        console.log("%c✅ Plan Saved!", "color:lime", data[0]);
+        console.log("%c✅ Plan Saved with Selected Date!", "color:lime", data[0]);
         alert(`✅ Focus Plan saved for ${selectedDate}!`);
 
     } catch (err) {
@@ -227,7 +234,6 @@ async function saveDraftToSupabase() {
         alert("Save failed: " + err.message);
     }
 }
-
 // ==================== INITIALIZE ====================
 async function initializeStrategyX() {
     await loadStrategyData();
