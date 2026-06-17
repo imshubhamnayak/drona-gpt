@@ -86,7 +86,7 @@ async function generateSmartResponse(message) {
                 'Authorization': `Bearer ${GROK_API_KEY}`
             },
             body: JSON.stringify({
-                model: "grok-3-mini",
+                model: "grok-2",
                 messages: [
                     { 
                         role: "system", 
