@@ -197,7 +197,7 @@ function closeDraftModal() {
     if (modal) modal.remove();
 }
 
-// Save to Render Backend
+// ==================== SAVE PLAN ====================
 async function saveDraftToSupabase() {
     if (!currentDraftPlan) return;
     closeDraftModal();
@@ -233,7 +233,9 @@ async function saveDraftToSupabase() {
         if (!res.ok) throw new Error('Save failed');
 
         console.log("%c✅ Plan Saved!", "color:lime", data);
-        alert(`✅ Focus Plan for ${currentDraftPlan.area} saved!`);
+        alert(`✅ Focus Plan saved for ${selectedDate}!`);
+
+        showPublishedPlans();   // Refresh the list
 
     } catch (err) {
         console.error(err);
@@ -241,14 +243,53 @@ async function saveDraftToSupabase() {
     }
 }
 
-// Initialize
+// ==================== SHOW SAVED PLANS ====================
+async function showPublishedPlans() {
+    const container = document.getElementById('active-plans');
+    if (!container) return;
+
+    try {
+        const res = await fetch(`${BACKEND_URL}/focus-plans`);
+        const plans = await res.json();
+
+        if (plans.length === 0) {
+            container.innerHTML = `<p class="text-slate-400 text-sm">No active plans yet.</p>`;
+            return;
+        }
+
+        let html = `<div class="text-sm text-slate-400 mb-2">${plans.length} Active Plan(s)</div>`;
+
+        plans.forEach(plan => {
+            html += `
+                <div class="bg-slate-800 p-4 rounded-2xl mb-3">
+                    <div class="flex justify-between">
+                        <div>
+                            <div class="font-medium">${plan.territories?.[0] || plan.area}</div>
+                            <div class="text-xs text-slate-400">${plan.plan_date}</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-orange-400">${plan.totalRetailers || '?'} retailers</div>
+                        </div>
+                    </div>
+                </div>`;
+        });
+
+        container.innerHTML = html;
+
+    } catch (e) {
+        console.error(e);
+        container.innerHTML = `<p class="text-red-400 text-sm">Failed to load plans</p>`;
+    }
+}
+
+// ==================== INITIALIZE ====================
 async function initializeStrategyX() {
     await loadStrategyData();
     initMap();
     populateTerritoryList();
-    console.log("%c✅ Strategy X Initialized", "color:#22c55e");
+    showPublishedPlans();           // Load saved plans on start
+    console.log("%c✅ Strategy X Initialized with Saved Plans", "color:#22c55e");
 }
-
 // Global exports
 window.initializeStrategyX = initializeStrategyX;
 window.createFocusPlanForArea = createFocusPlan;
