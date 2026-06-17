@@ -334,25 +334,57 @@ function showQuickView(id) {
     alert(`Quick View for ${retailer.name}\nOutstanding: ₹${retailer.outstanding}`);
 }
 
-function showPublishedPlan() {
-    const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4';
-    modal.innerHTML = `
-        <div class="bg-slate-900 rounded-3xl w-full max-w-lg p-6">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="font-semibold text-xl">Today's Focus Plan</h3>
-                <button onclick="this.closest('.fixed').remove()" class="text-slate-400 hover:text-white text-2xl">×</button>
+// Show Today's Plan from Backend (for Ramesh)
+async function showPublishedPlan() {
+    const today = new Date().toISOString().split('T')[0];
+
+    try {
+        const res = await fetch(`${BACKEND_URL}/focus-plans/today`);
+        const plans = await res.json();
+
+        if (plans.length === 0) {
+            alert("No plan published for today yet.");
+            return;
+        }
+
+        const plan = plans[0]; // Show the latest plan for today
+
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4';
+        modal.innerHTML = `
+            <div class="bg-slate-900 rounded-3xl w-full max-w-lg p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-semibold text-xl">Today's Focus Plan</h3>
+                    <button onclick="this.closest('.fixed').remove()" class="text-slate-400 hover:text-white text-2xl">×</button>
+                </div>
+
+                <div class="bg-slate-800 rounded-2xl p-5 mb-6">
+                    <div class="text-emerald-400 text-sm mb-2">📅 ${plan.plan_date}</div>
+                    <div class="text-lg font-medium">${plan.territories?.[0] || plan.area}</div>
+                    <div class="text-xs text-slate-400 mt-1">${plan.totalRetailers || '?'} retailers</div>
+                </div>
+
+                <div class="space-y-4 mb-6">
+                    <div class="bg-slate-800 p-4 rounded-2xl">
+                        <div class="font-medium mb-2">Priority Actions</div>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            ${plan.priority_actions.map(a => `<li>• ${a}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+
+                <button onclick="this.closest('.fixed').remove()" 
+                        class="w-full py-4 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">
+                    Got it, I'll follow this plan
+                </button>
             </div>
-            <div class="bg-slate-800 rounded-2xl p-5 mb-6">
-                <div class="text-emerald-400 text-sm mb-2">📅 Today</div>
-                <div class="text-lg font-medium">10 Visits Recommended</div>
-            </div>
-            <button onclick="this.closest('.fixed').remove()" class="w-full py-4 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">
-                Got it, I'll follow this plan
-            </button>
-        </div>
-    `;
-    document.body.appendChild(modal);
+        `;
+        document.body.appendChild(modal);
+
+    } catch (err) {
+        console.error(err);
+        alert("No plan found for today or backend not reachable.");
+    }
 }
 
 // Initialize
