@@ -199,9 +199,12 @@ function closeDraftModal() {
 
 async function saveDraftToSupabase() {
     if (!currentDraftPlan) return;
-    closeDraftModal();
 
-    const selectedDate = document.getElementById('plan-date')?.value || new Date().toISOString().split('T')[0];
+    // Read the selected date from the date picker
+    const dateInput = document.getElementById('plan-date');
+    const selectedDate = dateInput && dateInput.value ? dateInput.value : new Date().toISOString().split('T')[0];
+
+    closeDraftModal();
 
     const plan = {
         active: true,
@@ -211,7 +214,7 @@ async function saveDraftToSupabase() {
         period: "Week",
         priority_actions: currentDraftPlan.priority_actions,
         territories: [currentDraftPlan.area],
-        plan_date: selectedDate,
+        plan_date: selectedDate,                    // ← This must use selected date
         priorityRetailers: currentDraftPlan.selectedRetailers.map(r => ({
             id: r.id,
             name: r.name,
@@ -227,20 +230,18 @@ async function saveDraftToSupabase() {
             body: JSON.stringify(plan)
         });
 
-        const responseText = await res.text();
+        const data = await res.json();
 
-        if (!res.ok) {
-            console.error("Backend Error:", responseText);
-            throw new Error(`Server Error: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(data.message || 'Save failed');
 
-        const data = JSON.parse(responseText);
-        console.log("%c✅ Plan Saved!", "color:lime", data);
-        alert(`✅ Focus Plan saved for ${selectedDate}!`);
+        console.log("%c✅ Plan Saved for Date:", "color:lime", selectedDate, data);
+        alert(`✅ Focus Plan saved successfully for ${selectedDate}!`);
+
+        if (typeof showPublishedPlans === 'function') showPublishedPlans();
 
     } catch (err) {
         console.error("Save Error:", err);
-        alert("Save failed. Check console for details.\n\nMake sure backend is running.");
+        alert("Save failed: " + err.message);
     }
 }
 
