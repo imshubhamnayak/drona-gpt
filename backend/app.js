@@ -9,18 +9,20 @@ app.use(express.json());
 
 const DATA_FILE = path.join(__dirname, 'focus-plans.json');
 
-// Load plans from file
+// Load plans
 let focusPlans = [];
 if (fs.existsSync(DATA_FILE)) {
     try {
         focusPlans = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-        console.log(`✅ Loaded ${focusPlans.length} saved plans`);
-    } catch (e) {
-        console.log("No previous data found.");
-    }
+    } catch (e) {}
 }
 
-// Create / Update Focus Plan (One per day)
+// Save to file
+function saveToFile() {
+    fs.writeFileSync(DATA_FILE, JSON.stringify(focusPlans, null, 2));
+}
+
+// Create / Update Plan (One per day)
 app.post('/focus-plans', (req, res) => {
     const newPlan = {
         id: 'plan_' + Date.now(),
@@ -28,16 +30,13 @@ app.post('/focus-plans', (req, res) => {
         ...req.body
     };
 
-    // Check if plan exists for this date
+    // Check if plan for same date exists
     const existingIndex = focusPlans.findIndex(p => p.plan_date === newPlan.plan_date);
 
     if (existingIndex !== -1) {
-        // Override existing plan
         focusPlans[existingIndex] = newPlan;
-        console.log(`✅ Updated plan for date: ${newPlan.plan_date}`);
     } else {
-        focusPlans.unshift(newPlan); // Add new
-        console.log(`✅ New plan saved for date: ${newPlan.plan_date}`);
+        focusPlans.unshift(newPlan);
     }
 
     saveToFile();
@@ -49,21 +48,6 @@ app.get('/focus-plans', (req, res) => {
     res.json(focusPlans);
 });
 
-// Delete a plan by ID
-app.delete('/focus-plans/:id', (req, res) => {
-    const planId = req.params.id;
-    const initialLength = focusPlans.length;
-    
-    focusPlans = focusPlans.filter(p => p.id !== planId);
-    
-    if (focusPlans.length < initialLength) {
-        saveToFile();
-        res.json({ message: "Plan deleted successfully" });
-    } else {
-        res.status(404).json({ message: "Plan not found" });
-    }
-});
-
 // Get Today's Plan
 app.get('/focus-plans/today', (req, res) => {
     const today = new Date().toISOString().split('T')[0];
@@ -71,8 +55,22 @@ app.get('/focus-plans/today', (req, res) => {
     res.json(todayPlans);
 });
 
+// **DELETE Plan**
+app.delete('/focus-plans/:id', (req, res) => {
+    const planId = req.params.id;
+    const initialLength = focusPlans.length;
+
+    focusPlans = focusPlans.filter(p => p.id !== planId);
+
+    if (focusPlans.length < initialLength) {
+        saveToFile();
+        res.json({ message: "Plan deleted" });
+    } else {
+        res.status(404).json({ message: "Plan not found" });
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`✅ Drona GPT Backend running on port ${PORT}`);
-    console.log(`📁 Data saved in focus-plans.json`);
+    console.log(`✅ Backend running on port ${PORT}`);
 });
