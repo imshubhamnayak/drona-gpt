@@ -301,48 +301,66 @@ async function showActiveTargets() {
     const container = document.getElementById('active-targets-list');
     if (!container) return;
 
-    try {
-        const res = await fetch(`${BACKEND_URL}/targets`);
-        let data = await res.json();
+    const monthlyRevenueTarget = 150000;
+    const pcTarget = 80;      // Pressure Cooker units per month
+    const mgTarget = 45;      // Mixer Grinder units per month
 
-        if (data.length === 0) {
-            await seedDefaultTargets();
-            const res2 = await fetch(`${BACKEND_URL}/targets`);
-            data = await res2.json();
-        }
+    let html = `
+        <div class="bg-emerald-900/30 border border-emerald-600 p-5 rounded-3xl mb-6">
+            <div class="text-emerald-400 font-medium">Ramesh Overall Target</div>
+            <div class="text-3xl font-bold">₹3.0 Cr / Month</div>
+        </div>`;
 
-        // Calculate Total
-        const totalRevenueTarget = data
-            .filter(t => t.targetType === "revenue")
-            .reduce((sum, t) => sum + t.targetValue, 0);
+    allRetailers.forEach(r => {
+        const revenueCurrent = Math.floor((r.totalSalesThisYear || 0) / 12);
+        const revenueProgress = Math.min(100, Math.round((revenueCurrent / monthlyRevenueTarget) * 100));
 
-        let html = `
-            <div class="bg-emerald-900/30 border border-emerald-600 p-4 rounded-2xl mb-4">
-                <div class="text-emerald-400 font-medium">Total Target for Ramesh</div>
-                <div class="text-2xl font-bold">₹${totalRevenueTarget.toLocaleString()}</div>
-                <div class="text-xs text-emerald-400">June 2026</div>
-            </div>`;
+        const pcSales = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
+        const pcProgress = Math.min(100, Math.round((pcSales / pcTarget) * 100));
 
-        // Individual targets
-        data.forEach(t => {
-            const progress = Math.min(100, Math.round((t.currentValue / t.targetValue) * 100) || 0);
-            html += `
-                <div class="bg-slate-800 p-4 rounded-2xl mb-3">
-                    <div class="flex justify-between mb-1">
-                        <div class="font-medium text-sm">${t.retailerName}</div>
-                        <div class="text-emerald-400">${progress}%</div>
+        const mgSales = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
+        const mgProgress = Math.min(100, Math.round((mgSales / mgTarget) * 100));
+
+        html += `
+            <div class="bg-slate-800 p-5 rounded-3xl mb-4">
+                <div class="font-medium mb-3">${r.name}</div>
+                
+                <!-- Revenue -->
+                <div class="mb-4">
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-emerald-400">Revenue</span>
+                        <span>${revenueProgress}%</span>
                     </div>
                     <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-emerald-500 transition-all" style="width: ${progress}%"></div>
+                        <div class="h-full bg-emerald-500" style="width: ${revenueProgress}%"></div>
                     </div>
-                    <div class="text-xs text-slate-400 mt-1">${t.targetType} • ₹${t.targetValue.toLocaleString()}</div>
-                </div>`;
-        });
+                </div>
 
-        container.innerHTML = html;
-    } catch (e) {
-        container.innerHTML = `<p class="text-slate-400">No active targets</p>`;
-    }
+                <!-- SKU Breakdown -->
+                <div class="grid grid-cols-2 gap-4 text-xs">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span>Pressure Cooker</span>
+                            <span class="text-orange-400">${pcProgress}%</span>
+                        </div>
+                        <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-orange-500" style="width: ${pcProgress}%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span>Mixer Grinder</span>
+                            <span class="text-blue-400">${mgProgress}%</span>
+                        </div>
+                        <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-blue-500" style="width: ${mgProgress}%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+    });
+
+    container.innerHTML = html;
 }
 // ==================== SEED DEFAULT UNIFORM TARGETS ====================
 async function seedDefaultTargets() {
