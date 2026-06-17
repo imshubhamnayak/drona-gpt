@@ -1,4 +1,4 @@
-// ==================== STRATEGY X - COMPLETE REFACTORED VERSION (with Tabs + SKU Breakdown) ====================
+// ==================== STRATEGY X - FIXED & DEBUGGED (Focus Plans Working) ====================
 
 let allRetailers = [];
 let currentMap = null;
@@ -14,7 +14,7 @@ async function loadStrategyData() {
         allRetailers = data.retailers || [];
         console.log(`✅ Loaded ${allRetailers.length} retailers`);
     } catch (err) {
-        console.error("Failed to load retailers.json", err);
+        console.error(err);
     }
 }
 
@@ -42,21 +42,17 @@ function drawPerformanceCircles() {
         const group = areas[areaName];
         const avgLat = group.reduce((sum, r) => sum + (r.lat || 12.92), 0) / group.length;
         const avgLng = group.reduce((sum, r) => sum + (r.lng || 77.60), 0) / group.length;
-        const avgOutstanding = group.reduce((sum, r) => sum + (r.outstanding || 0), 0) / group.length;
+        const avgOS = group.reduce((sum, r) => sum + (r.outstanding || 0), 0) / group.length;
 
         let color = "#22c55e";
-        if (avgOutstanding > 30000) color = "#ef4444";
-        else if (avgOutstanding > 18000) color = "#f59e0b";
+        if (avgOS > 30000) color = "#ef4444";
+        else if (avgOS > 18000) color = "#f59e0b";
 
         const circle = L.circle([avgLat, avgLng], {
-            color: color,
-            fillColor: color,
-            fillOpacity: 0.22,
-            radius: 1650,
-            weight: 3.5
+            color: color, fillColor: color, fillOpacity: 0.25, radius: 1650, weight: 3.5
         }).addTo(currentMap);
 
-        circle.bindPopup(`<b>${areaName}</b><br>${group.length} retailers<br>Avg O/S: ₹${Math.round(avgOutstanding).toLocaleString()}`);
+        circle.bindPopup(`<b>${areaName}</b><br>${group.length} retailers<br>Avg O/S: ₹${Math.round(avgOS).toLocaleString()}`);
         circle.on('click', () => createFocusPlanForArea(areaName));
     });
 }
@@ -193,115 +189,114 @@ async function saveDraftToSupabase() {
 
         console.log("%c✅ Plan saved for", "color:lime", selectedDate);
         alert(`✅ Focus Plan saved for ${selectedDate}!`);
-        showPublishedPlans();
+        switchStrategyTab(0); // Refresh Focus Plans tab
     } catch (err) {
         console.error(err);
         alert("Save failed. Check console.");
     }
 }
 
-// ==================== PUBLISHED PLANS ====================
-async function showPublishedPlans() {
-    const container = document.getElementById('active-plans-list');
-    if (!container) return;
+// ==================== TAB SYSTEM ====================
+async function switchStrategyTab(tab) {
+    document.querySelectorAll('[id^="stab-"]').forEach(btn => btn.classList.remove('tab-active'));
+    document.getElementById(`stab-${tab}`).classList.add('tab-active');
 
+    const content = document.getElementById('strategy-tab-content');
+
+    if (tab === 0) {
+        await showPublishedPlans();
+    } else if (tab === 1) {
+        await showActiveTargets();
+    } else if (tab === 2) {
+        populateTerritoryList();
+    }
+}
+
+// Focus Plans Tab
+async function showPublishedPlans() {
+    const container = document.getElementById('strategy-tab-content');
     try {
         const res = await fetch(`${BACKEND_URL}/focus-plans`);
         const plans = await res.json();
 
-        let html = '';
-        plans.forEach(plan => {
-            html += `
-                <div class="bg-slate-800 p-4 rounded-2xl mb-3 group cursor-pointer" onclick="viewPlan('${plan.id}')">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="font-medium">${plan.territories?.[0] || plan.area}</div>
-                            <div class="text-xs text-slate-400">${plan.plan_date}</div>
+        let html = `<div class="font-semibold mb-4">Active Focus Plans (${plans.length})</div>`;
+
+        if (plans.length === 0) {
+            html += `<p class="text-slate-400 text-center py-8">No active focus plans yet.<br>Create one from the map.</p>`;
+        } else {
+            plans.forEach(plan => {
+                html += `
+                    <div class="bg-slate-800 p-4 rounded-2xl mb-3 cursor-pointer hover:bg-slate-700" onclick="viewPlan('${plan.id}')">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="font-medium">${plan.territories?.[0] || plan.area}</div>
+                                <div class="text-xs text-slate-400">${plan.plan_date}</div>
+                            </div>
+                            <button onclick="event.stopImmediatePropagation(); deletePlan('${plan.id}');" class="text-red-400 text-xl">🗑</button>
                         </div>
-                        <button onclick="event.stopImmediatePropagation(); deletePlan('${plan.id}');" class="text-red-400 hover:text-red-500">🗑</button>
-                    </div>
-                </div>`;
-        });
-
-        container.innerHTML = html || '<p class="text-slate-400 text-sm">No active plans yet</p>';
+                    </div>`;
+            });
+        }
+        container.innerHTML = html;
     } catch (e) {
-        container.innerHTML = '<p class="text-red-400 text-sm">Failed to load plans</p>';
+        container.innerHTML = `<p class="text-red-400">Failed to load plans</p>`;
     }
 }
 
-async function deletePlan(id) {
-    if (!confirm("Delete this plan?")) return;
-    try {
-        await fetch(`${BACKEND_URL}/focus-plans/${id}`, { method: 'DELETE' });
-        showPublishedPlans();
-    } catch (e) {
-        alert("Delete failed");
-    }
-}
-
-function viewPlan(id) {
-    alert(`Viewing details for plan ${id} (expand later)`);
-}
-
-// ==================== TARGETS (Fixed + SKU Breakdown) ====================
+// Targets Tab
 async function showActiveTargets() {
     const container = document.getElementById('strategy-tab-content');
-    if (!container) return;
-
-    const monthlyRevenueTarget = 150000;
+    const revTarget = 150000;
     const pcTarget = 80;
     const mgTarget = 45;
 
-    let html = `
-        <div class="bg-emerald-900/30 border border-emerald-600 p-5 rounded-3xl mb-6">
-            <div class="text-emerald-400 font-medium">Ramesh Overall Target</div>
-            <div class="text-3xl font-bold">₹3.0 Cr / Month</div>
-        </div>`;
+    let html = `<div class="bg-emerald-900/30 border border-emerald-600 p-5 rounded-3xl mb-6">
+        <div class="text-emerald-400 font-medium">Ramesh Overall Target</div>
+        <div class="text-3xl font-bold">₹3.0 Cr / Month</div>
+    </div>`;
 
     allRetailers.forEach(r => {
-        const revenueCurrent = Math.floor((r.totalSalesThisYear || 0) / 12);
-        const revenueProgress = Math.min(100, Math.round((revenueCurrent / monthlyRevenueTarget) * 100));
+        const revCurrent = Math.floor((r.totalSalesThisYear || 0) / 12);
+        const revProg = Math.min(100, Math.round((revCurrent / revTarget) * 100));
 
         const pcSales = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
-        const pcProgress = Math.min(100, Math.round((pcSales / pcTarget) * 100));
+        const pcProg = Math.min(100, Math.round((pcSales / pcTarget) * 100));
 
         const mgSales = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
-        const mgProgress = Math.min(100, Math.round((mgSales / mgTarget) * 100));
+        const mgProg = Math.min(100, Math.round((mgSales / mgTarget) * 100));
 
         html += `
             <div class="bg-slate-800 p-5 rounded-3xl mb-4">
-                <div class="font-medium mb-3">${r.name}</div>
+                <div class="font-medium">${r.name}</div>
                 <div class="text-xs text-slate-400">${r.area}</div>
-                
-                <!-- Revenue -->
-                <div class="mb-4">
-                    <div class="flex justify-between text-xs mb-1">
-                        <span class="text-emerald-400">Revenue</span>
-                        <span class="font-medium">₹${revenueCurrent.toLocaleString()} / ₹${monthlyRevenueTarget.toLocaleString()}</span>
-                    </div>
-                    <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-emerald-500" style="width: ${revenueProgress}%"></div>
-                    </div>
-                </div>
-
-                <!-- SKU Breakdown -->
-                <div class="grid grid-cols-2 gap-4 text-xs">
+                <div class="space-y-4 mt-4">
                     <div>
-                        <div class="flex justify-between mb-1">
-                            <span>Pressure Cooker</span>
-                            <span class="font-medium">${pcSales} / ${pcTarget}</span>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-emerald-400">Revenue</span>
+                            <span>₹${revCurrent.toLocaleString()} / ₹${revTarget.toLocaleString()}</span>
                         </div>
                         <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-orange-500" style="width: ${pcProgress}%"></div>
+                            <div class="h-full bg-emerald-500" style="width:${revProg}%"></div>
                         </div>
                     </div>
-                    <div>
-                        <div class="flex justify-between mb-1">
-                            <span>Mixer Grinder</span>
-                            <span class="font-medium">${mgSales} / ${mgTarget}</span>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span>Pressure Cooker</span>
+                                <span>${pcSales} / ${pcTarget}</span>
+                            </div>
+                            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-orange-500" style="width:${pcProg}%"></div>
+                            </div>
                         </div>
-                        <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-blue-500" style="width: ${mgProgress}%"></div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span>Mixer Grinder</span>
+                                <span>${mgSales} / ${mgTarget}</span>
+                            </div>
+                            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-blue-500" style="width:${mgProg}%"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -311,11 +306,10 @@ async function showActiveTargets() {
     container.innerHTML = html;
 }
 
-// Territories Tab
 function populateTerritoryList() {
     const container = document.getElementById('strategy-tab-content');
     const areas = {};
-    allRetailers.forEach(r => areas[r.area] = (areas[r.area] || 0) + 1);
+    allRetailers.forEach(r => areas[r.area] = (areas[r.area]||0) + 1);
 
     let html = `<div class="font-semibold mb-4">Territories</div>`;
     Object.keys(areas).forEach(area => {
@@ -329,31 +323,12 @@ function populateTerritoryList() {
     container.innerHTML = html;
 }
 
-// Tab Switching
-let currentTab = 0;
-async function switchStrategyTab(tab) {
-    currentTab = tab;
-    document.querySelectorAll('[id^="stab-"]').forEach(btn => btn.classList.remove('tab-active'));
-    document.getElementById(`stab-${tab}`).classList.add('tab-active');
-
-    const content = document.getElementById('strategy-tab-content');
-
-    if (tab === 0) {
-        content.innerHTML = `<div class="p-8 text-center text-slate-400">Focus Plans will be shown here</div>`;
-        showPublishedPlans();
-    } else if (tab === 1) {
-        await showActiveTargets();
-    } else if (tab === 2) {
-        populateTerritoryList();
-    }
-}
-
 // ==================== INITIALIZE ====================
 async function initializeStrategyX() {
     await loadStrategyData();
     initMap();
-    switchStrategyTab(0);   // Start with Focus Plans
-    console.log("%c✅ Strategy X - Full Refactor Loaded", "color:#22c55e");
+    switchStrategyTab(0);   // Start with Focus Plans tab
+    console.log("%c✅ Strategy X Fully Loaded", "color:#22c55e");
 }
 
 // Global Exports
@@ -361,10 +336,10 @@ window.initializeStrategyX = initializeStrategyX;
 window.createFocusPlanForArea = createFocusPlanForArea;
 window.saveDraftToSupabase = saveDraftToSupabase;
 window.closeDraftModal = closeDraftModal;
-window.setNewTarget = () => alert("Target settings UI - coming soon");
-window.showActiveTargets = showActiveTargets;
-window.showPublishedPlans = showPublishedPlans;
-window.deletePlan = deletePlan;
-window.viewPlan = viewPlan;
 window.toggleMap = toggleMap;
 window.switchStrategyTab = switchStrategyTab;
+window.showPublishedPlans = showPublishedPlans;
+window.showActiveTargets = showActiveTargets;
+window.populateTerritoryList = populateTerritoryList;
+window.deletePlan = deletePlan;
+window.viewPlan = viewPlan;
