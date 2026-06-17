@@ -254,7 +254,7 @@ function filterRetailers(query) {
     `).join('');
 }
 
-// ==================== NEW: MY TARGETS (Salesman View) ====================
+// ==================== MY TARGETS - SALESMAN VIEW (Ramesh) ====================
 async function showMyTargets() {
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[10000]';
@@ -262,11 +262,11 @@ async function showMyTargets() {
         <div class="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-lg mx-4 max-h-[85vh] flex flex-col">
             <div class="p-6 border-b border-slate-700">
                 <h2 class="text-2xl font-bold">My Monthly Targets</h2>
-                <p class="text-slate-400">June 2026 • Progress Overview</p>
+                <p class="text-slate-400 mt-1">June 2026 • Progress Overview</p>
             </div>
             
             <div id="my-targets-content" class="flex-1 overflow-auto p-6 space-y-6">
-                <!-- Populated by JS -->
+                <!-- Filled by JS -->
             </div>
             
             <div class="p-6 border-t border-slate-700">
@@ -279,51 +279,62 @@ async function showMyTargets() {
     `;
     document.body.appendChild(modal);
 
-    await loadAndRenderMyTargets();
+    await renderMyTargets();
 }
 
-async function loadAndRenderMyTargets() {
+async function renderMyTargets() {
     const container = document.getElementById('my-targets-content');
     if (!container) return;
 
     try {
         const res = await fetch(`${BACKEND_URL}/targets`);
-        const allTargets = await res.json();
+        let targets = await res.json();
 
-        // For now, show all targets (later we can filter by salesman area)
-        let html = '';
-
-        if (allTargets.length === 0) {
-            html = `<p class="text-slate-400 text-center py-8">No targets assigned yet.</p>`;
-        } else {
-            allTargets.forEach(t => {
-                const progress = Math.min(100, Math.round((t.currentValue / t.targetValue) * 100) || 0);
-                const color = progress >= 80 ? 'emerald' : progress >= 50 ? 'orange' : 'red';
-
-                html += `
-                    <div class="bg-slate-800 p-5 rounded-3xl">
-                        <div class="flex justify-between items-start mb-3">
-                            <div>
-                                <div class="font-semibold">${t.retailerName}</div>
-                                <div class="text-xs text-slate-400">${t.area} • ${t.targetType}</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-xl font-bold text-${color}-400">${progress}%</div>
-                                <div class="text-xs">₹${t.currentValue.toLocaleString()} / ₹${t.targetValue.toLocaleString()}</div>
-                            </div>
-                        </div>
-                        <div class="h-2.5 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-${color}-500 transition-all" style="width: ${progress}%"></div>
-                        </div>
-                    </div>`;
-            });
+        if (targets.length === 0) {
+            container.innerHTML = `<p class="text-slate-400 text-center py-12">No targets assigned yet.<br>Admin will set them soon.</p>`;
+            return;
         }
+
+        // Group by type for summary
+        const revenueTargets = targets.filter(t => t.targetType === "revenue");
+        const totalTarget = revenueTargets.reduce((sum, t) => sum + t.targetValue, 0);
+        const totalCurrent = revenueTargets.reduce((sum, t) => sum + t.currentValue, 0);
+        const overallProgress = totalTarget > 0 ? Math.round((totalCurrent / totalTarget) * 100) : 0;
+
+        let html = `
+            <div class="bg-emerald-900/30 border border-emerald-600 p-5 rounded-3xl mb-6">
+                <div class="text-emerald-400 font-medium">Overall Progress</div>
+                <div class="text-4xl font-bold text-white">${overallProgress}%</div>
+                <div class="text-sm text-emerald-400">₹${totalCurrent.toLocaleString()} / ₹${totalTarget.toLocaleString()}</div>
+            </div>`;
+
+        // Individual targets
+        targets.forEach(t => {
+            const progress = Math.min(100, Math.round((t.currentValue / t.targetValue) * 100) || 0);
+            html += `
+                <div class="bg-slate-800 p-5 rounded-3xl">
+                    <div class="flex justify-between items-start">
+                        <div class="font-medium">${t.retailerName}</div>
+                        <div class="text-emerald-400 font-semibold">${progress}%</div>
+                    </div>
+                    <div class="text-xs text-slate-400 mt-1">${t.targetType} • ${t.period}</div>
+                    <div class="h-2.5 bg-slate-700 rounded-full mt-3 overflow-hidden">
+                        <div class="h-full bg-emerald-500 transition-all" style="width: ${progress}%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs mt-2 text-slate-400">
+                        <span>₹${t.currentValue.toLocaleString()}</span>
+                        <span>₹${t.targetValue.toLocaleString()}</span>
+                    </div>
+                </div>`;
+        });
 
         container.innerHTML = html;
     } catch (e) {
         container.innerHTML = `<p class="text-red-400">Failed to load targets</p>`;
     }
 }
+
+
 
 // Add this Quick Action Button in your HTML (Drona GPT view)
 
@@ -466,6 +477,7 @@ async function initializeApp() {
 window.onload = initializeApp;
 
 // Global functions
+
 window.showMyTargets = showMyTargets;
 window.sendMessage = sendMessage;
 window.showTargetSummary = showTargetSummary;
