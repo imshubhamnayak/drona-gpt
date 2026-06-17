@@ -74,7 +74,7 @@ function buildRAGContext(query) {
     return context;
 }
 
-// Generate Smart Response
+// Generate Smart Response - Stable Model
 async function generateSmartResponse(message) {
     const context = buildRAGContext(message);
 
@@ -86,27 +86,31 @@ async function generateSmartResponse(message) {
                 'Authorization': `Bearer ${GROK_API_KEY}`
             },
             body: JSON.stringify({
-                model: "grok-2",
+                model: "grok-2-1212",        // Most stable model right now
                 messages: [
                     { 
                         role: "system", 
-                        content: `You are Drona, a practical AI sales coach for field salesmen. Be direct and actionable.${context}` 
+                        content: `You are Drona, a practical AI sales coach for field salesmen in Indian retail. Be direct, actionable and helpful.${context}` 
                     },
                     { role: "user", content: message }
                 ],
                 temperature: 0.7,
-                max_tokens: 500
+                max_tokens: 600
             })
         });
 
-        if (!res.ok) throw new Error(`API Error ${res.status}`);
+        if (!res.ok) {
+            const errorText = await res.text();
+            console.error("xAI API Error:", res.status, errorText);
+            throw new Error(`API Error ${res.status}: ${errorText}`);
+        }
 
         const data = await res.json();
-        return data.choices?.[0]?.message?.content || "I couldn't generate a response.";
+        return data.choices?.[0]?.message?.content || "I couldn't generate a response. Try asking about a retailer.";
 
     } catch (e) {
         console.error("Grok API Error:", e);
-        return "I'm having trouble connecting right now. Ask me about any retailer or plan.";
+        return "I'm having trouble connecting right now. Ask me about any retailer, target, or SKU.";
     }
 }
 
