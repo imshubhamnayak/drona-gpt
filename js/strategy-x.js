@@ -197,7 +197,6 @@ function closeDraftModal() {
     if (modal) modal.remove();
 }
 
-// ==================== SAVE PLAN ====================
 async function saveDraftToSupabase() {
     if (!currentDraftPlan) return;
     closeDraftModal();
@@ -228,18 +227,20 @@ async function saveDraftToSupabase() {
             body: JSON.stringify(plan)
         });
 
-        const data = await res.json();
+        const responseText = await res.text();
 
-        if (!res.ok) throw new Error('Save failed');
+        if (!res.ok) {
+            console.error("Backend Error:", responseText);
+            throw new Error(`Server Error: ${res.status}`);
+        }
 
+        const data = JSON.parse(responseText);
         console.log("%c✅ Plan Saved!", "color:lime", data);
         alert(`✅ Focus Plan saved for ${selectedDate}!`);
 
-        showPublishedPlans();   // Refresh the list
-
     } catch (err) {
-        console.error(err);
-        alert("Save failed: " + err.message);
+        console.error("Save Error:", err);
+        alert("Save failed. Check console for details.\n\nMake sure backend is running.");
     }
 }
 
