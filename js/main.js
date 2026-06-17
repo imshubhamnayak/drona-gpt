@@ -4,8 +4,7 @@ let retailers = [];
 let currentContextRetailer = null;
 let allSKUs = [];
 
-// New API Key
-const GROK_API_KEY = "xai-APCxJXdH2aCVQEEpbQEX1aYjA00HWhf3CQli9ynDvxn1suRYRta64Cz7fKqZAyymJ2RzpC5LmfBaXy4O";
+const GROQ_API_KEY = "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";
 
 // Load Retailers
 async function loadRetailers() {
@@ -74,22 +73,23 @@ function buildRAGContext(query) {
     return context;
 }
 
+// Generate Smart Response using Groq (Llama 3.1)
 async function generateSmartResponse(message) {
     const context = buildRAGContext(message);
 
     try {
-        const res = await fetch('https://api.x.ai/v1/chat/completions', {
+        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${GROK_API_KEY}`
+                'Authorization': `Bearer ${GROQ_API_KEY}`   // ← Your Groq key
             },
             body: JSON.stringify({
-                model: "grok-4.3",           // ← Current flagship model
+                model: "llama-3.1-70b-versatile",     // Strong & fast model
                 messages: [
                     { 
                         role: "system", 
-                        content: `You are Drona, a practical AI sales coach for field salesmen in Indian retail. Be direct, actionable and helpful.${context}` 
+                        content: `You are Drona, a practical and direct AI sales coach for field salesmen in Indian retail/distribution. Be actionable and motivational.${context}` 
                     },
                     { role: "user", content: message }
                 ],
@@ -100,7 +100,7 @@ async function generateSmartResponse(message) {
 
         if (!res.ok) {
             const errorText = await res.text();
-            console.error("API Error:", res.status, errorText);
+            console.error("Groq API Error:", res.status, errorText);
             throw new Error(`API Error ${res.status}`);
         }
 
@@ -108,7 +108,7 @@ async function generateSmartResponse(message) {
         return data.choices?.[0]?.message?.content || "I couldn't generate a response.";
 
     } catch (e) {
-        console.error("Grok API Error:", e);
+        console.error("Groq API Error:", e);
         return "I'm having trouble connecting right now. Ask me about any retailer or today's plan.";
     }
 }
