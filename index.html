@@ -166,39 +166,39 @@
         </div>
         
         <div class="flex items-center gap-3">
-            <button onclick="toggleMap()" class="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-2xl text-sm">
+            <button onclick="toggleMap()" 
+                    class="flex items-center gap-2 px-5 py-2.5 bg-slate-800 hover:bg-slate-700 rounded-2xl text-sm font-medium">
                 <i class="fa-solid fa-map"></i>
                 <span id="map-toggle-text">Hide Map</span>
             </button>
             <button onclick="createFocusPlanForArea('JP Nagar Phase 1')" 
-                    class="flex items-center gap-2 bg-orange-600 hover:bg-orange-500 px-5 py-2.5 rounded-2xl font-medium">
-                <i class="fa-solid fa-plus"></i> New Focus Plan
+                    class="flex items-center gap-2 bg-orange-600 hover:bg-orange-500 px-6 py-2.5 rounded-2xl font-medium">
+                <i class="fa-solid fa-plus"></i>
+                New Focus Plan
             </button>
         </div>
     </div>
 
     <div class="flex flex-1 overflow-hidden">
-        <!-- Map -->
-        <div id="map-container" class="flex-1 relative transition-all">
+        
+        <!-- MAP - Wider on Desktop -->
+        <div id="map-container" class="flex-1 min-w-[60%] relative border-r border-slate-800 transition-all">
             <div id="strategy-map" class="w-full h-full"></div>
         </div>
 
-        <!-- Sidebar -->
-        <div class="w-96 bg-slate-900 border-l border-slate-800 flex flex-col overflow-hidden">
+        <!-- SIDEBAR -->
+        <div class="w-[420px] bg-slate-900 border-l border-slate-800 flex flex-col overflow-hidden">
             
             <!-- Tab Navigation -->
             <div class="flex border-b border-slate-800 bg-slate-950">
-                <button onclick="switchStrategyTab(0)" id="stab-0"
-                        class="flex-1 py-4 text-center font-medium tab-active">Focus Plans</button>
-                <button onclick="switchStrategyTab(1)" id="stab-1"
-                        class="flex-1 py-4 text-center font-medium">Targets</button>
-                <button onclick="switchStrategyTab(2)" id="stab-2"
-                        class="flex-1 py-4 text-center font-medium">Territories</button>
+                <button onclick="switchStrategyTab(0)" id="stab-0" class="flex-1 py-4 text-center font-medium tab-active">Focus Plans</button>
+                <button onclick="switchStrategyTab(1)" id="stab-1" class="flex-1 py-4 text-center font-medium">Targets</button>
+                <button onclick="switchStrategyTab(2)" id="stab-2" class="flex-1 py-4 text-center font-medium">Territories</button>
             </div>
 
             <!-- Tab Content -->
             <div id="strategy-tab-content" class="flex-1 overflow-auto p-5">
-                <!-- Dynamically loaded -->
+                <!-- Filled by JS -->
             </div>
         </div>
     </div>
