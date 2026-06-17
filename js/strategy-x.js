@@ -1,4 +1,4 @@
-// ==================== STRATEGY X - COMPLETE & WORKING WITH RENDER BACKEND ====================
+// ==================== STRATEGY X - FULLY REFACTORED (Render Backend) ====================
 
 let allRetailers = [];
 let currentMap = null;
@@ -6,7 +6,7 @@ let currentMarkers = [];
 let currentDraftPlan = null;
 
 // ==================== RENDER BACKEND URL ====================
-const BACKEND_URL = 'https://drona-gpt.onrender.com';   // 
+const BACKEND_URL = 'https://drona-gpt.onrender.com';  
 
 // ==================== LOAD DATA ====================
 async function loadStrategyData() {
@@ -20,7 +20,7 @@ async function loadStrategyData() {
     }
 }
 
-// ==================== MAP ====================
+// ==================== MAP FUNCTIONS ====================
 function initMap() {
     const container = document.getElementById('strategy-map');
     if (!container) return;
@@ -93,7 +93,7 @@ function populateTerritoryList() {
     container.innerHTML = html;
 }
 
-// ==================== FOCUS PLAN DRAFT + SAVE ====================
+// ==================== FOCUS PLAN DRAFT ====================
 async function createFocusPlan(areaName) {
     if (!areaName) return;
 
@@ -130,6 +130,7 @@ async function createFocusPlan(areaName) {
     showDraftModal(currentDraftPlan);
 }
 
+// Draft Modal
 function showDraftModal(draft) {
     let html = `
     <div class="fixed inset-0 bg-black/80 flex items-center justify-center z-[10000]" id="draft-modal">
@@ -140,8 +141,7 @@ function showDraftModal(draft) {
 
                 <div class="mb-6">
                     <label class="block text-sm text-slate-400 mb-2">Plan Date</label>
-                    <input type="date" id="plan-date" value="${draft.plan_date}" 
-                           class="bg-slate-800 border border-slate-600 rounded-2xl px-4 py-4 w-full text-white">
+                    <input type="date" id="plan-date" value="${draft.plan_date}" class="bg-slate-800 border border-slate-600 rounded-2xl px-4 py-4 w-full text-white">
                 </div>
 
                 <div class="mb-6">
@@ -158,7 +158,7 @@ function showDraftModal(draft) {
 
                 <div class="flex gap-4">
                     <button onclick="closeDraftModal()" class="flex-1 py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium">Cancel</button>
-                    <button onclick="saveDraftToSupabase()" class="flex-1 py-4 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">Save to Backend</button>
+                    <button onclick="saveDraftToSupabase()" class="flex-1 py-4 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">Save Plan</button>
                 </div>
             </div>
         </div>
@@ -177,11 +177,12 @@ function closeDraftModal() {
     if (modal) modal.remove();
 }
 
+// Save to Render Backend
 async function saveDraftToSupabase() {
     if (!currentDraftPlan) return;
+    closeDraftModal();
 
     const selectedDate = document.getElementById('plan-date')?.value || new Date().toISOString().split('T')[0];
-    closeDraftModal();
 
     const plan = {
         active: true,
@@ -209,10 +210,10 @@ async function saveDraftToSupabase() {
 
         const data = await res.json();
 
-        if (!res.ok) throw new Error(data.message || 'Failed');
+        if (!res.ok) throw new Error('Save failed');
 
-        console.log("%c✅ Plan Saved to Render Backend!", "color:lime", data);
-        alert(`✅ Focus Plan saved for ${selectedDate}!`);
+        console.log("%c✅ Plan Saved!", "color:lime", data);
+        alert(`✅ Focus Plan for ${currentDraftPlan.area} saved!`);
 
     } catch (err) {
         console.error(err);
@@ -220,7 +221,7 @@ async function saveDraftToSupabase() {
     }
 }
 
-// ==================== INITIALIZE ====================
+// Initialize
 async function initializeStrategyX() {
     await loadStrategyData();
     initMap();
