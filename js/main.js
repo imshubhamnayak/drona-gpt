@@ -254,21 +254,69 @@ function filterRetailers(query) {
     `).join('');
 }
 
-function showTargetSummary() {
+// ==================== MY TARGETS FOR RAMESH ====================
+async function showMyTargets() {
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4';
     modal.innerHTML = `
         <div class="bg-slate-900 rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
             <div class="p-6 border-b flex justify-between items-center">
-                <h3 class="text-2xl font-bold">My Targets 2026</h3>
+                <h3 class="text-2xl font-bold">My Monthly Targets</h3>
                 <button onclick="this.closest('.fixed').remove()" class="text-3xl text-slate-400">×</button>
             </div>
-            <div class="flex-1 overflow-y-auto p-6 space-y-4" id="retailer-target-list"></div>
+            <div class="flex-1 overflow-y-auto p-6" id="my-targets-list"></div>
         </div>
     `;
     document.body.appendChild(modal);
-    renderAllRetailers();
+
+    renderMyTargets();
 }
+
+async function renderMyTargets() {
+    const container = document.getElementById('my-targets-list');
+    if (!container) return;
+
+    try {
+        const res = await fetch(`${BACKEND_URL}/targets`);   // Assuming backend supports /targets
+        const targets = await res.json();
+
+        if (targets.length === 0) {
+            container.innerHTML = `<p class="text-slate-400 text-center py-10">No targets assigned yet.</p>`;
+            return;
+        }
+
+        let html = '';
+        targets.forEach(t => {
+            const progress = Math.min(Math.round((t.currentValue / t.targetValue) * 100), 100);
+            const statusColor = progress >= 80 ? 'text-emerald-400' : (progress >= 50 ? 'text-yellow-400' : 'text-red-400');
+
+            html += `
+                <div class="bg-slate-800 p-5 rounded-3xl mb-4">
+                    <div class="flex justify-between mb-2">
+                        <div class="font-medium">${t.retailerName}</div>
+                        <div class="${statusColor} text-sm">${progress}%</div>
+                    </div>
+                    <div class="text-xs text-slate-400 mb-3">${t.targetType.toUpperCase()} Target • ${t.period}</div>
+                    
+                    <div class="h-2 bg-slate-700 rounded-full overflow-hidden mb-3">
+                        <div class="h-full bg-orange-500 transition-all" style="width: ${progress}%"></div>
+                    </div>
+
+                    <div class="flex justify-between text-sm">
+                        <div>Current: <span class="font-medium">₹${t.currentValue.toLocaleString()}</span></div>
+                        <div>Target: <span class="font-medium">₹${t.targetValue.toLocaleString()}</span></div>
+                    </div>
+                </div>`;
+        });
+
+        container.innerHTML = html;
+
+    } catch (e) {
+        container.innerHTML = `<p class="text-red-400">Failed to load targets. Backend may be down.</p>`;
+    }
+}
+
+// Add this Quick Action Button in your HTML (Drona GPT view)
 
 function renderAllRetailers() {
     const container = document.getElementById('retailer-target-list');
