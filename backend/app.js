@@ -20,24 +20,28 @@ if (fs.existsSync(DATA_FILE)) {
     }
 }
 
-// Save plans to file
-function saveToFile() {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(focusPlans, null, 2));
-}
-
-// Create Focus Plan
+// Create / Update Focus Plan (One per day)
 app.post('/focus-plans', (req, res) => {
-    const plan = {
+    const newPlan = {
         id: 'plan_' + Date.now(),
         created_at: new Date().toISOString(),
         ...req.body
     };
-    
-    focusPlans.unshift(plan);   // Add to top
-    saveToFile();
 
-    console.log("✅ New plan saved:", plan.area);
-    res.status(201).json(plan);
+    // Check if plan exists for this date
+    const existingIndex = focusPlans.findIndex(p => p.plan_date === newPlan.plan_date);
+
+    if (existingIndex !== -1) {
+        // Override existing plan
+        focusPlans[existingIndex] = newPlan;
+        console.log(`✅ Updated plan for date: ${newPlan.plan_date}`);
+    } else {
+        focusPlans.unshift(newPlan); // Add new
+        console.log(`✅ New plan saved for date: ${newPlan.plan_date}`);
+    }
+
+    saveToFile();
+    res.status(201).json(newPlan);
 });
 
 // Get All Plans
