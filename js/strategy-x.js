@@ -303,29 +303,99 @@ async function showActiveTargets() {
 
     try {
         const res = await fetch(`${BACKEND_URL}/targets`);
-        const data = await res.json();
+        let data = await res.json();
 
-        let html = '';
+        if (data.length === 0) {
+            await seedDefaultTargets();
+            const res2 = await fetch(`${BACKEND_URL}/targets`);
+            data = await res2.json();
+        }
+
+        // Calculate Total
+        const totalRevenueTarget = data
+            .filter(t => t.targetType === "revenue")
+            .reduce((sum, t) => sum + t.targetValue, 0);
+
+        let html = `
+            <div class="bg-emerald-900/30 border border-emerald-600 p-4 rounded-2xl mb-4">
+                <div class="text-emerald-400 font-medium">Total Target for Ramesh</div>
+                <div class="text-2xl font-bold">₹${totalRevenueTarget.toLocaleString()}</div>
+                <div class="text-xs text-emerald-400">June 2026</div>
+            </div>`;
+
+        // Individual targets
         data.forEach(t => {
             const progress = Math.min(100, Math.round((t.currentValue / t.targetValue) * 100) || 0);
             html += `
                 <div class="bg-slate-800 p-4 rounded-2xl mb-3">
                     <div class="flex justify-between mb-1">
-                        <div class="font-medium">${t.retailerName}</div>
-                        <div class="text-orange-400">${progress}%</div>
+                        <div class="font-medium text-sm">${t.retailerName}</div>
+                        <div class="text-emerald-400">${progress}%</div>
                     </div>
                     <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-orange-500 transition-all" style="width: ${progress}%"></div>
+                        <div class="h-full bg-emerald-500 transition-all" style="width: ${progress}%"></div>
                     </div>
-                    <div class="text-xs text-slate-400 mt-1">${t.targetType} • ${t.period}</div>
+                    <div class="text-xs text-slate-400 mt-1">${t.targetType} • ₹${t.targetValue.toLocaleString()}</div>
                 </div>`;
         });
 
-        container.innerHTML = html || '<p class="text-slate-400 text-sm">No active targets yet</p>';
+        container.innerHTML = html;
     } catch (e) {
-        container.innerHTML = '<p class="text-red-400">Failed to load targets</p>';
+        container.innerHTML = `<p class="text-slate-400">No active targets</p>`;
     }
 }
+// ==================== SEED DEFAULT UNIFORM TARGETS ====================
+async function seedDefaultTargets() {
+    try {
+        const res = await fetch(`${BACKEND_URL}/targets`);
+        const existing = await res.json();
+        if (existing.length > 0) return; // Already seeded
+
+        const revenueTargetPerRetailer = 150000;
+        const skuTargetPerRetailer = 80;
+
+        const defaultTargets = allRetailers.map(r => ({
+            id: 'target_' + Date.now() + '_' + r.id,
+            retailerId: r.id,
+            retailerName: r.name,
+            area: r.area,
+            targetType: "revenue",
+            targetValue: revenueTargetPerRetailer,
+            currentValue: Math.floor(r.totalSalesThisYear / 12) || 0, // approximate monthly from annual
+            period: "2026-06",
+            status: "On Track"
+        }));
+
+        // Also add SKU target (we can have multiple targets per retailer)
+        const skuTargets = allRetailers.map(r => ({
+            id: 'target_sku_' + Date.now() + '_' + r.id,
+            retailerId: r.id,
+            retailerName: r.name,
+            area: r.area,
+            targetType: "sku",
+            targetValue: skuTargetPerRetailer,
+            currentValue: 0, // can be calculated later from skuSales
+            period: "2026-06",
+            status: "On Track"
+        }));
+
+        // Save all
+        for (let target of [...defaultTargets, ...skuTargets]) {
+            await fetch(`${BACKEND_URL}/targets`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(target)
+            });
+        }
+
+        console.log(`%c✅ Seeded uniform targets for ${allRetailers.length} retailers`, "color:#22c55e");
+        console.log(`Total Ramesh Target: ₹${(revenueTargetPerRetailer * allRetailers.length).toLocaleString()}`);
+
+    } catch (e) {
+        console.error("Seed failed", e);
+    }
+}
+
 
 // Initialize
 async function initializeStrategyX() {
