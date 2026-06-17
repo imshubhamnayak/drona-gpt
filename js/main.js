@@ -39,18 +39,34 @@ function setDynamicGreeting() {
     document.getElementById('greeting-sub').textContent = sub;
 }
 
-// Add Message
+// Improved Add Message - Supports **bold** formatting
 function addMessage(text, sender) {
     const container = document.getElementById('chat-messages');
     if (!container) return;
 
+    // Convert **bold** to <b> tags
+    let formattedText = text
+        .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')     // **bold text**
+        .replace(/\n/g, '<br>');                    // Line breaks
+
     const div = document.createElement('div');
     div.className = `mb-4 flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
-    div.innerHTML = `
-        <div class="${sender === 'user' ? 'bg-orange-600 text-white' : 'bg-slate-700 text-slate-200'} rounded-2xl px-4 py-3 max-w-[75%]">
-            ${text}
-        </div>
-    `;
+
+    if (sender === 'user') {
+        div.innerHTML = `
+            <div class="bg-orange-600 text-white rounded-3xl px-5 py-3 max-w-[80%]">
+                ${formattedText}
+            </div>
+        `;
+    } else {
+        // Assistant message - darker background, better readability
+        div.innerHTML = `
+            <div class="bg-slate-700 text-slate-100 rounded-3xl px-5 py-3 max-w-[80%] leading-relaxed">
+                ${formattedText}
+            </div>
+        `;
+    }
+
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
 }
@@ -73,7 +89,7 @@ function buildRAGContext(query) {
     return context;
 }
 
-// Generate Smart Response - Simple Hinglish + Actionable Format
+// Generate Smart Response - Clean Hinglish + Bold Formatting
 async function generateSmartResponse(message) {
     const context = buildRAGContext(message);
 
@@ -89,28 +105,28 @@ async function generateSmartResponse(message) {
                 messages: [
                     { 
                         role: "system", 
-                        content: `You are Drona - a simple, practical sales coach for field salesmen in Indian villages and small towns.
+                        content: `You are Drona - a simple and practical sales coach for field salesmen in India.
 
-Response Rules (must follow):
+Rules:
 - Use simple Hinglish (easy Hindi + English)
-- Keep responses short (max 8-10 lines)
+- Keep responses short and clear
+- Use **bold** for important words like **Pressure Cooker**, **outstanding**, **jaao**, **payment**
 - Always use bullet points (•)
 - Give clear action steps for TODAY
 - End with one short question
-- Be motivating but realistic
 
-Example format:
+Example response style:
 Bhai Ramesh,
 
-Raju Kirana ka outstanding ₹60,000 hai. Last visit 7 din pehle hua tha.
+**Raju Kirana** ka outstanding **₹60,024** hai. Last visit 7 din pehle hua tha.
 
 Aaj kya karna chahiye:
-• Raju Kirana jaao
-• Owner se milo aur payment ki baat karo
-• Pressure Cooker scheme dikhao
-• Naya order lene ki koshish karo
+• **Raju Kirana** jaao
+• Owner se milo aur **payment** collect karo
+• **Pressure Cooker** scheme dikhao
+• Naya order lene ki baat karo
 
-Kya aaj Raju Kirana ja rahe ho?
+Kya aaj ja rahe ho?
 
 ${context}` 
                     },
@@ -128,7 +144,7 @@ ${context}`
 
     } catch (e) {
         console.error("Groq API Error:", e);
-        return "Bhai, aaj high outstanding wale retailers pe focus karo. Pressure Cooker push karo.";
+        return "Bhai, aaj high outstanding wale retailers pe focus karo. **Pressure Cooker** push karo.";
     }
 }
 // Send Message
