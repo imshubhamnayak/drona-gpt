@@ -1,4 +1,4 @@
-// ==================== DRONA GPT - COMPLETE FIXED WITH STRONG RAG ====================
+// ==================== DRONA GPT - COMPLETE REFACTORED WITH STRONG RAG ====================
 
 let retailers = [];
 let currentContextRetailer = null;
@@ -74,21 +74,9 @@ function buildRAGContext(query) {
     return context;
 }
 
-// Send Message with Strong RAG
-async function sendMessage() {
-    const input = document.getElementById('chat-input');
-    const text = input.value.trim();
-    if (!text) return;
-
-    addMessage(text, 'user');
-    input.value = "";
-
-    const typing = document.createElement('div');
-    typing.className = "flex justify-start mb-4";
-    typing.innerHTML = `<div class="bg-slate-700 rounded-2xl px-4 py-3">Drona is thinking...</div>`;
-    document.getElementById('chat-messages').appendChild(typing);
-
-    const context = buildRAGContext(text);
+// Generate Smart Response
+async function generateSmartResponse(message) {
+    const context = buildRAGContext(message);
 
     try {
         const res = await fetch('https://api.x.ai/v1/chat/completions', {
@@ -104,27 +92,44 @@ async function sendMessage() {
                         role: "system", 
                         content: `You are Drona, a practical AI sales coach for field salesmen. Be direct and actionable.${context}` 
                     },
-                    { role: "user", content: text }
+                    { role: "user", content: message }
                 ],
                 temperature: 0.7,
                 max_tokens: 500
             })
         });
 
-        const data = await res.json();
-        const reply = data.choices?.[0]?.message?.content || "I couldn't get a response. Try asking about a retailer or target.";
+        if (!res.ok) throw new Error(`API Error ${res.status}`);
 
-        typing.remove();
-        addMessage(reply, 'bot');
+        const data = await res.json();
+        return data.choices?.[0]?.message?.content || "I couldn't generate a response.";
 
     } catch (e) {
-        console.error(e);
-        typing.remove();
-        addMessage("I'm having trouble connecting. Ask me about any retailer or today's plan.", 'bot');
+        console.error("Grok API Error:", e);
+        return "I'm having trouble connecting right now. Ask me about any retailer or plan.";
     }
 }
 
-// ==================== EXISTING FUNCTIONS (Kept as-is) ====================
+// Send Message
+async function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
+    if (!text) return;
+
+    addMessage(text, 'user');
+    input.value = "";
+
+    const typing = document.createElement('div');
+    typing.className = "flex justify-start mb-4";
+    typing.innerHTML = `<div class="bg-slate-700 rounded-2xl px-4 py-3">Drona is thinking...</div>`;
+    document.getElementById('chat-messages').appendChild(typing);
+
+    const reply = await generateSmartResponse(text);
+    typing.remove();
+    addMessage(reply, 'bot');
+}
+
+// ==================== YOUR ORIGINAL FUNCTIONS ====================
 
 function updateUserHeader(name, role) {
     const userInfo = document.getElementById('user-info');
@@ -162,18 +167,10 @@ function switchTab(tab) {
         tabDrona.classList.remove('tab-active');
         tabStrategy.classList.add('tab-active');
         updateUserHeader('Admin', 'Owner');
-         // Initialize Strategy X when switching
-        if (window.initializeStrategyX && !window.strategyXInitialized) {
-            setTimeout(() => {
-                window.initializeStrategyX();
-                window.strategyXInitialized = true;
-            }, 300);
-        }
     }
 }
 
-// ... 
-function openRetailerSearch() { 
+function openRetailerSearch() {
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4';
     modal.innerHTML = `
@@ -189,9 +186,10 @@ function openRetailerSearch() {
         </div>
     `;
     document.body.appendChild(modal);
-    filterRetailers(''); // Show all initially
+    filterRetailers('');
 }
-function filterRetailers(query) { 
+
+function filterRetailers(query) {
     const container = document.getElementById('retailer-search-results');
     if (!container) return;
 
@@ -211,7 +209,8 @@ function filterRetailers(query) {
         </div>
     `).join('');
 }
-function showTargetSummary() { 
+
+function showTargetSummary() {
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4';
     modal.innerHTML = `
@@ -226,6 +225,7 @@ function showTargetSummary() {
     document.body.appendChild(modal);
     renderAllRetailers();
 }
+
 function renderAllRetailers() {
     const container = document.getElementById('retailer-target-list');
     if (!container) return;
@@ -241,7 +241,7 @@ function renderAllRetailers() {
                     </div>
                     <div class="text-right">
                         <div class="font-semibold">₹${r.outstanding}</div>
-                        <div class="text-xs text-red-400">${r.paymentStatus}</div>
+                        <div class="text-xs text-red-400">${r.paymentStatus || ''}</div>
                     </div>
                 </div>
             </div>
@@ -249,7 +249,8 @@ function renderAllRetailers() {
     });
     container.innerHTML = html;
 }
-function openSKUIntelligence() { 
+
+function openSKUIntelligence() {
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4';
     modal.innerHTML = `
@@ -264,7 +265,8 @@ function openSKUIntelligence() {
     document.body.appendChild(modal);
     renderSKUs();
 }
-function renderSKUs() { 
+
+function renderSKUs() {
     const container = document.getElementById('sku-list');
     if (!container) return;
 
@@ -280,13 +282,15 @@ function renderSKUs() {
     });
     container.innerHTML = html;
 }
-function showQuickView(id) { 
+
+function showQuickView(id) {
     const retailer = retailers.find(r => r.id === id);
     if (!retailer) return;
     currentContextRetailer = retailer;
     alert(`Quick View for ${retailer.name}\nOutstanding: ₹${retailer.outstanding}`);
 }
-function showPublishedPlan() { 
+
+function showPublishedPlan() {
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4';
     modal.innerHTML = `
@@ -295,22 +299,11 @@ function showPublishedPlan() {
                 <h3 class="font-semibold text-xl">Today's Focus Plan</h3>
                 <button onclick="this.closest('.fixed').remove()" class="text-slate-400 hover:text-white text-2xl">×</button>
             </div>
-
             <div class="bg-slate-800 rounded-2xl p-5 mb-6">
                 <div class="text-emerald-400 text-sm mb-2">📅 Today</div>
                 <div class="text-lg font-medium">10 Visits Recommended</div>
             </div>
-
-            <div class="space-y-4 mb-6">
-                <div class="bg-slate-800 p-4 rounded-2xl">
-                    <div class="font-medium">Priority Retailers</div>
-                    <div class="text-sm text-slate-300 mt-2">• Sharma Kirana Store (High Outstanding)</div>
-                    <div class="text-sm text-slate-300">• Lakshmi Provision Store</div>
-                </div>
-            </div>
-
-            <button onclick="this.closest('.fixed').remove()" 
-                    class="w-full py-4 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">
+            <button onclick="this.closest('.fixed').remove()" class="w-full py-4 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">
                 Got it, I'll follow this plan
             </button>
         </div>
@@ -320,7 +313,7 @@ function showPublishedPlan() {
 
 // Initialize
 async function initializeApp() {
-    console.log("%c[Drona GPT] Initializing with strong RAG...", "color:#22c55e");
+    console.log("%c[Drona GPT] Initializing with Strong RAG...", "color:#22c55e");
     
     await loadRetailers();
 
