@@ -1,4 +1,4 @@
-// ==================== STRATEGY X - FULLY REFACTORED & ALIGNED WITH INDEX.HTML ====================
+// ==================== STRATEGY X - FIXED & GLOBAL FUNCTIONS ====================
 
 let allRetailers = [];
 let currentMap = null;
@@ -7,7 +7,7 @@ let currentDraftPlan = null;
 
 const BACKEND_URL = 'https://drona-gpt.onrender.com';
 
-// ==================== LOAD DATA ====================
+// Load Data
 async function loadStrategyData() {
     try {
         const res = await fetch('data/retailers.json');
@@ -19,7 +19,7 @@ async function loadStrategyData() {
     }
 }
 
-// ==================== MAP ====================
+// Map
 function initMap() {
     const container = document.getElementById('strategy-map');
     if (!container) return;
@@ -184,7 +184,7 @@ async function saveDraftToSupabase() {
     }
 }
 
-// ==================== PUBLISHED PLANS & TARGETS ====================
+// Published Plans
 async function showPublishedPlans() {
     const container = document.getElementById('active-plans-list');
     if (!container) return;
@@ -224,10 +224,10 @@ async function deletePlan(id) {
 }
 
 function viewPlan(id) {
-    alert(`Viewing details for plan ${id} (expand later)`);
+    alert(`Viewing details for plan ${id}`);
 }
 
-/ ==================== TARGETS ====================
+// ==================== TARGETS ====================
 function setNewTarget() {
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[10000]';
@@ -327,7 +327,7 @@ async function showActiveTargets() {
     }
 }
 
-// ==================== INITIALIZE ====================
+// Initialize
 async function initializeStrategyX() {
     await loadStrategyData();
     initMap();
@@ -336,7 +336,7 @@ async function initializeStrategyX() {
     console.log("%c✅ Strategy X Fully Initialized", "color:#22c55e");
 }
 
-// Expose to window
+// Expose ALL functions globally
 window.initializeStrategyX = initializeStrategyX;
 window.createFocusPlanForArea = createFocusPlanForArea;
 window.saveDraftToSupabase = saveDraftToSupabase;
