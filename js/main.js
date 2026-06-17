@@ -71,29 +71,25 @@ function addMessage(text, sender) {
     container.scrollTop = container.scrollHeight;
 }
 
-// Build Target-Aware Context
+// Strong RAG Context
 function buildRAGContext(query) {
-    if (!currentContextRetailer) return "";
+    const lowerQuery = query.toLowerCase();
+    const relevant = retailers.filter(r => 
+        r.name.toLowerCase().includes(lowerQuery) || 
+        r.area.toLowerCase().includes(lowerQuery) ||
+        (r.outstanding && r.outstanding > 10000)
+    ).slice(0, 6);
 
-    const r = currentContextRetailer;
-    const monthlyTarget = 150000;
-    const currentMonthly = Math.floor((r.totalSalesThisYear || 0) / 12);
-    const progress = Math.round((currentMonthly / monthlyTarget) * 100);
+    if (relevant.length === 0) return "";
 
-    const pcSales = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
-    const mgSales = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
-
-    return `
-Retailer: ${r.name} (${r.area})
-Current Performance:
-- Revenue: ₹${currentMonthly.toLocaleString()} / ₹${monthlyTarget.toLocaleString()} (${progress}%)
-- Pressure Cooker: ${pcSales} units
-- Mixer Grinder: ${mgSales} units
-- Outstanding: ₹${r.outstanding || 0}
-- Last Visit: ${r.lastVisitDaysAgo || 'N/A'} days ago`;
+    let context = "\nRelevant Retailers:\n";
+    relevant.forEach(r => {
+        context += `- ${r.name} (${r.area}): ₹${r.outstanding || 0} outstanding, Last visit: ${r.lastVisitDaysAgo || 'N/A'} days ago\n`;
+    });
+    return context;
 }
 
-// Groq-powered Smart Response (Target Aware)
+// Generate Smart Response - Clean Hinglish + Bold Formatting
 async function generateSmartResponse(message) {
     const context = buildRAGContext(message);
 
@@ -109,20 +105,46 @@ async function generateSmartResponse(message) {
                 messages: [
                     { 
                         role: "system", 
-                        content: `You are Drona, a practical sales coach. Use simple Hinglish. Be direct. Use **bold** for key points. Always tie advice to targets and outstanding.` 
+                        content: `You are Drona - a simple and practical sales coach for field salesmen in India.
+
+Rules:
+- Use simple Hinglish (easy Hindi + English)
+- Keep responses short and clear
+- Use **bold** for important words like **Pressure Cooker**, **outstanding**, **jaao**, **payment**
+- Always use bullet points (•)
+- Give clear action steps for TODAY
+- End with one short question
+
+Example response style:
+Bhai Ramesh,
+
+**Raju Kirana** ka outstanding **₹60,024** hai. Last visit 7 din pehle hua tha.
+
+Aaj kya karna chahiye:
+• **Raju Kirana** jaao
+• Owner se milo aur **payment** collect karo
+• **Pressure Cooker** scheme dikhao
+• Naya order lene ki baat karo
+
+Kya aaj ja rahe ho?
+
+${context}` 
                     },
-                    { role: "user", content: `${context}\n\nSalesman: ${message}` }
+                    { role: "user", content: message }
                 ],
                 temperature: 0.7,
-                max_tokens: 650
+                max_tokens: 600
             })
         });
 
+        if (!res.ok) throw new Error(`API Error ${res.status}`);
+
         const data = await res.json();
-        return data.choices?.[0]?.message?.content || "Bhai, aaj target pe focus karo.";
+        return data.choices?.[0]?.message?.content || "Bhai, aaj kya plan hai?";
+
     } catch (e) {
-        console.error("Groq Error:", e);
-        return "Network issue. Focus on high-outstanding retailers and push **Pressure Cooker** today.";
+        console.error("Groq API Error:", e);
+        return "Bhai, aaj high outstanding wale retailers pe focus karo. **Pressure Cooker** push karo.";
     }
 }
 // Send Message
