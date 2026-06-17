@@ -73,7 +73,6 @@ function buildRAGContext(query) {
     return context;
 }
 
-// Generate Smart Response using Groq (Llama 3.1)
 async function generateSmartResponse(message) {
     const context = buildRAGContext(message);
 
@@ -82,14 +81,24 @@ async function generateSmartResponse(message) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${GROQ_API_KEY}`   // ← Your Groq key
+                'Authorization': `Bearer ${GROQ_API_KEY}`
             },
             body: JSON.stringify({
-                model: "llama-3.3-70b-versatile",     // Strong & fast model
+                model: "llama-3.3-70b-versatile",
                 messages: [
                     { 
                         role: "system", 
-                        content: `You are Drona, a practical and direct AI sales coach for field salesmen in Indian retail/distribution. Be actionable and motivational.${context}` 
+                        content: `You are Drona - a simple, practical sales coach for field salesmen in Indian villages and small towns.
+
+Always reply in simple Hinglish (easy Hindi + English) using short sentences and bullet points.
+
+Use this style:
+- Short lines
+- Bullet points (•)
+- Clear actions (what to do today)
+- Motivating but realistic tone
+
+${context}` 
                     },
                     { role: "user", content: message }
                 ],
@@ -98,18 +107,14 @@ async function generateSmartResponse(message) {
             })
         });
 
-        if (!res.ok) {
-            const errorText = await res.text();
-            console.error("Groq API Error:", res.status, errorText);
-            throw new Error(`API Error ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`API Error ${res.status}`);
 
         const data = await res.json();
-        return data.choices?.[0]?.message?.content || "I couldn't generate a response.";
+        return data.choices?.[0]?.message?.content || "Bhai, aaj kya plan hai?";
 
     } catch (e) {
         console.error("Groq API Error:", e);
-        return "I'm having trouble connecting right now. Ask me about any retailer or today's plan.";
+        return "Bhai, aaj high outstanding wale retailers pe focus karo. Pressure Cooker push karo.";
     }
 }
 // Send Message
