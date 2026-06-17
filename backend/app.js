@@ -49,6 +49,21 @@ app.get('/focus-plans', (req, res) => {
     res.json(focusPlans);
 });
 
+// Delete a plan by ID
+app.delete('/focus-plans/:id', (req, res) => {
+    const planId = req.params.id;
+    const initialLength = focusPlans.length;
+    
+    focusPlans = focusPlans.filter(p => p.id !== planId);
+    
+    if (focusPlans.length < initialLength) {
+        saveToFile();
+        res.json({ message: "Plan deleted successfully" });
+    } else {
+        res.status(404).json({ message: "Plan not found" });
+    }
+});
+
 // Get Today's Plan
 app.get('/focus-plans/today', (req, res) => {
     const today = new Date().toISOString().split('T')[0];
