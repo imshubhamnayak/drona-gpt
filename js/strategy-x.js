@@ -302,8 +302,8 @@ async function showActiveTargets() {
     if (!container) return;
 
     const monthlyRevenueTarget = 150000;
-    const pcTarget = 80;      // Pressure Cooker units per month
-    const mgTarget = 45;      // Mixer Grinder units per month
+    const pcTarget = 80;
+    const mgTarget = 45;
 
     let html = `
         <div class="bg-emerald-900/30 border border-emerald-600 p-5 rounded-3xl mb-6">
@@ -329,7 +329,7 @@ async function showActiveTargets() {
                 <div class="mb-4">
                     <div class="flex justify-between text-xs mb-1">
                         <span class="text-emerald-400">Revenue</span>
-                        <span>${revenueProgress}%</span>
+                        <span class="font-medium">₹${revenueCurrent.toLocaleString()} / ₹${monthlyRevenueTarget.toLocaleString()}</span>
                     </div>
                     <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
                         <div class="h-full bg-emerald-500" style="width: ${revenueProgress}%"></div>
@@ -341,7 +341,7 @@ async function showActiveTargets() {
                     <div>
                         <div class="flex justify-between mb-1">
                             <span>Pressure Cooker</span>
-                            <span class="text-orange-400">${pcProgress}%</span>
+                            <span class="font-medium">${pcSales} / ${pcTarget}</span>
                         </div>
                         <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
                             <div class="h-full bg-orange-500" style="width: ${pcProgress}%"></div>
@@ -350,7 +350,7 @@ async function showActiveTargets() {
                     <div>
                         <div class="flex justify-between mb-1">
                             <span>Mixer Grinder</span>
-                            <span class="text-blue-400">${mgProgress}%</span>
+                            <span class="font-medium">${mgSales} / ${mgTarget}</span>
                         </div>
                         <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
                             <div class="h-full bg-blue-500" style="width: ${mgProgress}%"></div>
