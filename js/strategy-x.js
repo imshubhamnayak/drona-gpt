@@ -1,4 +1,4 @@
-// ==================== STRATEGY X - FIXED & DEBUGGED (Focus Plans Working) ====================
+// ==================== STRATEGY X - FIXED MAP + TABS ====================
 
 let allRetailers = [];
 let currentMap = null;
@@ -24,7 +24,7 @@ function initMap() {
     if (!container) return;
     container.innerHTML = '';
 
-    currentMap = L.map('strategy-map').setView([12.92, 77.60], 11.5);
+    currentMap = L.map('strategy-map', { zoomControl: true }).setView([12.92, 77.60], 11.5);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(currentMap);
     drawPerformanceCircles();
 }
@@ -49,7 +49,11 @@ function drawPerformanceCircles() {
         else if (avgOS > 18000) color = "#f59e0b";
 
         const circle = L.circle([avgLat, avgLng], {
-            color: color, fillColor: color, fillOpacity: 0.25, radius: 1650, weight: 3.5
+            color: color,
+            fillColor: color,
+            fillOpacity: 0.25,
+            radius: 1650,
+            weight: 3.5
         }).addTo(currentMap);
 
         circle.bindPopup(`<b>${areaName}</b><br>${group.length} retailers<br>Avg O/S: ₹${Math.round(avgOS).toLocaleString()}`);
@@ -60,6 +64,7 @@ function drawPerformanceCircles() {
 function toggleMap() {
     const container = document.getElementById('map-container');
     const text = document.getElementById('map-toggle-text');
+    
     if (container.style.display === 'none') {
         container.style.display = 'block';
         text.textContent = 'Hide Map';
@@ -67,6 +72,11 @@ function toggleMap() {
         container.style.display = 'none';
         text.textContent = 'Show Map';
     }
+    
+    // Important: Refresh map size after toggle
+    setTimeout(() => {
+        if (currentMap) currentMap.invalidateSize();
+    }, 300);
 }
 
 // ==================== FOCUS PLAN ====================
@@ -189,7 +199,7 @@ async function saveDraftToSupabase() {
 
         console.log("%c✅ Plan saved for", "color:lime", selectedDate);
         alert(`✅ Focus Plan saved for ${selectedDate}!`);
-        switchStrategyTab(0); // Refresh Focus Plans tab
+        switchStrategyTab(0); // Refresh Focus Plans
     } catch (err) {
         console.error(err);
         alert("Save failed. Check console.");
@@ -212,7 +222,7 @@ async function switchStrategyTab(tab) {
     }
 }
 
-// Focus Plans Tab
+// Focus Plans
 async function showPublishedPlans() {
     const container = document.getElementById('strategy-tab-content');
     try {
@@ -222,7 +232,7 @@ async function showPublishedPlans() {
         let html = `<div class="font-semibold mb-4">Active Focus Plans (${plans.length})</div>`;
 
         if (plans.length === 0) {
-            html += `<p class="text-slate-400 text-center py-8">No active focus plans yet.<br>Create one from the map.</p>`;
+            html += `<p class="text-slate-400 text-center py-12">No active focus plans yet.<br>Click on any area on the map to create one.</p>`;
         } else {
             plans.forEach(plan => {
                 html += `
@@ -243,7 +253,7 @@ async function showPublishedPlans() {
     }
 }
 
-// Targets Tab
+// Targets Tab (SKU Breakdown)
 async function showActiveTargets() {
     const container = document.getElementById('strategy-tab-content');
     const revTarget = 150000;
@@ -327,8 +337,8 @@ function populateTerritoryList() {
 async function initializeStrategyX() {
     await loadStrategyData();
     initMap();
-    switchStrategyTab(0);   // Start with Focus Plans tab
-    console.log("%c✅ Strategy X Fully Loaded", "color:#22c55e");
+    switchStrategyTab(0);
+    console.log("%c✅ Strategy X Fixed & Ready", "color:#22c55e");
 }
 
 // Global Exports
