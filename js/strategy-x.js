@@ -260,14 +260,16 @@ async function showPublishedPlans() {
 
         plans.forEach(plan => {
             html += `
-                <div onclick="viewPlan('${plan.id}')" 
-                     class="bg-slate-800 p-4 rounded-2xl mb-3 cursor-pointer hover:bg-slate-700 transition-colors">
+                <div class="bg-slate-800 p-4 rounded-2xl mb-3 group">
                     <div class="flex justify-between items-start">
-                        <div>
+                        <div onclick="viewPlan('${plan.id}')" class="cursor-pointer flex-1">
                             <div class="font-medium">${plan.territories?.[0] || plan.area}</div>
                             <div class="text-xs text-slate-400">${plan.plan_date}</div>
                         </div>
-                        <div class="text-right text-orange-400 text-sm">${plan.totalRetailers || '?'} retailers</div>
+                        <button onclick="deletePlan('${plan.id}'); event.stopImmediatePropagation();" 
+                                class="text-red-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                            🗑
+                        </button>
                     </div>
                 </div>`;
         });
@@ -284,6 +286,27 @@ async function showPublishedPlans() {
 function viewPlan(planId) {
     // For now, show alert. Later we can show full details modal
     alert(`Plan ID: ${planId}\n\nOpen full details modal here in future.`);
+}
+
+// Delete a saved plan
+async function deletePlan(planId) {
+    if (!confirm("Are you sure you want to delete this plan?")) return;
+
+    try {
+        const res = await fetch(`${BACKEND_URL}/focus-plans/${planId}`, {
+            method: 'DELETE'
+        });
+
+        if (res.ok) {
+            alert("Plan deleted successfully!");
+            showPublishedPlans();   // Refresh the list
+        } else {
+            alert("Failed to delete plan");
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Error deleting plan");
+    }
 }
 
 // ==================== INITIALIZE ====================
