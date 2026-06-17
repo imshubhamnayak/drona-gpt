@@ -466,6 +466,7 @@ async function initializeApp() {
 window.onload = initializeApp;
 
 // Global functions
+window.showMyTargets = showMyTargets;
 window.sendMessage = sendMessage;
 window.showTargetSummary = showTargetSummary;
 window.openSKUIntelligence = openSKUIntelligence;
