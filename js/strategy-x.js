@@ -227,15 +227,104 @@ function viewPlan(id) {
     alert(`Viewing details for plan ${id} (expand later)`);
 }
 
-// Targets (Basic)
+/ ==================== TARGETS ====================
+function setNewTarget() {
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[10000]';
+    modal.innerHTML = `
+        <div class="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-md mx-4 p-6">
+            <h2 class="text-2xl font-bold mb-4">Set Monthly Target</h2>
+            
+            <select id="target-retailer" class="w-full bg-slate-800 border border-slate-600 rounded-2xl px-4 py-3 mb-4 text-white">
+                <option value="">Select Retailer</option>
+                ${allRetailers.map(r => `<option value="${r.id}">${r.name} (${r.area})</option>`).join('')}
+            </select>
+
+            <select id="target-type" class="w-full bg-slate-800 border border-slate-600 rounded-2xl px-4 py-3 mb-4 text-white">
+                <option value="revenue">Revenue Target (₹)</option>
+                <option value="sku">SKU Quantity (Pressure Cooker)</option>
+                <option value="outstanding">Outstanding Recovery (₹)</option>
+                <option value="orders">Monthly Orders</option>
+            </select>
+
+            <input type="number" id="target-value" placeholder="Target Value" 
+                   class="w-full bg-slate-800 border border-slate-600 rounded-2xl px-4 py-3 mb-6 text-white">
+
+            <div class="flex gap-4">
+                <button onclick="this.closest('.fixed').remove()" class="flex-1 py-4 bg-slate-700 rounded-2xl">Cancel</button>
+                <button onclick="saveNewTarget()" class="flex-1 py-4 bg-orange-600 rounded-2xl">Save Target</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+
+async function saveNewTarget() {
+    const retailerId = document.getElementById('target-retailer').value;
+    const type = document.getElementById('target-type').value;
+    let value = parseFloat(document.getElementById('target-value').value);
+
+    if (!retailerId || !value) return alert("Please fill all fields");
+
+    const retailer = allRetailers.find(r => r.id == retailerId);
+
+    const target = {
+        id: 'target_' + Date.now(),
+        retailerId: retailer.id,
+        retailerName: retailer.name,
+        area: retailer.area,
+        targetType: type,
+        targetValue: value,
+        currentValue: 0,
+        period: "2026-06",
+        status: "On Track"
+    };
+
+    try {
+        const res = await fetch(`${BACKEND_URL}/targets`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(target)
+        });
+
+        if (res.ok) {
+            alert("Target saved successfully!");
+            this.closest('.fixed').remove();
+            showActiveTargets();
+        }
+    } catch (e) {
+        alert("Failed to save target");
+    }
+}
+
 async function showActiveTargets() {
     const container = document.getElementById('active-targets-list');
     if (!container) return;
-    container.innerHTML = `<p class="text-slate-400 text-sm">No active targets yet</p>`;
-}
 
-function setNewTarget() {
-    alert("Set Monthly Target modal will open here (to be fully implemented)");
+    try {
+        const res = await fetch(`${BACKEND_URL}/targets`);
+        const data = await res.json();
+
+        let html = '';
+        data.forEach(t => {
+            const progress = Math.min(100, Math.round((t.currentValue / t.targetValue) * 100) || 0);
+            html += `
+                <div class="bg-slate-800 p-4 rounded-2xl mb-3">
+                    <div class="flex justify-between mb-1">
+                        <div class="font-medium">${t.retailerName}</div>
+                        <div class="text-orange-400">${progress}%</div>
+                    </div>
+                    <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-orange-500 transition-all" style="width: ${progress}%"></div>
+                    </div>
+                    <div class="text-xs text-slate-400 mt-1">${t.targetType} • ${t.period}</div>
+                </div>`;
+        });
+
+        container.innerHTML = html || '<p class="text-slate-400 text-sm">No active targets yet</p>';
+    } catch (e) {
+        container.innerHTML = '<p class="text-red-400">Failed to load targets</p>';
+    }
 }
 
 // ==================== INITIALIZE ====================
