@@ -314,7 +314,7 @@ async function renderMyTargets() {
                 <div class="mt-4 mb-4">
                     <div class="flex justify-between text-xs mb-1">
                         <span class="text-emerald-400">Revenue</span>
-                        <span>${revenueProgress}%</span>
+                        <span class="font-medium">₹${revenueCurrent.toLocaleString()} / ₹${monthlyRevenueTarget.toLocaleString()}</span>
                     </div>
                     <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
                         <div class="h-full bg-emerald-500" style="width: ${revenueProgress}%"></div>
@@ -326,7 +326,7 @@ async function renderMyTargets() {
                     <div>
                         <div class="flex justify-between mb-1">
                             <span>Pressure Cooker</span>
-                            <span class="text-orange-400">${pcProgress}%</span>
+                            <span class="font-medium">${pcSales} / ${pcTarget}</span>
                         </div>
                         <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
                             <div class="h-full bg-orange-500" style="width: ${pcProgress}%"></div>
@@ -335,7 +335,7 @@ async function renderMyTargets() {
                     <div>
                         <div class="flex justify-between mb-1">
                             <span>Mixer Grinder</span>
-                            <span class="text-blue-400">${mgProgress}%</span>
+                            <span class="font-medium">${mgSales} / ${mgTarget}</span>
                         </div>
                         <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
                             <div class="h-full bg-blue-500" style="width: ${mgProgress}%"></div>
@@ -347,9 +347,6 @@ async function renderMyTargets() {
 
     container.innerHTML = html;
 }
-
-
-
 // Add this Quick Action Button in your HTML (Drona GPT view)
 
 function renderAllRetailers() {
