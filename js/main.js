@@ -254,65 +254,74 @@ function filterRetailers(query) {
     `).join('');
 }
 
-// ==================== MY TARGETS FOR RAMESH ====================
+// ==================== NEW: MY TARGETS (Salesman View) ====================
 async function showMyTargets() {
     const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4';
+    modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[10000]';
     modal.innerHTML = `
-        <div class="bg-slate-900 rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
-            <div class="p-6 border-b flex justify-between items-center">
-                <h3 class="text-2xl font-bold">My Monthly Targets</h3>
-                <button onclick="this.closest('.fixed').remove()" class="text-3xl text-slate-400">×</button>
+        <div class="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-lg mx-4 max-h-[85vh] flex flex-col">
+            <div class="p-6 border-b border-slate-700">
+                <h2 class="text-2xl font-bold">My Monthly Targets</h2>
+                <p class="text-slate-400">June 2026 • Progress Overview</p>
             </div>
-            <div class="flex-1 overflow-y-auto p-6" id="my-targets-list"></div>
+            
+            <div id="my-targets-content" class="flex-1 overflow-auto p-6 space-y-6">
+                <!-- Populated by JS -->
+            </div>
+            
+            <div class="p-6 border-t border-slate-700">
+                <button onclick="this.closest('.fixed').remove()" 
+                        class="w-full py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium">
+                    Close
+                </button>
+            </div>
         </div>
     `;
     document.body.appendChild(modal);
 
-    renderMyTargets();
+    await loadAndRenderMyTargets();
 }
 
-async function renderMyTargets() {
-    const container = document.getElementById('my-targets-list');
+async function loadAndRenderMyTargets() {
+    const container = document.getElementById('my-targets-content');
     if (!container) return;
 
     try {
-        const res = await fetch(`${BACKEND_URL}/targets`);   // Assuming backend supports /targets
-        const targets = await res.json();
+        const res = await fetch(`${BACKEND_URL}/targets`);
+        const allTargets = await res.json();
 
-        if (targets.length === 0) {
-            container.innerHTML = `<p class="text-slate-400 text-center py-10">No targets assigned yet.</p>`;
-            return;
+        // For now, show all targets (later we can filter by salesman area)
+        let html = '';
+
+        if (allTargets.length === 0) {
+            html = `<p class="text-slate-400 text-center py-8">No targets assigned yet.</p>`;
+        } else {
+            allTargets.forEach(t => {
+                const progress = Math.min(100, Math.round((t.currentValue / t.targetValue) * 100) || 0);
+                const color = progress >= 80 ? 'emerald' : progress >= 50 ? 'orange' : 'red';
+
+                html += `
+                    <div class="bg-slate-800 p-5 rounded-3xl">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <div class="font-semibold">${t.retailerName}</div>
+                                <div class="text-xs text-slate-400">${t.area} • ${t.targetType}</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xl font-bold text-${color}-400">${progress}%</div>
+                                <div class="text-xs">₹${t.currentValue.toLocaleString()} / ₹${t.targetValue.toLocaleString()}</div>
+                            </div>
+                        </div>
+                        <div class="h-2.5 bg-slate-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-${color}-500 transition-all" style="width: ${progress}%"></div>
+                        </div>
+                    </div>`;
+            });
         }
 
-        let html = '';
-        targets.forEach(t => {
-            const progress = Math.min(Math.round((t.currentValue / t.targetValue) * 100), 100);
-            const statusColor = progress >= 80 ? 'text-emerald-400' : (progress >= 50 ? 'text-yellow-400' : 'text-red-400');
-
-            html += `
-                <div class="bg-slate-800 p-5 rounded-3xl mb-4">
-                    <div class="flex justify-between mb-2">
-                        <div class="font-medium">${t.retailerName}</div>
-                        <div class="${statusColor} text-sm">${progress}%</div>
-                    </div>
-                    <div class="text-xs text-slate-400 mb-3">${t.targetType.toUpperCase()} Target • ${t.period}</div>
-                    
-                    <div class="h-2 bg-slate-700 rounded-full overflow-hidden mb-3">
-                        <div class="h-full bg-orange-500 transition-all" style="width: ${progress}%"></div>
-                    </div>
-
-                    <div class="flex justify-between text-sm">
-                        <div>Current: <span class="font-medium">₹${t.currentValue.toLocaleString()}</span></div>
-                        <div>Target: <span class="font-medium">₹${t.targetValue.toLocaleString()}</span></div>
-                    </div>
-                </div>`;
-        });
-
         container.innerHTML = html;
-
     } catch (e) {
-        container.innerHTML = `<p class="text-red-400">Failed to load targets. Backend may be down.</p>`;
+        container.innerHTML = `<p class="text-red-400">Failed to load targets</p>`;
     }
 }
 
