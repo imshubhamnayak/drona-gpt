@@ -85,7 +85,7 @@ async function generateSmartResponse(message) {
                 'Authorization': `Bearer ${GROQ_API_KEY}`   // ← Your Groq key
             },
             body: JSON.stringify({
-                model: "llama-3.1-70b-versatile",     // Strong & fast model
+                model: "llama-3.3-70b-versatile",     // Strong & fast model
                 messages: [
                     { 
                         role: "system", 
