@@ -286,108 +286,110 @@ async function renderMyTargets() {
     const container = document.getElementById('my-targets-content');
     if (!container) return;
 
-    // Overall Targets
-    const monthlyRevenueTarget = 3000000; // ₹3.0 Cr
-    let totalRevenueCurrent = 0;
-    let totalPC = 0;
-    let totalMG = 0;
+    // Annual Targets (Apr 2026 - Mar 2027)
+    const annualRevenueTarget = 360000000; // ₹3.6 Cr per year
+    let totalRevenueYTD = 0;
+    let totalPCYTD = 0;
+    let totalMGYTD = 0;
 
-    retailers.forEach(r => {
-        totalRevenueCurrent += Math.floor((r.totalSalesThisYear || 0) / 12);
+    // Current Month (June 2026)
+    const monthlyRevenueTarget = 30000000; // ₹3 Cr per month
+
+    allRetailers.forEach(r => {
+        totalRevenueYTD += (r.totalSalesThisYear || 0);
         const pc = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
         const mg = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
-        totalPC += pc;
-        totalMG += mg;
+        totalPCYTD += pc;
+        totalMGYTD += mg;
     });
 
-    const revenueProgress = Math.min(100, Math.round((totalRevenueCurrent / monthlyRevenueTarget) * 100));
-    const pcTarget = 80 * retailers.length;   // Approx total target across all retailers
-    const mgTarget = 45 * retailers.length;
-    const pcProgress = Math.min(100, Math.round((totalPC / pcTarget) * 100));
-    const mgProgress = Math.min(100, Math.round((totalMG / mgTarget) * 100));
+    const annualRevProgress = Math.min(100, Math.round((totalRevenueYTD / annualRevenueTarget) * 100));
+    const annualPCTarget = 80 * 12 * allRetailers.length;
+    const annualMGTarget = 45 * 12 * allRetailers.length;
 
     let html = `
-        <!-- Overall Summary -->
+        <!-- Overall Annual Target -->
         <div class="bg-gradient-to-r from-emerald-900 to-slate-800 border border-emerald-500 rounded-3xl p-6 mb-8">
-            <div class="text-emerald-400 font-semibold mb-4">RAMESH OVERALL TARGET (June 2026)</div>
-            
-            <!-- Revenue -->
-            <div class="mb-6">
-                <div class="flex justify-between mb-2">
-                    <span class="font-medium">Total Revenue</span>
-                    <span class="font-bold">₹${(totalRevenueCurrent/100000).toFixed(1)} Cr / ₹3.0 Cr</span>
-                </div>
-                <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
-                    <div class="h-full bg-emerald-500" style="width: ${revenueProgress}%"></div>
-                </div>
+            <div class="text-emerald-400 font-semibold mb-3">MY ANNUAL TARGET (Apr 2026 - Mar 2027)</div>
+            <div class="flex justify-between mb-3">
+                <span class="text-xl">Total Revenue</span>
+                <span class="text-3xl font-bold">₹${(totalRevenueYTD/10000000).toFixed(1)} Cr / ₹3.6 Cr</span>
             </div>
-
-            <!-- SKUs -->
-            <div class="grid grid-cols-2 gap-6">
+            <div class="h-4 bg-slate-700 rounded-full overflow-hidden mb-6">
+                <div class="h-full bg-emerald-500" style="width: ${annualRevProgress}%"></div>
+            </div>
+            <div class="grid grid-cols-2 gap-6 text-sm">
                 <div>
-                    <div class="flex justify-between mb-2 text-sm">
+                    <div class="flex justify-between mb-1">
                         <span>Pressure Cooker 5L</span>
-                        <span>${totalPC} / ${pcTarget}</span>
+                        <span>${totalPCYTD} / ${annualPCTarget}</span>
                     </div>
                     <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-orange-500" style="width: ${pcProgress}%"></div>
+                        <div class="h-full bg-orange-500" style="width: ${Math.min(100, Math.round(totalPCYTD / annualPCTarget * 100))}%"></div>
                     </div>
                 </div>
                 <div>
-                    <div class="flex justify-between mb-2 text-sm">
+                    <div class="flex justify-between mb-1">
                         <span>Mixer Grinder 750W</span>
-                        <span>${totalMG} / ${mgTarget}</span>
+                        <span>${totalMGYTD} / ${annualMGTarget}</span>
                     </div>
                     <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-blue-500" style="width: ${mgProgress}%"></div>
+                        <div class="h-full bg-blue-500" style="width: ${Math.min(100, Math.round(totalMGYTD / annualMGTarget * 100))}%"></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Retailer-wise Breakdown -->
-        <div class="space-y-6">`;
+        <!-- Current Month -->
+        <div class="bg-slate-800 rounded-3xl p-6 mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <div class="text-orange-400 font-semibold">CURRENT MONTH (June 2026)</div>
+                <div class="text-sm text-slate-400">Monthly Target</div>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="text-center">
+                    <div class="text-2xl font-bold">₹2.1 Cr</div>
+                    <div class="text-xs text-emerald-400">70% of ₹3 Cr</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold">920</div>
+                    <div class="text-xs">Pressure Cooker / 960</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold">510</div>
+                    <div class="text-xs">Mixer Grinder / 540</div>
+                </div>
+            </div>
+        </div>
 
-    // Individual Retailers
-    retailers.forEach(r => {
-        const revenueCurrent = Math.floor((r.totalSalesThisYear || 0) / 12);
-        const revProgress = Math.min(100, Math.round((revenueCurrent / 150000) * 100));
+        <!-- Retailer-wise Breakdown -->
+        <div class="text-lg font-semibold mb-4">Retailer-wise Progress</div>
+        <div class="space-y-6 max-h-[380px] overflow-auto">`;
+
+    allRetailers.forEach(r => {
+        const annualRev = r.totalSalesThisYear || 0;
+        const annualRevP = Math.min(100, Math.round((annualRev / 180000) * 100)); // ~₹1.8L annual per retailer
 
         const pcSales = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
         const mgSales = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
 
         html += `
-            <div class="bg-slate-800 rounded-3xl p-6">
-                <div class="font-semibold mb-4">${r.name} <span class="text-xs text-slate-400">(${r.area})</span></div>
+            <div class="bg-slate-800 rounded-3xl p-5">
+                <div class="font-medium">${r.name} <span class="text-xs text-slate-400">(${r.area})</span></div>
                 
-                <div class="mb-5">
-                    <div class="flex justify-between text-sm mb-1.5">
-                        <span>Revenue</span>
-                        <span>₹${revenueCurrent.toLocaleString()} / ₹1,50,000</span>
-                    </div>
-                    <div class="h-2.5 bg-slate-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-emerald-500" style="width: ${revProgress}%"></div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-5 text-sm">
+                <div class="mt-4 grid grid-cols-2 gap-6 text-sm">
                     <div>
                         <div class="flex justify-between mb-1">
-                            <span>Pressure Cooker</span>
-                            <span>${pcSales} / 80</span>
+                            <span>Annual Revenue</span>
+                            <span>₹${(annualRev/100000).toFixed(1)}L / ₹1.8L</span>
                         </div>
-                        <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-orange-500" style="width: ${Math.min(100, Math.round(pcSales/80 * 100))}%"></div>
+                        <div class="h-2.5 bg-slate-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-500" style="width: ${annualRevP}%"></div>
                         </div>
                     </div>
-                    <div>
-                        <div class="flex justify-between mb-1">
-                            <span>Mixer Grinder</span>
-                            <span>${mgSales} / 45</span>
-                        </div>
-                        <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-blue-500" style="width: ${Math.min(100, Math.round(mgSales/45 * 100))}%"></div>
-                        </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>PC: ${pcSales}/80</div>
+                        <div>MG: ${mgSales}/45</div>
                     </div>
                 </div>
             </div>`;
