@@ -559,6 +559,7 @@ async function initializeApp() {
     ];
 
     setDynamicGreeting();
+    initMap();
     addMessage("Hi Ramesh! I'm Drona GPT. How can I help you today? Ask about any retailer, SKU, or plan.", 'bot');
     
     updateUserHeader('Ramesh', 'Salesman');
