@@ -313,7 +313,7 @@ async function renderMyTargets() {
             <div class="text-emerald-400 font-semibold mb-3">MY ANNUAL TARGET (Apr 2026 - Mar 2027)</div>
             <div class="flex justify-between mb-3">
                 <span class="text-xl">Total Revenue</span>
-                <span class="text-3xl font-bold">₹${(totalRevenueYTD/10000000).toFixed(1)} Cr / ₹3.6 Cr</span>
+                <span class="text-3xl font-bold">₹${(totalRevenueYTD/10000000).toFixed(1)} Cr / ₹36 Cr</span>
             </div>
             <div class="h-4 bg-slate-700 rounded-full overflow-hidden mb-6">
                 <div class="h-full bg-emerald-500" style="width: ${annualRevProgress}%"></div>
