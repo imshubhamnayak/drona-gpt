@@ -239,7 +239,14 @@ function showActiveTargets() {
     const container = document.getElementById('strategy-tab-content');
     if (!container) return;
 
-    let totalRevenueYTD = allRetailers.reduce((sum, r) => sum + (r.totalSalesThisYear || 0), 0);
+    let totalRevenueYTD = 0;
+    let totalPCYTD = 0;
+    let totalMGYTD = 0;
+
+    allRetailers.forEach(r => {
+        totalRevenueYTD += (r.totalSalesThisYear || 0); // fallback if available
+    });
+
     const annualRevenueTarget = 360000000;
     const annualRevProgress = Math.min(100, Math.round((totalRevenueYTD / annualRevenueTarget) * 100));
 
@@ -251,7 +258,9 @@ function showActiveTargets() {
                         <div class="text-emerald-400 font-semibold">OVERALL ANNUAL TARGET</div>
                         <div class="text-3xl font-bold mt-1">₹${(totalRevenueYTD/10000000).toFixed(1)} Cr / ₹36 Cr</div>
                     </div>
-                    <div class="text-right text-emerald-400 text-2xl font-bold">${annualRevProgress}%</div>
+                    <div class="text-right">
+                        <div class="text-emerald-400 text-2xl font-bold">${annualRevProgress}%</div>
+                    </div>
                 </div>
                 <div class="h-4 bg-slate-700 rounded-full overflow-hidden">
                     <div class="h-full bg-emerald-500" style="width: ${annualRevProgress}%"></div>
@@ -262,20 +271,10 @@ function showActiveTargets() {
             <div class="space-y-6 max-h-[420px] overflow-auto">`;
 
     allRetailers.forEach(r => {
-        const rev = r.totalSalesThisYear || 0;
-        const revP = Math.min(100, Math.round((rev / 180000) * 100));
         html += `
             <div class="bg-slate-800 rounded-3xl p-5">
-                <div class="font-medium">${r.name} <span class="text-xs text-slate-400">(${r.area})</span></div>
-                <div class="mt-4">
-                    <div class="flex justify-between mb-1 text-sm">
-                        <span>Annual Revenue</span>
-                        <span>₹${(rev/100000).toFixed(1)}L / ₹1.8L</span>
-                    </div>
-                    <div class="h-2.5 bg-slate-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-emerald-500" style="width: ${revP}%"></div>
-                    </div>
-                </div>
+                <div class="font-medium">${r.name} (${r.area})</div>
+                <div class="mt-2 text-sm">Outstanding: ₹${(r.outstanding || 0).toLocaleString()}</div>
             </div>`;
     });
 
