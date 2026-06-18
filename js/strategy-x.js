@@ -245,7 +245,7 @@ function showActiveTargets() {
                 <div class="flex justify-between items-start mb-4">
                     <div>
                         <div class="text-emerald-400 font-semibold">OVERALL ANNUAL TARGET</div>
-                        <div class="text-3xl font-bold mt-1">₹${(totalRevenueYTD/10000000).toFixed(1)} Cr / ₹3.6 Cr</div>
+                        <div class="text-3xl font-bold mt-1">₹${(totalRevenueYTD/10000000).toFixed(1)} Cr / ₹36 Cr</div>
                     </div>
                     <div class="text-right">
                         <div class="text-emerald-400 text-2xl font-bold">${annualRevProgress}%</div>
