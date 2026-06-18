@@ -1,0 +1,1404 @@
+{
+  "retailers": [
+    {
+      "id": 1,
+      "name": "Raju Super Market",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90182,
+      "lng": 77.60956
+    },
+    {
+      "id": 2,
+      "name": "Vijay Kirana",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.90885,
+      "lng": 77.61254
+    },
+    {
+      "id": 3,
+      "name": "Laxmi Provision",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91849,
+      "lng": 77.61806
+    },
+    {
+      "id": 4,
+      "name": "Gupta Super Market",
+      "area": "BTM Layout",
+      "lat": 12.9167,
+      "lng": 77.60765
+    },
+    {
+      "id": 5,
+      "name": "Balaji Provision",
+      "area": "Koramangala",
+      "lat": 12.93271,
+      "lng": 77.6198
+    },
+    {
+      "id": 6,
+      "name": "Royal Kirana",
+      "area": "HSR Layout",
+      "lat": 12.90935,
+      "lng": 77.61756
+    },
+    {
+      "id": 7,
+      "name": "Sharma Super Market",
+      "area": "Electronic City",
+      "lat": 12.84634,
+      "lng": 77.67413
+    },
+    {
+      "id": 8,
+      "name": "Karnataka Kirana",
+      "area": "Bannerghatta Road",
+      "lat": 12.8847,
+      "lng": 77.60229
+    },
+    {
+      "id": 9,
+      "name": "Sai Provision",
+      "area": "Jayanagar",
+      "lat": 12.92729,
+      "lng": 77.57994
+    },
+    {
+      "id": 10,
+      "name": "Ganesh Super Market",
+      "area": "Wilson Garden",
+      "lat": 12.95162,
+      "lng": 77.59156
+    },
+    {
+      "id": 11,
+      "name": "Anand Provision",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90693,
+      "lng": 77.60878
+    },
+    {
+      "id": 12,
+      "name": "Mohan Kirana",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.91327,
+      "lng": 77.61519
+    },
+    {
+      "id": 13,
+      "name": "Sri Super Market",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91564,
+      "lng": 77.62003
+    },
+    {
+      "id": 14,
+      "name": "Golden Kirana",
+      "area": "BTM Layout",
+      "lat": 12.91334,
+      "lng": 77.6113
+    },
+    {
+      "id": 15,
+      "name": "Modern Provision",
+      "area": "Koramangala",
+      "lat": 12.93188,
+      "lng": 77.62488
+    },
+    {
+      "id": 16,
+      "name": "Bharat Super Market",
+      "area": "HSR Layout",
+      "lat": 12.90686,
+      "lng": 77.6219
+    },
+    {
+      "id": 17,
+      "name": "Krishna Provision",
+      "area": "Electronic City",
+      "lat": 12.84101,
+      "lng": 77.67477
+    },
+    {
+      "id": 18,
+      "name": "Raju Kirana",
+      "area": "Bannerghatta Road",
+      "lat": 12.88983,
+      "lng": 77.60215
+    },
+    {
+      "id": 19,
+      "name": "Vijay Super Market",
+      "area": "Jayanagar",
+      "lat": 12.92736,
+      "lng": 77.58128
+    },
+    {
+      "id": 20,
+      "name": "Laxmi Kirana",
+      "area": "Wilson Garden",
+      "lat": 12.94924,
+      "lng": 77.58636
+    },
+    {
+      "id": 21,
+      "name": "Gupta Provision",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90504,
+      "lng": 77.60861
+    },
+    {
+      "id": 22,
+      "name": "Balaji Super Market",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.9096,
+      "lng": 77.6114
+    },
+    {
+      "id": 23,
+      "name": "Royal Provision",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91477,
+      "lng": 77.61812
+    },
+    {
+      "id": 24,
+      "name": "Sharma Kirana",
+      "area": "BTM Layout",
+      "lat": 12.91964,
+      "lng": 77.61288
+    },
+    {
+      "id": 25,
+      "name": "Karnataka Super Market",
+      "area": "Koramangala",
+      "lat": 12.93557,
+      "lng": 77.61903
+    },
+    {
+      "id": 26,
+      "name": "Sai Kirana",
+      "area": "HSR Layout",
+      "lat": 12.9077,
+      "lng": 77.62039
+    },
+    {
+      "id": 27,
+      "name": "Ganesh Provision",
+      "area": "Electronic City",
+      "lat": 12.84704,
+      "lng": 77.67461
+    },
+    {
+      "id": 28,
+      "name": "Anand Super Market",
+      "area": "Bannerghatta Road",
+      "lat": 12.88361,
+      "lng": 77.59962
+    },
+    {
+      "id": 29,
+      "name": "Mohan Provision",
+      "area": "Jayanagar",
+      "lat": 12.92778,
+      "lng": 77.57983
+    },
+    {
+      "id": 30,
+      "name": "Sri Kirana",
+      "area": "Wilson Garden",
+      "lat": 12.95099,
+      "lng": 77.59076
+    },
+    {
+      "id": 31,
+      "name": "Golden Super Market",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90206,
+      "lng": 77.60456
+    },
+    {
+      "id": 32,
+      "name": "Modern Kirana",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.90857,
+      "lng": 77.61686
+    },
+    {
+      "id": 33,
+      "name": "Bharat Provision",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91659,
+      "lng": 77.62103
+    },
+    {
+      "id": 34,
+      "name": "Krishna Super Market",
+      "area": "BTM Layout",
+      "lat": 12.91831,
+      "lng": 77.60957
+    },
+    {
+      "id": 35,
+      "name": "Raju Provision",
+      "area": "Koramangala",
+      "lat": 12.93592,
+      "lng": 77.61863
+    },
+    {
+      "id": 36,
+      "name": "Vijay Kirana",
+      "area": "HSR Layout",
+      "lat": 12.90992,
+      "lng": 77.61671
+    },
+    {
+      "id": 37,
+      "name": "Laxmi Super Market",
+      "area": "Electronic City",
+      "lat": 12.84287,
+      "lng": 77.67091
+    },
+    {
+      "id": 38,
+      "name": "Gupta Kirana",
+      "area": "Bannerghatta Road",
+      "lat": 12.88349,
+      "lng": 77.60084
+    },
+    {
+      "id": 39,
+      "name": "Balaji Provision",
+      "area": "Jayanagar",
+      "lat": 12.92887,
+      "lng": 77.58191
+    },
+    {
+      "id": 40,
+      "name": "Royal Super Market",
+      "area": "Wilson Garden",
+      "lat": 12.94896,
+      "lng": 77.58945
+    },
+    {
+      "id": 41,
+      "name": "Sharma Provision",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90125,
+      "lng": 77.60628
+    },
+    {
+      "id": 42,
+      "name": "Karnataka Kirana",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.9086,
+      "lng": 77.6128
+    },
+    {
+      "id": 43,
+      "name": "Sai Super Market",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91269,
+      "lng": 77.6239
+    },
+    {
+      "id": 44,
+      "name": "Ganesh Kirana",
+      "area": "BTM Layout",
+      "lat": 12.91361,
+      "lng": 77.61254
+    },
+    {
+      "id": 45,
+      "name": "Anand Provision",
+      "area": "Koramangala",
+      "lat": 12.93254,
+      "lng": 77.62503
+    },
+    {
+      "id": 46,
+      "name": "Mohan Super Market",
+      "area": "HSR Layout",
+      "lat": 12.90629,
+      "lng": 77.62101
+    },
+    {
+      "id": 47,
+      "name": "Sri Provision",
+      "area": "Electronic City",
+      "lat": 12.84462,
+      "lng": 77.67309
+    },
+    {
+      "id": 48,
+      "name": "Golden Kirana",
+      "area": "Bannerghatta Road",
+      "lat": 12.88679,
+      "lng": 77.59677
+    },
+    {
+      "id": 49,
+      "name": "Modern Super Market",
+      "area": "Jayanagar",
+      "lat": 12.92555,
+      "lng": 77.57964
+    },
+    {
+      "id": 50,
+      "name": "Bharat Kirana",
+      "area": "Wilson Garden",
+      "lat": 12.95113,
+      "lng": 77.59287
+    },
+    {
+      "id": 51,
+      "name": "Krishna Provision",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90678,
+      "lng": 77.60315
+    },
+    {
+      "id": 52,
+      "name": "Raju Super Market",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.9136,
+      "lng": 77.61335
+    },
+    {
+      "id": 53,
+      "name": "Vijay Provision",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91479,
+      "lng": 77.61682
+    },
+    {
+      "id": 54,
+      "name": "Laxmi Kirana",
+      "area": "BTM Layout",
+      "lat": 12.91453,
+      "lng": 77.60892
+    },
+    {
+      "id": 55,
+      "name": "Gupta Super Market",
+      "area": "Koramangala",
+      "lat": 12.93794,
+      "lng": 77.6191
+    },
+    {
+      "id": 56,
+      "name": "Balaji Kirana",
+      "area": "HSR Layout",
+      "lat": 12.90896,
+      "lng": 77.6198
+    },
+    {
+      "id": 57,
+      "name": "Royal Provision",
+      "area": "Electronic City",
+      "lat": 12.84136,
+      "lng": 77.67026
+    },
+    {
+      "id": 58,
+      "name": "Sharma Super Market",
+      "area": "Bannerghatta Road",
+      "lat": 12.88837,
+      "lng": 77.59834
+    },
+    {
+      "id": 59,
+      "name": "Karnataka Provision",
+      "area": "Jayanagar",
+      "lat": 12.9294,
+      "lng": 77.57614
+    },
+    {
+      "id": 60,
+      "name": "Sai Kirana",
+      "area": "Wilson Garden",
+      "lat": 12.94945,
+      "lng": 77.59033
+    },
+    {
+      "id": 61,
+      "name": "Ganesh Super Market",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90657,
+      "lng": 77.60394
+    },
+    {
+      "id": 62,
+      "name": "Anand Kirana",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.90881,
+      "lng": 77.61174
+    },
+    {
+      "id": 63,
+      "name": "Mohan Provision",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91646,
+      "lng": 77.62209
+    },
+    {
+      "id": 64,
+      "name": "Sri Super Market",
+      "area": "BTM Layout",
+      "lat": 12.91724,
+      "lng": 77.61229
+    },
+    {
+      "id": 65,
+      "name": "Golden Provision",
+      "area": "Koramangala",
+      "lat": 12.93669,
+      "lng": 77.6249
+    },
+    {
+      "id": 66,
+      "name": "Modern Kirana",
+      "area": "HSR Layout",
+      "lat": 12.90468,
+      "lng": 77.61722
+    },
+    {
+      "id": 67,
+      "name": "Bharat Super Market",
+      "area": "Electronic City",
+      "lat": 12.84269,
+      "lng": 77.67486
+    },
+    {
+      "id": 68,
+      "name": "Krishna Kirana",
+      "area": "Bannerghatta Road",
+      "lat": 12.88463,
+      "lng": 77.60323
+    },
+    {
+      "id": 69,
+      "name": "Raju Provision",
+      "area": "Jayanagar",
+      "lat": 12.92655,
+      "lng": 77.58317
+    },
+    {
+      "id": 70,
+      "name": "Vijay Super Market",
+      "area": "Wilson Garden",
+      "lat": 12.9482,
+      "lng": 77.59216
+    },
+    {
+      "id": 71,
+      "name": "Laxmi Provision",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90591,
+      "lng": 77.60292
+    },
+    {
+      "id": 72,
+      "name": "Gupta Kirana",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.90801,
+      "lng": 77.61233
+    },
+    {
+      "id": 73,
+      "name": "Balaji Super Market",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91322,
+      "lng": 77.62031
+    },
+    {
+      "id": 74,
+      "name": "Royal Kirana",
+      "area": "BTM Layout",
+      "lat": 12.91485,
+      "lng": 77.61072
+    },
+    {
+      "id": 75,
+      "name": "Sharma Provision",
+      "area": "Koramangala",
+      "lat": 12.93884,
+      "lng": 77.6213
+    },
+    {
+      "id": 76,
+      "name": "Karnataka Super Market",
+      "area": "HSR Layout",
+      "lat": 12.90922,
+      "lng": 77.62392
+    },
+    {
+      "id": 77,
+      "name": "Sai Provision",
+      "area": "Electronic City",
+      "lat": 12.84171,
+      "lng": 77.67279
+    },
+    {
+      "id": 78,
+      "name": "Ganesh Kirana",
+      "area": "Bannerghatta Road",
+      "lat": 12.88665,
+      "lng": 77.60044
+    },
+    {
+      "id": 79,
+      "name": "Anand Super Market",
+      "area": "Jayanagar",
+      "lat": 12.92759,
+      "lng": 77.5796
+    },
+    {
+      "id": 80,
+      "name": "Mohan Kirana",
+      "area": "Wilson Garden",
+      "lat": 12.95066,
+      "lng": 77.58726
+    },
+    {
+      "id": 81,
+      "name": "Sri Provision",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90876,
+      "lng": 77.60411
+    },
+    {
+      "id": 82,
+      "name": "Golden Super Market",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.90743,
+      "lng": 77.61128
+    },
+    {
+      "id": 83,
+      "name": "Modern Provision",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91632,
+      "lng": 77.62299
+    },
+    {
+      "id": 84,
+      "name": "Bharat Kirana",
+      "area": "BTM Layout",
+      "lat": 12.91767,
+      "lng": 77.6103
+    },
+    {
+      "id": 85,
+      "name": "Krishna Super Market",
+      "area": "Koramangala",
+      "lat": 12.93848,
+      "lng": 77.6205
+    },
+    {
+      "id": 86,
+      "name": "Raju Kirana",
+      "area": "HSR Layout",
+      "lat": 12.90967,
+      "lng": 77.61741
+    },
+    {
+      "id": 87,
+      "name": "Vijay Provision",
+      "area": "Electronic City",
+      "lat": 12.84422,
+      "lng": 77.66848
+    },
+    {
+      "id": 88,
+      "name": "Laxmi Super Market",
+      "area": "Bannerghatta Road",
+      "lat": 12.88604,
+      "lng": 77.60149
+    },
+    {
+      "id": 89,
+      "name": "Gupta Provision",
+      "area": "Jayanagar",
+      "lat": 12.93089,
+      "lng": 77.58372
+    },
+    {
+      "id": 90,
+      "name": "Balaji Kirana",
+      "area": "Wilson Garden",
+      "lat": 12.94809,
+      "lng": 77.59394
+    },
+    {
+      "id": 91,
+      "name": "Royal Super Market",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90831,
+      "lng": 77.60237
+    },
+    {
+      "id": 92,
+      "name": "Sharma Kirana",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.90622,
+      "lng": 77.6151
+    },
+    {
+      "id": 93,
+      "name": "Karnataka Provision",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91473,
+      "lng": 77.61877
+    },
+    {
+      "id": 94,
+      "name": "Sai Super Market",
+      "area": "BTM Layout",
+      "lat": 12.91581,
+      "lng": 77.61468
+    },
+    {
+      "id": 95,
+      "name": "Ganesh Provision",
+      "area": "Koramangala",
+      "lat": 12.93697,
+      "lng": 77.62025
+    },
+    {
+      "id": 96,
+      "name": "Anand Kirana",
+      "area": "HSR Layout",
+      "lat": 12.90496,
+      "lng": 77.62064
+    },
+    {
+      "id": 97,
+      "name": "Mohan Super Market",
+      "area": "Electronic City",
+      "lat": 12.84588,
+      "lng": 77.67108
+    },
+    {
+      "id": 98,
+      "name": "Sri Kirana",
+      "area": "Bannerghatta Road",
+      "lat": 12.88966,
+      "lng": 77.60139
+    },
+    {
+      "id": 99,
+      "name": "Golden Provision",
+      "area": "Jayanagar",
+      "lat": 12.92968,
+      "lng": 77.58017
+    },
+    {
+      "id": 100,
+      "name": "Modern Super Market",
+      "area": "Wilson Garden",
+      "lat": 12.94926,
+      "lng": 77.59363
+    },
+    {
+      "id": 101,
+      "name": "Bharat Provision",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90448,
+      "lng": 77.60865
+    },
+    {
+      "id": 102,
+      "name": "Krishna Kirana",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.90726,
+      "lng": 77.6173
+    },
+    {
+      "id": 103,
+      "name": "Raju Super Market",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.9123,
+      "lng": 77.61799
+    },
+    {
+      "id": 104,
+      "name": "Vijay Kirana",
+      "area": "BTM Layout",
+      "lat": 12.91769,
+      "lng": 77.60856
+    },
+    {
+      "id": 105,
+      "name": "Laxmi Provision",
+      "area": "Koramangala",
+      "lat": 12.93773,
+      "lng": 77.62273
+    },
+    {
+      "id": 106,
+      "name": "Gupta Super Market",
+      "area": "HSR Layout",
+      "lat": 12.90802,
+      "lng": 77.61943
+    },
+    {
+      "id": 107,
+      "name": "Balaji Provision",
+      "area": "Electronic City",
+      "lat": 12.84722,
+      "lng": 77.67529
+    },
+    {
+      "id": 108,
+      "name": "Royal Kirana",
+      "area": "Bannerghatta Road",
+      "lat": 12.88989,
+      "lng": 77.60047
+    },
+    {
+      "id": 109,
+      "name": "Sharma Super Market",
+      "area": "Jayanagar",
+      "lat": 12.93198,
+      "lng": 77.58057
+    },
+    {
+      "id": 110,
+      "name": "Karnataka Kirana",
+      "area": "Wilson Garden",
+      "lat": 12.9501,
+      "lng": 77.59168
+    },
+    {
+      "id": 111,
+      "name": "Sai Provision",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90582,
+      "lng": 77.6092
+    },
+    {
+      "id": 112,
+      "name": "Ganesh Super Market",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.91125,
+      "lng": 77.61532
+    },
+    {
+      "id": 113,
+      "name": "Anand Provision",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91523,
+      "lng": 77.61905
+    },
+    {
+      "id": 114,
+      "name": "Mohan Kirana",
+      "area": "BTM Layout",
+      "lat": 12.91553,
+      "lng": 77.6106
+    },
+    {
+      "id": 115,
+      "name": "Sri Super Market",
+      "area": "Koramangala",
+      "lat": 12.9315,
+      "lng": 77.61982
+    },
+    {
+      "id": 116,
+      "name": "Golden Kirana",
+      "area": "HSR Layout",
+      "lat": 12.91112,
+      "lng": 77.61661
+    },
+    {
+      "id": 117,
+      "name": "Modern Provision",
+      "area": "Electronic City",
+      "lat": 12.84522,
+      "lng": 77.67179
+    },
+    {
+      "id": 118,
+      "name": "Bharat Super Market",
+      "area": "Bannerghatta Road",
+      "lat": 12.89023,
+      "lng": 77.60228
+    },
+    {
+      "id": 119,
+      "name": "Krishna Provision",
+      "area": "Jayanagar",
+      "lat": 12.92556,
+      "lng": 77.57782
+    },
+    {
+      "id": 120,
+      "name": "Raju Kirana",
+      "area": "Wilson Garden",
+      "lat": 12.9507,
+      "lng": 77.59005
+    },
+    {
+      "id": 121,
+      "name": "Vijay Super Market",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90187,
+      "lng": 77.60715
+    },
+    {
+      "id": 122,
+      "name": "Laxmi Kirana",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.90626,
+      "lng": 77.61303
+    },
+    {
+      "id": 123,
+      "name": "Gupta Provision",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91267,
+      "lng": 77.62175
+    },
+    {
+      "id": 124,
+      "name": "Balaji Super Market",
+      "area": "BTM Layout",
+      "lat": 12.91945,
+      "lng": 77.60784
+    },
+    {
+      "id": 125,
+      "name": "Royal Provision",
+      "area": "Koramangala",
+      "lat": 12.93757,
+      "lng": 77.61902
+    },
+    {
+      "id": 126,
+      "name": "Sharma Kirana",
+      "area": "HSR Layout",
+      "lat": 12.91082,
+      "lng": 77.61752
+    },
+    {
+      "id": 127,
+      "name": "Karnataka Super Market",
+      "area": "Electronic City",
+      "lat": 12.84159,
+      "lng": 77.6712
+    },
+    {
+      "id": 128,
+      "name": "Sai Kirana",
+      "area": "Bannerghatta Road",
+      "lat": 12.88426,
+      "lng": 77.59754
+    },
+    {
+      "id": 129,
+      "name": "Ganesh Provision",
+      "area": "Jayanagar",
+      "lat": 12.93129,
+      "lng": 77.57958
+    },
+    {
+      "id": 130,
+      "name": "Anand Super Market",
+      "area": "Wilson Garden",
+      "lat": 12.94987,
+      "lng": 77.58905
+    },
+    {
+      "id": 131,
+      "name": "Mohan Provision",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90866,
+      "lng": 77.60571
+    },
+    {
+      "id": 132,
+      "name": "Sri Kirana",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.91194,
+      "lng": 77.61346
+    },
+    {
+      "id": 133,
+      "name": "Golden Super Market",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91119,
+      "lng": 77.61792
+    },
+    {
+      "id": 134,
+      "name": "Modern Kirana",
+      "area": "BTM Layout",
+      "lat": 12.91578,
+      "lng": 77.61035
+    },
+    {
+      "id": 135,
+      "name": "Bharat Provision",
+      "area": "Koramangala",
+      "lat": 12.93211,
+      "lng": 77.62271
+    },
+    {
+      "id": 136,
+      "name": "Krishna Super Market",
+      "area": "HSR Layout",
+      "lat": 12.91145,
+      "lng": 77.61922
+    },
+    {
+      "id": 137,
+      "name": "Raju Provision",
+      "area": "Electronic City",
+      "lat": 12.84711,
+      "lng": 77.67369
+    },
+    {
+      "id": 138,
+      "name": "Vijay Kirana",
+      "area": "Bannerghatta Road",
+      "lat": 12.88876,
+      "lng": 77.59607
+    },
+    {
+      "id": 139,
+      "name": "Laxmi Super Market",
+      "area": "Jayanagar",
+      "lat": 12.93008,
+      "lng": 77.5761
+    },
+    {
+      "id": 140,
+      "name": "Gupta Kirana",
+      "area": "Wilson Garden",
+      "lat": 12.95358,
+      "lng": 77.58756
+    },
+    {
+      "id": 141,
+      "name": "Balaji Provision",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90152,
+      "lng": 77.60774
+    },
+    {
+      "id": 142,
+      "name": "Royal Super Market",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.90989,
+      "lng": 77.6158
+    },
+    {
+      "id": 143,
+      "name": "Sharma Provision",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91704,
+      "lng": 77.62359
+    },
+    {
+      "id": 144,
+      "name": "Karnataka Kirana",
+      "area": "BTM Layout",
+      "lat": 12.91243,
+      "lng": 77.61375
+    },
+    {
+      "id": 145,
+      "name": "Sai Super Market",
+      "area": "Koramangala",
+      "lat": 12.93816,
+      "lng": 77.62331
+    },
+    {
+      "id": 146,
+      "name": "Ganesh Kirana",
+      "area": "HSR Layout",
+      "lat": 12.90706,
+      "lng": 77.61946
+    },
+    {
+      "id": 147,
+      "name": "Anand Provision",
+      "area": "Electronic City",
+      "lat": 12.84402,
+      "lng": 77.66934
+    },
+    {
+      "id": 148,
+      "name": "Mohan Super Market",
+      "area": "Bannerghatta Road",
+      "lat": 12.89006,
+      "lng": 77.60107
+    },
+    {
+      "id": 149,
+      "name": "Sri Provision",
+      "area": "Jayanagar",
+      "lat": 12.93055,
+      "lng": 77.57668
+    },
+    {
+      "id": 150,
+      "name": "Golden Kirana",
+      "area": "Wilson Garden",
+      "lat": 12.94875,
+      "lng": 77.5919
+    },
+    {
+      "id": 151,
+      "name": "Modern Super Market",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90824,
+      "lng": 77.607
+    },
+    {
+      "id": 152,
+      "name": "Bharat Kirana",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.91172,
+      "lng": 77.61708
+    },
+    {
+      "id": 153,
+      "name": "Krishna Provision",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91195,
+      "lng": 77.62196
+    },
+    {
+      "id": 154,
+      "name": "Raju Super Market",
+      "area": "BTM Layout",
+      "lat": 12.91419,
+      "lng": 77.61089
+    },
+    {
+      "id": 155,
+      "name": "Vijay Provision",
+      "area": "Koramangala",
+      "lat": 12.93163,
+      "lng": 77.62002
+    },
+    {
+      "id": 156,
+      "name": "Laxmi Kirana",
+      "area": "HSR Layout",
+      "lat": 12.90648,
+      "lng": 77.61997
+    },
+    {
+      "id": 157,
+      "name": "Gupta Super Market",
+      "area": "Electronic City",
+      "lat": 12.84495,
+      "lng": 77.67316
+    },
+    {
+      "id": 158,
+      "name": "Balaji Kirana",
+      "area": "Bannerghatta Road",
+      "lat": 12.88793,
+      "lng": 77.59875
+    },
+    {
+      "id": 159,
+      "name": "Royal Provision",
+      "area": "Jayanagar",
+      "lat": 12.92534,
+      "lng": 77.57604
+    },
+    {
+      "id": 160,
+      "name": "Sharma Super Market",
+      "area": "Wilson Garden",
+      "lat": 12.95352,
+      "lng": 77.59136
+    },
+    {
+      "id": 161,
+      "name": "Karnataka Provision",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90142,
+      "lng": 77.60256
+    },
+    {
+      "id": 162,
+      "name": "Sai Kirana",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.9117,
+      "lng": 77.6132
+    },
+    {
+      "id": 163,
+      "name": "Ganesh Super Market",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91615,
+      "lng": 77.62356
+    },
+    {
+      "id": 164,
+      "name": "Anand Kirana",
+      "area": "BTM Layout",
+      "lat": 12.91221,
+      "lng": 77.60959
+    },
+    {
+      "id": 165,
+      "name": "Mohan Provision",
+      "area": "Koramangala",
+      "lat": 12.93208,
+      "lng": 77.62237
+    },
+    {
+      "id": 166,
+      "name": "Sri Super Market",
+      "area": "HSR Layout",
+      "lat": 12.91005,
+      "lng": 77.62091
+    },
+    {
+      "id": 167,
+      "name": "Golden Provision",
+      "area": "Electronic City",
+      "lat": 12.84156,
+      "lng": 77.67464
+    },
+    {
+      "id": 168,
+      "name": "Modern Kirana",
+      "area": "Bannerghatta Road",
+      "lat": 12.88606,
+      "lng": 77.60316
+    },
+    {
+      "id": 169,
+      "name": "Bharat Super Market",
+      "area": "Jayanagar",
+      "lat": 12.92592,
+      "lng": 77.58228
+    },
+    {
+      "id": 170,
+      "name": "Krishna Kirana",
+      "area": "Wilson Garden",
+      "lat": 12.95138,
+      "lng": 77.59065
+    },
+    {
+      "id": 171,
+      "name": "Raju Provision",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90147,
+      "lng": 77.60561
+    },
+    {
+      "id": 172,
+      "name": "Vijay Super Market",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.90845,
+      "lng": 77.61868
+    },
+    {
+      "id": 173,
+      "name": "Laxmi Provision",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.91284,
+      "lng": 77.62319
+    },
+    {
+      "id": 174,
+      "name": "Gupta Kirana",
+      "area": "BTM Layout",
+      "lat": 12.91581,
+      "lng": 77.6118
+    },
+    {
+      "id": 175,
+      "name": "Balaji Super Market",
+      "area": "Koramangala",
+      "lat": 12.93599,
+      "lng": 77.62016
+    },
+    {
+      "id": 176,
+      "name": "Royal Kirana",
+      "area": "HSR Layout",
+      "lat": 12.90792,
+      "lng": 77.62296
+    },
+    {
+      "id": 177,
+      "name": "Sharma Provision",
+      "area": "Electronic City",
+      "lat": 12.84629,
+      "lng": 77.6724
+    },
+    {
+      "id": 178,
+      "name": "Karnataka Super Market",
+      "area": "Bannerghatta Road",
+      "lat": 12.88476,
+      "lng": 77.59893
+    },
+    {
+      "id": 179,
+      "name": "Sai Provision",
+      "area": "Jayanagar",
+      "lat": 12.92774,
+      "lng": 77.57856
+    },
+    {
+      "id": 180,
+      "name": "Ganesh Kirana",
+      "area": "Wilson Garden",
+      "lat": 12.94622,
+      "lng": 77.5926
+    },
+    {
+      "id": 181,
+      "name": "Anand Super Market",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.90211,
+      "lng": 77.60957
+    },
+    {
+      "id": 182,
+      "name": "Mohan Kirana",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.91388,
+      "lng": 77.61169
+    },
+    {
+      "id": 183,
+      "name": "Sri Provision",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.912,
+      "lng": 77.62151
+    },
+    {
+      "id": 184,
+      "name": "Golden Super Market",
+      "area": "BTM Layout",
+      "lat": 12.91565,
+      "lng": 77.61019
+    },
+    {
+      "id": 185,
+      "name": "Modern Provision",
+      "area": "Koramangala",
+      "lat": 12.93714,
+      "lng": 77.62151
+    },
+    {
+      "id": 186,
+      "name": "Bharat Kirana",
+      "area": "HSR Layout",
+      "lat": 12.90459,
+      "lng": 77.62079
+    },
+    {
+      "id": 187,
+      "name": "Krishna Super Market",
+      "area": "Electronic City",
+      "lat": 12.84516,
+      "lng": 77.67158
+    },
+    {
+      "id": 188,
+      "name": "Raju Kirana",
+      "area": "Bannerghatta Road",
+      "lat": 12.89,
+      "lng": 77.60193
+    },
+    {
+      "id": 189,
+      "name": "Vijay Provision",
+      "area": "Jayanagar",
+      "lat": 12.93142,
+      "lng": 77.58159
+    },
+    {
+      "id": 190,
+      "name": "Laxmi Super Market",
+      "area": "Wilson Garden",
+      "lat": 12.95193,
+      "lng": 77.59331
+    },
+    {
+      "id": 191,
+      "name": "Gupta Provision",
+      "area": "JP Nagar Phase 1",
+      "lat": 12.9082,
+      "lng": 77.60304
+    },
+    {
+      "id": 192,
+      "name": "Balaji Kirana",
+      "area": "JP Nagar Phase 2",
+      "lat": 12.90912,
+      "lng": 77.61489
+    },
+    {
+      "id": 193,
+      "name": "Royal Super Market",
+      "area": "JP Nagar Phase 3",
+      "lat": 12.9131,
+      "lng": 77.61881
+    },
+    {
+      "id": 194,
+      "name": "Sharma Kirana",
+      "area": "BTM Layout",
+      "lat": 12.91754,
+      "lng": 77.60795
+    },
+    {
+      "id": 195,
+      "name": "Karnataka Provision",
+      "area": "Koramangala",
+      "lat": 12.93792,
+      "lng": 77.62263
+    },
+    {
+      "id": 196,
+      "name": "Sai Super Market",
+      "area": "HSR Layout",
+      "lat": 12.90423,
+      "lng": 77.62367
+    },
+    {
+      "id": 197,
+      "name": "Ganesh Provision",
+      "area": "Electronic City",
+      "lat": 12.84247,
+      "lng": 77.67286
+    },
+    {
+      "id": 198,
+      "name": "Anand Kirana",
+      "area": "Bannerghatta Road",
+      "lat": 12.88938,
+      "lng": 77.59991
+    },
+    {
+      "id": 199,
+      "name": "Mohan Super Market",
+      "area": "Jayanagar",
+      "lat": 12.92963,
+      "lng": 77.58172
+    },
+    {
+      "id": 200,
+      "name": "Sri Kirana",
+      "area": "Wilson Garden",
+      "lat": 12.9535,
+      "lng": 77.58614
+    }
+  ]
+}
