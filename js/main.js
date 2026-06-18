@@ -286,65 +286,114 @@ async function renderMyTargets() {
     const container = document.getElementById('my-targets-content');
     if (!container) return;
 
-    const monthlyRevenueTarget = 150000;
-    const pcTarget = 80;
-    const mgTarget = 45;
+    // Overall Targets
+    const monthlyRevenueTarget = 3000000; // ₹3.0 Cr
+    let totalRevenueCurrent = 0;
+    let totalPC = 0;
+    let totalMG = 0;
+
+    retailers.forEach(r => {
+        totalRevenueCurrent += Math.floor((r.totalSalesThisYear || 0) / 12);
+        const pc = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
+        const mg = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
+        totalPC += pc;
+        totalMG += mg;
+    });
+
+    const revenueProgress = Math.min(100, Math.round((totalRevenueCurrent / monthlyRevenueTarget) * 100));
+    const pcTarget = 80 * retailers.length;   // Approx total target across all retailers
+    const mgTarget = 45 * retailers.length;
+    const pcProgress = Math.min(100, Math.round((totalPC / pcTarget) * 100));
+    const mgProgress = Math.min(100, Math.round((totalMG / mgTarget) * 100));
 
     let html = `
-        <div class="bg-emerald-900/30 border border-emerald-600 p-5 rounded-3xl mb-6">
-            <div class="text-emerald-400 font-medium">My Overall Target</div>
-            <div class="text-3xl font-bold">₹3.0 Cr / Month</div>
-        </div>`;
+        <!-- Overall Summary -->
+        <div class="bg-gradient-to-r from-emerald-900 to-slate-800 border border-emerald-500 rounded-3xl p-6 mb-8">
+            <div class="text-emerald-400 font-semibold mb-4">RAMESH OVERALL TARGET (June 2026)</div>
+            
+            <!-- Revenue -->
+            <div class="mb-6">
+                <div class="flex justify-between mb-2">
+                    <span class="font-medium">Total Revenue</span>
+                    <span class="font-bold">₹${(totalRevenueCurrent/100000).toFixed(1)} Cr / ₹3.0 Cr</span>
+                </div>
+                <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-500" style="width: ${revenueProgress}%"></div>
+                </div>
+            </div>
 
-    allRetailers.forEach(r => {
+            <!-- SKUs -->
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <div class="flex justify-between mb-2 text-sm">
+                        <span>Pressure Cooker 5L</span>
+                        <span>${totalPC} / ${pcTarget}</span>
+                    </div>
+                    <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-orange-500" style="width: ${pcProgress}%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-2 text-sm">
+                        <span>Mixer Grinder 750W</span>
+                        <span>${totalMG} / ${mgTarget}</span>
+                    </div>
+                    <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-blue-500" style="width: ${mgProgress}%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Retailer-wise Breakdown -->
+        <div class="space-y-6">`;
+
+    // Individual Retailers
+    retailers.forEach(r => {
         const revenueCurrent = Math.floor((r.totalSalesThisYear || 0) / 12);
-        const revenueProgress = Math.min(100, Math.round((revenueCurrent / monthlyRevenueTarget) * 100));
+        const revProgress = Math.min(100, Math.round((revenueCurrent / 150000) * 100));
 
         const pcSales = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
-        const pcProgress = Math.min(100, Math.round((pcSales / pcTarget) * 100));
-
         const mgSales = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
-        const mgProgress = Math.min(100, Math.round((mgSales / mgTarget) * 100));
 
         html += `
-            <div class="bg-slate-800 p-5 rounded-3xl">
-                <div class="font-medium">${r.name}</div>
+            <div class="bg-slate-800 rounded-3xl p-6">
+                <div class="font-semibold mb-4">${r.name} <span class="text-xs text-slate-400">(${r.area})</span></div>
                 
-                <!-- Revenue -->
-                <div class="mt-4 mb-4">
-                    <div class="flex justify-between text-xs mb-1">
-                        <span class="text-emerald-400">Revenue</span>
-                        <span class="font-medium">₹${revenueCurrent.toLocaleString()} / ₹${monthlyRevenueTarget.toLocaleString()}</span>
+                <div class="mb-5">
+                    <div class="flex justify-between text-sm mb-1.5">
+                        <span>Revenue</span>
+                        <span>₹${revenueCurrent.toLocaleString()} / ₹1,50,000</span>
                     </div>
-                    <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-emerald-500" style="width: ${revenueProgress}%"></div>
+                    <div class="h-2.5 bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-emerald-500" style="width: ${revProgress}%"></div>
                     </div>
                 </div>
 
-                <!-- SKU Breakdown -->
-                <div class="grid grid-cols-2 gap-4 text-xs">
+                <div class="grid grid-cols-2 gap-5 text-sm">
                     <div>
                         <div class="flex justify-between mb-1">
                             <span>Pressure Cooker</span>
-                            <span class="font-medium">${pcSales} / ${pcTarget}</span>
+                            <span>${pcSales} / 80</span>
                         </div>
                         <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-orange-500" style="width: ${pcProgress}%"></div>
+                            <div class="h-full bg-orange-500" style="width: ${Math.min(100, Math.round(pcSales/80 * 100))}%"></div>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-1">
                             <span>Mixer Grinder</span>
-                            <span class="font-medium">${mgSales} / ${mgTarget}</span>
+                            <span>${mgSales} / 45</span>
                         </div>
                         <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-blue-500" style="width: ${mgProgress}%"></div>
+                            <div class="h-full bg-blue-500" style="width: ${Math.min(100, Math.round(mgSales/45 * 100))}%"></div>
                         </div>
                     </div>
                 </div>
             </div>`;
     });
 
+    html += `</div>`;
     container.innerHTML = html;
 }
 // Add this Quick Action Button in your HTML (Drona GPT view)
