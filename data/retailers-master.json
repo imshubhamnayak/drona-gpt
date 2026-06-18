@@ -1,5 +1,4 @@
-{
-  "retailers": [
+[
     {
       "id": 1,
       "name": "Raju Super Market",
@@ -1401,4 +1400,3 @@
       "lng": 77.58614
     }
   ]
-}
