@@ -20,59 +20,64 @@ async function loadStrategyData() {
 
 // ==================== MAP ====================
 function initMap() {
-    const container = document.getElementById('strategy-map');
-    if (!container) return;
-    container.innerHTML = '';
+    if (currentMap) currentMap.remove();
 
-    currentMap = L.map('strategy-map', { zoomControl: true }).setView([12.92, 77.60], 11.5);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(currentMap);
+    currentMap = L.map('strategy-map', {
+        zoomControl: true,
+        attributionControl: false
+    }).setView([12.92, 77.60], 11.5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        className: 'map-tiles'
+    }).addTo(currentMap);
+
     drawPerformanceCircles();
 }
 
+// Draw colored circles based on performance
 function drawPerformanceCircles() {
-    if (!currentMap || !allRetailers.length) return;
+    if (!currentMap || !retailers.length) return;
 
-    const areas = {};
-    allRetailers.forEach(r => {
-        if (!areas[r.area]) areas[r.area] = [];
-        areas[r.area].push(r);
+    // Group by area and calculate average outstanding
+    const areaData = {};
+    retailers.forEach(r => {
+        if (!areaData[r.area]) areaData[r.area] = { count: 0, totalOS: 0, lat: r.lat, lng: r.lng };
+        areaData[r.area].count++;
+        areaData[r.area].totalOS += (r.outstanding || 0);
     });
 
-    Object.keys(areas).forEach(areaName => {
-        const group = areas[areaName];
-        const avgLat = group.reduce((sum, r) => sum + (r.lat || 12.92), 0) / group.length;
-        const avgLng = group.reduce((sum, r) => sum + (r.lng || 77.60), 0) / group.length;
-        const avgOS = group.reduce((sum, r) => sum + (r.outstanding || 0), 0) / group.length;
+    Object.keys(areaData).forEach(area => {
+        const d = areaData[area];
+        const avgOS = d.totalOS / d.count;
+        const radius = 800 + (avgOS / 1000) * 300; // bigger circle for higher outstanding
 
-        let color = "#22c55e";
-        if (avgOS > 30000) color = "#ef4444";
-        else if (avgOS > 18000) color = "#f59e0b";
+        let color = '#22c55e'; // green
+        if (avgOS > 15000) color = '#f59e0b';     // orange
+        if (avgOS > 30000) color = '#ef4444';     // red
 
-        const circle = L.circle([avgLat, avgLng], {
+        L.circle([d.lat, d.lng], {
+            radius: radius,
             color: color,
             fillColor: color,
             fillOpacity: 0.25,
-            radius: 1650,
-            weight: 3.5
-        }).addTo(currentMap);
-
-        circle.bindPopup(`<b>${areaName}</b><br>${group.length} retailers<br>Avg O/S: ₹${Math.round(avgOS).toLocaleString()}`);
-        circle.on('click', () => createFocusPlanForArea(areaName));
+            weight: 3
+        }).addTo(currentMap)
+          .bindPopup(`<b>${area}</b><br>Avg Outstanding: ₹${Math.round(avgOS).toLocaleString()}`);
     });
 }
 
+// Toggle Map (for collapsible)
 function toggleMap() {
-    const container = document.getElementById('map-container');
-    const text = document.getElementById('map-toggle-text');
+    const mapContainer = document.getElementById('map-container');
+    if (!mapContainer) return;
+
+    mapContainer.classList.toggle('hidden');
     
-    if (container.style.display === 'none') {
-        container.style.display = 'block';
-        text.textContent = 'Hide Map';
-    } else {
-        container.style.display = 'none';
-        text.textContent = 'Show Map';
-    }
-    
+    // Critical fix: Let Leaflet recalculate size
+    setTimeout(() => {
+        if (currentMap) currentMap.invalidateSize();
+    }, 300);
+}
     // Important: Refresh map size after toggle
     setTimeout(() => {
         if (currentMap) currentMap.invalidateSize();
