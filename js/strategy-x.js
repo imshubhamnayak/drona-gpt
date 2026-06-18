@@ -254,68 +254,118 @@ async function showPublishedPlans() {
 }
 
 // Targets Tab (SKU Breakdown)
-async function showActiveTargets() {
-    const container = document.getElementById('strategy-tab-content');
-    const revTarget = 150000;
-    const pcTarget = 80;
-    const mgTarget = 45;
+function showActiveTargets() {
+    const container = document.getElementById('targets-list');
+    if (!container) return;
 
-    let html = `<div class="bg-emerald-900/30 border border-emerald-600 p-5 rounded-3xl mb-6">
-        <div class="text-emerald-400 font-medium">Ramesh Overall Target</div>
-        <div class="text-3xl font-bold">₹3.0 Cr / Month</div>
-    </div>`;
+    // Overall Target Calculation
+    const monthlyRevenueTarget = 3000000; // ₹3.0 Cr
+    let totalRevenueCurrent = 0;
+    let totalPC = 0;
+    let totalMG = 0;
 
-    allRetailers.forEach(r => {
-        const revCurrent = Math.floor((r.totalSalesThisYear || 0) / 12);
-        const revProg = Math.min(100, Math.round((revCurrent / revTarget) * 100));
+    retailers.forEach(r => {
+        totalRevenueCurrent += Math.floor((r.totalSalesThisYear || 0) / 12);
+        const pc = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
+        const mg = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
+        totalPC += pc;
+        totalMG += mg;
+    });
+
+    const revenueProgress = Math.min(100, Math.round((totalRevenueCurrent / monthlyRevenueTarget) * 100));
+    const pcTargetTotal = 80 * retailers.length;
+    const mgTargetTotal = 45 * retailers.length;
+    const pcProgress = Math.min(100, Math.round((totalPC / pcTargetTotal) * 100));
+    const mgProgress = Math.min(100, Math.round((totalMG / mgTargetTotal) * 100));
+
+    let html = `
+        <!-- Overall Target -->
+        <div class="bg-gradient-to-r from-emerald-900 to-slate-800 border border-emerald-500 rounded-3xl p-6 mb-8">
+            <div class="text-emerald-400 font-semibold mb-3">OVERALL TARGET (All Retailers)</div>
+            
+            <div class="mb-6">
+                <div class="flex justify-between mb-2">
+                    <span class="font-medium">Total Revenue</span>
+                    <span class="font-bold">₹${(totalRevenueCurrent/100000).toFixed(1)} Cr / ₹3.0 Cr</span>
+                </div>
+                <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-500" style="width: ${revenueProgress}%"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <div class="flex justify-between mb-2 text-sm">
+                        <span>Pressure Cooker 5L</span>
+                        <span>${totalPC} / ${pcTargetTotal}</span>
+                    </div>
+                    <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-orange-500" style="width: ${pcProgress}%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-2 text-sm">
+                        <span>Mixer Grinder 750W</span>
+                        <span>${totalMG} / ${mgTargetTotal}</span>
+                    </div>
+                    <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-blue-500" style="width: ${mgProgress}%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Retailer-wise -->
+        <div class="text-lg font-semibold mb-4">Retailer-wise Progress</div>
+        <div class="space-y-6">`;
+
+    retailers.forEach(r => {
+        const revenueCurrent = Math.floor((r.totalSalesThisYear || 0) / 12);
+        const revProgress = Math.min(100, Math.round((revenueCurrent / 150000) * 100));
 
         const pcSales = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
-        const pcProg = Math.min(100, Math.round((pcSales / pcTarget) * 100));
-
         const mgSales = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
-        const mgProg = Math.min(100, Math.round((mgSales / mgTarget) * 100));
 
         html += `
-            <div class="bg-slate-800 p-5 rounded-3xl mb-4">
-                <div class="font-medium">${r.name}</div>
-                <div class="text-xs text-slate-400">${r.area}</div>
-                <div class="space-y-4 mt-4">
+            <div class="bg-slate-800 rounded-3xl p-5">
+                <div class="font-medium mb-3">${r.name} <span class="text-xs text-slate-400">(${r.area})</span></div>
+                
+                <div class="mb-4">
+                    <div class="flex justify-between text-sm mb-1">
+                        <span>Revenue</span>
+                        <span>₹${revenueCurrent.toLocaleString()} / ₹1,50,000</span>
+                    </div>
+                    <div class="h-2.5 bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-emerald-500" style="width: ${revProgress}%"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                        <div class="flex justify-between text-xs mb-1">
-                            <span class="text-emerald-400">Revenue</span>
-                            <span>₹${revCurrent.toLocaleString()} / ₹${revTarget.toLocaleString()}</span>
+                        <div class="flex justify-between mb-1">
+                            <span>Pressure Cooker</span>
+                            <span>${pcSales} / 80</span>
                         </div>
                         <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-emerald-500" style="width:${revProg}%"></div>
+                            <div class="h-full bg-orange-500" style="width: ${Math.min(100, Math.round(pcSales/80*100))}%"></div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <div class="flex justify-between text-xs mb-1">
-                                <span>Pressure Cooker</span>
-                                <span>${pcSales} / ${pcTarget}</span>
-                            </div>
-                            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                                <div class="h-full bg-orange-500" style="width:${pcProg}%"></div>
-                            </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span>Mixer Grinder</span>
+                            <span>${mgSales} / 45</span>
                         </div>
-                        <div>
-                            <div class="flex justify-between text-xs mb-1">
-                                <span>Mixer Grinder</span>
-                                <span>${mgSales} / ${mgTarget}</span>
-                            </div>
-                            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                                <div class="h-full bg-blue-500" style="width:${mgProg}%"></div>
-                            </div>
+                        <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-blue-500" style="width: ${Math.min(100, Math.round(mgSales/45*100))}%"></div>
                         </div>
                     </div>
                 </div>
             </div>`;
     });
 
+    html += `</div>`;
     container.innerHTML = html;
 }
-
 function populateTerritoryList() {
     const container = document.getElementById('strategy-tab-content');
     const areas = {};
