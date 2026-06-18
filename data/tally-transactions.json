@@ -1,0 +1,7994 @@
+[
+    {
+      "id": 10001,
+      "retailerId": 1,
+      "date": "2025-04-14",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 43519,
+      "invoiceNo": "INV-25705"
+    },
+    {
+      "id": 10002,
+      "retailerId": 1,
+      "date": "2025-11-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 30810,
+      "invoiceNo": "INV-25187"
+    },
+    {
+      "id": 10003,
+      "retailerId": 1,
+      "date": "2026-06-14",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 25494,
+      "invoiceNo": "INV-25159"
+    },
+    {
+      "id": 10004,
+      "retailerId": 1,
+      "date": "2026-06-08",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 50649,
+      "invoiceNo": "INV-25567"
+    },
+    {
+      "id": 10005,
+      "retailerId": 1,
+      "date": "2026-04-24",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 46872,
+      "invoiceNo": "INV-25685"
+    },
+    {
+      "id": 10006,
+      "retailerId": 1,
+      "date": "2025-12-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 40858,
+      "invoiceNo": "INV-25927"
+    },
+    {
+      "id": 10007,
+      "retailerId": 1,
+      "date": "2025-05-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 19051,
+      "invoiceNo": "INV-25894"
+    },
+    {
+      "id": 10008,
+      "retailerId": 1,
+      "date": "2026-05-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 34141,
+      "invoiceNo": "INV-25284"
+    },
+    {
+      "id": 10009,
+      "retailerId": 1,
+      "date": "2025-12-11",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 50381,
+      "invoiceNo": "INV-25393"
+    },
+    {
+      "id": 10010,
+      "retailerId": 1,
+      "date": "2026-01-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 40899,
+      "invoiceNo": "INV-25970"
+    },
+    {
+      "id": 10011,
+      "retailerId": 1,
+      "date": "2026-05-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 39976,
+      "invoiceNo": "INV-25106"
+    },
+    {
+      "id": 10012,
+      "retailerId": 1,
+      "date": "2025-08-23",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 28966,
+      "invoiceNo": "INV-25721"
+    },
+    {
+      "id": 10013,
+      "retailerId": 1,
+      "date": "2026-03-28",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 32782,
+      "invoiceNo": "INV-25845"
+    },
+    {
+      "id": 10014,
+      "retailerId": 1,
+      "date": "2025-11-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 45810,
+      "invoiceNo": "INV-25988"
+    },
+    {
+      "id": 10015,
+      "retailerId": 1,
+      "date": "2025-11-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 45739,
+      "invoiceNo": "INV-25407"
+    },
+    {
+      "id": 10016,
+      "retailerId": 2,
+      "date": "2025-05-28",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 34765,
+      "invoiceNo": "INV-25929"
+    },
+    {
+      "id": 10017,
+      "retailerId": 2,
+      "date": "2025-07-24",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 19674,
+      "invoiceNo": "INV-25544"
+    },
+    {
+      "id": 10018,
+      "retailerId": 3,
+      "date": "2025-09-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 39192,
+      "invoiceNo": "INV-25801"
+    },
+    {
+      "id": 10019,
+      "retailerId": 3,
+      "date": "2026-06-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 32388,
+      "invoiceNo": "INV-25509"
+    },
+    {
+      "id": 10020,
+      "retailerId": 5,
+      "date": "2025-11-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 7531,
+      "invoiceNo": "INV-25847"
+    },
+    {
+      "id": 10021,
+      "retailerId": 7,
+      "date": "2025-12-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 53865,
+      "invoiceNo": "INV-25856"
+    },
+    {
+      "id": 10022,
+      "retailerId": 8,
+      "date": "2025-10-24",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 24203,
+      "invoiceNo": "INV-25122"
+    },
+    {
+      "id": 10023,
+      "retailerId": 9,
+      "date": "2026-03-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 41395,
+      "invoiceNo": "INV-25341"
+    },
+    {
+      "id": 10024,
+      "retailerId": 11,
+      "date": "2025-08-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 9339,
+      "invoiceNo": "INV-25523"
+    },
+    {
+      "id": 10025,
+      "retailerId": 11,
+      "date": "2026-05-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 46809,
+      "invoiceNo": "INV-25504"
+    },
+    {
+      "id": 10026,
+      "retailerId": 11,
+      "date": "2026-05-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 39401,
+      "invoiceNo": "INV-25268"
+    },
+    {
+      "id": 10027,
+      "retailerId": 11,
+      "date": "2026-04-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 44238,
+      "invoiceNo": "INV-25859"
+    },
+    {
+      "id": 10028,
+      "retailerId": 11,
+      "date": "2026-04-17",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 7436,
+      "invoiceNo": "INV-25806"
+    },
+    {
+      "id": 10029,
+      "retailerId": 11,
+      "date": "2025-11-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 19424,
+      "invoiceNo": "INV-25389"
+    },
+    {
+      "id": 10030,
+      "retailerId": 11,
+      "date": "2026-04-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 55617,
+      "invoiceNo": "INV-25292"
+    },
+    {
+      "id": 10031,
+      "retailerId": 11,
+      "date": "2025-07-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 56691,
+      "invoiceNo": "INV-25350"
+    },
+    {
+      "id": 10032,
+      "retailerId": 11,
+      "date": "2026-03-24",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 10658,
+      "invoiceNo": "INV-25867"
+    },
+    {
+      "id": 10033,
+      "retailerId": 11,
+      "date": "2026-03-08",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 40102,
+      "invoiceNo": "INV-25820"
+    },
+    {
+      "id": 10034,
+      "retailerId": 11,
+      "date": "2025-12-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 31868,
+      "invoiceNo": "INV-25528"
+    },
+    {
+      "id": 10035,
+      "retailerId": 11,
+      "date": "2025-07-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 33711,
+      "invoiceNo": "INV-25527"
+    },
+    {
+      "id": 10036,
+      "retailerId": 11,
+      "date": "2025-11-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 39730,
+      "invoiceNo": "INV-25923"
+    },
+    {
+      "id": 10037,
+      "retailerId": 11,
+      "date": "2025-10-19",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 54664,
+      "invoiceNo": "INV-25747"
+    },
+    {
+      "id": 10038,
+      "retailerId": 12,
+      "date": "2026-05-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 42426,
+      "invoiceNo": "INV-25678"
+    },
+    {
+      "id": 10039,
+      "retailerId": 12,
+      "date": "2025-04-18",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 12664,
+      "invoiceNo": "INV-25997"
+    },
+    {
+      "id": 10040,
+      "retailerId": 12,
+      "date": "2025-11-27",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 41356,
+      "invoiceNo": "INV-25888"
+    },
+    {
+      "id": 10041,
+      "retailerId": 12,
+      "date": "2025-09-01",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 33269,
+      "invoiceNo": "INV-25223"
+    },
+    {
+      "id": 10042,
+      "retailerId": 12,
+      "date": "2025-06-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 59946,
+      "invoiceNo": "INV-25304"
+    },
+    {
+      "id": 10043,
+      "retailerId": 12,
+      "date": "2026-04-13",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 20969,
+      "invoiceNo": "INV-25909"
+    },
+    {
+      "id": 10044,
+      "retailerId": 12,
+      "date": "2026-01-28",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 17296,
+      "invoiceNo": "INV-25179"
+    },
+    {
+      "id": 10045,
+      "retailerId": 12,
+      "date": "2026-05-12",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 10896,
+      "invoiceNo": "INV-25230"
+    },
+    {
+      "id": 10046,
+      "retailerId": 12,
+      "date": "2026-02-26",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 23215,
+      "invoiceNo": "INV-25570"
+    },
+    {
+      "id": 10047,
+      "retailerId": 12,
+      "date": "2025-06-26",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 46494,
+      "invoiceNo": "INV-25151"
+    },
+    {
+      "id": 10048,
+      "retailerId": 13,
+      "date": "2026-02-08",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 20624,
+      "invoiceNo": "INV-25636"
+    },
+    {
+      "id": 10049,
+      "retailerId": 15,
+      "date": "2025-05-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 64242,
+      "invoiceNo": "INV-25677"
+    },
+    {
+      "id": 10050,
+      "retailerId": 15,
+      "date": "2026-05-27",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 7517,
+      "invoiceNo": "INV-25991"
+    },
+    {
+      "id": 10051,
+      "retailerId": 15,
+      "date": "2025-10-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 21523,
+      "invoiceNo": "INV-25284"
+    },
+    {
+      "id": 10052,
+      "retailerId": 15,
+      "date": "2026-02-02",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 42531,
+      "invoiceNo": "INV-25227"
+    },
+    {
+      "id": 10053,
+      "retailerId": 15,
+      "date": "2026-06-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 50108,
+      "invoiceNo": "INV-25967"
+    },
+    {
+      "id": 10054,
+      "retailerId": 15,
+      "date": "2025-10-19",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 26637,
+      "invoiceNo": "INV-25221"
+    },
+    {
+      "id": 10055,
+      "retailerId": 15,
+      "date": "2025-04-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 32732,
+      "invoiceNo": "INV-25156"
+    },
+    {
+      "id": 10056,
+      "retailerId": 15,
+      "date": "2026-03-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13432,
+      "invoiceNo": "INV-25748"
+    },
+    {
+      "id": 10057,
+      "retailerId": 15,
+      "date": "2026-01-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 34505,
+      "invoiceNo": "INV-25436"
+    },
+    {
+      "id": 10058,
+      "retailerId": 15,
+      "date": "2026-02-19",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 23000,
+      "invoiceNo": "INV-25722"
+    },
+    {
+      "id": 10059,
+      "retailerId": 15,
+      "date": "2025-11-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 41351,
+      "invoiceNo": "INV-25898"
+    },
+    {
+      "id": 10060,
+      "retailerId": 15,
+      "date": "2025-06-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 11810,
+      "invoiceNo": "INV-25877"
+    },
+    {
+      "id": 10061,
+      "retailerId": 15,
+      "date": "2025-05-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 48598,
+      "invoiceNo": "INV-25464"
+    },
+    {
+      "id": 10062,
+      "retailerId": 16,
+      "date": "2026-03-28",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 41967,
+      "invoiceNo": "INV-25925"
+    },
+    {
+      "id": 10063,
+      "retailerId": 17,
+      "date": "2025-11-24",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 18606,
+      "invoiceNo": "INV-25865"
+    },
+    {
+      "id": 10064,
+      "retailerId": 17,
+      "date": "2026-01-23",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 18418,
+      "invoiceNo": "INV-25836"
+    },
+    {
+      "id": 10065,
+      "retailerId": 17,
+      "date": "2026-06-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 45265,
+      "invoiceNo": "INV-25453"
+    },
+    {
+      "id": 10066,
+      "retailerId": 17,
+      "date": "2026-03-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 34757,
+      "invoiceNo": "INV-25348"
+    },
+    {
+      "id": 10067,
+      "retailerId": 17,
+      "date": "2025-05-31",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 31398,
+      "invoiceNo": "INV-25397"
+    },
+    {
+      "id": 10068,
+      "retailerId": 17,
+      "date": "2025-05-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 49816,
+      "invoiceNo": "INV-25359"
+    },
+    {
+      "id": 10069,
+      "retailerId": 17,
+      "date": "2025-09-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 19044,
+      "invoiceNo": "INV-25668"
+    },
+    {
+      "id": 10070,
+      "retailerId": 17,
+      "date": "2025-08-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 45876,
+      "invoiceNo": "INV-25757"
+    },
+    {
+      "id": 10071,
+      "retailerId": 17,
+      "date": "2026-02-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 45857,
+      "invoiceNo": "INV-25985"
+    },
+    {
+      "id": 10072,
+      "retailerId": 17,
+      "date": "2026-06-22",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 45614,
+      "invoiceNo": "INV-25267"
+    },
+    {
+      "id": 10073,
+      "retailerId": 17,
+      "date": "2025-11-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 17389,
+      "invoiceNo": "INV-25387"
+    },
+    {
+      "id": 10074,
+      "retailerId": 17,
+      "date": "2025-10-16",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 23923,
+      "invoiceNo": "INV-25566"
+    },
+    {
+      "id": 10075,
+      "retailerId": 17,
+      "date": "2026-01-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 46124,
+      "invoiceNo": "INV-25405"
+    },
+    {
+      "id": 10076,
+      "retailerId": 18,
+      "date": "2025-10-28",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 7216,
+      "invoiceNo": "INV-25711"
+    },
+    {
+      "id": 10077,
+      "retailerId": 18,
+      "date": "2025-12-28",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 29632,
+      "invoiceNo": "INV-25511"
+    },
+    {
+      "id": 10078,
+      "retailerId": 18,
+      "date": "2025-06-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 33587,
+      "invoiceNo": "INV-25429"
+    },
+    {
+      "id": 10079,
+      "retailerId": 18,
+      "date": "2026-05-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 18894,
+      "invoiceNo": "INV-25250"
+    },
+    {
+      "id": 10080,
+      "retailerId": 18,
+      "date": "2025-12-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 21734,
+      "invoiceNo": "INV-25702"
+    },
+    {
+      "id": 10081,
+      "retailerId": 18,
+      "date": "2026-03-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13753,
+      "invoiceNo": "INV-25486"
+    },
+    {
+      "id": 10082,
+      "retailerId": 18,
+      "date": "2026-01-23",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 48405,
+      "invoiceNo": "INV-25401"
+    },
+    {
+      "id": 10083,
+      "retailerId": 18,
+      "date": "2025-07-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 50528,
+      "invoiceNo": "INV-25305"
+    },
+    {
+      "id": 10084,
+      "retailerId": 18,
+      "date": "2025-06-13",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 38140,
+      "invoiceNo": "INV-25121"
+    },
+    {
+      "id": 10085,
+      "retailerId": 18,
+      "date": "2026-01-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 49499,
+      "invoiceNo": "INV-25859"
+    },
+    {
+      "id": 10086,
+      "retailerId": 18,
+      "date": "2026-03-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 50960,
+      "invoiceNo": "INV-25223"
+    },
+    {
+      "id": 10087,
+      "retailerId": 18,
+      "date": "2026-04-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 37932,
+      "invoiceNo": "INV-25127"
+    },
+    {
+      "id": 10088,
+      "retailerId": 19,
+      "date": "2026-04-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 33514,
+      "invoiceNo": "INV-25422"
+    },
+    {
+      "id": 10089,
+      "retailerId": 22,
+      "date": "2026-01-01",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 45116,
+      "invoiceNo": "INV-25922"
+    },
+    {
+      "id": 10090,
+      "retailerId": 23,
+      "date": "2025-11-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 22152,
+      "invoiceNo": "INV-25359"
+    },
+    {
+      "id": 10091,
+      "retailerId": 23,
+      "date": "2026-02-05",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 53818,
+      "invoiceNo": "INV-25499"
+    },
+    {
+      "id": 10092,
+      "retailerId": 23,
+      "date": "2026-06-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 64618,
+      "invoiceNo": "INV-25658"
+    },
+    {
+      "id": 10093,
+      "retailerId": 23,
+      "date": "2026-01-29",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 22401,
+      "invoiceNo": "INV-25805"
+    },
+    {
+      "id": 10094,
+      "retailerId": 23,
+      "date": "2026-04-28",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 26630,
+      "invoiceNo": "INV-25380"
+    },
+    {
+      "id": 10095,
+      "retailerId": 23,
+      "date": "2026-03-24",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 48392,
+      "invoiceNo": "INV-25396"
+    },
+    {
+      "id": 10096,
+      "retailerId": 23,
+      "date": "2025-06-27",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 44429,
+      "invoiceNo": "INV-25407"
+    },
+    {
+      "id": 10097,
+      "retailerId": 23,
+      "date": "2026-03-29",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 55749,
+      "invoiceNo": "INV-25752"
+    },
+    {
+      "id": 10098,
+      "retailerId": 23,
+      "date": "2025-04-19",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 15051,
+      "invoiceNo": "INV-25844"
+    },
+    {
+      "id": 10099,
+      "retailerId": 23,
+      "date": "2025-05-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 43137,
+      "invoiceNo": "INV-25605"
+    },
+    {
+      "id": 10100,
+      "retailerId": 23,
+      "date": "2025-07-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 43156,
+      "invoiceNo": "INV-25184"
+    },
+    {
+      "id": 10101,
+      "retailerId": 23,
+      "date": "2026-02-13",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 49465,
+      "invoiceNo": "INV-25741"
+    },
+    {
+      "id": 10102,
+      "retailerId": 23,
+      "date": "2026-06-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 24323,
+      "invoiceNo": "INV-25724"
+    },
+    {
+      "id": 10103,
+      "retailerId": 24,
+      "date": "2026-02-13",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 23085,
+      "invoiceNo": "INV-25889"
+    },
+    {
+      "id": 10104,
+      "retailerId": 24,
+      "date": "2026-02-24",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 16917,
+      "invoiceNo": "INV-25984"
+    },
+    {
+      "id": 10105,
+      "retailerId": 25,
+      "date": "2025-11-08",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 31547,
+      "invoiceNo": "INV-25638"
+    },
+    {
+      "id": 10106,
+      "retailerId": 27,
+      "date": "2026-02-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 50800,
+      "invoiceNo": "INV-25706"
+    },
+    {
+      "id": 10107,
+      "retailerId": 27,
+      "date": "2026-04-28",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 57423,
+      "invoiceNo": "INV-25166"
+    },
+    {
+      "id": 10108,
+      "retailerId": 28,
+      "date": "2025-11-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 30953,
+      "invoiceNo": "INV-25331"
+    },
+    {
+      "id": 10109,
+      "retailerId": 31,
+      "date": "2026-01-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 41289,
+      "invoiceNo": "INV-25151"
+    },
+    {
+      "id": 10110,
+      "retailerId": 31,
+      "date": "2026-01-18",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 8613,
+      "invoiceNo": "INV-25577"
+    },
+    {
+      "id": 10111,
+      "retailerId": 32,
+      "date": "2025-12-12",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 50506,
+      "invoiceNo": "INV-25738"
+    },
+    {
+      "id": 10112,
+      "retailerId": 32,
+      "date": "2026-05-04",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 34054,
+      "invoiceNo": "INV-25646"
+    },
+    {
+      "id": 10113,
+      "retailerId": 33,
+      "date": "2025-09-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 33348,
+      "invoiceNo": "INV-25387"
+    },
+    {
+      "id": 10114,
+      "retailerId": 34,
+      "date": "2026-05-26",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 18150,
+      "invoiceNo": "INV-25299"
+    },
+    {
+      "id": 10115,
+      "retailerId": 35,
+      "date": "2026-05-12",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 17060,
+      "invoiceNo": "INV-25313"
+    },
+    {
+      "id": 10116,
+      "retailerId": 36,
+      "date": "2026-01-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 56652,
+      "invoiceNo": "INV-25918"
+    },
+    {
+      "id": 10117,
+      "retailerId": 36,
+      "date": "2026-02-23",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 61829,
+      "invoiceNo": "INV-25191"
+    },
+    {
+      "id": 10118,
+      "retailerId": 36,
+      "date": "2026-06-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 53789,
+      "invoiceNo": "INV-25211"
+    },
+    {
+      "id": 10119,
+      "retailerId": 36,
+      "date": "2026-01-11",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 39392,
+      "invoiceNo": "INV-25290"
+    },
+    {
+      "id": 10120,
+      "retailerId": 36,
+      "date": "2025-05-23",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 57799,
+      "invoiceNo": "INV-25366"
+    },
+    {
+      "id": 10121,
+      "retailerId": 36,
+      "date": "2025-07-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 45454,
+      "invoiceNo": "INV-25291"
+    },
+    {
+      "id": 10122,
+      "retailerId": 36,
+      "date": "2025-08-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 30116,
+      "invoiceNo": "INV-25996"
+    },
+    {
+      "id": 10123,
+      "retailerId": 36,
+      "date": "2026-04-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 50455,
+      "invoiceNo": "INV-25358"
+    },
+    {
+      "id": 10124,
+      "retailerId": 36,
+      "date": "2026-03-17",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 13969,
+      "invoiceNo": "INV-25616"
+    },
+    {
+      "id": 10125,
+      "retailerId": 36,
+      "date": "2025-08-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 48236,
+      "invoiceNo": "INV-25997"
+    },
+    {
+      "id": 10126,
+      "retailerId": 36,
+      "date": "2025-06-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 46466,
+      "invoiceNo": "INV-25177"
+    },
+    {
+      "id": 10127,
+      "retailerId": 36,
+      "date": "2026-03-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 37096,
+      "invoiceNo": "INV-25473"
+    },
+    {
+      "id": 10128,
+      "retailerId": 36,
+      "date": "2025-06-20",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 43272,
+      "invoiceNo": "INV-25362"
+    },
+    {
+      "id": 10129,
+      "retailerId": 37,
+      "date": "2025-09-23",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 46613,
+      "invoiceNo": "INV-25116"
+    },
+    {
+      "id": 10130,
+      "retailerId": 37,
+      "date": "2026-02-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 48972,
+      "invoiceNo": "INV-25727"
+    },
+    {
+      "id": 10131,
+      "retailerId": 38,
+      "date": "2025-06-29",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 54887,
+      "invoiceNo": "INV-25145"
+    },
+    {
+      "id": 10132,
+      "retailerId": 38,
+      "date": "2026-06-23",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 58643,
+      "invoiceNo": "INV-25657"
+    },
+    {
+      "id": 10133,
+      "retailerId": 38,
+      "date": "2025-12-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 57672,
+      "invoiceNo": "INV-25604"
+    },
+    {
+      "id": 10134,
+      "retailerId": 38,
+      "date": "2025-04-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 52573,
+      "invoiceNo": "INV-25282"
+    },
+    {
+      "id": 10135,
+      "retailerId": 38,
+      "date": "2025-07-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 11559,
+      "invoiceNo": "INV-25463"
+    },
+    {
+      "id": 10136,
+      "retailerId": 38,
+      "date": "2025-06-29",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 36552,
+      "invoiceNo": "INV-25804"
+    },
+    {
+      "id": 10137,
+      "retailerId": 38,
+      "date": "2025-05-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 18820,
+      "invoiceNo": "INV-25776"
+    },
+    {
+      "id": 10138,
+      "retailerId": 38,
+      "date": "2025-07-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 54170,
+      "invoiceNo": "INV-25345"
+    },
+    {
+      "id": 10139,
+      "retailerId": 38,
+      "date": "2026-03-28",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 24103,
+      "invoiceNo": "INV-25226"
+    },
+    {
+      "id": 10140,
+      "retailerId": 38,
+      "date": "2026-03-19",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 35540,
+      "invoiceNo": "INV-25885"
+    },
+    {
+      "id": 10141,
+      "retailerId": 38,
+      "date": "2025-09-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 11652,
+      "invoiceNo": "INV-25927"
+    },
+    {
+      "id": 10142,
+      "retailerId": 38,
+      "date": "2026-04-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 63100,
+      "invoiceNo": "INV-25596"
+    },
+    {
+      "id": 10143,
+      "retailerId": 38,
+      "date": "2025-06-11",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 24813,
+      "invoiceNo": "INV-25931"
+    },
+    {
+      "id": 10144,
+      "retailerId": 39,
+      "date": "2025-08-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 22990,
+      "invoiceNo": "INV-25820"
+    },
+    {
+      "id": 10145,
+      "retailerId": 39,
+      "date": "2025-11-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 34925,
+      "invoiceNo": "INV-25545"
+    },
+    {
+      "id": 10146,
+      "retailerId": 41,
+      "date": "2025-07-12",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 41171,
+      "invoiceNo": "INV-25814"
+    },
+    {
+      "id": 10147,
+      "retailerId": 41,
+      "date": "2025-08-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 23288,
+      "invoiceNo": "INV-25498"
+    },
+    {
+      "id": 10148,
+      "retailerId": 41,
+      "date": "2025-09-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 40199,
+      "invoiceNo": "INV-25821"
+    },
+    {
+      "id": 10149,
+      "retailerId": 41,
+      "date": "2025-08-01",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 43219,
+      "invoiceNo": "INV-25566"
+    },
+    {
+      "id": 10150,
+      "retailerId": 41,
+      "date": "2025-06-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 50458,
+      "invoiceNo": "INV-25189"
+    },
+    {
+      "id": 10151,
+      "retailerId": 41,
+      "date": "2025-10-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 41097,
+      "invoiceNo": "INV-25714"
+    },
+    {
+      "id": 10152,
+      "retailerId": 41,
+      "date": "2026-05-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 38853,
+      "invoiceNo": "INV-25137"
+    },
+    {
+      "id": 10153,
+      "retailerId": 41,
+      "date": "2026-04-30",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 20593,
+      "invoiceNo": "INV-25122"
+    },
+    {
+      "id": 10154,
+      "retailerId": 41,
+      "date": "2025-11-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 40406,
+      "invoiceNo": "INV-25170"
+    },
+    {
+      "id": 10155,
+      "retailerId": 41,
+      "date": "2025-12-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 16766,
+      "invoiceNo": "INV-25384"
+    },
+    {
+      "id": 10156,
+      "retailerId": 41,
+      "date": "2026-04-07",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 52512,
+      "invoiceNo": "INV-25748"
+    },
+    {
+      "id": 10157,
+      "retailerId": 41,
+      "date": "2025-04-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 48806,
+      "invoiceNo": "INV-25907"
+    },
+    {
+      "id": 10158,
+      "retailerId": 41,
+      "date": "2025-04-13",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 30568,
+      "invoiceNo": "INV-25888"
+    },
+    {
+      "id": 10159,
+      "retailerId": 42,
+      "date": "2026-06-24",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 42310,
+      "invoiceNo": "INV-25505"
+    },
+    {
+      "id": 10160,
+      "retailerId": 42,
+      "date": "2025-08-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 56005,
+      "invoiceNo": "INV-25411"
+    },
+    {
+      "id": 10161,
+      "retailerId": 42,
+      "date": "2025-12-23",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 61774,
+      "invoiceNo": "INV-25941"
+    },
+    {
+      "id": 10162,
+      "retailerId": 42,
+      "date": "2026-03-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 46628,
+      "invoiceNo": "INV-25459"
+    },
+    {
+      "id": 10163,
+      "retailerId": 42,
+      "date": "2026-04-14",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 26084,
+      "invoiceNo": "INV-25769"
+    },
+    {
+      "id": 10164,
+      "retailerId": 42,
+      "date": "2025-06-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 24171,
+      "invoiceNo": "INV-25128"
+    },
+    {
+      "id": 10165,
+      "retailerId": 42,
+      "date": "2025-04-26",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 41202,
+      "invoiceNo": "INV-25102"
+    },
+    {
+      "id": 10166,
+      "retailerId": 42,
+      "date": "2026-02-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 23608,
+      "invoiceNo": "INV-25436"
+    },
+    {
+      "id": 10167,
+      "retailerId": 42,
+      "date": "2026-01-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 9045,
+      "invoiceNo": "INV-25692"
+    },
+    {
+      "id": 10168,
+      "retailerId": 42,
+      "date": "2025-10-19",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 34244,
+      "invoiceNo": "INV-25419"
+    },
+    {
+      "id": 10169,
+      "retailerId": 42,
+      "date": "2025-07-04",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 26876,
+      "invoiceNo": "INV-25409"
+    },
+    {
+      "id": 10170,
+      "retailerId": 43,
+      "date": "2025-04-13",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 64223,
+      "invoiceNo": "INV-25197"
+    },
+    {
+      "id": 10171,
+      "retailerId": 43,
+      "date": "2025-09-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13178,
+      "invoiceNo": "INV-25741"
+    },
+    {
+      "id": 10172,
+      "retailerId": 44,
+      "date": "2025-12-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 51935,
+      "invoiceNo": "INV-25919"
+    },
+    {
+      "id": 10173,
+      "retailerId": 44,
+      "date": "2025-04-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 45463,
+      "invoiceNo": "INV-25694"
+    },
+    {
+      "id": 10174,
+      "retailerId": 46,
+      "date": "2026-01-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 12300,
+      "invoiceNo": "INV-25320"
+    },
+    {
+      "id": 10175,
+      "retailerId": 46,
+      "date": "2025-08-29",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 8417,
+      "invoiceNo": "INV-25426"
+    },
+    {
+      "id": 10176,
+      "retailerId": 46,
+      "date": "2025-11-08",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 22162,
+      "invoiceNo": "INV-25247"
+    },
+    {
+      "id": 10177,
+      "retailerId": 46,
+      "date": "2025-08-08",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 31361,
+      "invoiceNo": "INV-25678"
+    },
+    {
+      "id": 10178,
+      "retailerId": 46,
+      "date": "2025-08-13",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 42980,
+      "invoiceNo": "INV-25348"
+    },
+    {
+      "id": 10179,
+      "retailerId": 46,
+      "date": "2026-01-31",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 49842,
+      "invoiceNo": "INV-25253"
+    },
+    {
+      "id": 10180,
+      "retailerId": 46,
+      "date": "2025-07-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 36923,
+      "invoiceNo": "INV-25518"
+    },
+    {
+      "id": 10181,
+      "retailerId": 46,
+      "date": "2025-05-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 46451,
+      "invoiceNo": "INV-25715"
+    },
+    {
+      "id": 10182,
+      "retailerId": 46,
+      "date": "2025-11-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 24308,
+      "invoiceNo": "INV-25635"
+    },
+    {
+      "id": 10183,
+      "retailerId": 46,
+      "date": "2025-05-28",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 8205,
+      "invoiceNo": "INV-25986"
+    },
+    {
+      "id": 10184,
+      "retailerId": 46,
+      "date": "2025-04-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 34139,
+      "invoiceNo": "INV-25777"
+    },
+    {
+      "id": 10185,
+      "retailerId": 46,
+      "date": "2025-12-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 15877,
+      "invoiceNo": "INV-25861"
+    },
+    {
+      "id": 10186,
+      "retailerId": 46,
+      "date": "2025-06-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 36623,
+      "invoiceNo": "INV-25232"
+    },
+    {
+      "id": 10187,
+      "retailerId": 48,
+      "date": "2026-04-18",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 20471,
+      "invoiceNo": "INV-25196"
+    },
+    {
+      "id": 10188,
+      "retailerId": 48,
+      "date": "2025-08-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 9440,
+      "invoiceNo": "INV-25171"
+    },
+    {
+      "id": 10189,
+      "retailerId": 49,
+      "date": "2025-05-24",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 46963,
+      "invoiceNo": "INV-25555"
+    },
+    {
+      "id": 10190,
+      "retailerId": 49,
+      "date": "2025-12-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 37150,
+      "invoiceNo": "INV-25990"
+    },
+    {
+      "id": 10191,
+      "retailerId": 50,
+      "date": "2025-04-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 31539,
+      "invoiceNo": "INV-25925"
+    },
+    {
+      "id": 10192,
+      "retailerId": 50,
+      "date": "2025-12-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 14849,
+      "invoiceNo": "INV-25104"
+    },
+    {
+      "id": 10193,
+      "retailerId": 50,
+      "date": "2026-06-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 53172,
+      "invoiceNo": "INV-25363"
+    },
+    {
+      "id": 10194,
+      "retailerId": 50,
+      "date": "2025-04-08",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 37150,
+      "invoiceNo": "INV-25619"
+    },
+    {
+      "id": 10195,
+      "retailerId": 50,
+      "date": "2025-06-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 33658,
+      "invoiceNo": "INV-25230"
+    },
+    {
+      "id": 10196,
+      "retailerId": 50,
+      "date": "2026-03-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 47587,
+      "invoiceNo": "INV-25773"
+    },
+    {
+      "id": 10197,
+      "retailerId": 50,
+      "date": "2025-05-31",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 45127,
+      "invoiceNo": "INV-25784"
+    },
+    {
+      "id": 10198,
+      "retailerId": 50,
+      "date": "2025-07-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 29682,
+      "invoiceNo": "INV-25928"
+    },
+    {
+      "id": 10199,
+      "retailerId": 50,
+      "date": "2025-08-15",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 43335,
+      "invoiceNo": "INV-25727"
+    },
+    {
+      "id": 10200,
+      "retailerId": 50,
+      "date": "2026-06-01",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 9942,
+      "invoiceNo": "INV-25618"
+    },
+    {
+      "id": 10201,
+      "retailerId": 51,
+      "date": "2026-01-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 37588,
+      "invoiceNo": "INV-25983"
+    },
+    {
+      "id": 10202,
+      "retailerId": 51,
+      "date": "2026-02-19",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 20489,
+      "invoiceNo": "INV-25140"
+    },
+    {
+      "id": 10203,
+      "retailerId": 52,
+      "date": "2026-01-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 68340,
+      "invoiceNo": "INV-25699"
+    },
+    {
+      "id": 10204,
+      "retailerId": 53,
+      "date": "2026-04-18",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 38899,
+      "invoiceNo": "INV-25342"
+    },
+    {
+      "id": 10205,
+      "retailerId": 53,
+      "date": "2026-04-18",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 28385,
+      "invoiceNo": "INV-25171"
+    },
+    {
+      "id": 10206,
+      "retailerId": 54,
+      "date": "2025-09-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 61638,
+      "invoiceNo": "INV-25694"
+    },
+    {
+      "id": 10207,
+      "retailerId": 54,
+      "date": "2026-03-20",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 47779,
+      "invoiceNo": "INV-25118"
+    },
+    {
+      "id": 10208,
+      "retailerId": 54,
+      "date": "2025-04-29",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 49063,
+      "invoiceNo": "INV-25983"
+    },
+    {
+      "id": 10209,
+      "retailerId": 54,
+      "date": "2025-12-20",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 44369,
+      "invoiceNo": "INV-25543"
+    },
+    {
+      "id": 10210,
+      "retailerId": 54,
+      "date": "2026-06-19",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 6922,
+      "invoiceNo": "INV-25629"
+    },
+    {
+      "id": 10211,
+      "retailerId": 54,
+      "date": "2025-04-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 8922,
+      "invoiceNo": "INV-25535"
+    },
+    {
+      "id": 10212,
+      "retailerId": 54,
+      "date": "2026-05-31",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 48324,
+      "invoiceNo": "INV-25774"
+    },
+    {
+      "id": 10213,
+      "retailerId": 54,
+      "date": "2025-07-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 18427,
+      "invoiceNo": "INV-25755"
+    },
+    {
+      "id": 10214,
+      "retailerId": 54,
+      "date": "2026-06-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 49330,
+      "invoiceNo": "INV-25913"
+    },
+    {
+      "id": 10215,
+      "retailerId": 54,
+      "date": "2026-04-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 58606,
+      "invoiceNo": "INV-25460"
+    },
+    {
+      "id": 10216,
+      "retailerId": 54,
+      "date": "2026-02-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 46661,
+      "invoiceNo": "INV-25170"
+    },
+    {
+      "id": 10217,
+      "retailerId": 54,
+      "date": "2026-02-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 58800,
+      "invoiceNo": "INV-25682"
+    },
+    {
+      "id": 10218,
+      "retailerId": 54,
+      "date": "2026-02-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 7505,
+      "invoiceNo": "INV-25134"
+    },
+    {
+      "id": 10219,
+      "retailerId": 56,
+      "date": "2025-12-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 19144,
+      "invoiceNo": "INV-25404"
+    },
+    {
+      "id": 10220,
+      "retailerId": 56,
+      "date": "2025-07-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 26114,
+      "invoiceNo": "INV-25994"
+    },
+    {
+      "id": 10221,
+      "retailerId": 56,
+      "date": "2026-02-23",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 27361,
+      "invoiceNo": "INV-25137"
+    },
+    {
+      "id": 10222,
+      "retailerId": 56,
+      "date": "2025-05-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 56724,
+      "invoiceNo": "INV-25737"
+    },
+    {
+      "id": 10223,
+      "retailerId": 56,
+      "date": "2026-02-27",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 26603,
+      "invoiceNo": "INV-25174"
+    },
+    {
+      "id": 10224,
+      "retailerId": 56,
+      "date": "2026-06-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 23220,
+      "invoiceNo": "INV-25368"
+    },
+    {
+      "id": 10225,
+      "retailerId": 56,
+      "date": "2025-08-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 22536,
+      "invoiceNo": "INV-25563"
+    },
+    {
+      "id": 10226,
+      "retailerId": 56,
+      "date": "2026-01-19",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 16076,
+      "invoiceNo": "INV-25410"
+    },
+    {
+      "id": 10227,
+      "retailerId": 56,
+      "date": "2026-02-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 17630,
+      "invoiceNo": "INV-25173"
+    },
+    {
+      "id": 10228,
+      "retailerId": 56,
+      "date": "2025-08-19",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 12974,
+      "invoiceNo": "INV-25279"
+    },
+    {
+      "id": 10229,
+      "retailerId": 56,
+      "date": "2026-01-12",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 13275,
+      "invoiceNo": "INV-25425"
+    },
+    {
+      "id": 10230,
+      "retailerId": 56,
+      "date": "2026-01-29",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 23642,
+      "invoiceNo": "INV-25767"
+    },
+    {
+      "id": 10231,
+      "retailerId": 56,
+      "date": "2025-12-23",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 63332,
+      "invoiceNo": "INV-25701"
+    },
+    {
+      "id": 10232,
+      "retailerId": 56,
+      "date": "2025-07-30",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 16861,
+      "invoiceNo": "INV-25554"
+    },
+    {
+      "id": 10233,
+      "retailerId": 56,
+      "date": "2025-04-17",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 12315,
+      "invoiceNo": "INV-25534"
+    },
+    {
+      "id": 10234,
+      "retailerId": 57,
+      "date": "2025-08-18",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 47119,
+      "invoiceNo": "INV-25510"
+    },
+    {
+      "id": 10235,
+      "retailerId": 57,
+      "date": "2025-11-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 47868,
+      "invoiceNo": "INV-25836"
+    },
+    {
+      "id": 10236,
+      "retailerId": 57,
+      "date": "2026-02-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 58846,
+      "invoiceNo": "INV-25243"
+    },
+    {
+      "id": 10237,
+      "retailerId": 57,
+      "date": "2025-05-05",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 21777,
+      "invoiceNo": "INV-25393"
+    },
+    {
+      "id": 10238,
+      "retailerId": 57,
+      "date": "2025-11-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 25829,
+      "invoiceNo": "INV-25728"
+    },
+    {
+      "id": 10239,
+      "retailerId": 57,
+      "date": "2025-04-08",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 53389,
+      "invoiceNo": "INV-25767"
+    },
+    {
+      "id": 10240,
+      "retailerId": 57,
+      "date": "2025-12-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 14766,
+      "invoiceNo": "INV-25161"
+    },
+    {
+      "id": 10241,
+      "retailerId": 57,
+      "date": "2025-06-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 25169,
+      "invoiceNo": "INV-25770"
+    },
+    {
+      "id": 10242,
+      "retailerId": 57,
+      "date": "2025-10-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 37986,
+      "invoiceNo": "INV-25579"
+    },
+    {
+      "id": 10243,
+      "retailerId": 57,
+      "date": "2025-09-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 32211,
+      "invoiceNo": "INV-25933"
+    },
+    {
+      "id": 10244,
+      "retailerId": 57,
+      "date": "2025-10-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 11484,
+      "invoiceNo": "INV-25535"
+    },
+    {
+      "id": 10245,
+      "retailerId": 57,
+      "date": "2025-06-11",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 58509,
+      "invoiceNo": "INV-25835"
+    },
+    {
+      "id": 10246,
+      "retailerId": 57,
+      "date": "2026-02-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 21435,
+      "invoiceNo": "INV-25253"
+    },
+    {
+      "id": 10247,
+      "retailerId": 57,
+      "date": "2025-10-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 27737,
+      "invoiceNo": "INV-25629"
+    },
+    {
+      "id": 10248,
+      "retailerId": 57,
+      "date": "2026-04-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 54368,
+      "invoiceNo": "INV-25540"
+    },
+    {
+      "id": 10249,
+      "retailerId": 60,
+      "date": "2025-12-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 50423,
+      "invoiceNo": "INV-25554"
+    },
+    {
+      "id": 10250,
+      "retailerId": 62,
+      "date": "2025-12-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 8457,
+      "invoiceNo": "INV-25429"
+    },
+    {
+      "id": 10251,
+      "retailerId": 62,
+      "date": "2025-04-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 57316,
+      "invoiceNo": "INV-25284"
+    },
+    {
+      "id": 10252,
+      "retailerId": 62,
+      "date": "2026-03-22",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 33060,
+      "invoiceNo": "INV-25424"
+    },
+    {
+      "id": 10253,
+      "retailerId": 62,
+      "date": "2026-04-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 55882,
+      "invoiceNo": "INV-25760"
+    },
+    {
+      "id": 10254,
+      "retailerId": 62,
+      "date": "2025-08-20",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 51663,
+      "invoiceNo": "INV-25380"
+    },
+    {
+      "id": 10255,
+      "retailerId": 62,
+      "date": "2025-09-24",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 11778,
+      "invoiceNo": "INV-25150"
+    },
+    {
+      "id": 10256,
+      "retailerId": 62,
+      "date": "2025-06-24",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 48488,
+      "invoiceNo": "INV-25936"
+    },
+    {
+      "id": 10257,
+      "retailerId": 62,
+      "date": "2026-02-27",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 27785,
+      "invoiceNo": "INV-25117"
+    },
+    {
+      "id": 10258,
+      "retailerId": 62,
+      "date": "2025-09-14",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 17534,
+      "invoiceNo": "INV-25822"
+    },
+    {
+      "id": 10259,
+      "retailerId": 62,
+      "date": "2026-05-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 34440,
+      "invoiceNo": "INV-25609"
+    },
+    {
+      "id": 10260,
+      "retailerId": 62,
+      "date": "2025-07-11",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 53903,
+      "invoiceNo": "INV-25799"
+    },
+    {
+      "id": 10261,
+      "retailerId": 62,
+      "date": "2025-07-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 43045,
+      "invoiceNo": "INV-25295"
+    },
+    {
+      "id": 10262,
+      "retailerId": 62,
+      "date": "2025-10-07",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 11205,
+      "invoiceNo": "INV-25792"
+    },
+    {
+      "id": 10263,
+      "retailerId": 62,
+      "date": "2025-05-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 17307,
+      "invoiceNo": "INV-25398"
+    },
+    {
+      "id": 10264,
+      "retailerId": 62,
+      "date": "2026-05-04",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 34134,
+      "invoiceNo": "INV-25418"
+    },
+    {
+      "id": 10265,
+      "retailerId": 63,
+      "date": "2026-04-15",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 26110,
+      "invoiceNo": "INV-25819"
+    },
+    {
+      "id": 10266,
+      "retailerId": 63,
+      "date": "2025-08-11",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13091,
+      "invoiceNo": "INV-25598"
+    },
+    {
+      "id": 10267,
+      "retailerId": 67,
+      "date": "2025-06-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 35054,
+      "invoiceNo": "INV-25678"
+    },
+    {
+      "id": 10268,
+      "retailerId": 67,
+      "date": "2026-06-23",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 41314,
+      "invoiceNo": "INV-25491"
+    },
+    {
+      "id": 10269,
+      "retailerId": 67,
+      "date": "2026-06-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 54555,
+      "invoiceNo": "INV-25912"
+    },
+    {
+      "id": 10270,
+      "retailerId": 67,
+      "date": "2026-06-08",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 28932,
+      "invoiceNo": "INV-25215"
+    },
+    {
+      "id": 10271,
+      "retailerId": 67,
+      "date": "2025-09-07",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 38289,
+      "invoiceNo": "INV-25280"
+    },
+    {
+      "id": 10272,
+      "retailerId": 67,
+      "date": "2025-05-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 53930,
+      "invoiceNo": "INV-25463"
+    },
+    {
+      "id": 10273,
+      "retailerId": 67,
+      "date": "2025-07-31",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 9567,
+      "invoiceNo": "INV-25731"
+    },
+    {
+      "id": 10274,
+      "retailerId": 67,
+      "date": "2025-04-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 31690,
+      "invoiceNo": "INV-25482"
+    },
+    {
+      "id": 10275,
+      "retailerId": 67,
+      "date": "2026-06-19",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 60370,
+      "invoiceNo": "INV-25229"
+    },
+    {
+      "id": 10276,
+      "retailerId": 67,
+      "date": "2025-12-25",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 41238,
+      "invoiceNo": "INV-25343"
+    },
+    {
+      "id": 10277,
+      "retailerId": 67,
+      "date": "2026-04-11",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 59675,
+      "invoiceNo": "INV-25752"
+    },
+    {
+      "id": 10278,
+      "retailerId": 68,
+      "date": "2025-10-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 49513,
+      "invoiceNo": "INV-25129"
+    },
+    {
+      "id": 10279,
+      "retailerId": 68,
+      "date": "2026-04-04",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 61170,
+      "invoiceNo": "INV-25320"
+    },
+    {
+      "id": 10280,
+      "retailerId": 68,
+      "date": "2025-09-19",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 35335,
+      "invoiceNo": "INV-25154"
+    },
+    {
+      "id": 10281,
+      "retailerId": 68,
+      "date": "2025-10-13",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 13395,
+      "invoiceNo": "INV-25816"
+    },
+    {
+      "id": 10282,
+      "retailerId": 68,
+      "date": "2025-11-29",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 24031,
+      "invoiceNo": "INV-25583"
+    },
+    {
+      "id": 10283,
+      "retailerId": 68,
+      "date": "2026-03-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 20222,
+      "invoiceNo": "INV-25689"
+    },
+    {
+      "id": 10284,
+      "retailerId": 68,
+      "date": "2026-05-22",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 55068,
+      "invoiceNo": "INV-25132"
+    },
+    {
+      "id": 10285,
+      "retailerId": 68,
+      "date": "2026-03-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 20913,
+      "invoiceNo": "INV-25188"
+    },
+    {
+      "id": 10286,
+      "retailerId": 68,
+      "date": "2026-03-02",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 37775,
+      "invoiceNo": "INV-25212"
+    },
+    {
+      "id": 10287,
+      "retailerId": 68,
+      "date": "2025-06-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 50730,
+      "invoiceNo": "INV-25499"
+    },
+    {
+      "id": 10288,
+      "retailerId": 68,
+      "date": "2025-04-27",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 48735,
+      "invoiceNo": "INV-25308"
+    },
+    {
+      "id": 10289,
+      "retailerId": 68,
+      "date": "2026-05-23",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 47628,
+      "invoiceNo": "INV-25255"
+    },
+    {
+      "id": 10290,
+      "retailerId": 68,
+      "date": "2025-08-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 40723,
+      "invoiceNo": "INV-25399"
+    },
+    {
+      "id": 10291,
+      "retailerId": 68,
+      "date": "2025-10-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 41337,
+      "invoiceNo": "INV-25191"
+    },
+    {
+      "id": 10292,
+      "retailerId": 69,
+      "date": "2025-05-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 63349,
+      "invoiceNo": "INV-25187"
+    },
+    {
+      "id": 10293,
+      "retailerId": 69,
+      "date": "2025-07-18",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 33409,
+      "invoiceNo": "INV-25293"
+    },
+    {
+      "id": 10294,
+      "retailerId": 70,
+      "date": "2025-12-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 33755,
+      "invoiceNo": "INV-25673"
+    },
+    {
+      "id": 10295,
+      "retailerId": 71,
+      "date": "2025-08-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 42913,
+      "invoiceNo": "INV-25696"
+    },
+    {
+      "id": 10296,
+      "retailerId": 71,
+      "date": "2026-02-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 40323,
+      "invoiceNo": "INV-25645"
+    },
+    {
+      "id": 10297,
+      "retailerId": 71,
+      "date": "2025-09-08",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 39397,
+      "invoiceNo": "INV-25829"
+    },
+    {
+      "id": 10298,
+      "retailerId": 71,
+      "date": "2026-01-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 39862,
+      "invoiceNo": "INV-25586"
+    },
+    {
+      "id": 10299,
+      "retailerId": 71,
+      "date": "2025-06-28",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 10603,
+      "invoiceNo": "INV-25888"
+    },
+    {
+      "id": 10300,
+      "retailerId": 71,
+      "date": "2025-11-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 12558,
+      "invoiceNo": "INV-25161"
+    },
+    {
+      "id": 10301,
+      "retailerId": 71,
+      "date": "2026-04-05",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 41306,
+      "invoiceNo": "INV-25782"
+    },
+    {
+      "id": 10302,
+      "retailerId": 71,
+      "date": "2025-04-08",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 65447,
+      "invoiceNo": "INV-25633"
+    },
+    {
+      "id": 10303,
+      "retailerId": 71,
+      "date": "2026-01-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 68240,
+      "invoiceNo": "INV-25162"
+    },
+    {
+      "id": 10304,
+      "retailerId": 71,
+      "date": "2026-02-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 41086,
+      "invoiceNo": "INV-25711"
+    },
+    {
+      "id": 10305,
+      "retailerId": 71,
+      "date": "2025-04-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 26836,
+      "invoiceNo": "INV-25333"
+    },
+    {
+      "id": 10306,
+      "retailerId": 71,
+      "date": "2025-04-07",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 22325,
+      "invoiceNo": "INV-25103"
+    },
+    {
+      "id": 10307,
+      "retailerId": 71,
+      "date": "2025-05-17",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 23937,
+      "invoiceNo": "INV-25604"
+    },
+    {
+      "id": 10308,
+      "retailerId": 71,
+      "date": "2025-06-28",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 62826,
+      "invoiceNo": "INV-25521"
+    },
+    {
+      "id": 10309,
+      "retailerId": 72,
+      "date": "2025-10-18",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 46361,
+      "invoiceNo": "INV-25257"
+    },
+    {
+      "id": 10310,
+      "retailerId": 74,
+      "date": "2025-10-18",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 27469,
+      "invoiceNo": "INV-25663"
+    },
+    {
+      "id": 10311,
+      "retailerId": 74,
+      "date": "2025-12-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 23335,
+      "invoiceNo": "INV-25282"
+    },
+    {
+      "id": 10312,
+      "retailerId": 75,
+      "date": "2026-06-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 55492,
+      "invoiceNo": "INV-25292"
+    },
+    {
+      "id": 10313,
+      "retailerId": 75,
+      "date": "2025-12-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13217,
+      "invoiceNo": "INV-25114"
+    },
+    {
+      "id": 10314,
+      "retailerId": 77,
+      "date": "2026-02-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 35733,
+      "invoiceNo": "INV-25497"
+    },
+    {
+      "id": 10315,
+      "retailerId": 78,
+      "date": "2025-11-12",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 51707,
+      "invoiceNo": "INV-25754"
+    },
+    {
+      "id": 10316,
+      "retailerId": 78,
+      "date": "2026-03-31",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 26838,
+      "invoiceNo": "INV-25570"
+    },
+    {
+      "id": 10317,
+      "retailerId": 79,
+      "date": "2025-09-25",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 33624,
+      "invoiceNo": "INV-25666"
+    },
+    {
+      "id": 10318,
+      "retailerId": 79,
+      "date": "2025-05-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13504,
+      "invoiceNo": "INV-25377"
+    },
+    {
+      "id": 10319,
+      "retailerId": 80,
+      "date": "2025-08-07",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 32676,
+      "invoiceNo": "INV-25861"
+    },
+    {
+      "id": 10320,
+      "retailerId": 80,
+      "date": "2025-10-17",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 26154,
+      "invoiceNo": "INV-25184"
+    },
+    {
+      "id": 10321,
+      "retailerId": 80,
+      "date": "2026-04-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 28952,
+      "invoiceNo": "INV-25507"
+    },
+    {
+      "id": 10322,
+      "retailerId": 80,
+      "date": "2026-01-22",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 37584,
+      "invoiceNo": "INV-25265"
+    },
+    {
+      "id": 10323,
+      "retailerId": 80,
+      "date": "2025-08-13",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 36485,
+      "invoiceNo": "INV-25383"
+    },
+    {
+      "id": 10324,
+      "retailerId": 80,
+      "date": "2025-04-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 24399,
+      "invoiceNo": "INV-25443"
+    },
+    {
+      "id": 10325,
+      "retailerId": 80,
+      "date": "2026-01-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 56520,
+      "invoiceNo": "INV-25665"
+    },
+    {
+      "id": 10326,
+      "retailerId": 80,
+      "date": "2025-04-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 17344,
+      "invoiceNo": "INV-25434"
+    },
+    {
+      "id": 10327,
+      "retailerId": 80,
+      "date": "2025-09-28",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 34000,
+      "invoiceNo": "INV-25385"
+    },
+    {
+      "id": 10328,
+      "retailerId": 80,
+      "date": "2025-07-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 48492,
+      "invoiceNo": "INV-25445"
+    },
+    {
+      "id": 10329,
+      "retailerId": 80,
+      "date": "2025-06-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 34134,
+      "invoiceNo": "INV-25414"
+    },
+    {
+      "id": 10330,
+      "retailerId": 80,
+      "date": "2025-07-29",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 26088,
+      "invoiceNo": "INV-25257"
+    },
+    {
+      "id": 10331,
+      "retailerId": 80,
+      "date": "2025-08-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 8167,
+      "invoiceNo": "INV-25723"
+    },
+    {
+      "id": 10332,
+      "retailerId": 80,
+      "date": "2026-05-01",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 14974,
+      "invoiceNo": "INV-25383"
+    },
+    {
+      "id": 10333,
+      "retailerId": 80,
+      "date": "2026-05-15",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 11077,
+      "invoiceNo": "INV-25538"
+    },
+    {
+      "id": 10334,
+      "retailerId": 81,
+      "date": "2025-06-14",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 10095,
+      "invoiceNo": "INV-25373"
+    },
+    {
+      "id": 10335,
+      "retailerId": 81,
+      "date": "2026-06-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 19185,
+      "invoiceNo": "INV-25654"
+    },
+    {
+      "id": 10336,
+      "retailerId": 82,
+      "date": "2025-10-19",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 10038,
+      "invoiceNo": "INV-25906"
+    },
+    {
+      "id": 10337,
+      "retailerId": 82,
+      "date": "2025-09-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 43744,
+      "invoiceNo": "INV-25387"
+    },
+    {
+      "id": 10338,
+      "retailerId": 83,
+      "date": "2025-07-05",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 30648,
+      "invoiceNo": "INV-25150"
+    },
+    {
+      "id": 10339,
+      "retailerId": 83,
+      "date": "2026-01-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 26108,
+      "invoiceNo": "INV-25785"
+    },
+    {
+      "id": 10340,
+      "retailerId": 84,
+      "date": "2025-05-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 37301,
+      "invoiceNo": "INV-25968"
+    },
+    {
+      "id": 10341,
+      "retailerId": 85,
+      "date": "2025-06-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 28996,
+      "invoiceNo": "INV-25184"
+    },
+    {
+      "id": 10342,
+      "retailerId": 87,
+      "date": "2026-01-05",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 33079,
+      "invoiceNo": "INV-25683"
+    },
+    {
+      "id": 10343,
+      "retailerId": 87,
+      "date": "2025-05-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 24637,
+      "invoiceNo": "INV-25995"
+    },
+    {
+      "id": 10344,
+      "retailerId": 88,
+      "date": "2025-11-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 11218,
+      "invoiceNo": "INV-25976"
+    },
+    {
+      "id": 10345,
+      "retailerId": 88,
+      "date": "2025-11-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 23607,
+      "invoiceNo": "INV-25324"
+    },
+    {
+      "id": 10346,
+      "retailerId": 88,
+      "date": "2026-02-13",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 24808,
+      "invoiceNo": "INV-25884"
+    },
+    {
+      "id": 10347,
+      "retailerId": 88,
+      "date": "2025-11-19",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 26449,
+      "invoiceNo": "INV-25397"
+    },
+    {
+      "id": 10348,
+      "retailerId": 88,
+      "date": "2025-11-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 19793,
+      "invoiceNo": "INV-25578"
+    },
+    {
+      "id": 10349,
+      "retailerId": 88,
+      "date": "2026-03-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 56468,
+      "invoiceNo": "INV-25274"
+    },
+    {
+      "id": 10350,
+      "retailerId": 88,
+      "date": "2026-06-14",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 30574,
+      "invoiceNo": "INV-25870"
+    },
+    {
+      "id": 10351,
+      "retailerId": 88,
+      "date": "2025-08-31",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 49158,
+      "invoiceNo": "INV-25465"
+    },
+    {
+      "id": 10352,
+      "retailerId": 88,
+      "date": "2026-06-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 49333,
+      "invoiceNo": "INV-25248"
+    },
+    {
+      "id": 10353,
+      "retailerId": 88,
+      "date": "2025-06-04",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 56364,
+      "invoiceNo": "INV-25907"
+    },
+    {
+      "id": 10354,
+      "retailerId": 89,
+      "date": "2025-04-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13564,
+      "invoiceNo": "INV-25890"
+    },
+    {
+      "id": 10355,
+      "retailerId": 89,
+      "date": "2025-06-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 35445,
+      "invoiceNo": "INV-25439"
+    },
+    {
+      "id": 10356,
+      "retailerId": 90,
+      "date": "2026-03-04",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 51134,
+      "invoiceNo": "INV-25917"
+    },
+    {
+      "id": 10357,
+      "retailerId": 90,
+      "date": "2026-02-14",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 13168,
+      "invoiceNo": "INV-25817"
+    },
+    {
+      "id": 10358,
+      "retailerId": 90,
+      "date": "2025-09-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13351,
+      "invoiceNo": "INV-25246"
+    },
+    {
+      "id": 10359,
+      "retailerId": 90,
+      "date": "2026-01-04",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 57290,
+      "invoiceNo": "INV-25272"
+    },
+    {
+      "id": 10360,
+      "retailerId": 90,
+      "date": "2025-08-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 62948,
+      "invoiceNo": "INV-25272"
+    },
+    {
+      "id": 10361,
+      "retailerId": 90,
+      "date": "2026-05-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 37273,
+      "invoiceNo": "INV-25588"
+    },
+    {
+      "id": 10362,
+      "retailerId": 90,
+      "date": "2026-02-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 9750,
+      "invoiceNo": "INV-25928"
+    },
+    {
+      "id": 10363,
+      "retailerId": 90,
+      "date": "2025-04-16",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 16453,
+      "invoiceNo": "INV-25172"
+    },
+    {
+      "id": 10364,
+      "retailerId": 90,
+      "date": "2026-05-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 44031,
+      "invoiceNo": "INV-25487"
+    },
+    {
+      "id": 10365,
+      "retailerId": 90,
+      "date": "2026-04-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 8329,
+      "invoiceNo": "INV-25453"
+    },
+    {
+      "id": 10366,
+      "retailerId": 90,
+      "date": "2025-10-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 23824,
+      "invoiceNo": "INV-25865"
+    },
+    {
+      "id": 10367,
+      "retailerId": 90,
+      "date": "2026-03-24",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 39384,
+      "invoiceNo": "INV-25273"
+    },
+    {
+      "id": 10368,
+      "retailerId": 91,
+      "date": "2025-08-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13320,
+      "invoiceNo": "INV-25293"
+    },
+    {
+      "id": 10369,
+      "retailerId": 91,
+      "date": "2026-01-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 45109,
+      "invoiceNo": "INV-25607"
+    },
+    {
+      "id": 10370,
+      "retailerId": 92,
+      "date": "2025-12-28",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 62681,
+      "invoiceNo": "INV-25383"
+    },
+    {
+      "id": 10371,
+      "retailerId": 92,
+      "date": "2025-06-19",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 11552,
+      "invoiceNo": "INV-25960"
+    },
+    {
+      "id": 10372,
+      "retailerId": 92,
+      "date": "2026-06-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13916,
+      "invoiceNo": "INV-25541"
+    },
+    {
+      "id": 10373,
+      "retailerId": 92,
+      "date": "2025-08-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 37880,
+      "invoiceNo": "INV-25629"
+    },
+    {
+      "id": 10374,
+      "retailerId": 92,
+      "date": "2025-09-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 47586,
+      "invoiceNo": "INV-25134"
+    },
+    {
+      "id": 10375,
+      "retailerId": 92,
+      "date": "2025-05-22",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 43252,
+      "invoiceNo": "INV-25964"
+    },
+    {
+      "id": 10376,
+      "retailerId": 92,
+      "date": "2026-03-29",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 30365,
+      "invoiceNo": "INV-25170"
+    },
+    {
+      "id": 10377,
+      "retailerId": 92,
+      "date": "2025-05-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 26135,
+      "invoiceNo": "INV-25932"
+    },
+    {
+      "id": 10378,
+      "retailerId": 92,
+      "date": "2025-05-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 18743,
+      "invoiceNo": "INV-25556"
+    },
+    {
+      "id": 10379,
+      "retailerId": 92,
+      "date": "2025-09-23",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 33620,
+      "invoiceNo": "INV-25507"
+    },
+    {
+      "id": 10380,
+      "retailerId": 92,
+      "date": "2025-05-01",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 25650,
+      "invoiceNo": "INV-25315"
+    },
+    {
+      "id": 10381,
+      "retailerId": 92,
+      "date": "2026-06-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 37876,
+      "invoiceNo": "INV-25155"
+    },
+    {
+      "id": 10382,
+      "retailerId": 92,
+      "date": "2026-06-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 47591,
+      "invoiceNo": "INV-25554"
+    },
+    {
+      "id": 10383,
+      "retailerId": 93,
+      "date": "2025-09-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 28617,
+      "invoiceNo": "INV-25347"
+    },
+    {
+      "id": 10384,
+      "retailerId": 93,
+      "date": "2026-02-12",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 21591,
+      "invoiceNo": "INV-25252"
+    },
+    {
+      "id": 10385,
+      "retailerId": 93,
+      "date": "2025-05-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 14784,
+      "invoiceNo": "INV-25994"
+    },
+    {
+      "id": 10386,
+      "retailerId": 93,
+      "date": "2025-08-14",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 45610,
+      "invoiceNo": "INV-25967"
+    },
+    {
+      "id": 10387,
+      "retailerId": 93,
+      "date": "2025-08-23",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 10772,
+      "invoiceNo": "INV-25978"
+    },
+    {
+      "id": 10388,
+      "retailerId": 93,
+      "date": "2025-12-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 31296,
+      "invoiceNo": "INV-25915"
+    },
+    {
+      "id": 10389,
+      "retailerId": 93,
+      "date": "2025-11-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 39522,
+      "invoiceNo": "INV-25256"
+    },
+    {
+      "id": 10390,
+      "retailerId": 93,
+      "date": "2025-05-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 37336,
+      "invoiceNo": "INV-25460"
+    },
+    {
+      "id": 10391,
+      "retailerId": 93,
+      "date": "2025-05-29",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 41876,
+      "invoiceNo": "INV-25511"
+    },
+    {
+      "id": 10392,
+      "retailerId": 93,
+      "date": "2025-12-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 22004,
+      "invoiceNo": "INV-25922"
+    },
+    {
+      "id": 10393,
+      "retailerId": 94,
+      "date": "2026-04-19",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 29079,
+      "invoiceNo": "INV-25930"
+    },
+    {
+      "id": 10394,
+      "retailerId": 94,
+      "date": "2026-04-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 41531,
+      "invoiceNo": "INV-25883"
+    },
+    {
+      "id": 10395,
+      "retailerId": 94,
+      "date": "2025-09-19",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 48700,
+      "invoiceNo": "INV-25527"
+    },
+    {
+      "id": 10396,
+      "retailerId": 94,
+      "date": "2026-05-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 46756,
+      "invoiceNo": "INV-25368"
+    },
+    {
+      "id": 10397,
+      "retailerId": 94,
+      "date": "2025-06-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 31245,
+      "invoiceNo": "INV-25891"
+    },
+    {
+      "id": 10398,
+      "retailerId": 94,
+      "date": "2026-05-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 32979,
+      "invoiceNo": "INV-25694"
+    },
+    {
+      "id": 10399,
+      "retailerId": 94,
+      "date": "2025-09-30",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 30733,
+      "invoiceNo": "INV-25448"
+    },
+    {
+      "id": 10400,
+      "retailerId": 94,
+      "date": "2025-09-04",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 30597,
+      "invoiceNo": "INV-25831"
+    },
+    {
+      "id": 10401,
+      "retailerId": 94,
+      "date": "2025-08-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 23887,
+      "invoiceNo": "INV-25758"
+    },
+    {
+      "id": 10402,
+      "retailerId": 94,
+      "date": "2026-01-27",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 47146,
+      "invoiceNo": "INV-25309"
+    },
+    {
+      "id": 10403,
+      "retailerId": 97,
+      "date": "2025-11-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 45365,
+      "invoiceNo": "INV-25904"
+    },
+    {
+      "id": 10404,
+      "retailerId": 99,
+      "date": "2025-06-07",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 19190,
+      "invoiceNo": "INV-25608"
+    },
+    {
+      "id": 10405,
+      "retailerId": 99,
+      "date": "2025-09-24",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 33145,
+      "invoiceNo": "INV-25952"
+    },
+    {
+      "id": 10406,
+      "retailerId": 99,
+      "date": "2025-12-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 42805,
+      "invoiceNo": "INV-25113"
+    },
+    {
+      "id": 10407,
+      "retailerId": 99,
+      "date": "2026-01-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 33348,
+      "invoiceNo": "INV-25785"
+    },
+    {
+      "id": 10408,
+      "retailerId": 99,
+      "date": "2025-09-11",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 42135,
+      "invoiceNo": "INV-25386"
+    },
+    {
+      "id": 10409,
+      "retailerId": 99,
+      "date": "2025-11-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 56704,
+      "invoiceNo": "INV-25428"
+    },
+    {
+      "id": 10410,
+      "retailerId": 99,
+      "date": "2026-06-14",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 39964,
+      "invoiceNo": "INV-25405"
+    },
+    {
+      "id": 10411,
+      "retailerId": 99,
+      "date": "2026-05-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 14356,
+      "invoiceNo": "INV-25459"
+    },
+    {
+      "id": 10412,
+      "retailerId": 99,
+      "date": "2025-04-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 14128,
+      "invoiceNo": "INV-25473"
+    },
+    {
+      "id": 10413,
+      "retailerId": 99,
+      "date": "2026-04-13",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 21763,
+      "invoiceNo": "INV-25900"
+    },
+    {
+      "id": 10414,
+      "retailerId": 100,
+      "date": "2025-06-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 48109,
+      "invoiceNo": "INV-25150"
+    },
+    {
+      "id": 10415,
+      "retailerId": 103,
+      "date": "2025-09-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 49109,
+      "invoiceNo": "INV-25631"
+    },
+    {
+      "id": 10416,
+      "retailerId": 103,
+      "date": "2026-03-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 37835,
+      "invoiceNo": "INV-25974"
+    },
+    {
+      "id": 10417,
+      "retailerId": 103,
+      "date": "2025-04-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 8496,
+      "invoiceNo": "INV-25507"
+    },
+    {
+      "id": 10418,
+      "retailerId": 103,
+      "date": "2025-08-28",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 64905,
+      "invoiceNo": "INV-25722"
+    },
+    {
+      "id": 10419,
+      "retailerId": 103,
+      "date": "2025-09-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 17580,
+      "invoiceNo": "INV-25644"
+    },
+    {
+      "id": 10420,
+      "retailerId": 103,
+      "date": "2025-11-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 37373,
+      "invoiceNo": "INV-25603"
+    },
+    {
+      "id": 10421,
+      "retailerId": 103,
+      "date": "2025-06-13",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 14942,
+      "invoiceNo": "INV-25612"
+    },
+    {
+      "id": 10422,
+      "retailerId": 103,
+      "date": "2025-12-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 37086,
+      "invoiceNo": "INV-25406"
+    },
+    {
+      "id": 10423,
+      "retailerId": 103,
+      "date": "2025-08-22",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 39312,
+      "invoiceNo": "INV-25687"
+    },
+    {
+      "id": 10424,
+      "retailerId": 103,
+      "date": "2025-10-30",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 11475,
+      "invoiceNo": "INV-25118"
+    },
+    {
+      "id": 10425,
+      "retailerId": 103,
+      "date": "2025-08-26",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 41333,
+      "invoiceNo": "INV-25890"
+    },
+    {
+      "id": 10426,
+      "retailerId": 103,
+      "date": "2026-02-12",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 11947,
+      "invoiceNo": "INV-25836"
+    },
+    {
+      "id": 10427,
+      "retailerId": 103,
+      "date": "2026-01-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 45468,
+      "invoiceNo": "INV-25412"
+    },
+    {
+      "id": 10428,
+      "retailerId": 105,
+      "date": "2026-04-12",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 31268,
+      "invoiceNo": "INV-25206"
+    },
+    {
+      "id": 10429,
+      "retailerId": 105,
+      "date": "2026-02-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 56914,
+      "invoiceNo": "INV-25667"
+    },
+    {
+      "id": 10430,
+      "retailerId": 105,
+      "date": "2026-06-12",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 18921,
+      "invoiceNo": "INV-25519"
+    },
+    {
+      "id": 10431,
+      "retailerId": 105,
+      "date": "2026-05-25",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 25394,
+      "invoiceNo": "INV-25990"
+    },
+    {
+      "id": 10432,
+      "retailerId": 105,
+      "date": "2025-11-19",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 46914,
+      "invoiceNo": "INV-25375"
+    },
+    {
+      "id": 10433,
+      "retailerId": 105,
+      "date": "2025-06-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 19704,
+      "invoiceNo": "INV-25713"
+    },
+    {
+      "id": 10434,
+      "retailerId": 105,
+      "date": "2025-11-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 19569,
+      "invoiceNo": "INV-25910"
+    },
+    {
+      "id": 10435,
+      "retailerId": 105,
+      "date": "2025-09-01",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 15260,
+      "invoiceNo": "INV-25392"
+    },
+    {
+      "id": 10436,
+      "retailerId": 105,
+      "date": "2025-08-20",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 55296,
+      "invoiceNo": "INV-25749"
+    },
+    {
+      "id": 10437,
+      "retailerId": 105,
+      "date": "2025-10-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 32421,
+      "invoiceNo": "INV-25155"
+    },
+    {
+      "id": 10438,
+      "retailerId": 105,
+      "date": "2025-05-23",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 48243,
+      "invoiceNo": "INV-25223"
+    },
+    {
+      "id": 10439,
+      "retailerId": 105,
+      "date": "2025-12-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 27237,
+      "invoiceNo": "INV-25299"
+    },
+    {
+      "id": 10440,
+      "retailerId": 105,
+      "date": "2026-03-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 53468,
+      "invoiceNo": "INV-25646"
+    },
+    {
+      "id": 10441,
+      "retailerId": 105,
+      "date": "2025-09-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 15627,
+      "invoiceNo": "INV-25461"
+    },
+    {
+      "id": 10442,
+      "retailerId": 107,
+      "date": "2025-08-26",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 20742,
+      "invoiceNo": "INV-25403"
+    },
+    {
+      "id": 10443,
+      "retailerId": 107,
+      "date": "2026-01-30",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 27005,
+      "invoiceNo": "INV-25933"
+    },
+    {
+      "id": 10444,
+      "retailerId": 107,
+      "date": "2025-04-15",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 33959,
+      "invoiceNo": "INV-25414"
+    },
+    {
+      "id": 10445,
+      "retailerId": 107,
+      "date": "2026-03-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 15936,
+      "invoiceNo": "INV-25737"
+    },
+    {
+      "id": 10446,
+      "retailerId": 107,
+      "date": "2025-04-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 49303,
+      "invoiceNo": "INV-25258"
+    },
+    {
+      "id": 10447,
+      "retailerId": 107,
+      "date": "2025-09-25",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 37397,
+      "invoiceNo": "INV-25411"
+    },
+    {
+      "id": 10448,
+      "retailerId": 107,
+      "date": "2026-04-24",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13173,
+      "invoiceNo": "INV-25970"
+    },
+    {
+      "id": 10449,
+      "retailerId": 107,
+      "date": "2026-05-02",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 21390,
+      "invoiceNo": "INV-25362"
+    },
+    {
+      "id": 10450,
+      "retailerId": 107,
+      "date": "2025-07-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 39906,
+      "invoiceNo": "INV-25882"
+    },
+    {
+      "id": 10451,
+      "retailerId": 107,
+      "date": "2025-04-18",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 14618,
+      "invoiceNo": "INV-25547"
+    },
+    {
+      "id": 10452,
+      "retailerId": 107,
+      "date": "2025-11-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 25995,
+      "invoiceNo": "INV-25397"
+    },
+    {
+      "id": 10453,
+      "retailerId": 107,
+      "date": "2025-06-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 21101,
+      "invoiceNo": "INV-25519"
+    },
+    {
+      "id": 10454,
+      "retailerId": 107,
+      "date": "2025-05-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 20856,
+      "invoiceNo": "INV-25598"
+    },
+    {
+      "id": 10455,
+      "retailerId": 108,
+      "date": "2026-06-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 29335,
+      "invoiceNo": "INV-25994"
+    },
+    {
+      "id": 10456,
+      "retailerId": 108,
+      "date": "2025-12-04",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 20222,
+      "invoiceNo": "INV-25628"
+    },
+    {
+      "id": 10457,
+      "retailerId": 109,
+      "date": "2025-04-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 39837,
+      "invoiceNo": "INV-25478"
+    },
+    {
+      "id": 10458,
+      "retailerId": 109,
+      "date": "2026-01-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 25368,
+      "invoiceNo": "INV-25212"
+    },
+    {
+      "id": 10459,
+      "retailerId": 110,
+      "date": "2025-11-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 49516,
+      "invoiceNo": "INV-25539"
+    },
+    {
+      "id": 10460,
+      "retailerId": 111,
+      "date": "2025-07-13",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 55717,
+      "invoiceNo": "INV-25264"
+    },
+    {
+      "id": 10461,
+      "retailerId": 111,
+      "date": "2026-03-31",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 18244,
+      "invoiceNo": "INV-25919"
+    },
+    {
+      "id": 10462,
+      "retailerId": 113,
+      "date": "2025-06-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 37049,
+      "invoiceNo": "INV-25985"
+    },
+    {
+      "id": 10463,
+      "retailerId": 113,
+      "date": "2026-02-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 43382,
+      "invoiceNo": "INV-25855"
+    },
+    {
+      "id": 10464,
+      "retailerId": 113,
+      "date": "2026-02-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 43535,
+      "invoiceNo": "INV-25456"
+    },
+    {
+      "id": 10465,
+      "retailerId": 113,
+      "date": "2026-01-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 58765,
+      "invoiceNo": "INV-25612"
+    },
+    {
+      "id": 10466,
+      "retailerId": 113,
+      "date": "2026-04-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 40697,
+      "invoiceNo": "INV-25280"
+    },
+    {
+      "id": 10467,
+      "retailerId": 113,
+      "date": "2026-01-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 15326,
+      "invoiceNo": "INV-25733"
+    },
+    {
+      "id": 10468,
+      "retailerId": 113,
+      "date": "2026-03-19",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 58557,
+      "invoiceNo": "INV-25940"
+    },
+    {
+      "id": 10469,
+      "retailerId": 113,
+      "date": "2025-12-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 49112,
+      "invoiceNo": "INV-25277"
+    },
+    {
+      "id": 10470,
+      "retailerId": 113,
+      "date": "2026-04-24",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 9597,
+      "invoiceNo": "INV-25379"
+    },
+    {
+      "id": 10471,
+      "retailerId": 113,
+      "date": "2025-12-28",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 34761,
+      "invoiceNo": "INV-25914"
+    },
+    {
+      "id": 10472,
+      "retailerId": 113,
+      "date": "2025-12-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 67137,
+      "invoiceNo": "INV-25262"
+    },
+    {
+      "id": 10473,
+      "retailerId": 113,
+      "date": "2025-04-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 63153,
+      "invoiceNo": "INV-25866"
+    },
+    {
+      "id": 10474,
+      "retailerId": 113,
+      "date": "2025-12-20",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 54509,
+      "invoiceNo": "INV-25488"
+    },
+    {
+      "id": 10475,
+      "retailerId": 114,
+      "date": "2025-05-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 19783,
+      "invoiceNo": "INV-25442"
+    },
+    {
+      "id": 10476,
+      "retailerId": 114,
+      "date": "2025-09-02",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 46717,
+      "invoiceNo": "INV-25267"
+    },
+    {
+      "id": 10477,
+      "retailerId": 116,
+      "date": "2025-10-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 40715,
+      "invoiceNo": "INV-25868"
+    },
+    {
+      "id": 10478,
+      "retailerId": 116,
+      "date": "2025-11-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 11896,
+      "invoiceNo": "INV-25329"
+    },
+    {
+      "id": 10479,
+      "retailerId": 116,
+      "date": "2026-01-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 17448,
+      "invoiceNo": "INV-25138"
+    },
+    {
+      "id": 10480,
+      "retailerId": 116,
+      "date": "2025-04-30",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 51449,
+      "invoiceNo": "INV-25129"
+    },
+    {
+      "id": 10481,
+      "retailerId": 116,
+      "date": "2025-11-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 7525,
+      "invoiceNo": "INV-25660"
+    },
+    {
+      "id": 10482,
+      "retailerId": 116,
+      "date": "2025-10-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 63528,
+      "invoiceNo": "INV-25613"
+    },
+    {
+      "id": 10483,
+      "retailerId": 116,
+      "date": "2026-06-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 29211,
+      "invoiceNo": "INV-25328"
+    },
+    {
+      "id": 10484,
+      "retailerId": 116,
+      "date": "2026-04-17",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 21316,
+      "invoiceNo": "INV-25567"
+    },
+    {
+      "id": 10485,
+      "retailerId": 116,
+      "date": "2025-08-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 38691,
+      "invoiceNo": "INV-25561"
+    },
+    {
+      "id": 10486,
+      "retailerId": 116,
+      "date": "2026-05-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 30531,
+      "invoiceNo": "INV-25918"
+    },
+    {
+      "id": 10487,
+      "retailerId": 117,
+      "date": "2026-04-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 43872,
+      "invoiceNo": "INV-25861"
+    },
+    {
+      "id": 10488,
+      "retailerId": 117,
+      "date": "2025-09-25",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 17412,
+      "invoiceNo": "INV-25527"
+    },
+    {
+      "id": 10489,
+      "retailerId": 118,
+      "date": "2025-05-01",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 33151,
+      "invoiceNo": "INV-25396"
+    },
+    {
+      "id": 10490,
+      "retailerId": 119,
+      "date": "2026-02-25",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 10022,
+      "invoiceNo": "INV-25710"
+    },
+    {
+      "id": 10491,
+      "retailerId": 119,
+      "date": "2025-04-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 24109,
+      "invoiceNo": "INV-25455"
+    },
+    {
+      "id": 10492,
+      "retailerId": 119,
+      "date": "2026-05-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 57915,
+      "invoiceNo": "INV-25788"
+    },
+    {
+      "id": 10493,
+      "retailerId": 119,
+      "date": "2025-07-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 34428,
+      "invoiceNo": "INV-25102"
+    },
+    {
+      "id": 10494,
+      "retailerId": 119,
+      "date": "2025-12-08",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 8630,
+      "invoiceNo": "INV-25153"
+    },
+    {
+      "id": 10495,
+      "retailerId": 119,
+      "date": "2025-05-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 56458,
+      "invoiceNo": "INV-25491"
+    },
+    {
+      "id": 10496,
+      "retailerId": 119,
+      "date": "2025-11-30",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 18957,
+      "invoiceNo": "INV-25163"
+    },
+    {
+      "id": 10497,
+      "retailerId": 119,
+      "date": "2026-06-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 38513,
+      "invoiceNo": "INV-25207"
+    },
+    {
+      "id": 10498,
+      "retailerId": 119,
+      "date": "2026-01-31",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 23863,
+      "invoiceNo": "INV-25524"
+    },
+    {
+      "id": 10499,
+      "retailerId": 119,
+      "date": "2025-09-23",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 54514,
+      "invoiceNo": "INV-25627"
+    },
+    {
+      "id": 10500,
+      "retailerId": 119,
+      "date": "2025-09-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 22011,
+      "invoiceNo": "INV-25532"
+    },
+    {
+      "id": 10501,
+      "retailerId": 119,
+      "date": "2025-10-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 46018,
+      "invoiceNo": "INV-25650"
+    },
+    {
+      "id": 10502,
+      "retailerId": 119,
+      "date": "2025-06-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 52010,
+      "invoiceNo": "INV-25287"
+    },
+    {
+      "id": 10503,
+      "retailerId": 119,
+      "date": "2025-07-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 23802,
+      "invoiceNo": "INV-25902"
+    },
+    {
+      "id": 10504,
+      "retailerId": 121,
+      "date": "2026-01-15",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 21937,
+      "invoiceNo": "INV-25354"
+    },
+    {
+      "id": 10505,
+      "retailerId": 121,
+      "date": "2026-04-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 8622,
+      "invoiceNo": "INV-25787"
+    },
+    {
+      "id": 10506,
+      "retailerId": 121,
+      "date": "2025-05-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 59209,
+      "invoiceNo": "INV-25571"
+    },
+    {
+      "id": 10507,
+      "retailerId": 121,
+      "date": "2025-08-11",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 20282,
+      "invoiceNo": "INV-25258"
+    },
+    {
+      "id": 10508,
+      "retailerId": 121,
+      "date": "2025-05-15",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 48480,
+      "invoiceNo": "INV-25125"
+    },
+    {
+      "id": 10509,
+      "retailerId": 121,
+      "date": "2025-07-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 8956,
+      "invoiceNo": "INV-25664"
+    },
+    {
+      "id": 10510,
+      "retailerId": 121,
+      "date": "2026-02-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 53976,
+      "invoiceNo": "INV-25476"
+    },
+    {
+      "id": 10511,
+      "retailerId": 121,
+      "date": "2025-06-29",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 48267,
+      "invoiceNo": "INV-25725"
+    },
+    {
+      "id": 10512,
+      "retailerId": 121,
+      "date": "2025-07-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 23971,
+      "invoiceNo": "INV-25673"
+    },
+    {
+      "id": 10513,
+      "retailerId": 121,
+      "date": "2025-12-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 9443,
+      "invoiceNo": "INV-25696"
+    },
+    {
+      "id": 10514,
+      "retailerId": 121,
+      "date": "2026-04-14",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 20709,
+      "invoiceNo": "INV-25408"
+    },
+    {
+      "id": 10515,
+      "retailerId": 122,
+      "date": "2025-10-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 11344,
+      "invoiceNo": "INV-25578"
+    },
+    {
+      "id": 10516,
+      "retailerId": 124,
+      "date": "2025-10-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 50438,
+      "invoiceNo": "INV-25820"
+    },
+    {
+      "id": 10517,
+      "retailerId": 125,
+      "date": "2026-04-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 53668,
+      "invoiceNo": "INV-25234"
+    },
+    {
+      "id": 10518,
+      "retailerId": 125,
+      "date": "2025-10-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 28649,
+      "invoiceNo": "INV-25140"
+    },
+    {
+      "id": 10519,
+      "retailerId": 125,
+      "date": "2026-02-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 60746,
+      "invoiceNo": "INV-25136"
+    },
+    {
+      "id": 10520,
+      "retailerId": 125,
+      "date": "2026-05-18",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 11641,
+      "invoiceNo": "INV-25194"
+    },
+    {
+      "id": 10521,
+      "retailerId": 125,
+      "date": "2025-07-05",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 12514,
+      "invoiceNo": "INV-25648"
+    },
+    {
+      "id": 10522,
+      "retailerId": 125,
+      "date": "2026-01-11",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 45454,
+      "invoiceNo": "INV-25890"
+    },
+    {
+      "id": 10523,
+      "retailerId": 125,
+      "date": "2026-04-01",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 38800,
+      "invoiceNo": "INV-25189"
+    },
+    {
+      "id": 10524,
+      "retailerId": 125,
+      "date": "2025-11-01",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 8347,
+      "invoiceNo": "INV-25554"
+    },
+    {
+      "id": 10525,
+      "retailerId": 125,
+      "date": "2025-11-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 47254,
+      "invoiceNo": "INV-25265"
+    },
+    {
+      "id": 10526,
+      "retailerId": 125,
+      "date": "2025-12-18",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 53779,
+      "invoiceNo": "INV-25520"
+    },
+    {
+      "id": 10527,
+      "retailerId": 125,
+      "date": "2025-06-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 33601,
+      "invoiceNo": "INV-25572"
+    },
+    {
+      "id": 10528,
+      "retailerId": 125,
+      "date": "2026-04-02",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 49929,
+      "invoiceNo": "INV-25918"
+    },
+    {
+      "id": 10529,
+      "retailerId": 125,
+      "date": "2025-12-29",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 33218,
+      "invoiceNo": "INV-25113"
+    },
+    {
+      "id": 10530,
+      "retailerId": 125,
+      "date": "2026-06-24",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 52160,
+      "invoiceNo": "INV-25666"
+    },
+    {
+      "id": 10531,
+      "retailerId": 125,
+      "date": "2026-03-19",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 39185,
+      "invoiceNo": "INV-25127"
+    },
+    {
+      "id": 10532,
+      "retailerId": 126,
+      "date": "2026-05-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 36641,
+      "invoiceNo": "INV-25150"
+    },
+    {
+      "id": 10533,
+      "retailerId": 126,
+      "date": "2025-10-29",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 33216,
+      "invoiceNo": "INV-25509"
+    },
+    {
+      "id": 10534,
+      "retailerId": 127,
+      "date": "2025-05-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 40931,
+      "invoiceNo": "INV-25188"
+    },
+    {
+      "id": 10535,
+      "retailerId": 127,
+      "date": "2025-09-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 38373,
+      "invoiceNo": "INV-25584"
+    },
+    {
+      "id": 10536,
+      "retailerId": 127,
+      "date": "2026-01-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 44304,
+      "invoiceNo": "INV-25155"
+    },
+    {
+      "id": 10537,
+      "retailerId": 127,
+      "date": "2025-06-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 46614,
+      "invoiceNo": "INV-25958"
+    },
+    {
+      "id": 10538,
+      "retailerId": 127,
+      "date": "2025-05-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 53280,
+      "invoiceNo": "INV-25902"
+    },
+    {
+      "id": 10539,
+      "retailerId": 127,
+      "date": "2025-12-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 23463,
+      "invoiceNo": "INV-25752"
+    },
+    {
+      "id": 10540,
+      "retailerId": 127,
+      "date": "2025-11-23",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 31134,
+      "invoiceNo": "INV-25288"
+    },
+    {
+      "id": 10541,
+      "retailerId": 127,
+      "date": "2025-08-20",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 31669,
+      "invoiceNo": "INV-25525"
+    },
+    {
+      "id": 10542,
+      "retailerId": 127,
+      "date": "2025-11-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 16297,
+      "invoiceNo": "INV-25746"
+    },
+    {
+      "id": 10543,
+      "retailerId": 127,
+      "date": "2026-03-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 39690,
+      "invoiceNo": "INV-25705"
+    },
+    {
+      "id": 10544,
+      "retailerId": 127,
+      "date": "2025-11-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 49918,
+      "invoiceNo": "INV-25994"
+    },
+    {
+      "id": 10545,
+      "retailerId": 128,
+      "date": "2026-01-28",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 20001,
+      "invoiceNo": "INV-25614"
+    },
+    {
+      "id": 10546,
+      "retailerId": 128,
+      "date": "2025-04-11",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 41701,
+      "invoiceNo": "INV-25794"
+    },
+    {
+      "id": 10547,
+      "retailerId": 129,
+      "date": "2025-08-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 29610,
+      "invoiceNo": "INV-25336"
+    },
+    {
+      "id": 10548,
+      "retailerId": 129,
+      "date": "2025-07-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 33713,
+      "invoiceNo": "INV-25870"
+    },
+    {
+      "id": 10549,
+      "retailerId": 129,
+      "date": "2026-03-16",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 21868,
+      "invoiceNo": "INV-25152"
+    },
+    {
+      "id": 10550,
+      "retailerId": 129,
+      "date": "2025-08-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 53247,
+      "invoiceNo": "INV-25237"
+    },
+    {
+      "id": 10551,
+      "retailerId": 129,
+      "date": "2025-08-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 46457,
+      "invoiceNo": "INV-25352"
+    },
+    {
+      "id": 10552,
+      "retailerId": 129,
+      "date": "2026-06-13",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 19517,
+      "invoiceNo": "INV-25842"
+    },
+    {
+      "id": 10553,
+      "retailerId": 129,
+      "date": "2026-05-19",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 26746,
+      "invoiceNo": "INV-25414"
+    },
+    {
+      "id": 10554,
+      "retailerId": 129,
+      "date": "2026-03-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 10326,
+      "invoiceNo": "INV-25827"
+    },
+    {
+      "id": 10555,
+      "retailerId": 129,
+      "date": "2025-12-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 30667,
+      "invoiceNo": "INV-25547"
+    },
+    {
+      "id": 10556,
+      "retailerId": 129,
+      "date": "2025-06-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 28604,
+      "invoiceNo": "INV-25526"
+    },
+    {
+      "id": 10557,
+      "retailerId": 129,
+      "date": "2025-05-08",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 44206,
+      "invoiceNo": "INV-25562"
+    },
+    {
+      "id": 10558,
+      "retailerId": 132,
+      "date": "2025-04-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 7908,
+      "invoiceNo": "INV-25930"
+    },
+    {
+      "id": 10559,
+      "retailerId": 132,
+      "date": "2025-10-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 57239,
+      "invoiceNo": "INV-25260"
+    },
+    {
+      "id": 10560,
+      "retailerId": 132,
+      "date": "2025-06-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 33683,
+      "invoiceNo": "INV-25890"
+    },
+    {
+      "id": 10561,
+      "retailerId": 132,
+      "date": "2026-04-02",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 21383,
+      "invoiceNo": "INV-25399"
+    },
+    {
+      "id": 10562,
+      "retailerId": 132,
+      "date": "2026-06-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 48821,
+      "invoiceNo": "INV-25787"
+    },
+    {
+      "id": 10563,
+      "retailerId": 132,
+      "date": "2025-06-30",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 48283,
+      "invoiceNo": "INV-25497"
+    },
+    {
+      "id": 10564,
+      "retailerId": 132,
+      "date": "2025-12-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 14580,
+      "invoiceNo": "INV-25736"
+    },
+    {
+      "id": 10565,
+      "retailerId": 132,
+      "date": "2025-08-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 50146,
+      "invoiceNo": "INV-25774"
+    },
+    {
+      "id": 10566,
+      "retailerId": 132,
+      "date": "2026-01-08",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 61963,
+      "invoiceNo": "INV-25471"
+    },
+    {
+      "id": 10567,
+      "retailerId": 132,
+      "date": "2025-10-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 27292,
+      "invoiceNo": "INV-25232"
+    },
+    {
+      "id": 10568,
+      "retailerId": 132,
+      "date": "2025-07-02",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 30889,
+      "invoiceNo": "INV-25135"
+    },
+    {
+      "id": 10569,
+      "retailerId": 132,
+      "date": "2025-12-14",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 24446,
+      "invoiceNo": "INV-25196"
+    },
+    {
+      "id": 10570,
+      "retailerId": 132,
+      "date": "2025-04-30",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 19137,
+      "invoiceNo": "INV-25895"
+    },
+    {
+      "id": 10571,
+      "retailerId": 132,
+      "date": "2025-11-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 45786,
+      "invoiceNo": "INV-25260"
+    },
+    {
+      "id": 10572,
+      "retailerId": 132,
+      "date": "2026-03-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 67538,
+      "invoiceNo": "INV-25548"
+    },
+    {
+      "id": 10573,
+      "retailerId": 134,
+      "date": "2026-04-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 43787,
+      "invoiceNo": "INV-25880"
+    },
+    {
+      "id": 10574,
+      "retailerId": 134,
+      "date": "2025-09-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 46721,
+      "invoiceNo": "INV-25568"
+    },
+    {
+      "id": 10575,
+      "retailerId": 134,
+      "date": "2026-05-30",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 8453,
+      "invoiceNo": "INV-25341"
+    },
+    {
+      "id": 10576,
+      "retailerId": 134,
+      "date": "2026-05-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 8751,
+      "invoiceNo": "INV-25511"
+    },
+    {
+      "id": 10577,
+      "retailerId": 134,
+      "date": "2025-08-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 46835,
+      "invoiceNo": "INV-25379"
+    },
+    {
+      "id": 10578,
+      "retailerId": 134,
+      "date": "2025-07-04",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 30320,
+      "invoiceNo": "INV-25367"
+    },
+    {
+      "id": 10579,
+      "retailerId": 134,
+      "date": "2026-03-24",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 54663,
+      "invoiceNo": "INV-25702"
+    },
+    {
+      "id": 10580,
+      "retailerId": 134,
+      "date": "2026-03-24",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 48468,
+      "invoiceNo": "INV-25393"
+    },
+    {
+      "id": 10581,
+      "retailerId": 134,
+      "date": "2025-08-31",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 46740,
+      "invoiceNo": "INV-25728"
+    },
+    {
+      "id": 10582,
+      "retailerId": 134,
+      "date": "2025-08-20",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 41270,
+      "invoiceNo": "INV-25844"
+    },
+    {
+      "id": 10583,
+      "retailerId": 134,
+      "date": "2025-12-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 31306,
+      "invoiceNo": "INV-25562"
+    },
+    {
+      "id": 10584,
+      "retailerId": 135,
+      "date": "2025-11-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 7039,
+      "invoiceNo": "INV-25736"
+    },
+    {
+      "id": 10585,
+      "retailerId": 136,
+      "date": "2025-04-24",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 29677,
+      "invoiceNo": "INV-25979"
+    },
+    {
+      "id": 10586,
+      "retailerId": 136,
+      "date": "2026-05-23",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 48344,
+      "invoiceNo": "INV-25245"
+    },
+    {
+      "id": 10587,
+      "retailerId": 136,
+      "date": "2025-10-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13533,
+      "invoiceNo": "INV-25823"
+    },
+    {
+      "id": 10588,
+      "retailerId": 136,
+      "date": "2025-07-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 27373,
+      "invoiceNo": "INV-25119"
+    },
+    {
+      "id": 10589,
+      "retailerId": 136,
+      "date": "2025-04-07",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 20072,
+      "invoiceNo": "INV-25707"
+    },
+    {
+      "id": 10590,
+      "retailerId": 136,
+      "date": "2025-09-24",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 30271,
+      "invoiceNo": "INV-25831"
+    },
+    {
+      "id": 10591,
+      "retailerId": 136,
+      "date": "2026-04-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 39506,
+      "invoiceNo": "INV-25916"
+    },
+    {
+      "id": 10592,
+      "retailerId": 136,
+      "date": "2026-03-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 58762,
+      "invoiceNo": "INV-25576"
+    },
+    {
+      "id": 10593,
+      "retailerId": 136,
+      "date": "2026-03-15",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 24226,
+      "invoiceNo": "INV-25974"
+    },
+    {
+      "id": 10594,
+      "retailerId": 136,
+      "date": "2026-04-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 29607,
+      "invoiceNo": "INV-25413"
+    },
+    {
+      "id": 10595,
+      "retailerId": 136,
+      "date": "2025-05-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 62443,
+      "invoiceNo": "INV-25806"
+    },
+    {
+      "id": 10596,
+      "retailerId": 136,
+      "date": "2025-08-02",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 46946,
+      "invoiceNo": "INV-25293"
+    },
+    {
+      "id": 10597,
+      "retailerId": 136,
+      "date": "2025-09-30",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 57138,
+      "invoiceNo": "INV-25553"
+    },
+    {
+      "id": 10598,
+      "retailerId": 136,
+      "date": "2026-04-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 34486,
+      "invoiceNo": "INV-25307"
+    },
+    {
+      "id": 10599,
+      "retailerId": 136,
+      "date": "2025-11-23",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 27954,
+      "invoiceNo": "INV-25515"
+    },
+    {
+      "id": 10600,
+      "retailerId": 137,
+      "date": "2026-02-05",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 58804,
+      "invoiceNo": "INV-25289"
+    },
+    {
+      "id": 10601,
+      "retailerId": 137,
+      "date": "2026-05-23",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 27734,
+      "invoiceNo": "INV-25305"
+    },
+    {
+      "id": 10602,
+      "retailerId": 137,
+      "date": "2026-03-28",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 33932,
+      "invoiceNo": "INV-25103"
+    },
+    {
+      "id": 10603,
+      "retailerId": 137,
+      "date": "2025-08-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 21716,
+      "invoiceNo": "INV-25729"
+    },
+    {
+      "id": 10604,
+      "retailerId": 137,
+      "date": "2026-01-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 37763,
+      "invoiceNo": "INV-25327"
+    },
+    {
+      "id": 10605,
+      "retailerId": 137,
+      "date": "2025-09-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 64068,
+      "invoiceNo": "INV-25889"
+    },
+    {
+      "id": 10606,
+      "retailerId": 137,
+      "date": "2025-06-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 22809,
+      "invoiceNo": "INV-25635"
+    },
+    {
+      "id": 10607,
+      "retailerId": 137,
+      "date": "2025-12-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 33846,
+      "invoiceNo": "INV-25442"
+    },
+    {
+      "id": 10608,
+      "retailerId": 137,
+      "date": "2025-09-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 9673,
+      "invoiceNo": "INV-25477"
+    },
+    {
+      "id": 10609,
+      "retailerId": 137,
+      "date": "2025-10-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 23101,
+      "invoiceNo": "INV-25133"
+    },
+    {
+      "id": 10610,
+      "retailerId": 137,
+      "date": "2025-11-11",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 23756,
+      "invoiceNo": "INV-25389"
+    },
+    {
+      "id": 10611,
+      "retailerId": 137,
+      "date": "2026-02-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 9751,
+      "invoiceNo": "INV-25519"
+    },
+    {
+      "id": 10612,
+      "retailerId": 137,
+      "date": "2026-02-01",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 11052,
+      "invoiceNo": "INV-25938"
+    },
+    {
+      "id": 10613,
+      "retailerId": 138,
+      "date": "2025-05-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 64780,
+      "invoiceNo": "INV-25336"
+    },
+    {
+      "id": 10614,
+      "retailerId": 140,
+      "date": "2026-02-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 33510,
+      "invoiceNo": "INV-25914"
+    },
+    {
+      "id": 10615,
+      "retailerId": 143,
+      "date": "2025-12-28",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 54910,
+      "invoiceNo": "INV-25393"
+    },
+    {
+      "id": 10616,
+      "retailerId": 143,
+      "date": "2025-08-31",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 29414,
+      "invoiceNo": "INV-25368"
+    },
+    {
+      "id": 10617,
+      "retailerId": 144,
+      "date": "2025-04-12",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 49194,
+      "invoiceNo": "INV-25470"
+    },
+    {
+      "id": 10618,
+      "retailerId": 144,
+      "date": "2025-11-14",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 13426,
+      "invoiceNo": "INV-25639"
+    },
+    {
+      "id": 10619,
+      "retailerId": 144,
+      "date": "2026-06-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 33262,
+      "invoiceNo": "INV-25859"
+    },
+    {
+      "id": 10620,
+      "retailerId": 144,
+      "date": "2026-04-01",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 7980,
+      "invoiceNo": "INV-25548"
+    },
+    {
+      "id": 10621,
+      "retailerId": 144,
+      "date": "2025-04-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 36796,
+      "invoiceNo": "INV-25798"
+    },
+    {
+      "id": 10622,
+      "retailerId": 144,
+      "date": "2026-05-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 46818,
+      "invoiceNo": "INV-25648"
+    },
+    {
+      "id": 10623,
+      "retailerId": 144,
+      "date": "2026-05-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 38503,
+      "invoiceNo": "INV-25519"
+    },
+    {
+      "id": 10624,
+      "retailerId": 144,
+      "date": "2026-05-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 11343,
+      "invoiceNo": "INV-25622"
+    },
+    {
+      "id": 10625,
+      "retailerId": 144,
+      "date": "2026-01-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 39108,
+      "invoiceNo": "INV-25170"
+    },
+    {
+      "id": 10626,
+      "retailerId": 144,
+      "date": "2025-08-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 21716,
+      "invoiceNo": "INV-25632"
+    },
+    {
+      "id": 10627,
+      "retailerId": 144,
+      "date": "2025-05-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 16187,
+      "invoiceNo": "INV-25655"
+    },
+    {
+      "id": 10628,
+      "retailerId": 144,
+      "date": "2026-03-25",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 29884,
+      "invoiceNo": "INV-25843"
+    },
+    {
+      "id": 10629,
+      "retailerId": 144,
+      "date": "2026-02-11",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 50375,
+      "invoiceNo": "INV-25836"
+    },
+    {
+      "id": 10630,
+      "retailerId": 144,
+      "date": "2026-02-05",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 39588,
+      "invoiceNo": "INV-25657"
+    },
+    {
+      "id": 10631,
+      "retailerId": 144,
+      "date": "2026-03-23",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 34046,
+      "invoiceNo": "INV-25247"
+    },
+    {
+      "id": 10632,
+      "retailerId": 145,
+      "date": "2026-01-11",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 38985,
+      "invoiceNo": "INV-25535"
+    },
+    {
+      "id": 10633,
+      "retailerId": 145,
+      "date": "2025-08-24",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 48961,
+      "invoiceNo": "INV-25526"
+    },
+    {
+      "id": 10634,
+      "retailerId": 146,
+      "date": "2025-04-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 42477,
+      "invoiceNo": "INV-25115"
+    },
+    {
+      "id": 10635,
+      "retailerId": 146,
+      "date": "2025-08-11",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 23185,
+      "invoiceNo": "INV-25871"
+    },
+    {
+      "id": 10636,
+      "retailerId": 146,
+      "date": "2025-11-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 68801,
+      "invoiceNo": "INV-25530"
+    },
+    {
+      "id": 10637,
+      "retailerId": 146,
+      "date": "2025-06-24",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 11895,
+      "invoiceNo": "INV-25316"
+    },
+    {
+      "id": 10638,
+      "retailerId": 146,
+      "date": "2025-04-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 44171,
+      "invoiceNo": "INV-25262"
+    },
+    {
+      "id": 10639,
+      "retailerId": 146,
+      "date": "2026-02-11",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13747,
+      "invoiceNo": "INV-25693"
+    },
+    {
+      "id": 10640,
+      "retailerId": 146,
+      "date": "2025-10-23",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 40747,
+      "invoiceNo": "INV-25845"
+    },
+    {
+      "id": 10641,
+      "retailerId": 146,
+      "date": "2025-10-25",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 50592,
+      "invoiceNo": "INV-25914"
+    },
+    {
+      "id": 10642,
+      "retailerId": 146,
+      "date": "2025-11-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 12291,
+      "invoiceNo": "INV-25478"
+    },
+    {
+      "id": 10643,
+      "retailerId": 146,
+      "date": "2025-06-13",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 36524,
+      "invoiceNo": "INV-25393"
+    },
+    {
+      "id": 10644,
+      "retailerId": 146,
+      "date": "2025-07-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 36411,
+      "invoiceNo": "INV-25616"
+    },
+    {
+      "id": 10645,
+      "retailerId": 147,
+      "date": "2025-07-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 26971,
+      "invoiceNo": "INV-25310"
+    },
+    {
+      "id": 10646,
+      "retailerId": 147,
+      "date": "2025-07-30",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 15137,
+      "invoiceNo": "INV-25741"
+    },
+    {
+      "id": 10647,
+      "retailerId": 147,
+      "date": "2025-08-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 16661,
+      "invoiceNo": "INV-25177"
+    },
+    {
+      "id": 10648,
+      "retailerId": 147,
+      "date": "2025-11-16",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 60771,
+      "invoiceNo": "INV-25855"
+    },
+    {
+      "id": 10649,
+      "retailerId": 147,
+      "date": "2025-04-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 35867,
+      "invoiceNo": "INV-25618"
+    },
+    {
+      "id": 10650,
+      "retailerId": 147,
+      "date": "2026-04-08",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 12500,
+      "invoiceNo": "INV-25318"
+    },
+    {
+      "id": 10651,
+      "retailerId": 147,
+      "date": "2025-04-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 52777,
+      "invoiceNo": "INV-25481"
+    },
+    {
+      "id": 10652,
+      "retailerId": 147,
+      "date": "2025-04-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 52006,
+      "invoiceNo": "INV-25260"
+    },
+    {
+      "id": 10653,
+      "retailerId": 147,
+      "date": "2026-04-13",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 11515,
+      "invoiceNo": "INV-25567"
+    },
+    {
+      "id": 10654,
+      "retailerId": 147,
+      "date": "2026-02-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13291,
+      "invoiceNo": "INV-25288"
+    },
+    {
+      "id": 10655,
+      "retailerId": 148,
+      "date": "2026-04-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 28587,
+      "invoiceNo": "INV-25841"
+    },
+    {
+      "id": 10656,
+      "retailerId": 148,
+      "date": "2025-11-17",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 21743,
+      "invoiceNo": "INV-25431"
+    },
+    {
+      "id": 10657,
+      "retailerId": 149,
+      "date": "2025-09-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 37324,
+      "invoiceNo": "INV-25472"
+    },
+    {
+      "id": 10658,
+      "retailerId": 149,
+      "date": "2025-08-19",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 22950,
+      "invoiceNo": "INV-25907"
+    },
+    {
+      "id": 10659,
+      "retailerId": 149,
+      "date": "2025-04-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 34723,
+      "invoiceNo": "INV-25287"
+    },
+    {
+      "id": 10660,
+      "retailerId": 149,
+      "date": "2026-04-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 12730,
+      "invoiceNo": "INV-25542"
+    },
+    {
+      "id": 10661,
+      "retailerId": 149,
+      "date": "2025-12-02",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 23159,
+      "invoiceNo": "INV-25717"
+    },
+    {
+      "id": 10662,
+      "retailerId": 149,
+      "date": "2025-06-08",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 41120,
+      "invoiceNo": "INV-25468"
+    },
+    {
+      "id": 10663,
+      "retailerId": 149,
+      "date": "2025-08-23",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 54902,
+      "invoiceNo": "INV-25324"
+    },
+    {
+      "id": 10664,
+      "retailerId": 149,
+      "date": "2026-05-14",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 21060,
+      "invoiceNo": "INV-25695"
+    },
+    {
+      "id": 10665,
+      "retailerId": 149,
+      "date": "2026-04-11",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 29448,
+      "invoiceNo": "INV-25667"
+    },
+    {
+      "id": 10666,
+      "retailerId": 149,
+      "date": "2026-06-24",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 12282,
+      "invoiceNo": "INV-25393"
+    },
+    {
+      "id": 10667,
+      "retailerId": 149,
+      "date": "2025-07-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 36466,
+      "invoiceNo": "INV-25196"
+    },
+    {
+      "id": 10668,
+      "retailerId": 149,
+      "date": "2026-02-18",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 32857,
+      "invoiceNo": "INV-25465"
+    },
+    {
+      "id": 10669,
+      "retailerId": 149,
+      "date": "2026-05-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 57904,
+      "invoiceNo": "INV-25452"
+    },
+    {
+      "id": 10670,
+      "retailerId": 149,
+      "date": "2026-03-08",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 19399,
+      "invoiceNo": "INV-25723"
+    },
+    {
+      "id": 10671,
+      "retailerId": 150,
+      "date": "2026-04-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 53080,
+      "invoiceNo": "INV-25315"
+    },
+    {
+      "id": 10672,
+      "retailerId": 150,
+      "date": "2026-05-19",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 27937,
+      "invoiceNo": "INV-25561"
+    },
+    {
+      "id": 10673,
+      "retailerId": 150,
+      "date": "2026-04-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 11319,
+      "invoiceNo": "INV-25378"
+    },
+    {
+      "id": 10674,
+      "retailerId": 150,
+      "date": "2026-04-27",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 18856,
+      "invoiceNo": "INV-25808"
+    },
+    {
+      "id": 10675,
+      "retailerId": 150,
+      "date": "2026-04-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 28693,
+      "invoiceNo": "INV-25189"
+    },
+    {
+      "id": 10676,
+      "retailerId": 150,
+      "date": "2025-10-08",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 59430,
+      "invoiceNo": "INV-25220"
+    },
+    {
+      "id": 10677,
+      "retailerId": 150,
+      "date": "2025-08-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 46508,
+      "invoiceNo": "INV-25398"
+    },
+    {
+      "id": 10678,
+      "retailerId": 150,
+      "date": "2026-02-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 12121,
+      "invoiceNo": "INV-25838"
+    },
+    {
+      "id": 10679,
+      "retailerId": 150,
+      "date": "2025-11-15",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 27454,
+      "invoiceNo": "INV-25825"
+    },
+    {
+      "id": 10680,
+      "retailerId": 150,
+      "date": "2025-11-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 33456,
+      "invoiceNo": "INV-25332"
+    },
+    {
+      "id": 10681,
+      "retailerId": 150,
+      "date": "2026-02-14",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 41442,
+      "invoiceNo": "INV-25971"
+    },
+    {
+      "id": 10682,
+      "retailerId": 150,
+      "date": "2025-10-28",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 38909,
+      "invoiceNo": "INV-25796"
+    },
+    {
+      "id": 10683,
+      "retailerId": 150,
+      "date": "2025-06-29",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 28356,
+      "invoiceNo": "INV-25743"
+    },
+    {
+      "id": 10684,
+      "retailerId": 150,
+      "date": "2025-11-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 43625,
+      "invoiceNo": "INV-25163"
+    },
+    {
+      "id": 10685,
+      "retailerId": 150,
+      "date": "2026-06-05",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 31576,
+      "invoiceNo": "INV-25866"
+    },
+    {
+      "id": 10686,
+      "retailerId": 152,
+      "date": "2026-06-18",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 57141,
+      "invoiceNo": "INV-25458"
+    },
+    {
+      "id": 10687,
+      "retailerId": 153,
+      "date": "2025-09-28",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 17891,
+      "invoiceNo": "INV-25993"
+    },
+    {
+      "id": 10688,
+      "retailerId": 154,
+      "date": "2025-08-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 22493,
+      "invoiceNo": "INV-25754"
+    },
+    {
+      "id": 10689,
+      "retailerId": 154,
+      "date": "2025-08-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 44778,
+      "invoiceNo": "INV-25521"
+    },
+    {
+      "id": 10690,
+      "retailerId": 154,
+      "date": "2025-11-19",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 9897,
+      "invoiceNo": "INV-25164"
+    },
+    {
+      "id": 10691,
+      "retailerId": 154,
+      "date": "2025-09-12",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 33239,
+      "invoiceNo": "INV-25769"
+    },
+    {
+      "id": 10692,
+      "retailerId": 154,
+      "date": "2026-06-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 56012,
+      "invoiceNo": "INV-25639"
+    },
+    {
+      "id": 10693,
+      "retailerId": 154,
+      "date": "2026-01-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 7472,
+      "invoiceNo": "INV-25730"
+    },
+    {
+      "id": 10694,
+      "retailerId": 154,
+      "date": "2025-06-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 49189,
+      "invoiceNo": "INV-25684"
+    },
+    {
+      "id": 10695,
+      "retailerId": 154,
+      "date": "2025-11-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 8632,
+      "invoiceNo": "INV-25528"
+    },
+    {
+      "id": 10696,
+      "retailerId": 154,
+      "date": "2025-04-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 19047,
+      "invoiceNo": "INV-25923"
+    },
+    {
+      "id": 10697,
+      "retailerId": 154,
+      "date": "2025-09-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 43822,
+      "invoiceNo": "INV-25880"
+    },
+    {
+      "id": 10698,
+      "retailerId": 157,
+      "date": "2025-04-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 14474,
+      "invoiceNo": "INV-25691"
+    },
+    {
+      "id": 10699,
+      "retailerId": 157,
+      "date": "2026-05-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 35350,
+      "invoiceNo": "INV-25489"
+    },
+    {
+      "id": 10700,
+      "retailerId": 157,
+      "date": "2025-06-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 24651,
+      "invoiceNo": "INV-25702"
+    },
+    {
+      "id": 10701,
+      "retailerId": 157,
+      "date": "2025-06-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 41724,
+      "invoiceNo": "INV-25234"
+    },
+    {
+      "id": 10702,
+      "retailerId": 157,
+      "date": "2025-07-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 26259,
+      "invoiceNo": "INV-25852"
+    },
+    {
+      "id": 10703,
+      "retailerId": 157,
+      "date": "2026-04-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 18586,
+      "invoiceNo": "INV-25909"
+    },
+    {
+      "id": 10704,
+      "retailerId": 157,
+      "date": "2025-12-16",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 46661,
+      "invoiceNo": "INV-25876"
+    },
+    {
+      "id": 10705,
+      "retailerId": 157,
+      "date": "2025-05-15",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 23826,
+      "invoiceNo": "INV-25961"
+    },
+    {
+      "id": 10706,
+      "retailerId": 157,
+      "date": "2025-09-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 36356,
+      "invoiceNo": "INV-25737"
+    },
+    {
+      "id": 10707,
+      "retailerId": 157,
+      "date": "2025-06-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 30928,
+      "invoiceNo": "INV-25426"
+    },
+    {
+      "id": 10708,
+      "retailerId": 157,
+      "date": "2025-04-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 45331,
+      "invoiceNo": "INV-25433"
+    },
+    {
+      "id": 10709,
+      "retailerId": 157,
+      "date": "2025-08-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 26060,
+      "invoiceNo": "INV-25381"
+    },
+    {
+      "id": 10710,
+      "retailerId": 157,
+      "date": "2026-01-29",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 12769,
+      "invoiceNo": "INV-25187"
+    },
+    {
+      "id": 10711,
+      "retailerId": 157,
+      "date": "2025-06-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13088,
+      "invoiceNo": "INV-25154"
+    },
+    {
+      "id": 10712,
+      "retailerId": 157,
+      "date": "2025-06-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 60805,
+      "invoiceNo": "INV-25540"
+    },
+    {
+      "id": 10713,
+      "retailerId": 158,
+      "date": "2025-04-20",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 23981,
+      "invoiceNo": "INV-25816"
+    },
+    {
+      "id": 10714,
+      "retailerId": 160,
+      "date": "2025-07-16",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 28260,
+      "invoiceNo": "INV-25767"
+    },
+    {
+      "id": 10715,
+      "retailerId": 160,
+      "date": "2026-01-02",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 27227,
+      "invoiceNo": "INV-25820"
+    },
+    {
+      "id": 10716,
+      "retailerId": 160,
+      "date": "2025-11-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13977,
+      "invoiceNo": "INV-25871"
+    },
+    {
+      "id": 10717,
+      "retailerId": 160,
+      "date": "2026-02-15",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 22433,
+      "invoiceNo": "INV-25602"
+    },
+    {
+      "id": 10718,
+      "retailerId": 160,
+      "date": "2026-03-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 9684,
+      "invoiceNo": "INV-25652"
+    },
+    {
+      "id": 10719,
+      "retailerId": 160,
+      "date": "2025-12-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 18635,
+      "invoiceNo": "INV-25430"
+    },
+    {
+      "id": 10720,
+      "retailerId": 160,
+      "date": "2026-06-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 42134,
+      "invoiceNo": "INV-25458"
+    },
+    {
+      "id": 10721,
+      "retailerId": 160,
+      "date": "2025-12-25",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 15296,
+      "invoiceNo": "INV-25784"
+    },
+    {
+      "id": 10722,
+      "retailerId": 160,
+      "date": "2025-12-25",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 21344,
+      "invoiceNo": "INV-25138"
+    },
+    {
+      "id": 10723,
+      "retailerId": 160,
+      "date": "2025-11-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 24167,
+      "invoiceNo": "INV-25979"
+    },
+    {
+      "id": 10724,
+      "retailerId": 160,
+      "date": "2026-03-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 37492,
+      "invoiceNo": "INV-25993"
+    },
+    {
+      "id": 10725,
+      "retailerId": 160,
+      "date": "2026-04-20",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 47865,
+      "invoiceNo": "INV-25465"
+    },
+    {
+      "id": 10726,
+      "retailerId": 160,
+      "date": "2025-11-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 14353,
+      "invoiceNo": "INV-25150"
+    },
+    {
+      "id": 10727,
+      "retailerId": 161,
+      "date": "2026-05-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 46913,
+      "invoiceNo": "INV-25189"
+    },
+    {
+      "id": 10728,
+      "retailerId": 162,
+      "date": "2025-04-17",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 20705,
+      "invoiceNo": "INV-25252"
+    },
+    {
+      "id": 10729,
+      "retailerId": 162,
+      "date": "2026-03-19",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 61899,
+      "invoiceNo": "INV-25826"
+    },
+    {
+      "id": 10730,
+      "retailerId": 165,
+      "date": "2025-11-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 44748,
+      "invoiceNo": "INV-25339"
+    },
+    {
+      "id": 10731,
+      "retailerId": 165,
+      "date": "2025-10-01",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 8708,
+      "invoiceNo": "INV-25696"
+    },
+    {
+      "id": 10732,
+      "retailerId": 165,
+      "date": "2025-04-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 28222,
+      "invoiceNo": "INV-25614"
+    },
+    {
+      "id": 10733,
+      "retailerId": 165,
+      "date": "2026-05-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 30047,
+      "invoiceNo": "INV-25783"
+    },
+    {
+      "id": 10734,
+      "retailerId": 165,
+      "date": "2025-04-13",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 13099,
+      "invoiceNo": "INV-25670"
+    },
+    {
+      "id": 10735,
+      "retailerId": 165,
+      "date": "2026-02-19",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 44028,
+      "invoiceNo": "INV-25591"
+    },
+    {
+      "id": 10736,
+      "retailerId": 165,
+      "date": "2026-05-17",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 23314,
+      "invoiceNo": "INV-25983"
+    },
+    {
+      "id": 10737,
+      "retailerId": 165,
+      "date": "2025-06-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 52694,
+      "invoiceNo": "INV-25559"
+    },
+    {
+      "id": 10738,
+      "retailerId": 165,
+      "date": "2026-01-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 43718,
+      "invoiceNo": "INV-25844"
+    },
+    {
+      "id": 10739,
+      "retailerId": 165,
+      "date": "2025-09-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 36489,
+      "invoiceNo": "INV-25544"
+    },
+    {
+      "id": 10740,
+      "retailerId": 165,
+      "date": "2026-06-16",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 26303,
+      "invoiceNo": "INV-25241"
+    },
+    {
+      "id": 10741,
+      "retailerId": 165,
+      "date": "2025-05-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 14459,
+      "invoiceNo": "INV-25392"
+    },
+    {
+      "id": 10742,
+      "retailerId": 165,
+      "date": "2025-10-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 29508,
+      "invoiceNo": "INV-25724"
+    },
+    {
+      "id": 10743,
+      "retailerId": 165,
+      "date": "2025-11-28",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 26432,
+      "invoiceNo": "INV-25125"
+    },
+    {
+      "id": 10744,
+      "retailerId": 166,
+      "date": "2025-07-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 63912,
+      "invoiceNo": "INV-25589"
+    },
+    {
+      "id": 10745,
+      "retailerId": 167,
+      "date": "2026-02-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 45586,
+      "invoiceNo": "INV-25165"
+    },
+    {
+      "id": 10746,
+      "retailerId": 167,
+      "date": "2025-05-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 8537,
+      "invoiceNo": "INV-25653"
+    },
+    {
+      "id": 10747,
+      "retailerId": 167,
+      "date": "2026-01-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 49935,
+      "invoiceNo": "INV-25175"
+    },
+    {
+      "id": 10748,
+      "retailerId": 167,
+      "date": "2026-04-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 14784,
+      "invoiceNo": "INV-25496"
+    },
+    {
+      "id": 10749,
+      "retailerId": 167,
+      "date": "2026-04-26",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 28201,
+      "invoiceNo": "INV-25970"
+    },
+    {
+      "id": 10750,
+      "retailerId": 167,
+      "date": "2026-03-30",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 41516,
+      "invoiceNo": "INV-25719"
+    },
+    {
+      "id": 10751,
+      "retailerId": 167,
+      "date": "2025-08-02",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 32095,
+      "invoiceNo": "INV-25485"
+    },
+    {
+      "id": 10752,
+      "retailerId": 167,
+      "date": "2026-05-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 8652,
+      "invoiceNo": "INV-25619"
+    },
+    {
+      "id": 10753,
+      "retailerId": 167,
+      "date": "2026-01-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 11119,
+      "invoiceNo": "INV-25522"
+    },
+    {
+      "id": 10754,
+      "retailerId": 167,
+      "date": "2025-05-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 20842,
+      "invoiceNo": "INV-25556"
+    },
+    {
+      "id": 10755,
+      "retailerId": 167,
+      "date": "2025-08-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 23814,
+      "invoiceNo": "INV-25384"
+    },
+    {
+      "id": 10756,
+      "retailerId": 167,
+      "date": "2025-09-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 61096,
+      "invoiceNo": "INV-25809"
+    },
+    {
+      "id": 10757,
+      "retailerId": 167,
+      "date": "2026-05-31",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 8735,
+      "invoiceNo": "INV-25348"
+    },
+    {
+      "id": 10758,
+      "retailerId": 167,
+      "date": "2025-10-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 14274,
+      "invoiceNo": "INV-25117"
+    },
+    {
+      "id": 10759,
+      "retailerId": 168,
+      "date": "2025-09-13",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 17872,
+      "invoiceNo": "INV-25314"
+    },
+    {
+      "id": 10760,
+      "retailerId": 168,
+      "date": "2025-04-30",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 23604,
+      "invoiceNo": "INV-25696"
+    },
+    {
+      "id": 10761,
+      "retailerId": 168,
+      "date": "2025-12-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 21791,
+      "invoiceNo": "INV-25623"
+    },
+    {
+      "id": 10762,
+      "retailerId": 168,
+      "date": "2026-02-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 37330,
+      "invoiceNo": "INV-25305"
+    },
+    {
+      "id": 10763,
+      "retailerId": 168,
+      "date": "2025-09-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 55789,
+      "invoiceNo": "INV-25476"
+    },
+    {
+      "id": 10764,
+      "retailerId": 168,
+      "date": "2026-04-28",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 11095,
+      "invoiceNo": "INV-25731"
+    },
+    {
+      "id": 10765,
+      "retailerId": 168,
+      "date": "2025-11-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 8571,
+      "invoiceNo": "INV-25582"
+    },
+    {
+      "id": 10766,
+      "retailerId": 168,
+      "date": "2026-04-25",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 30334,
+      "invoiceNo": "INV-25996"
+    },
+    {
+      "id": 10767,
+      "retailerId": 168,
+      "date": "2025-06-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 14362,
+      "invoiceNo": "INV-25291"
+    },
+    {
+      "id": 10768,
+      "retailerId": 168,
+      "date": "2025-08-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 42737,
+      "invoiceNo": "INV-25609"
+    },
+    {
+      "id": 10769,
+      "retailerId": 170,
+      "date": "2025-09-23",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 9061,
+      "invoiceNo": "INV-25249"
+    },
+    {
+      "id": 10770,
+      "retailerId": 170,
+      "date": "2025-07-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 60182,
+      "invoiceNo": "INV-25159"
+    },
+    {
+      "id": 10771,
+      "retailerId": 171,
+      "date": "2025-07-02",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 10890,
+      "invoiceNo": "INV-25638"
+    },
+    {
+      "id": 10772,
+      "retailerId": 174,
+      "date": "2026-06-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 28177,
+      "invoiceNo": "INV-25509"
+    },
+    {
+      "id": 10773,
+      "retailerId": 175,
+      "date": "2026-02-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 50068,
+      "invoiceNo": "INV-25711"
+    },
+    {
+      "id": 10774,
+      "retailerId": 176,
+      "date": "2025-07-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 34204,
+      "invoiceNo": "INV-25112"
+    },
+    {
+      "id": 10775,
+      "retailerId": 176,
+      "date": "2026-04-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 53565,
+      "invoiceNo": "INV-25854"
+    },
+    {
+      "id": 10776,
+      "retailerId": 178,
+      "date": "2026-03-04",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 32140,
+      "invoiceNo": "INV-25104"
+    },
+    {
+      "id": 10777,
+      "retailerId": 178,
+      "date": "2025-05-08",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 26754,
+      "invoiceNo": "INV-25531"
+    },
+    {
+      "id": 10778,
+      "retailerId": 179,
+      "date": "2025-11-08",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 45165,
+      "invoiceNo": "INV-25264"
+    },
+    {
+      "id": 10779,
+      "retailerId": 180,
+      "date": "2026-05-08",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 50281,
+      "invoiceNo": "INV-25285"
+    },
+    {
+      "id": 10780,
+      "retailerId": 180,
+      "date": "2025-07-29",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 6751,
+      "invoiceNo": "INV-25465"
+    },
+    {
+      "id": 10781,
+      "retailerId": 180,
+      "date": "2025-11-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 20853,
+      "invoiceNo": "INV-25578"
+    },
+    {
+      "id": 10782,
+      "retailerId": 180,
+      "date": "2026-06-15",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 39934,
+      "invoiceNo": "INV-25363"
+    },
+    {
+      "id": 10783,
+      "retailerId": 180,
+      "date": "2026-01-23",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 56317,
+      "invoiceNo": "INV-25713"
+    },
+    {
+      "id": 10784,
+      "retailerId": 180,
+      "date": "2026-04-13",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 41071,
+      "invoiceNo": "INV-25489"
+    },
+    {
+      "id": 10785,
+      "retailerId": 180,
+      "date": "2025-11-01",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 25168,
+      "invoiceNo": "INV-25783"
+    },
+    {
+      "id": 10786,
+      "retailerId": 180,
+      "date": "2025-11-28",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 36592,
+      "invoiceNo": "INV-25212"
+    },
+    {
+      "id": 10787,
+      "retailerId": 180,
+      "date": "2026-04-07",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 28090,
+      "invoiceNo": "INV-25343"
+    },
+    {
+      "id": 10788,
+      "retailerId": 180,
+      "date": "2025-07-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 50383,
+      "invoiceNo": "INV-25686"
+    },
+    {
+      "id": 10789,
+      "retailerId": 180,
+      "date": "2025-09-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 17296,
+      "invoiceNo": "INV-25139"
+    },
+    {
+      "id": 10790,
+      "retailerId": 180,
+      "date": "2025-12-16",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 33575,
+      "invoiceNo": "INV-25618"
+    },
+    {
+      "id": 10791,
+      "retailerId": 180,
+      "date": "2025-12-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 41081,
+      "invoiceNo": "INV-25211"
+    },
+    {
+      "id": 10792,
+      "retailerId": 183,
+      "date": "2025-11-16",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 26542,
+      "invoiceNo": "INV-25347"
+    },
+    {
+      "id": 10793,
+      "retailerId": 183,
+      "date": "2025-12-29",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 38244,
+      "invoiceNo": "INV-25485"
+    },
+    {
+      "id": 10794,
+      "retailerId": 184,
+      "date": "2025-06-18",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 20118,
+      "invoiceNo": "INV-25890"
+    },
+    {
+      "id": 10795,
+      "retailerId": 184,
+      "date": "2026-06-24",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 11744,
+      "invoiceNo": "INV-25675"
+    },
+    {
+      "id": 10796,
+      "retailerId": 185,
+      "date": "2025-04-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 54945,
+      "invoiceNo": "INV-25325"
+    },
+    {
+      "id": 10797,
+      "retailerId": 185,
+      "date": "2025-09-05",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 30089,
+      "invoiceNo": "INV-25320"
+    },
+    {
+      "id": 10798,
+      "retailerId": 186,
+      "date": "2025-10-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 31608,
+      "invoiceNo": "INV-25741"
+    },
+    {
+      "id": 10799,
+      "retailerId": 186,
+      "date": "2026-06-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 38540,
+      "invoiceNo": "INV-25625"
+    },
+    {
+      "id": 10800,
+      "retailerId": 186,
+      "date": "2026-03-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 22609,
+      "invoiceNo": "INV-25521"
+    },
+    {
+      "id": 10801,
+      "retailerId": 186,
+      "date": "2026-05-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 52886,
+      "invoiceNo": "INV-25396"
+    },
+    {
+      "id": 10802,
+      "retailerId": 186,
+      "date": "2025-05-29",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 40968,
+      "invoiceNo": "INV-25103"
+    },
+    {
+      "id": 10803,
+      "retailerId": 186,
+      "date": "2026-01-10",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 59117,
+      "invoiceNo": "INV-25326"
+    },
+    {
+      "id": 10804,
+      "retailerId": 186,
+      "date": "2026-06-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 26797,
+      "invoiceNo": "INV-25656"
+    },
+    {
+      "id": 10805,
+      "retailerId": 186,
+      "date": "2026-05-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 12144,
+      "invoiceNo": "INV-25455"
+    },
+    {
+      "id": 10806,
+      "retailerId": 186,
+      "date": "2025-11-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 42654,
+      "invoiceNo": "INV-25883"
+    },
+    {
+      "id": 10807,
+      "retailerId": 186,
+      "date": "2026-02-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 61550,
+      "invoiceNo": "INV-25653"
+    },
+    {
+      "id": 10808,
+      "retailerId": 188,
+      "date": "2026-04-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 37218,
+      "invoiceNo": "INV-25823"
+    },
+    {
+      "id": 10809,
+      "retailerId": 189,
+      "date": "2025-12-15",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 42960,
+      "invoiceNo": "INV-25475"
+    },
+    {
+      "id": 10810,
+      "retailerId": 189,
+      "date": "2025-07-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 8776,
+      "invoiceNo": "INV-25493"
+    },
+    {
+      "id": 10811,
+      "retailerId": 189,
+      "date": "2025-09-13",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 4,
+      "value": 14636,
+      "invoiceNo": "INV-25385"
+    },
+    {
+      "id": 10812,
+      "retailerId": 189,
+      "date": "2026-05-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 34283,
+      "invoiceNo": "INV-25246"
+    },
+    {
+      "id": 10813,
+      "retailerId": 189,
+      "date": "2025-09-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 42890,
+      "invoiceNo": "INV-25321"
+    },
+    {
+      "id": 10814,
+      "retailerId": 189,
+      "date": "2026-01-11",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 43095,
+      "invoiceNo": "INV-25312"
+    },
+    {
+      "id": 10815,
+      "retailerId": 189,
+      "date": "2026-06-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 15346,
+      "invoiceNo": "INV-25493"
+    },
+    {
+      "id": 10816,
+      "retailerId": 189,
+      "date": "2026-05-01",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 23055,
+      "invoiceNo": "INV-25853"
+    },
+    {
+      "id": 10817,
+      "retailerId": 189,
+      "date": "2025-11-08",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 23482,
+      "invoiceNo": "INV-25787"
+    },
+    {
+      "id": 10818,
+      "retailerId": 189,
+      "date": "2026-05-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 3,
+      "value": 11116,
+      "invoiceNo": "INV-25929"
+    },
+    {
+      "id": 10819,
+      "retailerId": 189,
+      "date": "2025-11-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 58755,
+      "invoiceNo": "INV-25777"
+    },
+    {
+      "id": 10820,
+      "retailerId": 190,
+      "date": "2025-06-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 25145,
+      "invoiceNo": "INV-25870"
+    },
+    {
+      "id": 10821,
+      "retailerId": 192,
+      "date": "2025-12-15",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 26502,
+      "invoiceNo": "INV-25985"
+    },
+    {
+      "id": 10822,
+      "retailerId": 192,
+      "date": "2025-09-16",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 54922,
+      "invoiceNo": "INV-25192"
+    },
+    {
+      "id": 10823,
+      "retailerId": 193,
+      "date": "2026-02-04",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 11382,
+      "invoiceNo": "INV-25747"
+    },
+    {
+      "id": 10824,
+      "retailerId": 193,
+      "date": "2026-06-13",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 38770,
+      "invoiceNo": "INV-25624"
+    },
+    {
+      "id": 10825,
+      "retailerId": 193,
+      "date": "2025-11-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 37594,
+      "invoiceNo": "INV-25432"
+    },
+    {
+      "id": 10826,
+      "retailerId": 193,
+      "date": "2025-10-31",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 13,
+      "value": 53609,
+      "invoiceNo": "INV-25226"
+    },
+    {
+      "id": 10827,
+      "retailerId": 193,
+      "date": "2025-11-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 29935,
+      "invoiceNo": "INV-25180"
+    },
+    {
+      "id": 10828,
+      "retailerId": 193,
+      "date": "2025-11-15",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 25582,
+      "invoiceNo": "INV-25704"
+    },
+    {
+      "id": 10829,
+      "retailerId": 193,
+      "date": "2025-05-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 29830,
+      "invoiceNo": "INV-25851"
+    },
+    {
+      "id": 10830,
+      "retailerId": 193,
+      "date": "2025-06-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 2,
+      "value": 6676,
+      "invoiceNo": "INV-25699"
+    },
+    {
+      "id": 10831,
+      "retailerId": 193,
+      "date": "2025-11-07",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 11,
+      "value": 43097,
+      "invoiceNo": "INV-25357"
+    },
+    {
+      "id": 10832,
+      "retailerId": 193,
+      "date": "2025-08-18",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 48970,
+      "invoiceNo": "INV-25614"
+    },
+    {
+      "id": 10833,
+      "retailerId": 193,
+      "date": "2025-04-08",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 30455,
+      "invoiceNo": "INV-25153"
+    },
+    {
+      "id": 10834,
+      "retailerId": 193,
+      "date": "2026-04-15",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 22774,
+      "invoiceNo": "INV-25464"
+    },
+    {
+      "id": 10835,
+      "retailerId": 193,
+      "date": "2025-09-27",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 59657,
+      "invoiceNo": "INV-25672"
+    },
+    {
+      "id": 10836,
+      "retailerId": 193,
+      "date": "2025-10-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 47877,
+      "invoiceNo": "INV-25460"
+    },
+    {
+      "id": 10837,
+      "retailerId": 193,
+      "date": "2026-03-18",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 51905,
+      "invoiceNo": "INV-25194"
+    },
+    {
+      "id": 10838,
+      "retailerId": 194,
+      "date": "2025-04-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 28754,
+      "invoiceNo": "INV-25667"
+    },
+    {
+      "id": 10839,
+      "retailerId": 194,
+      "date": "2025-11-01",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 49210,
+      "invoiceNo": "INV-25304"
+    },
+    {
+      "id": 10840,
+      "retailerId": 194,
+      "date": "2025-10-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 20142,
+      "invoiceNo": "INV-25163"
+    },
+    {
+      "id": 10841,
+      "retailerId": 194,
+      "date": "2025-08-09",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 41637,
+      "invoiceNo": "INV-25642"
+    },
+    {
+      "id": 10842,
+      "retailerId": 194,
+      "date": "2025-08-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 33583,
+      "invoiceNo": "INV-25497"
+    },
+    {
+      "id": 10843,
+      "retailerId": 194,
+      "date": "2025-08-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 59085,
+      "invoiceNo": "INV-25888"
+    },
+    {
+      "id": 10844,
+      "retailerId": 194,
+      "date": "2025-05-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 33696,
+      "invoiceNo": "INV-25562"
+    },
+    {
+      "id": 10845,
+      "retailerId": 194,
+      "date": "2025-08-14",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 64185,
+      "invoiceNo": "INV-25272"
+    },
+    {
+      "id": 10846,
+      "retailerId": 194,
+      "date": "2025-06-19",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 7,
+      "value": 24980,
+      "invoiceNo": "INV-25444"
+    },
+    {
+      "id": 10847,
+      "retailerId": 194,
+      "date": "2025-12-21",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 35227,
+      "invoiceNo": "INV-25176"
+    },
+    {
+      "id": 10848,
+      "retailerId": 195,
+      "date": "2025-06-13",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 8,
+      "value": 33739,
+      "invoiceNo": "INV-25876"
+    },
+    {
+      "id": 10849,
+      "retailerId": 195,
+      "date": "2026-06-05",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 28491,
+      "invoiceNo": "INV-25776"
+    },
+    {
+      "id": 10850,
+      "retailerId": 196,
+      "date": "2025-11-04",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 34404,
+      "invoiceNo": "INV-25485"
+    },
+    {
+      "id": 10851,
+      "retailerId": 196,
+      "date": "2025-06-08",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 34082,
+      "invoiceNo": "INV-25572"
+    },
+    {
+      "id": 10852,
+      "retailerId": 196,
+      "date": "2026-02-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 3,
+      "value": 14729,
+      "invoiceNo": "INV-25340"
+    },
+    {
+      "id": 10853,
+      "retailerId": 196,
+      "date": "2026-05-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 32801,
+      "invoiceNo": "INV-25486"
+    },
+    {
+      "id": 10854,
+      "retailerId": 196,
+      "date": "2025-10-21",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 60332,
+      "invoiceNo": "INV-25743"
+    },
+    {
+      "id": 10855,
+      "retailerId": 196,
+      "date": "2025-07-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 41905,
+      "invoiceNo": "INV-25806"
+    },
+    {
+      "id": 10856,
+      "retailerId": 196,
+      "date": "2025-05-22",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 8245,
+      "invoiceNo": "INV-25496"
+    },
+    {
+      "id": 10857,
+      "retailerId": 196,
+      "date": "2025-07-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 14,
+      "value": 52113,
+      "invoiceNo": "INV-25407"
+    },
+    {
+      "id": 10858,
+      "retailerId": 196,
+      "date": "2025-11-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 19180,
+      "invoiceNo": "INV-25279"
+    },
+    {
+      "id": 10859,
+      "retailerId": 196,
+      "date": "2025-04-26",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 15177,
+      "invoiceNo": "INV-25440"
+    },
+    {
+      "id": 10860,
+      "retailerId": 196,
+      "date": "2025-11-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 32307,
+      "invoiceNo": "INV-25375"
+    },
+    {
+      "id": 10861,
+      "retailerId": 196,
+      "date": "2026-01-14",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 43228,
+      "invoiceNo": "INV-25547"
+    },
+    {
+      "id": 10862,
+      "retailerId": 196,
+      "date": "2025-11-28",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 9854,
+      "invoiceNo": "INV-25967"
+    },
+    {
+      "id": 10863,
+      "retailerId": 196,
+      "date": "2025-08-06",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 45045,
+      "invoiceNo": "INV-25921"
+    },
+    {
+      "id": 10864,
+      "retailerId": 197,
+      "date": "2025-08-29",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 9,
+      "value": 34300,
+      "invoiceNo": "INV-25260"
+    },
+    {
+      "id": 10865,
+      "retailerId": 197,
+      "date": "2026-05-09",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 43736,
+      "invoiceNo": "INV-25184"
+    },
+    {
+      "id": 10866,
+      "retailerId": 197,
+      "date": "2026-02-27",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 10,
+      "value": 48157,
+      "invoiceNo": "INV-25244"
+    },
+    {
+      "id": 10867,
+      "retailerId": 197,
+      "date": "2025-05-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 5,
+      "value": 21501,
+      "invoiceNo": "INV-25788"
+    },
+    {
+      "id": 10868,
+      "retailerId": 197,
+      "date": "2026-03-30",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 7741,
+      "invoiceNo": "INV-25764"
+    },
+    {
+      "id": 10869,
+      "retailerId": 197,
+      "date": "2026-06-05",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 34112,
+      "invoiceNo": "INV-25327"
+    },
+    {
+      "id": 10870,
+      "retailerId": 197,
+      "date": "2025-08-06",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 9,
+      "value": 33588,
+      "invoiceNo": "INV-25170"
+    },
+    {
+      "id": 10871,
+      "retailerId": 197,
+      "date": "2025-07-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 17533,
+      "invoiceNo": "INV-25777"
+    },
+    {
+      "id": 10872,
+      "retailerId": 197,
+      "date": "2026-02-12",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 56947,
+      "invoiceNo": "INV-25939"
+    },
+    {
+      "id": 10873,
+      "retailerId": 197,
+      "date": "2025-04-25",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 29796,
+      "invoiceNo": "INV-25389"
+    },
+    {
+      "id": 10874,
+      "retailerId": 197,
+      "date": "2026-05-27",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 10,
+      "value": 40772,
+      "invoiceNo": "INV-25606"
+    },
+    {
+      "id": 10875,
+      "retailerId": 198,
+      "date": "2025-09-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 7,
+      "value": 28864,
+      "invoiceNo": "INV-25202"
+    },
+    {
+      "id": 10876,
+      "retailerId": 198,
+      "date": "2025-04-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 13,
+      "value": 55033,
+      "invoiceNo": "INV-25146"
+    },
+    {
+      "id": 10877,
+      "retailerId": 198,
+      "date": "2025-04-25",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 14,
+      "value": 59138,
+      "invoiceNo": "INV-25170"
+    },
+    {
+      "id": 10878,
+      "retailerId": 198,
+      "date": "2025-11-08",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 6,
+      "value": 24316,
+      "invoiceNo": "INV-25177"
+    },
+    {
+      "id": 10879,
+      "retailerId": 198,
+      "date": "2025-06-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 11,
+      "value": 43326,
+      "invoiceNo": "INV-25639"
+    },
+    {
+      "id": 10880,
+      "retailerId": 198,
+      "date": "2025-06-03",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 5,
+      "value": 20727,
+      "invoiceNo": "INV-25652"
+    },
+    {
+      "id": 10881,
+      "retailerId": 198,
+      "date": "2026-06-17",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 2,
+      "value": 7892,
+      "invoiceNo": "INV-25339"
+    },
+    {
+      "id": 10882,
+      "retailerId": 198,
+      "date": "2025-05-10",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 8,
+      "value": 34370,
+      "invoiceNo": "INV-25277"
+    },
+    {
+      "id": 10883,
+      "retailerId": 198,
+      "date": "2025-09-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 15646,
+      "invoiceNo": "INV-25694"
+    },
+    {
+      "id": 10884,
+      "retailerId": 198,
+      "date": "2026-03-13",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 12,
+      "value": 50410,
+      "invoiceNo": "INV-25939"
+    },
+    {
+      "id": 10885,
+      "retailerId": 198,
+      "date": "2025-04-20",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 18310,
+      "invoiceNo": "INV-25182"
+    },
+    {
+      "id": 10886,
+      "retailerId": 198,
+      "date": "2025-09-07",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 4,
+      "value": 15804,
+      "invoiceNo": "INV-25882"
+    },
+    {
+      "id": 10887,
+      "retailerId": 200,
+      "date": "2026-06-03",
+      "sku": "Prestige Pressure Cooker 5L",
+      "qty": 6,
+      "value": 27437,
+      "invoiceNo": "INV-25241"
+    },
+    {
+      "id": 10888,
+      "retailerId": 200,
+      "date": "2025-08-16",
+      "sku": "Prestige Mixer Grinder 750W",
+      "qty": 12,
+      "value": 51975,
+      "invoiceNo": "INV-25131"
+    }
+  ]
