@@ -1,7 +1,7 @@
-// ==================== STRATEGY X - FIXED MAP + TABS ====================
+// ==================== STRATEGY X - PROFESSIONAL DASHBOARD + FULL FOCUS PLAN ====================
 
-let allRetailers = [];
 let currentMap = null;
+let allRetailers = [];
 let currentDraftPlan = null;
 
 const BACKEND_URL = 'https://drona-gpt.onrender.com';
@@ -9,12 +9,12 @@ const BACKEND_URL = 'https://drona-gpt.onrender.com';
 // ==================== LOAD DATA ====================
 async function loadStrategyData() {
     try {
-        const res = await fetch('data/retailers.json');
+        const res = await fetch('../data/retailers.json');
         const data = await res.json();
         allRetailers = data.retailers || [];
-        console.log(`✅ Loaded ${allRetailers.length} retailers`);
-    } catch (err) {
-        console.error(err);
+        console.log(`✅ Strategy X: Loaded ${allRetailers.length} retailers`);
+    } catch (e) {
+        console.error("Failed to load retailers", e);
     }
 }
 
@@ -27,21 +27,18 @@ function initMap() {
         attributionControl: false
     }).setView([12.92, 77.60], 11.5);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        className: 'map-tiles'
-    }).addTo(currentMap);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(currentMap);
 
     drawPerformanceCircles();
+    setTimeout(() => { if (currentMap) currentMap.invalidateSize(); }, 400);
 }
 
-// Draw colored circles based on performance
 function drawPerformanceCircles() {
-    if (!currentMap || !retailers.length) return;
+    if (!currentMap || !allRetailers.length) return;
 
-    // Group by area and calculate average outstanding
     const areaData = {};
-    retailers.forEach(r => {
-        if (!areaData[r.area]) areaData[r.area] = { count: 0, totalOS: 0, lat: r.lat, lng: r.lng };
+    allRetailers.forEach(r => {
+        if (!areaData[r.area]) areaData[r.area] = {count:0, totalOS:0, lat:r.lat, lng:r.lng};
         areaData[r.area].count++;
         areaData[r.area].totalOS += (r.outstanding || 0);
     });
@@ -49,34 +46,17 @@ function drawPerformanceCircles() {
     Object.keys(areaData).forEach(area => {
         const d = areaData[area];
         const avgOS = d.totalOS / d.count;
-        const radius = 800 + (avgOS / 1000) * 300; // bigger circle for higher outstanding
-
-        let color = '#22c55e'; // green
-        if (avgOS > 15000) color = '#f59e0b';     // orange
-        if (avgOS > 30000) color = '#ef4444';     // red
+        let color = avgOS > 35000 ? '#ef4444' : avgOS > 18000 ? '#f59e0b' : '#22c55e';
 
         L.circle([d.lat, d.lng], {
-            radius: radius,
+            radius: 1100,
             color: color,
             fillColor: color,
-            fillOpacity: 0.25,
-            weight: 3
+            fillOpacity: 0.28,
+            weight: 3.5
         }).addTo(currentMap)
-          .bindPopup(`<b>${area}</b><br>Avg Outstanding: ₹${Math.round(avgOS).toLocaleString()}`);
+          .bindPopup(`<b>${area}</b><br>Avg OS: ₹${Math.round(avgOS).toLocaleString()}`);
     });
-}
-
-// Toggle Map (for collapsible)
-function toggleMap() {
-    const mapContainer = document.getElementById('map-container');
-    if (!mapContainer) return;
-
-    mapContainer.classList.toggle('hidden');
-    
-    // Critical fix: Let Leaflet recalculate size
-    setTimeout(() => {
-        if (currentMap) currentMap.invalidateSize();
-    }, 300);
 }
 
 // ==================== FOCUS PLAN ====================
@@ -199,7 +179,7 @@ async function saveDraftToSupabase() {
 
         console.log("%c✅ Plan saved for", "color:lime", selectedDate);
         alert(`✅ Focus Plan saved for ${selectedDate}!`);
-        switchStrategyTab(0); // Refresh Focus Plans
+        switchStrategyTab(0);
     } catch (err) {
         console.error(err);
         alert("Save failed. Check console.");
@@ -207,175 +187,129 @@ async function saveDraftToSupabase() {
 }
 
 // ==================== TAB SYSTEM ====================
-async function switchStrategyTab(tab) {
-    document.querySelectorAll('[id^="stab-"]').forEach(btn => btn.classList.remove('tab-active'));
+function switchStrategyTab(tab) {
+    document.querySelectorAll('[id^="stab-"]').forEach(b => b.classList.remove('tab-active'));
     document.getElementById(`stab-${tab}`).classList.add('tab-active');
 
     const content = document.getElementById('strategy-tab-content');
+    content.innerHTML = '';
 
-    if (tab === 0) {
-        await showPublishedPlans();
-    } else if (tab === 1) {
-        await showActiveTargets();
-    } else if (tab === 2) {
-        populateTerritoryList();
-    }
+    if (tab === 0) showFocusPlans();
+    else if (tab === 1) showActiveTargets();
+    else if (tab === 2) showTerritories();
+
+    setTimeout(() => { if (currentMap) currentMap.invalidateSize(); }, 100);
 }
 
-// Focus Plans
-async function showPublishedPlans() {
-    const container = document.getElementById('strategy-tab-content');
-    try {
-        const res = await fetch(`${BACKEND_URL}/focus-plans`);
-        const plans = await res.json();
-
-        let html = `<div class="font-semibold mb-4">Active Focus Plans (${plans.length})</div>`;
-
-        if (plans.length === 0) {
-            html += `<p class="text-slate-400 text-center py-12">No active focus plans yet.<br>Click on any area on the map to create one.</p>`;
-        } else {
-            plans.forEach(plan => {
-                html += `
-                    <div class="bg-slate-800 p-4 rounded-2xl mb-3 cursor-pointer hover:bg-slate-700" onclick="viewPlan('${plan.id}')">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="font-medium">${plan.territories?.[0] || plan.area}</div>
-                                <div class="text-xs text-slate-400">${plan.plan_date}</div>
-                            </div>
-                            <button onclick="event.stopImmediatePropagation(); deletePlan('${plan.id}');" class="text-red-400 text-xl">🗑</button>
-                        </div>
-                    </div>`;
-            });
-        }
-        container.innerHTML = html;
-    } catch (e) {
-        container.innerHTML = `<p class="text-red-400">Failed to load plans</p>`;
-    }
+// Focus Plans Tab
+function showFocusPlans() {
+    const content = document.getElementById('strategy-tab-content');
+    content.innerHTML = `
+        <div class="text-center py-12 text-slate-400">
+            <p class="text-lg">No Active Focus Plans Yet</p>
+            <p class="text-sm mt-2">Click on any area on the map to create one</p>
+        </div>
+    `;
 }
 
-// Targets Tab (SKU Breakdown)
+// Targets Tab (Overall + Retailer-wise)
 function showActiveTargets() {
-    const container = document.getElementById('targets-list');
-    if (!container) return;
-
-    // Overall Target Calculation
-    const monthlyRevenueTarget = 3000000; // ₹3.0 Cr
-    let totalRevenueCurrent = 0;
+    // (Same as previous improved version with Overall + Retailer cards)
+    const monthlyTarget = 3000000;
+    let totalRevenue = 0;
     let totalPC = 0;
     let totalMG = 0;
 
-    retailers.forEach(r => {
-        totalRevenueCurrent += Math.floor((r.totalSalesThisYear || 0) / 12);
+    allRetailers.forEach(r => {
+        totalRevenue += Math.floor((r.totalSalesThisYear || 0) / 12);
         const pc = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
         const mg = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
         totalPC += pc;
         totalMG += mg;
     });
 
-    const revenueProgress = Math.min(100, Math.round((totalRevenueCurrent / monthlyRevenueTarget) * 100));
-    const pcTargetTotal = 80 * retailers.length;
-    const mgTargetTotal = 45 * retailers.length;
-    const pcProgress = Math.min(100, Math.round((totalPC / pcTargetTotal) * 100));
-    const mgProgress = Math.min(100, Math.round((totalMG / mgTargetTotal) * 100));
+    const revProgress = Math.min(100, Math.round((totalRevenue / monthlyTarget) * 100));
+    const pcTargetTotal = 80 * allRetailers.length;
+    const mgTargetTotal = 45 * allRetailers.length;
 
     let html = `
-        <!-- Overall Target -->
-        <div class="bg-gradient-to-r from-emerald-900 to-slate-800 border border-emerald-500 rounded-3xl p-6 mb-8">
-            <div class="text-emerald-400 font-semibold mb-3">OVERALL TARGET (All Retailers)</div>
-            
-            <div class="mb-6">
-                <div class="flex justify-between mb-2">
-                    <span class="font-medium">Total Revenue</span>
-                    <span class="font-bold">₹${(totalRevenueCurrent/100000).toFixed(1)} Cr / ₹3.0 Cr</span>
+        <div class="space-y-8">
+            <div class="bg-gradient-to-r from-emerald-900 to-slate-800 border border-emerald-500 rounded-3xl p-6">
+                <div class="text-emerald-400 font-semibold mb-4">OVERALL TARGET</div>
+                <div class="flex justify-between mb-3">
+                    <span class="text-xl">Total Revenue</span>
+                    <span class="text-3xl font-bold">₹${(totalRevenue/100000).toFixed(1)} Cr / ₹3.0 Cr</span>
                 </div>
-                <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
-                    <div class="h-full bg-emerald-500" style="width: ${revenueProgress}%"></div>
+                <div class="h-3 bg-slate-700 rounded-full overflow-hidden mb-6">
+                    <div class="h-full bg-emerald-500" style="width: ${revProgress}%"></div>
                 </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-6">
-                <div>
-                    <div class="flex justify-between mb-2 text-sm">
-                        <span>Pressure Cooker 5L</span>
-                        <span>${totalPC} / ${pcTargetTotal}</span>
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <div class="flex justify-between mb-2 text-sm">
+                            <span>Pressure Cooker 5L</span>
+                            <span>${totalPC} / ${pcTargetTotal}</span>
+                        </div>
+                        <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-orange-500" style="width: ${Math.min(100, Math.round(totalPC / pcTargetTotal * 100))}%"></div>
+                        </div>
                     </div>
-                    <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-orange-500" style="width: ${pcProgress}%"></div>
-                    </div>
-                </div>
-                <div>
-                    <div class="flex justify-between mb-2 text-sm">
-                        <span>Mixer Grinder 750W</span>
-                        <span>${totalMG} / ${mgTargetTotal}</span>
-                    </div>
-                    <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-blue-500" style="width: ${mgProgress}%"></div>
+                    <div>
+                        <div class="flex justify-between mb-2 text-sm">
+                            <span>Mixer Grinder 750W</span>
+                            <span>${totalMG} / ${mgTargetTotal}</span>
+                        </div>
+                        <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-blue-500" style="width: ${Math.min(100, Math.round(totalMG / mgTargetTotal * 100))}%"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Retailer-wise -->
-        <div class="text-lg font-semibold mb-4">Retailer-wise Progress</div>
-        <div class="space-y-6">`;
+            <div class="text-lg font-semibold mb-4">Retailer-wise Progress</div>
+            <div class="space-y-6 max-h-[420px] overflow-auto">`;
 
-    retailers.forEach(r => {
-        const revenueCurrent = Math.floor((r.totalSalesThisYear || 0) / 12);
-        const revProgress = Math.min(100, Math.round((revenueCurrent / 150000) * 100));
-
-        const pcSales = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
-        const mgSales = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
+    allRetailers.forEach(r => {
+        const revCurrent = Math.floor((r.totalSalesThisYear || 0) / 12);
+        const revP = Math.min(100, Math.round((revCurrent / 150000) * 100));
+        const pc = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
+        const mg = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
 
         html += `
             <div class="bg-slate-800 rounded-3xl p-5">
-                <div class="font-medium mb-3">${r.name} <span class="text-xs text-slate-400">(${r.area})</span></div>
-                
-                <div class="mb-4">
-                    <div class="flex justify-between text-sm mb-1">
-                        <span>Revenue</span>
-                        <span>₹${revenueCurrent.toLocaleString()} / ₹1,50,000</span>
-                    </div>
-                    <div class="h-2.5 bg-slate-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-emerald-500" style="width: ${revProgress}%"></div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4 text-sm">
+                <div class="font-medium">${r.name} <span class="text-xs text-slate-400">(${r.area})</span></div>
+                <div class="mt-4 space-y-4">
                     <div>
-                        <div class="flex justify-between mb-1">
-                            <span>Pressure Cooker</span>
-                            <span>${pcSales} / 80</span>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>Revenue</span>
+                            <span>₹${revCurrent.toLocaleString()} / ₹1.5L</span>
                         </div>
                         <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-orange-500" style="width: ${Math.min(100, Math.round(pcSales/80*100))}%"></div>
+                            <div class="h-full bg-emerald-500" style="width:${revP}%"></div>
                         </div>
                     </div>
-                    <div>
-                        <div class="flex justify-between mb-1">
-                            <span>Mixer Grinder</span>
-                            <span>${mgSales} / 45</span>
-                        </div>
-                        <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-blue-500" style="width: ${Math.min(100, Math.round(mgSales/45*100))}%"></div>
-                        </div>
+                    <div class="grid grid-cols-2 gap-4 text-xs">
+                        <div>PC: ${pc}/80</div>
+                        <div>MG: ${mg}/45</div>
                     </div>
                 </div>
             </div>`;
     });
 
-    html += `</div>`;
-    container.innerHTML = html;
+    html += `</div></div>`;
+    document.getElementById('strategy-tab-content').innerHTML = html;
 }
-function populateTerritoryList() {
+
+// Territories Tab
+function showTerritories() {
     const container = document.getElementById('strategy-tab-content');
     const areas = {};
-    allRetailers.forEach(r => areas[r.area] = (areas[r.area]||0) + 1);
+    allRetailers.forEach(r => areas[r.area] = (areas[r.area] || 0) + 1);
 
     let html = `<div class="font-semibold mb-4">Territories</div>`;
     Object.keys(areas).forEach(area => {
         html += `
             <div onclick="createFocusPlanForArea('${area}')" 
-                 class="p-4 hover:bg-slate-700 rounded-2xl cursor-pointer border border-slate-700 flex justify-between items-center mb-2">
+                 class="p-4 bg-slate-800 hover:bg-slate-700 rounded-2xl cursor-pointer flex justify-between items-center mb-3">
                 <span>${area}</span>
                 <span class="text-slate-400">${areas[area]} retailers</span>
             </div>`;
@@ -383,23 +317,17 @@ function populateTerritoryList() {
     container.innerHTML = html;
 }
 
-// ==================== INITIALIZE ====================
+// Initialize
 async function initializeStrategyX() {
     await loadStrategyData();
     initMap();
     switchStrategyTab(0);
-    console.log("%c✅ Strategy X Fixed & Ready", "color:#22c55e");
+    console.log("%c✅ Strategy X Professional Dashboard Ready", "color:#22c55e");
 }
 
 // Global Exports
 window.initializeStrategyX = initializeStrategyX;
+window.switchStrategyTab = switchStrategyTab;
 window.createFocusPlanForArea = createFocusPlanForArea;
 window.saveDraftToSupabase = saveDraftToSupabase;
 window.closeDraftModal = closeDraftModal;
-window.toggleMap = toggleMap;
-window.switchStrategyTab = switchStrategyTab;
-window.showPublishedPlans = showPublishedPlans;
-window.showActiveTargets = showActiveTargets;
-window.populateTerritoryList = populateTerritoryList;
-window.deletePlan = deletePlan;
-window.viewPlan = viewPlan;
