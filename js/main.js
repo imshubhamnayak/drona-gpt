@@ -313,118 +313,77 @@ async function showMyTargets() {
 
 async function renderMyTargets() {
     const container = document.getElementById('my-targets-content');
-    if (!container) return;
+    if (!container || !allRetailers.length) {
+        container.innerHTML = `<div class="text-center py-12 text-slate-400">Loading targets...</div>`;
+        return;
+    }
 
-    // Annual Targets (Apr 2026 - Mar 2027)
-    const annualRevenueTarget = 360000000; // ₹3.6 Cr per year
-    let totalRevenueYTD = 0;
-    let totalPCYTD = 0;
-    let totalMGYTD = 0;
+    // Calculate from transactions (since we have raw data now)
+    const monthlyRevenueTarget = 30000000; // ₹3 Cr
+    let totalRevenueCurrent = 0;
+    let totalPC = 0;
+    let totalMG = 0;
 
-    // Current Month (June 2026)
-    const monthlyRevenueTarget = 30000000; // ₹3 Cr per month
+    // Aggregate from transactions (last 30 days simulation)
+    const now = new Date();
+    const oneMonthAgo = new Date(now.getFullYear(), now.getMonth()-1, now.getDate());
 
-    allRetailers.forEach(r => {
-        totalRevenueYTD += (r.totalSalesThisYear || 0);
-        const pc = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
-        const mg = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
-        totalPCYTD += pc;
-        totalMGYTD += mg;
+    transactions.forEach(t => {
+        const tDate = new Date(t.date);
+        if (tDate >= oneMonthAgo) {
+            totalRevenueCurrent += t.value || 0;
+            if (t.sku.includes("Pressure Cooker")) totalPC += t.qty || 0;
+            if (t.sku.includes("Mixer Grinder")) totalMG += t.qty || 0;
+        }
     });
 
-    const annualRevProgress = Math.min(100, Math.round((totalRevenueYTD / annualRevenueTarget) * 100));
-    const annualPCTarget = 80 * 12 * allRetailers.length;
-    const annualMGTarget = 45 * 12 * allRetailers.length;
+    const revenueProgress = Math.min(100, Math.round((totalRevenueCurrent / monthlyRevenueTarget) * 100));
 
     let html = `
-        <!-- Overall Annual Target -->
-        <div class="bg-gradient-to-r from-emerald-900 to-slate-800 border border-emerald-500 rounded-3xl p-6 mb-8">
-            <div class="text-emerald-400 font-semibold mb-3">MY ANNUAL TARGET (Apr 2026 - Mar 2027)</div>
-            <div class="flex justify-between mb-3">
-                <span class="text-xl">Total Revenue</span>
-                <span class="text-3xl font-bold">₹${(totalRevenueYTD/10000000).toFixed(1)} Cr / ₹36 Cr</span>
-            </div>
-            <div class="h-4 bg-slate-700 rounded-full overflow-hidden mb-6">
-                <div class="h-full bg-emerald-500" style="width: ${annualRevProgress}%"></div>
-            </div>
-            <div class="grid grid-cols-2 gap-6 text-sm">
-                <div>
-                    <div class="flex justify-between mb-1">
-                        <span>Pressure Cooker 5L</span>
-                        <span>${totalPCYTD} / ${annualPCTarget}</span>
+        <div class="space-y-8">
+            <!-- Overall Monthly Target -->
+            <div class="bg-gradient-to-r from-emerald-900 to-slate-800 border border-emerald-500 rounded-3xl p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <div class="text-emerald-400 font-semibold">MONTHLY TARGET (June 2026)</div>
+                        <div class="text-3xl font-bold mt-1">₹${(totalRevenueCurrent/10000000).toFixed(1)} Cr / ₹3 Cr</div>
                     </div>
-                    <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-orange-500" style="width: ${Math.min(100, Math.round(totalPCYTD / annualPCTarget * 100))}%"></div>
+                    <div class="text-right">
+                        <div class="text-emerald-400 text-2xl font-bold">${revenueProgress}%</div>
                     </div>
                 </div>
-                <div>
-                    <div class="flex justify-between mb-1">
-                        <span>Mixer Grinder 750W</span>
-                        <span>${totalMGYTD} / ${annualMGTarget}</span>
-                    </div>
-                    <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-blue-500" style="width: ${Math.min(100, Math.round(totalMGYTD / annualMGTarget * 100))}%"></div>
-                    </div>
+                <div class="h-4 bg-slate-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-500" style="width: ${revenueProgress}%"></div>
                 </div>
             </div>
-        </div>
 
-        <!-- Current Month -->
-        <div class="bg-slate-800 rounded-3xl p-6 mb-8">
-            <div class="flex justify-between items-center mb-4">
-                <div class="text-orange-400 font-semibold">CURRENT MONTH (June 2026)</div>
-                <div class="text-sm text-slate-400">Monthly Target</div>
-            </div>
-            <div class="grid grid-cols-3 gap-4">
-                <div class="text-center">
-                    <div class="text-2xl font-bold">₹2.1 Cr</div>
-                    <div class="text-xs text-emerald-400">70% of ₹3 Cr</div>
+            <!-- SKU Targets -->
+            <div class="grid grid-cols-2 gap-6">
+                <div class="bg-slate-800 rounded-3xl p-6">
+                    <div class="text-orange-400 font-medium">Pressure Cooker 5L</div>
+                    <div class="text-4xl font-bold mt-2">${totalPC}</div>
+                    <div class="text-sm text-slate-400">/ 960 units</div>
                 </div>
-                <div class="text-center">
-                    <div class="text-2xl font-bold">920</div>
-                    <div class="text-xs">Pressure Cooker / 960</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-2xl font-bold">510</div>
-                    <div class="text-xs">Mixer Grinder / 540</div>
+                <div class="bg-slate-800 rounded-3xl p-6">
+                    <div class="text-blue-400 font-medium">Mixer Grinder 750W</div>
+                    <div class="text-4xl font-bold mt-2">${totalMG}</div>
+                    <div class="text-sm text-slate-400">/ 540 units</div>
                 </div>
             </div>
-        </div>
 
-        <!-- Retailer-wise Breakdown -->
-        <div class="text-lg font-semibold mb-4">Retailer-wise Progress</div>
-        <div class="space-y-6 max-h-[380px] overflow-auto">`;
+            <!-- Retailer-wise -->
+            <div class="text-lg font-semibold mb-4">Retailer Progress</div>
+            <div class="space-y-6 max-h-[380px] overflow-auto">`;
 
     allRetailers.forEach(r => {
-        const annualRev = r.totalSalesThisYear || 0;
-        const annualRevP = Math.min(100, Math.round((annualRev / 180000) * 100)); // ~₹1.8L annual per retailer
-
-        const pcSales = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
-        const mgSales = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
-
         html += `
             <div class="bg-slate-800 rounded-3xl p-5">
                 <div class="font-medium">${r.name} <span class="text-xs text-slate-400">(${r.area})</span></div>
-                
-                <div class="mt-4 grid grid-cols-2 gap-6 text-sm">
-                    <div>
-                        <div class="flex justify-between mb-1">
-                            <span>Annual Revenue</span>
-                            <span>₹${(annualRev/100000).toFixed(1)}L / ₹1.8L</span>
-                        </div>
-                        <div class="h-2.5 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-emerald-500" style="width: ${annualRevP}%"></div>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>PC: ${pcSales}/80</div>
-                        <div>MG: ${mgSales}/45</div>
-                    </div>
-                </div>
+                <div class="mt-3 text-sm text-slate-400">Outstanding: ₹${(r.outstanding || 0).toLocaleString()}</div>
             </div>`;
     });
 
-    html += `</div>`;
+    html += `</div></div>`;
     container.innerHTML = html;
 }
 // Add this Quick Action Button in your HTML (Drona GPT view)
