@@ -1,6 +1,7 @@
 // ==================== DRONA GPT - COMPLETE REFACTORED WITH STRONG RAG ====================
 
-let retailers = [];
+let retailers = [];           // Full merged retailer data
+let transactions = [];
 let currentContextRetailer = null;
 let allSKUs = [];
 
@@ -9,14 +10,42 @@ const GROQ_API_KEY = "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";
 // Load Retailers
 async function loadRetailers() {
     try {
-        const res = await fetch('data/retailers.json');
-        const data = await res.json();
-        retailers = data.retailers || [];
-        console.log(`%c✅ Loaded ${retailers.length} retailers for RAG`, 'color:#22c55e');
+        // 1. Master Data (name, area, lat, lng)
+        const masterRes = await fetch('data/retailers-master.json');
+        const masterData = await masterRes.json();
+
+        // 2. Outstanding Data
+        const osRes = await fetch('data/retailers-outstanding.json');
+        const osData = await osRes.json();
+
+        // 3. Transactions
+        const transRes = await fetch('data/tally-transactions.json');
+        const transData = await transRes.json();
+        transactions = transData.transactions || [];
+
+        // Merge
+        retailers = masterData.retailers.map(master => {
+            const osInfo = osData.retailers.find(o => o.id === master.id) || {};
+            return {
+                ...master,
+                outstanding: osInfo.outstanding || 0,
+                lastPaymentDaysAgo: osInfo.lastPaymentDaysAgo || 15,
+                lastVisitDaysAgo: Math.floor(Math.random() * 20),
+                monthlyOrders: Math.random() > 0.4,
+                paymentTrend: Math.random() > 0.5 ? "85% on time" : "65% on time",
+                skuSales: [] // Can calculate from transactions if needed
+            };
+        });
+
+        console.log(`%c✅ Loaded ${retailers.length} retailers (merged from 3 files)`, 'color:#22c55e');
     } catch (e) {
-        console.error("Failed to load retailers", e);
+        console.error("Failed to load data", e);
         retailers = [];
     }
+}
+
+function getRetailerById(id) {
+    return retailers.find(r => r.id === id);
 }
 
 // Dynamic Greeting
@@ -461,7 +490,8 @@ function showQuickView(id) {
     const retailer = retailers.find(r => r.id === id);
     if (!retailer) return;
     currentContextRetailer = retailer;
-    alert(`Quick View for ${retailer.name}\nOutstanding: ₹${retailer.outstanding}`);
+    switchTab('drona-gpt');
+    addMessage(`Selected **${retailer.name}**. Outstanding: ₹${retailer.outstanding}. Kya help chahiye?`, 'bot');
 }
 
 // Show Today's Plan from Backend (for Ramesh)
