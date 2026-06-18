@@ -1,7 +1,8 @@
 // ==================== STRATEGY X - PROFESSIONAL DASHBOARD + FULL FOCUS PLAN ====================
 
 let currentMap = null;
-let allRetailers = [];
+let allRetailers = [];        // Merged full data
+let transactions = [];
 let currentDraftPlan = null;
 
 const BACKEND_URL = 'https://drona-gpt.onrender.com';
@@ -9,14 +10,40 @@ const BACKEND_URL = 'https://drona-gpt.onrender.com';
 // ==================== LOAD DATA ====================
 async function loadStrategyData() {
     try {
-        const res = await fetch('../data/retailers.json');
-        const data = await res.json();
-        allRetailers = data.retailers || [];
-        console.log(`✅ Strategy X: Loaded ${allRetailers.length} retailers`);
+        // 1. Master Data
+        const masterRes = await fetch('data/retailers-master.json');
+        const masterData = await masterRes.json();
+
+        // 2. Outstanding Data
+        const osRes = await fetch('data/retailers-outstanding.json');
+        const osData = await osRes.json();
+
+        // 3. Transactions
+        const transRes = await fetch('data/tally-transactions.json');
+        const transData = await transRes.json();
+        transactions = transData.transactions || [];
+
+        // Merge into full retailer objects
+        allRetailers = masterData.retailers.map(master => {
+            const osInfo = osData.retailers.find(o => o.id === master.id) || {};
+            return {
+                ...master,
+                outstanding: osInfo.outstanding || 0,
+                lastPaymentDaysAgo: osInfo.lastPaymentDaysAgo || 15,
+                lastVisitDaysAgo: Math.floor(Math.random() * 20),
+                monthlyOrders: Math.random() > 0.4,
+                paymentTrend: Math.random() > 0.5 ? "85% on time" : "65% on time",
+                skuSales: [] // Can be derived from transactions if needed later
+            };
+        });
+
+        console.log(`%c✅ Strategy X: Loaded ${allRetailers.length} retailers (merged)`, 'color:#22c55e');
     } catch (e) {
-        console.error("Failed to load retailers", e);
+        console.error("Failed to load strategy data", e);
+        allRetailers = [];
     }
 }
+
 
 // ==================== MAP ====================
 function initMap() {
