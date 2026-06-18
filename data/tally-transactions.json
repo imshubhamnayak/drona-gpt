@@ -1,4 +1,5 @@
-[
+{
+  "transactions": [
     {
       "id": 10001,
       "retailerId": 1,
@@ -7992,3 +7993,4 @@
       "invoiceNo": "INV-25131"
     }
   ]
+}
