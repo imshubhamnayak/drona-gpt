@@ -78,11 +78,6 @@ function toggleMap() {
         if (currentMap) currentMap.invalidateSize();
     }, 300);
 }
-    // Important: Refresh map size after toggle
-    setTimeout(() => {
-        if (currentMap) currentMap.invalidateSize();
-    }, 300);
-}
 
 // ==================== FOCUS PLAN ====================
 window.createFocusPlanForArea = async function(areaName) {
