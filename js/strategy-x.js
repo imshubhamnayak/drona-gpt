@@ -1,29 +1,25 @@
-// ==================== STRATEGY X - PROFESSIONAL DASHBOARD + FULL FOCUS PLAN ====================
+// ==================== STRATEGY X - PROFESSIONAL DASHBOARD (Fixed & Refactored) ====================
 
 let currentMap = null;
-let allRetailers = [];        // Merged full data
+let allRetailers = [];
 let transactions = [];
 let currentDraftPlan = null;
 
 const BACKEND_URL = 'https://drona-gpt.onrender.com';
 
-// ==================== LOAD DATA ====================
+// ==================== LOAD SPLIT DATA ====================
 async function loadStrategyData() {
     try {
-        // 1. Master Data
         const masterRes = await fetch('data/retailers-master.json');
         const masterData = await masterRes.json();
 
-        // 2. Outstanding Data
         const osRes = await fetch('data/retailers-outstanding.json');
         const osData = await osRes.json();
 
-        // 3. Transactions
         const transRes = await fetch('data/tally-transactions.json');
         const transData = await transRes.json();
         transactions = transData.transactions || [];
 
-        // Merge into full retailer objects
         allRetailers = masterData.retailers.map(master => {
             const osInfo = osData.retailers.find(o => o.id === master.id) || {};
             return {
@@ -33,31 +29,28 @@ async function loadStrategyData() {
                 lastVisitDaysAgo: Math.floor(Math.random() * 20),
                 monthlyOrders: Math.random() > 0.4,
                 paymentTrend: Math.random() > 0.5 ? "85% on time" : "65% on time",
-                skuSales: [] // Can be derived from transactions if needed later
+                skuSales: []
             };
         });
 
-        console.log(`%c✅ Strategy X: Loaded ${allRetailers.length} retailers (merged)`, 'color:#22c55e');
+        console.log(`%c✅ Strategy X: Loaded ${allRetailers.length} retailers`, 'color:#22c55e');
     } catch (e) {
         console.error("Failed to load strategy data", e);
         allRetailers = [];
     }
 }
 
-
 // ==================== MAP ====================
 function initMap() {
     if (currentMap) currentMap.remove();
 
-    currentMap = L.map('strategy-map', {
-        zoomControl: true,
-        attributionControl: false
-    }).setView([12.92, 77.60], 11.5);
+    currentMap = L.map('strategy-map', { zoomControl: true, attributionControl: false })
+        .setView([12.92, 77.60], 11.5);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(currentMap);
 
     drawPerformanceCircles();
-    setTimeout(() => { if (currentMap) currentMap.invalidateSize(); }, 400);
+    setTimeout(() => currentMap.invalidateSize(), 300);
 }
 
 function drawPerformanceCircles() {
@@ -65,7 +58,7 @@ function drawPerformanceCircles() {
 
     const areaData = {};
     allRetailers.forEach(r => {
-        if (!areaData[r.area]) areaData[r.area] = {count:0, totalOS:0, lat:r.lat, lng:r.lng};
+        if (!areaData[r.area]) areaData[r.area] = {count: 0, totalOS: 0, lat: r.lat, lng: r.lng};
         areaData[r.area].count++;
         areaData[r.area].totalOS += (r.outstanding || 0);
     });
@@ -73,7 +66,7 @@ function drawPerformanceCircles() {
     Object.keys(areaData).forEach(area => {
         const d = areaData[area];
         const avgOS = d.totalOS / d.count;
-        let color = avgOS > 35000 ? '#ef4444' : avgOS > 18000 ? '#f59e0b' : '#22c55e';
+        const color = avgOS > 35000 ? '#ef4444' : avgOS > 18000 ? '#f59e0b' : '#22c55e';
 
         L.circle([d.lat, d.lng], {
             radius: 1100,
@@ -87,7 +80,7 @@ function drawPerformanceCircles() {
 }
 
 // ==================== FOCUS PLAN ====================
-window.createFocusPlanForArea = async function(areaName) {
+window.createFocusPlanForArea = function(areaName) {
     const normalized = String(areaName).trim();
     let areaRetailers = allRetailers.filter(r => String(r.area).trim() === normalized);
 
@@ -96,10 +89,10 @@ window.createFocusPlanForArea = async function(areaName) {
         return;
     }
 
-    let regular = areaRetailers.filter(r => r.monthlyOrders === true)
+    let regular = areaRetailers.filter(r => r.monthlyOrders)
         .sort((a, b) => (b.outstanding || 0) - (a.outstanding || 0));
 
-    let others = areaRetailers.filter(r => r.monthlyOrders !== true)
+    let others = areaRetailers.filter(r => !r.monthlyOrders)
         .sort((a, b) => (b.outstanding || 0) - (a.outstanding || 0));
 
     let selected = [
@@ -174,7 +167,7 @@ async function saveDraftToSupabase() {
     if (!currentDraftPlan) return;
 
     const dateInput = document.getElementById('plan-date');
-    const selectedDate = dateInput && dateInput.value ? dateInput.value : new Date().toISOString().split('T')[0];
+    const selectedDate = dateInput?.value || new Date().toISOString().split('T')[0];
 
     closeDraftModal();
 
@@ -202,39 +195,42 @@ async function saveDraftToSupabase() {
             body: JSON.stringify(plan)
         });
 
-        if (!res.ok) throw new Error('Save failed');
-
-        console.log("%c✅ Plan saved for", "color:lime", selectedDate);
-        alert(`✅ Focus Plan saved for ${selectedDate}!`);
-        switchStrategyTab(0);
+        if (res.ok) {
+            console.log("%c✅ Plan saved", "color:lime");
+            alert(`Focus Plan saved for ${selectedDate}`);
+            switchStrategyTab(0);
+        } else {
+            throw new Error('Save failed');
+        }
     } catch (err) {
         console.error(err);
-        alert("Save failed. Check console.");
+        alert("Failed to save plan. Check console.");
     }
 }
 
 // ==================== TAB SYSTEM ====================
 function switchStrategyTab(tab) {
     document.querySelectorAll('[id^="stab-"]').forEach(b => b.classList.remove('tab-active'));
-    document.getElementById(`stab-${tab}`).classList.add('tab-active');
+    const activeTab = document.getElementById(`stab-${tab}`);
+    if (activeTab) activeTab.classList.add('tab-active');
 
     const content = document.getElementById('strategy-tab-content');
+    if (!content) return;
     content.innerHTML = '';
 
     if (tab === 0) showFocusPlans();
     else if (tab === 1) showActiveTargets();
     else if (tab === 2) showTerritories();
 
-    setTimeout(() => { if (currentMap) currentMap.invalidateSize(); }, 100);
+    setTimeout(() => { if (currentMap) currentMap.invalidateSize(); }, 150);
 }
 
-// Focus Plans Tab
 function showFocusPlans() {
     const content = document.getElementById('strategy-tab-content');
     content.innerHTML = `
         <div class="text-center py-12 text-slate-400">
             <p class="text-lg">No Active Focus Plans Yet</p>
-            <p class="text-sm mt-2">Click on any area on the map to create one</p>
+            <p class="text-sm mt-2">Click any area on the map to create one</p>
         </div>
     `;
 }
@@ -243,94 +239,41 @@ function showActiveTargets() {
     const container = document.getElementById('strategy-tab-content');
     if (!container) return;
 
-    // Annual Targets
-    const annualRevenueTarget = 360000000; // ₹3.6 Cr per year (example)
-    let totalRevenueYTD = 0;
-    let totalPCYTD = 0;
-    let totalMGYTD = 0;
-
-    // Monthly Targets (Current month)
-    const monthlyRevenueTarget = 30000000; // ₹30 Cr per month
-    let totalRevenueCurrentMonth = 0; // We'll simulate or use logic later
-
-    allRetailers.forEach(r => {
-        totalRevenueYTD += (r.totalSalesThisYear || 0);
-        const pc = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
-        const mg = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
-        totalPCYTD += pc;
-        totalMGYTD += mg;
-    });
-
+    let totalRevenueYTD = allRetailers.reduce((sum, r) => sum + (r.totalSalesThisYear || 0), 0);
+    const annualRevenueTarget = 360000000;
     const annualRevProgress = Math.min(100, Math.round((totalRevenueYTD / annualRevenueTarget) * 100));
-    const annualPCTarget = 80 * 12 * allRetailers.length; // rough yearly
-    const annualMGTarget = 45 * 12 * allRetailers.length;
 
     let html = `
         <div class="space-y-8">
-            <!-- Overall Annual Target -->
             <div class="bg-gradient-to-r from-emerald-900 to-slate-800 border border-emerald-500 rounded-3xl p-6">
                 <div class="flex justify-between items-start mb-4">
                     <div>
                         <div class="text-emerald-400 font-semibold">OVERALL ANNUAL TARGET</div>
                         <div class="text-3xl font-bold mt-1">₹${(totalRevenueYTD/10000000).toFixed(1)} Cr / ₹36 Cr</div>
                     </div>
-                    <div class="text-right">
-                        <div class="text-emerald-400 text-2xl font-bold">${annualRevProgress}%</div>
-                    </div>
+                    <div class="text-right text-emerald-400 text-2xl font-bold">${annualRevProgress}%</div>
                 </div>
                 <div class="h-4 bg-slate-700 rounded-full overflow-hidden">
                     <div class="h-full bg-emerald-500" style="width: ${annualRevProgress}%"></div>
                 </div>
             </div>
 
-            <!-- Current Month -->
-            <div class="bg-slate-800 rounded-3xl p-6">
-                <div class="text-orange-400 font-semibold mb-4">CURRENT MONTH (June 2026)</div>
-                <div class="grid grid-cols-3 gap-4">
-                    <div>
-                        <div class="text-sm text-slate-400">Revenue</div>
-                        <div class="text-2xl font-bold">₹2.1 Cr</div>
-                        <div class="text-xs text-emerald-400">70% of ₹3 Cr</div>
-                    </div>
-                    <div>
-                        <div class="text-sm text-slate-400">Pressure Cooker</div>
-                        <div class="text-2xl font-bold">920 / 960</div>
-                    </div>
-                    <div>
-                        <div class="text-sm text-slate-400">Mixer Grinder</div>
-                        <div class="text-2xl font-bold">510 / 540</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Retailer-wise -->
             <div class="text-lg font-semibold mb-4">Retailer-wise Progress</div>
             <div class="space-y-6 max-h-[420px] overflow-auto">`;
 
     allRetailers.forEach(r => {
-        const annualRev = r.totalSalesThisYear || 0;
-        const annualRevP = Math.min(100, Math.round((annualRev / 180000) * 100)); // per retailer annual ~1.8L
-
-        const pc = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
-        const mg = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
-
+        const rev = r.totalSalesThisYear || 0;
+        const revP = Math.min(100, Math.round((rev / 180000) * 100));
         html += `
             <div class="bg-slate-800 rounded-3xl p-5">
                 <div class="font-medium">${r.name} <span class="text-xs text-slate-400">(${r.area})</span></div>
-                
-                <div class="mt-4 grid grid-cols-2 gap-6 text-sm">
-                    <div>
-                        <div class="flex justify-between mb-1">
-                            <span>Annual Revenue</span>
-                            <span>₹${(annualRev/100000).toFixed(1)}L / ₹1.8L</span>
-                        </div>
-                        <div class="h-2.5 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-emerald-500" style="width: ${annualRevP}%"></div>
-                        </div>
+                <div class="mt-4">
+                    <div class="flex justify-between mb-1 text-sm">
+                        <span>Annual Revenue</span>
+                        <span>₹${(rev/100000).toFixed(1)}L / ₹1.8L</span>
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>PC: ${pc}/80</div>
-                        <div>MG: ${mg}/45</div>
+                    <div class="h-2.5 bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-emerald-500" style="width: ${revP}%"></div>
                     </div>
                 </div>
             </div>`;
@@ -340,7 +283,6 @@ function showActiveTargets() {
     container.innerHTML = html;
 }
 
-// Territories Tab
 function showTerritories() {
     const container = document.getElementById('strategy-tab-content');
     const areas = {};
@@ -358,12 +300,12 @@ function showTerritories() {
     container.innerHTML = html;
 }
 
-// Initialize
+// ==================== INITIALIZE ====================
 async function initializeStrategyX() {
     await loadStrategyData();
     initMap();
     switchStrategyTab(0);
-    console.log("%c✅ Strategy X Professional Dashboard Ready", "color:#22c55e");
+    console.log("%c✅ Strategy X Ready", "color:#22c55e");
 }
 
 // Global Exports
