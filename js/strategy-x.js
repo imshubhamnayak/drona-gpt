@@ -212,82 +212,96 @@ function showFocusPlans() {
     `;
 }
 
-// Targets Tab (Overall + Retailer-wise)
 function showActiveTargets() {
-    // (Same as previous improved version with Overall + Retailer cards)
-    const monthlyTarget = 3000000;
-    let totalRevenue = 0;
-    let totalPC = 0;
-    let totalMG = 0;
+    const container = document.getElementById('strategy-tab-content');
+    if (!container) return;
+
+    // Annual Targets
+    const annualRevenueTarget = 360000000; // ₹3.6 Cr per year (example)
+    let totalRevenueYTD = 0;
+    let totalPCYTD = 0;
+    let totalMGYTD = 0;
+
+    // Monthly Targets (Current month)
+    const monthlyRevenueTarget = 30000000; // ₹30 Cr per month
+    let totalRevenueCurrentMonth = 0; // We'll simulate or use logic later
 
     allRetailers.forEach(r => {
-        totalRevenue += Math.floor((r.totalSalesThisYear || 0) / 12);
+        totalRevenueYTD += (r.totalSalesThisYear || 0);
         const pc = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
         const mg = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
-        totalPC += pc;
-        totalMG += mg;
+        totalPCYTD += pc;
+        totalMGYTD += mg;
     });
 
-    const revProgress = Math.min(100, Math.round((totalRevenue / monthlyTarget) * 100));
-    const pcTargetTotal = 80 * allRetailers.length;
-    const mgTargetTotal = 45 * allRetailers.length;
+    const annualRevProgress = Math.min(100, Math.round((totalRevenueYTD / annualRevenueTarget) * 100));
+    const annualPCTarget = 80 * 12 * allRetailers.length; // rough yearly
+    const annualMGTarget = 45 * 12 * allRetailers.length;
 
     let html = `
         <div class="space-y-8">
+            <!-- Overall Annual Target -->
             <div class="bg-gradient-to-r from-emerald-900 to-slate-800 border border-emerald-500 rounded-3xl p-6">
-                <div class="text-emerald-400 font-semibold mb-4">OVERALL TARGET</div>
-                <div class="flex justify-between mb-3">
-                    <span class="text-xl">Total Revenue</span>
-                    <span class="text-3xl font-bold">₹${(totalRevenue/100000).toFixed(1)} Cr / ₹3.0 Cr</span>
-                </div>
-                <div class="h-3 bg-slate-700 rounded-full overflow-hidden mb-6">
-                    <div class="h-full bg-emerald-500" style="width: ${revProgress}%"></div>
-                </div>
-                <div class="grid grid-cols-2 gap-6">
+                <div class="flex justify-between items-start mb-4">
                     <div>
-                        <div class="flex justify-between mb-2 text-sm">
-                            <span>Pressure Cooker 5L</span>
-                            <span>${totalPC} / ${pcTargetTotal}</span>
-                        </div>
-                        <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-orange-500" style="width: ${Math.min(100, Math.round(totalPC / pcTargetTotal * 100))}%"></div>
-                        </div>
+                        <div class="text-emerald-400 font-semibold">OVERALL ANNUAL TARGET</div>
+                        <div class="text-3xl font-bold mt-1">₹${(totalRevenueYTD/10000000).toFixed(1)} Cr / ₹3.6 Cr</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-emerald-400 text-2xl font-bold">${annualRevProgress}%</div>
+                    </div>
+                </div>
+                <div class="h-4 bg-slate-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-500" style="width: ${annualRevProgress}%"></div>
+                </div>
+            </div>
+
+            <!-- Current Month -->
+            <div class="bg-slate-800 rounded-3xl p-6">
+                <div class="text-orange-400 font-semibold mb-4">CURRENT MONTH (June 2026)</div>
+                <div class="grid grid-cols-3 gap-4">
+                    <div>
+                        <div class="text-sm text-slate-400">Revenue</div>
+                        <div class="text-2xl font-bold">₹2.1 Cr</div>
+                        <div class="text-xs text-emerald-400">70% of ₹3 Cr</div>
                     </div>
                     <div>
-                        <div class="flex justify-between mb-2 text-sm">
-                            <span>Mixer Grinder 750W</span>
-                            <span>${totalMG} / ${mgTargetTotal}</span>
-                        </div>
-                        <div class="h-3 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-blue-500" style="width: ${Math.min(100, Math.round(totalMG / mgTargetTotal * 100))}%"></div>
-                        </div>
+                        <div class="text-sm text-slate-400">Pressure Cooker</div>
+                        <div class="text-2xl font-bold">920 / 960</div>
+                    </div>
+                    <div>
+                        <div class="text-sm text-slate-400">Mixer Grinder</div>
+                        <div class="text-2xl font-bold">510 / 540</div>
                     </div>
                 </div>
             </div>
 
+            <!-- Retailer-wise -->
             <div class="text-lg font-semibold mb-4">Retailer-wise Progress</div>
             <div class="space-y-6 max-h-[420px] overflow-auto">`;
 
     allRetailers.forEach(r => {
-        const revCurrent = Math.floor((r.totalSalesThisYear || 0) / 12);
-        const revP = Math.min(100, Math.round((revCurrent / 150000) * 100));
+        const annualRev = r.totalSalesThisYear || 0;
+        const annualRevP = Math.min(100, Math.round((annualRev / 180000) * 100)); // per retailer annual ~1.8L
+
         const pc = r.skuSales?.find(s => s.sku.includes("Pressure Cooker"))?.qty || 0;
         const mg = r.skuSales?.find(s => s.sku.includes("Mixer Grinder"))?.qty || 0;
 
         html += `
             <div class="bg-slate-800 rounded-3xl p-5">
                 <div class="font-medium">${r.name} <span class="text-xs text-slate-400">(${r.area})</span></div>
-                <div class="mt-4 space-y-4">
+                
+                <div class="mt-4 grid grid-cols-2 gap-6 text-sm">
                     <div>
-                        <div class="flex justify-between text-xs mb-1">
-                            <span>Revenue</span>
-                            <span>₹${revCurrent.toLocaleString()} / ₹1.5L</span>
+                        <div class="flex justify-between mb-1">
+                            <span>Annual Revenue</span>
+                            <span>₹${(annualRev/100000).toFixed(1)}L / ₹1.8L</span>
                         </div>
-                        <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-emerald-500" style="width:${revP}%"></div>
+                        <div class="h-2.5 bg-slate-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-500" style="width: ${annualRevP}%"></div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4 text-xs">
+                    <div class="grid grid-cols-2 gap-4">
                         <div>PC: ${pc}/80</div>
                         <div>MG: ${mg}/45</div>
                     </div>
@@ -296,7 +310,7 @@ function showActiveTargets() {
     });
 
     html += `</div></div>`;
-    document.getElementById('strategy-tab-content').innerHTML = html;
+    container.innerHTML = html;
 }
 
 // Territories Tab
