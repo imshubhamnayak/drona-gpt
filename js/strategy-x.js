@@ -312,16 +312,20 @@ async function initializeStrategyX() {
     console.log("%c✅ Strategy X Fully Ready", "color:#22c55e");
 }
 
-// FORCE GLOBAL EXPORTS
+// ==================== FORCE GLOBAL REGISTRATION ====================
+console.log("%c[Strategy X] Registering all functions to window...", "color:#eab308");
+
 window.initializeStrategyX = initializeStrategyX;
 window.switchStrategyTab = switchStrategyTab;
 window.createFocusPlanForArea = createFocusPlanForArea;
 window.saveDraftToSupabase = saveDraftToSupabase;
 window.closeDraftModal = closeDraftModal;
 
-// Auto run if possible
+// Auto init if map element exists
 if (document.getElementById('strategy-map')) {
-    setTimeout(initializeStrategyX, 300);
+    setTimeout(() => {
+        if (typeof initializeStrategyX === 'function') initializeStrategyX();
+    }, 100);
 }
 
-console.log("%c[Strategy X] Script fully loaded and exported", "color:lime");
+console.log("%c[Strategy X] Fully registered and ready", "color:lime");
