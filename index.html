@@ -51,12 +51,12 @@
                         <i class="fa-solid fa-comments"></i>
                         <span class="hidden sm:inline">Drona GPT</span>
                     </button>
-                  <button onclick="switchTab('strategy-x')"
-                      id="tab-strategy-x"
-                      class="px-5 md:px-6 py-2 text-sm font-medium flex items-center gap-x-2 hover:bg-slate-700 rounded-2xl transition-all">
-                      <i class="fa-solid fa-map-marked"></i>
-                      <span class="hidden sm:inline">Strategy X</span>
-                  </button>
+               <button onclick="forceLoadStrategyX()" 
+        id="tab-strategy-x"
+        class="px-5 md:px-6 py-2 text-sm font-medium flex items-center gap-x-2 hover:bg-slate-700 rounded-2xl transition-all">
+    <i class="fa-solid fa-map-marked"></i>
+    <span class="hidden sm:inline">Strategy X</span>
+</button>
                 </div>
 
                 <!-- User Info -->
@@ -205,21 +205,27 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
       <!-- Main Scripts -->
-        <script src="js/main.js"></script>
-    <script src="js/strategy-x.js"></script>
+      <script src="js/main.js"></script>
+<script src="js/strategy-x.js"></script>
 
-    <!-- EMERGENCY FIX -->
-    <script>
-        console.log("%c[Emergency Fix] Running...", "color:red; font-weight:bold");
-
-        window.addEventListener('load', function() {
-            // Force attach all functions
-            if (typeof initializeStrategyX === 'function') window.initializeStrategyX = initializeStrategyX;
-            if (typeof switchStrategyTab === 'function') window.switchStrategyTab = switchStrategyTab;
-            if (typeof createFocusPlanForArea === 'function') window.createFocusPlanForArea = createFocusPlanForArea;
-            
-            console.log("%c[Emergency Fix] Functions attached", "color:lime");
-        });
-    </script>
+<script>
+    // EMERGENCY FORCE LOAD
+    window.forceLoadStrategyX = function() {
+        console.log("%c[Force Load] Strategy X called manually", "color:red; font-weight:bold");
+        
+        const strategyView = document.getElementById('strategy-x-view');
+        const dronaView = document.getElementById('drona-gpt-view');
+        
+        dronaView.classList.add('hidden');
+        strategyView.classList.remove('hidden');
+        
+        // Force init
+        if (typeof window.initializeStrategyX === 'function') {
+            window.initializeStrategyX();
+        } else {
+            console.error("initializeStrategyX still not available");
+        }
+    };
+</script>
 </body>
 </html>
