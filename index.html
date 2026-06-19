@@ -204,18 +204,20 @@
     <!-- Leaflet JS (for Map) -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
-    <!-- Main App Logic -->
+      <!-- Main Scripts -->
     <script src="js/main.js"></script>
-    
-    <!-- Strategy X Logic -->
     <script src="js/strategy-x.js"></script>
 
+    <!-- Safety Net -->
     <script>
-        // Final safety net - force initialization
+        console.log("%c[Index] All scripts loaded - forcing Strategy X init", "color:orange");
+        
+        // Force Strategy X to initialize when tab is clicked
         window.addEventListener('load', () => {
-            console.log("%c[Index] All scripts loaded. Forcing Strategy X init...", "color:orange");
             if (typeof window.initializeStrategyX === 'function') {
-                window.initializeStrategyX();
+                console.log("%c[Index] Strategy X ready", "color:lime");
+            } else {
+                console.error("Strategy X did not load properly");
             }
         });
     </script>
