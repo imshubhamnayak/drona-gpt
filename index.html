@@ -209,5 +209,15 @@
     
     <!-- Strategy X Logic -->
     <script src="js/strategy-x.js"></script>
+
+    <script>
+        // Final safety net - force initialization
+        window.addEventListener('load', () => {
+            console.log("%c[Index] All scripts loaded. Forcing Strategy X init...", "color:orange");
+            if (typeof window.initializeStrategyX === 'function') {
+                window.initializeStrategyX();
+            }
+        });
+    </script>
 </body>
 </html>
