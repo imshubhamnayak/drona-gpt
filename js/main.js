@@ -225,13 +225,16 @@ function switchTab(tab) {
         tabDrona.classList.remove('tab-active');
         tabStrategy.classList.add('tab-active');
         updateUserHeader('Admin', 'Owner');
-           // Initialize Strategy X when switching
-        if (window.initializeStrategyX && !window.strategyXInitialized) {
-            setTimeout(() => {
+         // FORCE Strategy X initialization
+        setTimeout(() => {
+            if (window.initializeStrategyX) {
                 window.initializeStrategyX();
-                window.strategyXInitialized = true;
-            }, 300);
-        }
+            } else {
+                console.error("Strategy X not loaded yet");
+            }
+        }, 100);
+    }
+    
     }
 }
 
