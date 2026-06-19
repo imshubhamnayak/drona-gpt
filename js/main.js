@@ -207,7 +207,8 @@ function updateUserHeader(name, role) {
     `;
 }
 
-function switchTab(tab) {
+// FIXED Tab Switcher in main.js
+window.switchTab = function(tab) {
     const dronaView = document.getElementById('drona-gpt-view');
     const strategyView = document.getElementById('strategy-x-view');
     const tabDrona = document.getElementById('tab-drona-gpt');
@@ -225,14 +226,15 @@ function switchTab(tab) {
         tabDrona.classList.remove('tab-active');
         tabStrategy.classList.add('tab-active');
         updateUserHeader('Admin', 'Owner');
-         // FORCE Strategy X initialization
+
+        // Robust Strategy X initialization
         setTimeout(() => {
-            if (window.initializeStrategyX) {
+            if (typeof window.initializeStrategyX === 'function') {
                 window.initializeStrategyX();
             } else {
-                console.error("Strategy X not loaded yet");
+                console.error("Strategy X script not loaded - check script order in index.html");
             }
-        }, 100);
+        }, 50);
     }
 };
 
