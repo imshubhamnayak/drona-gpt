@@ -205,21 +205,25 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
       <!-- Main Scripts -->
-    <script src="js/main.js"></script>
+      <script src="js/main.js"></script>
     <script src="js/strategy-x.js"></script>
 
-    <!-- Safety Net -->
+    <!-- FINAL SAFETY NET -->
     <script>
-        console.log("%c[Index] All scripts loaded - forcing Strategy X init", "color:orange");
-        
-        // Force Strategy X to initialize when tab is clicked
-        window.addEventListener('load', () => {
+        console.log("%c[Index Safety] All scripts loaded", "color:orange");
+
+        // Force Strategy X initialization
+        function forceStrategyX() {
             if (typeof window.initializeStrategyX === 'function') {
-                console.log("%c[Index] Strategy X ready", "color:lime");
+                console.log("%c[Index] Forcing Strategy X init...", "color:lime");
+                window.initializeStrategyX();
             } else {
-                console.error("Strategy X did not load properly");
+                console.error("Strategy X still not loaded");
             }
-        });
+        }
+
+        // Run on tab click + page load
+        window.addEventListener('load', forceStrategyX);
     </script>
 </body>
 </html>
