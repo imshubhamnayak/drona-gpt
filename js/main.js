@@ -234,7 +234,7 @@ function switchTab(tab) {
             }
         }, 100);
     }
-}
+};
 
 function openRetailerSearch() {
     const modal = document.createElement('div');
