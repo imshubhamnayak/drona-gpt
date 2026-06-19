@@ -1,4 +1,5 @@
 // ==================== STRATEGY X - PROFESSIONAL DASHBOARD (Fixed & Refactored) ====================
+console.log("%c[Strategy X] Script starting...", "color:#eab308");
 
 let currentMap = null;
 let allRetailers = [];
@@ -7,7 +8,6 @@ let currentDraftPlan = null;
 
 const BACKEND_URL = 'https://drona-gpt.onrender.com';
 
-// ==================== LOAD SPLIT DATA ====================
 async function loadStrategyData() {
     try {
         const [masterRes, osRes, transRes] = await Promise.all([
@@ -36,35 +36,22 @@ async function loadStrategyData() {
         });
 
         console.log(`%c✅ Strategy X: Loaded ${allRetailers.length} retailers`, 'color:#22c55e');
-        return true;
     } catch (e) {
         console.error("Failed to load strategy data", e);
         allRetailers = [];
-        return false;
     }
 }
 
-// ==================== MAP ====================
+// Map
 function initMap() {
     if (currentMap) currentMap.remove();
+    const mapEl = document.getElementById('strategy-map');
+    if (!mapEl) return console.error("Map element not found");
 
-    const mapContainer = document.getElementById('strategy-map');
-    if (!mapContainer) {
-        console.error("Map container not found");
-        return;
-    }
-
-    currentMap = L.map('strategy-map', { 
-        zoomControl: true, 
-        attributionControl: false 
-    }).setView([12.92, 77.60], 11.5);
-
+    currentMap = L.map('strategy-map', { zoomControl: true }).setView([12.92, 77.60], 11.5);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(currentMap);
-
     drawPerformanceCircles();
-    setTimeout(() => {
-        if (currentMap) currentMap.invalidateSize();
-    }, 400);
+    setTimeout(() => currentMap.invalidateSize(), 400);
 }
 
 function drawPerformanceCircles() {
@@ -317,31 +304,24 @@ function showTerritories() {
     container.innerHTML = html;
 }
 
-// ==================== INITIALIZE ====================
 async function initializeStrategyX() {
-    console.log("%c[Strategy X] Initializing with split JSONs...", "color:#eab308");
-    
-    const success = await loadStrategyData();
-    if (success && document.getElementById('strategy-map')) {
-        initMap();
-    }
-    
+    console.log("%c[Strategy X] Initializing...", "color:#eab308");
+    await loadStrategyData();
+    initMap();
     switchStrategyTab(0);
     console.log("%c✅ Strategy X Fully Ready", "color:#22c55e");
 }
 
-// ==================== FORCE GLOBAL EXPORTS ====================
-console.log("%c[Strategy X] Registering global functions...", "color:#eab308");
-
+// FORCE GLOBAL EXPORTS
 window.initializeStrategyX = initializeStrategyX;
 window.switchStrategyTab = switchStrategyTab;
 window.createFocusPlanForArea = createFocusPlanForArea;
 window.saveDraftToSupabase = saveDraftToSupabase;
 window.closeDraftModal = closeDraftModal;
 
-// Auto-init safety
-setTimeout(() => {
-    if (document.getElementById('strategy-map') && typeof initializeStrategyX === 'function') {
-        initializeStrategyX();
-    }
-}, 500);
+// Auto run if possible
+if (document.getElementById('strategy-map')) {
+    setTimeout(initializeStrategyX, 300);
+}
+
+console.log("%c[Strategy X] Script fully loaded and exported", "color:lime");
