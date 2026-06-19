@@ -234,8 +234,6 @@ function switchTab(tab) {
             }
         }, 100);
     }
-    
-    }
 }
 
 function openRetailerSearch() {
