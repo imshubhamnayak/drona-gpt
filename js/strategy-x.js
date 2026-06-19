@@ -10,14 +10,16 @@ const BACKEND_URL = 'https://drona-gpt.onrender.com';
 // ==================== LOAD SPLIT DATA ====================
 async function loadStrategyData() {
     try {
-        const masterRes = await fetch('data/retailers-master.json');
+        const [masterRes, osRes, transRes] = await Promise.all([
+            fetch('data/retailers-master.json'),
+            fetch('data/retailers-outstanding.json'),
+            fetch('data/tally-transactions.json')
+        ]);
+
         const masterData = await masterRes.json();
-
-        const osRes = await fetch('data/retailers-outstanding.json');
         const osData = await osRes.json();
-
-        const transRes = await fetch('data/tally-transactions.json');
         const transData = await transRes.json();
+
         transactions = transData.transactions || [];
 
         allRetailers = masterData.retailers.map(master => {
@@ -34,9 +36,11 @@ async function loadStrategyData() {
         });
 
         console.log(`%c✅ Strategy X: Loaded ${allRetailers.length} retailers`, 'color:#22c55e');
+        return true;
     } catch (e) {
         console.error("Failed to load strategy data", e);
         allRetailers = [];
+        return false;
     }
 }
 
@@ -44,21 +48,36 @@ async function loadStrategyData() {
 function initMap() {
     if (currentMap) currentMap.remove();
 
-    currentMap = L.map('strategy-map', { zoomControl: true, attributionControl: false })
-        .setView([12.92, 77.60], 11.5);
+    const mapContainer = document.getElementById('strategy-map');
+    if (!mapContainer) {
+        console.error("Map container not found");
+        return;
+    }
+
+    currentMap = L.map('strategy-map', { 
+        zoomControl: true, 
+        attributionControl: false 
+    }).setView([12.92, 77.60], 11.5);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(currentMap);
 
     drawPerformanceCircles();
-    setTimeout(() => currentMap.invalidateSize(), 300);
+    setTimeout(() => {
+        if (currentMap) currentMap.invalidateSize();
+    }, 400);
 }
 
 function drawPerformanceCircles() {
-    if (!currentMap || !allRetailers.length) return;
+    if (!currentMap || !allRetailers.length) {
+        console.warn("Map or retailers not ready");
+        return;
+    }
 
     const areaData = {};
     allRetailers.forEach(r => {
-        if (!areaData[r.area]) areaData[r.area] = {count: 0, totalOS: 0, lat: r.lat, lng: r.lng};
+        if (!areaData[r.area]) {
+            areaData[r.area] = {count: 0, totalOS: 0, lat: r.lat, lng: r.lng};
+        }
         areaData[r.area].count++;
         areaData[r.area].totalOS += (r.outstanding || 0);
     });
@@ -78,7 +97,6 @@ function drawPerformanceCircles() {
           .bindPopup(`<b>${area}</b><br>Avg OS: ₹${Math.round(avgOS).toLocaleString()}`);
     });
 }
-
 // ==================== FOCUS PLAN ====================
 window.createFocusPlanForArea = function(areaName) {
     const normalized = String(areaName).trim();
@@ -208,7 +226,7 @@ async function saveDraftToSupabase() {
     }
 }
 
-// ==================== TAB SYSTEM ====================
+// tab switching
 function switchStrategyTab(tab) {
     document.querySelectorAll('[id^="stab-"]').forEach(b => b.classList.remove('tab-active'));
     const activeTab = document.getElementById(`stab-${tab}`);
@@ -222,7 +240,7 @@ function switchStrategyTab(tab) {
     else if (tab === 1) showActiveTargets();
     else if (tab === 2) showTerritories();
 
-    setTimeout(() => { if (currentMap) currentMap.invalidateSize(); }, 150);
+    setTimeout(() => { if (currentMap) currentMap.invalidateSize(); }, 200);
 }
 
 function showFocusPlans() {
@@ -300,17 +318,15 @@ function showTerritories() {
 }
 
 // ==================== INITIALIZE ====================
-// Force reload data when Strategy X opens
 async function initializeStrategyX() {
-    console.log("%c[Strategy X] Initializing...", "color:#eab308");
+    console.log("%c[Strategy X] Initializing with split JSONs...", "color:#eab308");
     
-    await loadStrategyData();
-    
-    if (document.getElementById('strategy-map')) {
+    const success = await loadStrategyData();
+    if (success && document.getElementById('strategy-map')) {
         initMap();
     }
     
-    switchStrategyTab(0);   // Default to Focus Plans tab
+    switchStrategyTab(0);
     console.log("%c✅ Strategy X Fully Ready", "color:#22c55e");
 }
 
