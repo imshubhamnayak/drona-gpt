@@ -300,11 +300,18 @@ function showTerritories() {
 }
 
 // ==================== INITIALIZE ====================
+// Force reload data when Strategy X opens
 async function initializeStrategyX() {
+    console.log("%c[Strategy X] Initializing...", "color:#eab308");
+    
     await loadStrategyData();
-    initMap();
-    switchStrategyTab(0);
-    console.log("%c✅ Strategy X Ready", "color:#22c55e");
+    
+    if (document.getElementById('strategy-map')) {
+        initMap();
+    }
+    
+    switchStrategyTab(0);   // Default to Focus Plans tab
+    console.log("%c✅ Strategy X Fully Ready", "color:#22c55e");
 }
 
 // Global Exports
