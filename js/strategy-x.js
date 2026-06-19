@@ -10,61 +10,62 @@ const BACKEND_URL = 'https://drona-gpt.onrender.com';
 
 async function loadStrategyData() {
     try {
-        const [masterRes, osRes, transRes] = await Promise.all([
-            fetch('data/retailers-master.json'),
-            fetch('data/retailers-outstanding.json'),
-            fetch('data/tally-transactions.json')
-        ]);
-
+        // 1. Load Master Data FIRST for Map
+        const masterRes = await fetch('data/retailers-master.json');
         const masterData = await masterRes.json();
+
+        allRetailers = masterData.retailers.map(master => ({
+            ...master,
+            outstanding: 0,
+            lastPaymentDaysAgo: 15,
+            lastVisitDaysAgo: Math.floor(Math.random() * 20),
+            monthlyOrders: Math.random() > 0.4,
+            paymentTrend: "70% on time",
+            skuSales: []
+        }));
+
+        console.log(`%c✅ Map Ready - Loaded ${allRetailers.length} retailers from master`, 'color:#22c55e');
+
+        // 2. Load Outstanding (for focus plans)
+        const osRes = await fetch('data/retailers-outstanding.json');
         const osData = await osRes.json();
-        const transData = await transRes.json();
 
-        transactions = transData.transactions || [];
-
-        allRetailers = masterData.retailers.map(master => {
-            const osInfo = osData.retailers.find(o => o.id === master.id) || {};
-            return {
-                ...master,
-                outstanding: osInfo.outstanding || 0,
-                lastPaymentDaysAgo: osInfo.lastPaymentDaysAgo || 15,
-                lastVisitDaysAgo: Math.floor(Math.random() * 20),
-                monthlyOrders: Math.random() > 0.4,
-                paymentTrend: Math.random() > 0.5 ? "85% on time" : "65% on time",
-                skuSales: []
-            };
+        allRetailers.forEach(r => {
+            const osInfo = osData.retailers.find(o => o.id === r.id) || {};
+            r.outstanding = osInfo.outstanding || 0;
+            r.lastPaymentDaysAgo = osInfo.lastPaymentDaysAgo || 15;
         });
 
-        console.log(`%c✅ Strategy X: Loaded ${allRetailers.length} retailers`, 'color:#22c55e');
+        // 3. Load Transactions (for targets)
+        const transRes = await fetch('data/tally-transactions.json');
+        const transData = await transRes.json();
+        transactions = transData.transactions || [];
+
+        console.log(`%c✅ Full data loaded for Strategy X`, 'color:lime');
     } catch (e) {
-        console.error("Failed to load strategy data", e);
-        allRetailers = [];
+        console.error("Data load failed", e);
     }
 }
 
-// Map
+// ==================== MAP ====================
 function initMap() {
     if (currentMap) currentMap.remove();
-    const mapEl = document.getElementById('strategy-map');
-    if (!mapEl) return console.error("Map element not found");
 
-    currentMap = L.map('strategy-map', { zoomControl: true }).setView([12.92, 77.60], 11.5);
+    currentMap = L.map('strategy-map', { zoomControl: true, attributionControl: false })
+        .setView([12.92, 77.60], 11.5);
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(currentMap);
+
     drawPerformanceCircles();
-    setTimeout(() => currentMap.invalidateSize(), 400);
+    setTimeout(() => { if (currentMap) currentMap.invalidateSize(); }, 300);
 }
 
 function drawPerformanceCircles() {
-    if (!currentMap || !allRetailers.length) {
-        console.warn("Map or retailers not ready");
-        return;
-    }
+    if (!currentMap || !allRetailers.length) return;
 
     const areaData = {};
     allRetailers.forEach(r => {
-        if (!areaData[r.area]) {
-            areaData[r.area] = {count: 0, totalOS: 0, lat: r.lat, lng: r.lng};
-        }
+        if (!areaData[r.area]) areaData[r.area] = {count:0, totalOS:0, lat:r.lat, lng:r.lng};
         areaData[r.area].count++;
         areaData[r.area].totalOS += (r.outstanding || 0);
     });
@@ -313,19 +314,9 @@ async function initializeStrategyX() {
 }
 
 // ==================== FORCE GLOBAL REGISTRATION ====================
-console.log("%c[Strategy X] Registering all functions to window...", "color:#eab308");
 
 window.initializeStrategyX = initializeStrategyX;
 window.switchStrategyTab = switchStrategyTab;
 window.createFocusPlanForArea = createFocusPlanForArea;
 window.saveDraftToSupabase = saveDraftToSupabase;
 window.closeDraftModal = closeDraftModal;
-
-// Auto init if map element exists
-if (document.getElementById('strategy-map')) {
-    setTimeout(() => {
-        if (typeof initializeStrategyX === 'function') initializeStrategyX();
-    }, 100);
-}
-
-console.log("%c[Strategy X] Fully registered and ready", "color:lime");
