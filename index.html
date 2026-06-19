@@ -205,25 +205,21 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
       <!-- Main Scripts -->
-      <script src="js/main.js"></script>
+        <script src="js/main.js"></script>
     <script src="js/strategy-x.js"></script>
 
-    <!-- FINAL SAFETY NET -->
+    <!-- EMERGENCY FIX -->
     <script>
-        console.log("%c[Index Safety] All scripts loaded", "color:orange");
+        console.log("%c[Emergency Fix] Running...", "color:red; font-weight:bold");
 
-        // Force Strategy X initialization
-        function forceStrategyX() {
-            if (typeof window.initializeStrategyX === 'function') {
-                console.log("%c[Index] Forcing Strategy X init...", "color:lime");
-                window.initializeStrategyX();
-            } else {
-                console.error("Strategy X still not loaded");
-            }
-        }
-
-        // Run on tab click + page load
-        window.addEventListener('load', forceStrategyX);
+        window.addEventListener('load', function() {
+            // Force attach all functions
+            if (typeof initializeStrategyX === 'function') window.initializeStrategyX = initializeStrategyX;
+            if (typeof switchStrategyTab === 'function') window.switchStrategyTab = switchStrategyTab;
+            if (typeof createFocusPlanForArea === 'function') window.createFocusPlanForArea = createFocusPlanForArea;
+            
+            console.log("%c[Emergency Fix] Functions attached", "color:lime");
+        });
     </script>
 </body>
 </html>
