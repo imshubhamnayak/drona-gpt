@@ -10,20 +10,18 @@ const GROQ_API_KEY = "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";
 // Load Retailers
 async function loadRetailers() {
     try {
-        // 1. Master Data (name, area, lat, lng)
-        const masterRes = await fetch('data/retailers-master.json');
+        const [masterRes, osRes, transRes] = await Promise.all([
+            fetch('data/retailers-master.json'),
+            fetch('data/retailers-outstanding.json'),
+            fetch('data/tally-transactions.json')
+        ]);
+
         const masterData = await masterRes.json();
-
-        // 2. Outstanding Data
-        const osRes = await fetch('data/retailers-outstanding.json');
         const osData = await osRes.json();
-
-        // 3. Transactions
-        const transRes = await fetch('data/tally-transactions.json');
         const transData = await transRes.json();
+
         transactions = transData.transactions || [];
 
-        // Merge
         retailers = masterData.retailers.map(master => {
             const osInfo = osData.retailers.find(o => o.id === master.id) || {};
             return {
@@ -32,20 +30,14 @@ async function loadRetailers() {
                 lastPaymentDaysAgo: osInfo.lastPaymentDaysAgo || 15,
                 lastVisitDaysAgo: Math.floor(Math.random() * 20),
                 monthlyOrders: Math.random() > 0.4,
-                paymentTrend: Math.random() > 0.5 ? "85% on time" : "65% on time",
-                skuSales: [] // Can calculate from transactions if needed
+                paymentTrend: Math.random() > 0.5 ? "85% on time" : "65% on time"
             };
         });
 
-        console.log(`%c✅ Loaded ${retailers.length} retailers (merged from 3 files)`, 'color:#22c55e');
+        console.log(`✅ Loaded ${retailers.length} retailers`);
     } catch (e) {
-        console.error("Failed to load data", e);
-        retailers = [];
+        console.error("Data load failed", e);
     }
-}
-
-function getRetailerById(id) {
-    return retailers.find(r => r.id === id);
 }
 
 // Dynamic Greeting
@@ -313,73 +305,24 @@ async function showMyTargets() {
 
 async function renderMyTargets() {
     const container = document.getElementById('my-targets-content');
-    if (!container || !allRetailers.length) {
-        container.innerHTML = `<div class="text-center py-12 text-slate-400">Loading targets...</div>`;
-        return;
-    }
+    if (!container) return;
 
-    // Calculate from transactions (since we have raw data now)
-    const monthlyRevenueTarget = 30000000; // ₹3 Cr
-    let totalRevenueCurrent = 0;
-    let totalPC = 0;
-    let totalMG = 0;
-
-    // Aggregate from transactions (last 30 days simulation)
-    const now = new Date();
-    const oneMonthAgo = new Date(now.getFullYear(), now.getMonth()-1, now.getDate());
-
-    transactions.forEach(t => {
-        const tDate = new Date(t.date);
-        if (tDate >= oneMonthAgo) {
-            totalRevenueCurrent += t.value || 0;
-            if (t.sku.includes("Pressure Cooker")) totalPC += t.qty || 0;
-            if (t.sku.includes("Mixer Grinder")) totalMG += t.qty || 0;
-        }
-    });
-
-    const revenueProgress = Math.min(100, Math.round((totalRevenueCurrent / monthlyRevenueTarget) * 100));
+    let totalRevenue = retailers.reduce((sum, r) => sum + (r.totalSalesThisYear || 0), 0);
 
     let html = `
         <div class="space-y-8">
-            <!-- Overall Monthly Target -->
             <div class="bg-gradient-to-r from-emerald-900 to-slate-800 border border-emerald-500 rounded-3xl p-6">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <div class="text-emerald-400 font-semibold">MONTHLY TARGET (June 2026)</div>
-                        <div class="text-3xl font-bold mt-1">₹${(totalRevenueCurrent/10000000).toFixed(1)} Cr / ₹3 Cr</div>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-emerald-400 text-2xl font-bold">${revenueProgress}%</div>
-                    </div>
-                </div>
-                <div class="h-4 bg-slate-700 rounded-full overflow-hidden">
-                    <div class="h-full bg-emerald-500" style="width: ${revenueProgress}%"></div>
-                </div>
+                <div class="text-emerald-400 font-semibold">MONTHLY TARGET</div>
+                <div class="text-3xl font-bold">₹${(totalRevenue/10000000).toFixed(1)} Cr / ₹3 Cr</div>
             </div>
+            <div class="text-lg font-semibold">Retailer Progress</div>
+            <div class="space-y-4">`;
 
-            <!-- SKU Targets -->
-            <div class="grid grid-cols-2 gap-6">
-                <div class="bg-slate-800 rounded-3xl p-6">
-                    <div class="text-orange-400 font-medium">Pressure Cooker 5L</div>
-                    <div class="text-4xl font-bold mt-2">${totalPC}</div>
-                    <div class="text-sm text-slate-400">/ 960 units</div>
-                </div>
-                <div class="bg-slate-800 rounded-3xl p-6">
-                    <div class="text-blue-400 font-medium">Mixer Grinder 750W</div>
-                    <div class="text-4xl font-bold mt-2">${totalMG}</div>
-                    <div class="text-sm text-slate-400">/ 540 units</div>
-                </div>
-            </div>
-
-            <!-- Retailer-wise -->
-            <div class="text-lg font-semibold mb-4">Retailer Progress</div>
-            <div class="space-y-6 max-h-[380px] overflow-auto">`;
-
-    allRetailers.forEach(r => {
+    retailers.forEach(r => {
         html += `
-            <div class="bg-slate-800 rounded-3xl p-5">
-                <div class="font-medium">${r.name} <span class="text-xs text-slate-400">(${r.area})</span></div>
-                <div class="mt-3 text-sm text-slate-400">Outstanding: ₹${(r.outstanding || 0).toLocaleString()}</div>
+            <div class="bg-slate-800 p-4 rounded-2xl">
+                <div>${r.name} (${r.area})</div>
+                <div class="text-orange-400">Outstanding: ₹${(r.outstanding || 0).toLocaleString()}</div>
             </div>`;
     });
 
