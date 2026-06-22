@@ -1,7 +1,7 @@
 // ==================== MAIN.JS - POLISHED RAG CHAT + DYNAMIC HEADER ====================
 
 let retailers = [];
-let currentContextRetailer = null;
+let vectorCache = new Map();
 
 const GROQ_API_KEY = "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";
 
@@ -49,25 +49,78 @@ function updateUserHeader(name, role) {
         </div>
     `;
 }
+// Simple embedding function (keyword + importance scoring)
+function createEmbedding(retailer) {
+    const text = `${retailer.name} ${retailer.area} ${retailer.outstanding || 0}`.toLowerCase();
+    const words = text.split(/\s+/);
+    const embedding = {};
 
-// ==================== RAG CHAT ====================
-function buildRAGContext(query) {
-    const lower = query.toLowerCase();
-    const relevant = retailers.filter(r => 
-        r.name.toLowerCase().includes(lower) || 
-        r.area.toLowerCase().includes(lower) ||
-        (r.outstanding && r.outstanding > 10000)
-    ).slice(0, 8);
-
-    if (relevant.length === 0) return "";
-
-    let context = "\nRelevant Retailers:\n";
-    relevant.forEach(r => {
-        context += `• ${r.name} (${r.area}) → Outstanding: ₹${r.outstanding} | Last Payment: ${r.lastPaymentDaysAgo} days ago\n`;
+    words.forEach(word => {
+        if (word.length > 2) {
+            embedding[word] = (embedding[word] || 0) + 1;
+        }
     });
+
+    // Boost important fields
+    if (retailer.outstanding > 20000) embedding['high_outstanding'] = 3;
+    if (retailer.monthlyOrders) embedding['regular'] = 2;
+
+    return embedding;
+}
+
+// Cosine similarity (simple vector search)
+function cosineSimilarity(vec1, vec2) {
+    let dot = 0, mag1 = 0, mag2 = 0;
+    const allKeys = new Set([...Object.keys(vec1), ...Object.keys(vec2)]);
+
+    allKeys.forEach(key => {
+        const v1 = vec1[key] || 0;
+        const v2 = vec2[key] || 0;
+        dot += v1 * v2;
+        mag1 += v1 * v1;
+        mag2 += v2 * v2;
+    });
+
+    if (mag1 === 0 || mag2 === 0) return 0;
+    return dot / (Math.sqrt(mag1) * Math.sqrt(mag2));
+}
+
+// Strong RAG with Vector Search
+function buildRAGContext(query) {
+    const lowerQuery = query.toLowerCase();
+    const queryEmbedding = createEmbedding({ name: lowerQuery, area: lowerQuery });
+
+    // Score all retailers
+    const scored = retailers.map(r => {
+        const emb = vectorCache.get(r.id) || createEmbedding(r);
+        if (!vectorCache.has(r.id)) vectorCache.set(r.id, emb);
+
+        const similarity = cosineSimilarity(queryEmbedding, emb);
+        const outstandingBoost = (r.outstanding || 0) > 15000 ? 0.3 : 0;
+
+        return {
+            retailer: r,
+            score: similarity + outstandingBoost
+        };
+    });
+
+    // Top 6 most relevant
+    const topRetailers = scored
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 6)
+        .map(item => item.retailer);
+
+    if (topRetailers.length === 0) return "";
+
+    let context = "\n📊 Relevant Retailer Context:\n";
+    topRetailers.forEach(r => {
+        context += `• **${r.name}** (${r.area}) → Outstanding: **₹${r.outstanding}** | Last Payment: ${r.lastPaymentDaysAgo} days ago\n`;
+    });
+
     return context;
 }
 
+// Updated Chat Function
 async function generateSmartResponse(message) {
     const context = buildRAGContext(message);
 
@@ -83,7 +136,7 @@ async function generateSmartResponse(message) {
                 messages: [
                     { 
                         role: "system", 
-                        content: `You are Drona - a sharp, practical sales manager for Ramesh. Speak simple Hinglish. Be direct. Use **bold** for key points. Give clear action steps.` 
+                        content: `You are Drona - a sharp sales manager. Use simple Hinglish. Be direct. Use **bold**. Give clear next actions.` 
                     },
                     { role: "user", content: `${context}\n\nQuestion: ${message}` }
                 ],
