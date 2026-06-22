@@ -1,162 +1,78 @@
-// js/main.js - Polished RAG + Targets + Dynamic Header
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drona GPT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        .tab-active { background-color: #334155; color: white; border-radius: 9999px; }
+        .chat-scroll { max-height: 65vh; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200">
 
-let retailers = [];
-let currentContextRetailer = null;
-
-const GROQ_API_KEY = "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";
-
-// Load Data
-async function loadAllData() {
-    try {
-        const [masterRes, osRes] = await Promise.all([
-            fetch('data/retailers-master.json'),
-            fetch('data/retailers-outstanding.json')
-        ]);
-
-        const masterData = await masterRes.json();
-        const osData = await osRes.json();
-
-        retailers = masterData.retailers.map(master => {
-            const osInfo = osData.retailers.find(o => o.id === master.id) || {};
-            return {
-                ...master,
-                outstanding: osInfo.outstanding || 0,
-                lastPaymentDaysAgo: osInfo.lastPaymentDaysAgo || 15
-            };
-        });
-
-        console.log(`✅ Loaded ${retailers.length} retailers for RAG`);
-    } catch (e) {
-        console.error("Data load failed", e);
-    }
-}
-
-// Dynamic Header
-function updateUserHeader(name, role) {
-    const userInfo = document.getElementById('user-info');
-    if (!userInfo) return;
-
-    const isAdmin = role === 'Admin' || role === 'Owner';
-    userInfo.innerHTML = `
-        <div class="flex items-center gap-x-3 bg-slate-800 px-4 py-1.5 rounded-2xl">
-            <div class="text-right">
-                <div class="font-medium">${name}</div>
-                <div class="text-xs ${isAdmin ? 'text-orange-400' : 'text-emerald-400'}">${role}</div>
+<header class="border-b border-slate-800 bg-slate-900 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center justify-between h-16">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-orange-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl">D</div>
+                <span class="font-semibold text-2xl">Drona GPT</span>
             </div>
-            <div class="w-9 h-9 ${isAdmin ? 'bg-orange-600' : 'bg-emerald-600'} rounded-2xl flex items-center justify-center">
-                <i class="fa-solid fa-user text-white"></i>
+
+            <div class="flex gap-2 bg-slate-800 p-1 rounded-3xl">
+                <button onclick="switchTab('drona')" id="tab-drona" class="tab-active px-6 py-2.5 text-sm font-medium">Drona GPT</button>
+                <button onclick="switchTab('strategy')" id="tab-strategy" class="px-6 py-2.5 text-sm font-medium">Strategy X</button>
+            </div>
+
+            <div id="user-info" class="flex items-center gap-x-3"></div>
+        </div>
+    </div>
+</header>
+
+<!-- Drona GPT View (Ramesh) -->
+<div id="drona-view" class="max-w-2xl mx-auto p-4 flex flex-col h-[calc(100vh-64px)]">
+    <div class="mb-4">
+        <h2 id="greeting-main" class="text-3xl font-semibold"></h2>
+        <p id="greeting-sub" class="text-slate-400"></p>
+    </div>
+
+    <div class="flex-1 bg-slate-900 rounded-3xl border border-slate-700 flex flex-col overflow-hidden">
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 chat-scroll"></div>
+        
+        <div class="p-4 border-t border-slate-700">
+            <div class="flex gap-2">
+                <input id="chat-input" type="text" placeholder="Ask about retailer, target or plan..." 
+                       class="flex-1 bg-slate-800 border border-slate-600 rounded-2xl px-5 py-3 focus:outline-none"
+                       onkeypress="if(event.key==='Enter') sendMessage()">
+                <button onclick="sendMessage()" class="px-6 bg-orange-600 hover:bg-orange-500 rounded-2xl">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
             </div>
         </div>
-    `;
-}
+    </div>
+</div>
 
-// RAG Context Builder (Strong)
-function buildRAGContext(query) {
-    const lower = query.toLowerCase();
-    const relevant = retailers.filter(r => 
-        r.name.toLowerCase().includes(lower) || 
-        r.area.toLowerCase().includes(lower) ||
-        (r.outstanding && r.outstanding > 10000)
-    ).slice(0, 8);
+<!-- Strategy X View (Admin) -->
+<div id="strategy-view" class="hidden flex flex-col h-[calc(100vh-64px)]">
+    <div class="flex-1 flex overflow-hidden">
+        <div class="flex-1 relative" style="min-width: 60%;">
+            <div id="strategy-map" class="absolute inset-0"></div>
+        </div>
+        <div class="w-96 bg-slate-900 border-l border-slate-700 flex flex-col">
+            <div class="p-4 border-b flex gap-1 bg-slate-800">
+                <button onclick="switchStrategyTab(0)" id="stab-0" class="tab-active flex-1 py-3 text-sm">Focus Plans</button>
+                <button onclick="switchStrategyTab(1)" id="stab-1" class="flex-1 py-3 text-sm">Targets</button>
+                <button onclick="switchStrategyTab(2)" id="stab-2" class="flex-1 py-3 text-sm">Territories</button>
+            </div>
+            <div id="strategy-tab-content" class="flex-1 overflow-auto p-4"></div>
+        </div>
+    </div>
+</div>
 
-    if (relevant.length === 0) return "";
-
-    let context = "\nRelevant Retailers:\n";
-    relevant.forEach(r => {
-        context += `• ${r.name} (${r.area}) → Outstanding: ₹${r.outstanding} | Last Payment: ${r.lastPaymentDaysAgo} days\n`;
-    });
-    return context;
-}
-
-// Polished RAG Chat
-async function generateSmartResponse(message) {
-    const context = buildRAGContext(message);
-
-    try {
-        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${GROQ_API_KEY}`
-            },
-            body: JSON.stringify({
-                model: "llama-3.3-70b-versatile",
-                messages: [
-                    { 
-                        role: "system", 
-                        content: `You are Drona - a sharp, practical sales manager. Speak simple Hinglish. Be direct. Use **bold**. Give clear actions.` 
-                    },
-                    { role: "user", content: `${context}\n\nQuestion: ${message}` }
-                ],
-                temperature: 0.7,
-                max_tokens: 700
-            })
-        });
-
-        const data = await res.json();
-        return data.choices?.[0]?.message?.content || "Bhai, batao kya scene hai?";
-    } catch (e) {
-        console.error(e);
-        return "Network issue. Try again.";
-    }
-}
-
-async function sendMessage() {
-    const input = document.getElementById('chat-input');
-    const text = input.value.trim();
-    if (!text) return;
-
-    addMessage(text, 'user');
-    input.value = "";
-
-    const reply = await generateSmartResponse(text);
-    addMessage(reply, 'bot');
-}
-
-function addMessage(text, sender) {
-    const container = document.getElementById('chat-messages');
-    if (!container) return;
-
-    const formatted = text.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
-
-    const div = document.createElement('div');
-    div.className = `mb-4 flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
-    div.innerHTML = sender === 'user' 
-        ? `<div class="bg-orange-600 text-white rounded-3xl px-5 py-3 max-w-[80%]">${formatted}</div>`
-        : `<div class="bg-slate-700 text-slate-100 rounded-3xl px-5 py-3 max-w-[80%]">${formatted}</div>`;
-
-    container.appendChild(div);
-    container.scrollTop = container.scrollHeight;
-}
-
-// Tab Switcher
-window.switchTab = function(tab) {
-    const dronaView = document.getElementById('drona-view');
-    const strategyView = document.getElementById('strategy-view');
-
-    if (tab === 'drona') {
-        dronaView.classList.remove('hidden');
-        strategyView.classList.add('hidden');
-        updateUserHeader('Ramesh', 'Salesman');
-    } else {
-        dronaView.classList.add('hidden');
-        strategyView.classList.remove('hidden');
-        updateUserHeader('Admin', 'Owner');
-        if (typeof window.initializeStrategyX === 'function') {
-            setTimeout(window.initializeStrategyX, 100);
-        }
-    }
-};
-
-// Initialize
-async function initializeApp() {
-    await loadAllData();
-    updateUserHeader('Ramesh', 'Salesman');
-    addMessage("Namaste Ramesh! Aaj kya help chahiye?", 'bot');
-}
-
-window.onload = initializeApp;
-
-// Exports
-window.sendMessage = sendMessage;
-window.switchTab = switchTab;
+<script src="js/main.js"></script>
+</body>
+</html>
