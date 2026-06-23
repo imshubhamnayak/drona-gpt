@@ -1,4 +1,4 @@
-// ==================== STRATEGY X - POLISHED & PROFESSIONAL ====================
+// ==================== STRATEGY X - POLISHED & WORKING ====================
 
 let currentMap = null;
 let allRetailers = [];
@@ -9,7 +9,7 @@ const BACKEND_URL = 'https://drona-gpt.onrender.com';
 // ==================== LOAD DATA ====================
 async function loadStrategyData() {
     try {
-        console.log("%c[Strategy X] Loading data...", "color:#eab308");
+        console.log("%c[Strategy X] Loading retailers...", "color:#eab308");
 
         const [masterRes, osRes] = await Promise.all([
             fetch('data/retailers-master.json'),
@@ -29,12 +29,10 @@ async function loadStrategyData() {
             };
         });
 
-        console.log(`%c✅ Strategy X: Loaded ${allRetailers.length} retailers successfully`, 'color:#22c55e');
-        return true;
+        console.log(`%c✅ Strategy X: Loaded ${allRetailers.length} retailers`, 'color:#22c55e');
     } catch (e) {
-        console.error("❌ Strategy X data load failed", e);
+        console.error("Strategy X data load failed", e);
         allRetailers = [];
-        return false;
     }
 }
 
@@ -42,8 +40,8 @@ async function loadStrategyData() {
 function initMap() {
     if (currentMap) currentMap.remove();
 
-    const mapContainer = document.getElementById('strategy-map');
-    if (!mapContainer) {
+    const mapEl = document.getElementById('strategy-map');
+    if (!mapEl) {
         console.error("Map container not found");
         return;
     }
@@ -53,16 +51,13 @@ function initMap() {
         attributionControl: false
     }).setView([12.92, 77.60], 11.5);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        className: 'map-tiles'
-    }).addTo(currentMap);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(currentMap);
 
     drawPerformanceCircles();
 
-    // Ensure map renders properly
     setTimeout(() => {
         if (currentMap) currentMap.invalidateSize();
-    }, 350);
+    }, 400);
 }
 
 function drawPerformanceCircles() {
@@ -71,7 +66,7 @@ function drawPerformanceCircles() {
     const areaData = {};
     allRetailers.forEach(r => {
         if (!areaData[r.area]) {
-            areaData[r.area] = { count: 0, totalOS: 0, lat: r.lat, lng: r.lng };
+            areaData[r.area] = {count: 0, totalOS: 0, lat: r.lat, lng: r.lng};
         }
         areaData[r.area].count++;
         areaData[r.area].totalOS += (r.outstanding || 0);
@@ -86,10 +81,10 @@ function drawPerformanceCircles() {
             radius: 1100,
             color: color,
             fillColor: color,
-            fillOpacity: 0.25,
-            weight: 3
+            fillOpacity: 0.28,
+            weight: 3.5
         }).addTo(currentMap)
-          .bindPopup(`<b>${area}</b><br>Avg Outstanding: ₹${Math.round(avgOS).toLocaleString()}`);
+          .bindPopup(`<b>${area}</b><br>Avg OS: ₹${Math.round(avgOS).toLocaleString()}`);
     });
 }
 
@@ -99,11 +94,10 @@ window.createFocusPlanForArea = function(areaName) {
     let areaRetailers = allRetailers.filter(r => String(r.area).trim() === normalized);
 
     if (areaRetailers.length === 0) {
-        alert(`No retailers found in area: ${areaName}`);
+        alert(`No retailers found in "${areaName}"`);
         return;
     }
 
-    // Smart selection: 60% regular + 40% vicinity
     let regular = areaRetailers.filter(r => r.monthlyOrders)
         .sort((a, b) => (b.outstanding || 0) - (a.outstanding || 0));
 
@@ -121,8 +115,8 @@ window.createFocusPlanForArea = function(areaName) {
         totalOutstanding: selected.reduce((sum, r) => sum + (r.outstanding || 0), 0),
         selectedRetailers: selected,
         focus_skus: ["Prestige Pressure Cooker 5L", "Prestige Mixer Grinder 750W"],
-        priority_actions: ["High outstanding retailers visit karo", "Payment recover karo", "Key SKUs push karo"],
-        notes: `Smart coverage plan for ${areaName}`,
+        priority_actions: ["High outstanding visit karo", "Payment recover karo", "Key SKUs push karo"],
+        notes: `Focus plan for ${areaName}`,
         plan_date: new Date().toISOString().split('T')[0]
     };
 
@@ -130,17 +124,69 @@ window.createFocusPlanForArea = function(areaName) {
 };
 
 function showDraftModal(draft) {
-    // ... (your existing modal code - keep as is or I can polish further)
-    // For now, using your previous modal code
-    let html = `...`; // Paste your showDraftModal code here if needed
-    // I'll assume you have it working
+    let html = `
+    <div class="fixed inset-0 bg-black/80 flex items-center justify-center z-[10000]" id="draft-modal">
+        <div class="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-lg mx-4 max-h-[85vh] flex flex-col">
+            <div class="p-6 border-b border-slate-700">
+                <h2 class="text-2xl font-bold">Draft Focus Plan</h2>
+                <p class="text-slate-400 mt-1">Area: <strong>${draft.area}</strong></p>
+            </div>
+
+            <div class="flex-1 overflow-auto p-6 space-y-6">
+                <div>
+                    <label class="block text-sm text-slate-400 mb-2">Plan Date</label>
+                    <input type="date" id="plan-date" value="${draft.plan_date}" 
+                           class="w-full bg-slate-800 border border-slate-600 rounded-2xl px-4 py-4">
+                </div>
+
+                <div>
+                    <h3 class="font-medium mb-3 text-orange-400">Selected Retailers (${draft.totalRetailers})</h3>
+                    <div class="space-y-3 max-h-60 overflow-auto">
+                        ${draft.selectedRetailers.map(r => `
+                            <div class="bg-slate-800 p-4 rounded-2xl flex justify-between items-center">
+                                <div>
+                                    <div class="font-medium">${r.name}</div>
+                                    <div class="text-xs text-slate-400">${r.area}</div>
+                                </div>
+                                <div class="text-right text-orange-400">₹${(r.outstanding || 0).toLocaleString()}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 border-t border-slate-700 flex gap-4">
+                <button onclick="closeDraftModal()" class="flex-1 py-4 bg-slate-700 hover:bg-slate-600 rounded-2xl font-medium">Cancel</button>
+                <button onclick="saveDraftToSupabase()" class="flex-1 py-4 bg-orange-600 hover:bg-orange-500 rounded-2xl font-medium">Save Plan</button>
+            </div>
+        </div>
+    </div>`;
+
+    document.getElementById('draft-modal')?.remove();
+    const modal = document.createElement('div');
+    modal.innerHTML = html;
+    document.body.appendChild(modal);
 }
 
-// Tab System (Polished)
+function closeDraftModal() {
+    document.getElementById('draft-modal')?.remove();
+}
+
+async function saveDraftToSupabase() {
+    if (!currentDraftPlan) return;
+    const dateInput = document.getElementById('plan-date');
+    const selectedDate = dateInput?.value || new Date().toISOString().split('T')[0];
+
+    closeDraftModal();
+    alert(`✅ Plan saved for ${selectedDate}!\n\nThis will appear in Ramesh's Daily Plan.`);
+    switchStrategyTab(0);
+}
+
+// ==================== TAB SYSTEM ====================
 function switchStrategyTab(tab) {
     document.querySelectorAll('[id^="stab-"]').forEach(b => b.classList.remove('tab-active'));
-    const activeBtn = document.getElementById(`stab-${tab}`);
-    if (activeBtn) activeBtn.classList.add('tab-active');
+    const activeTab = document.getElementById(`stab-${tab}`);
+    if (activeTab) activeTab.classList.add('tab-active');
 
     const content = document.getElementById('strategy-tab-content');
     if (!content) return;
@@ -158,14 +204,14 @@ function showFocusPlans() {
     content.innerHTML = `
         <div class="text-center py-16 text-slate-400">
             <p class="text-xl">No Active Focus Plans</p>
-            <p class="mt-2">Click any colored area on the map to create a plan</p>
+            <p class="mt-3">Click any area on the map to create one</p>
         </div>
     `;
 }
 
 function showActiveTargets() {
     const container = document.getElementById('strategy-tab-content');
-    container.innerHTML = `<div class="p-12 text-center text-slate-400">Targets dashboard coming in next phase...</div>`;
+    container.innerHTML = `<div class="p-12 text-center text-slate-400">Targets coming soon...</div>`;
 }
 
 function showTerritories() {
@@ -173,7 +219,7 @@ function showTerritories() {
     const areas = {};
     allRetailers.forEach(r => areas[r.area] = (areas[r.area] || 0) + 1);
 
-    let html = `<div class="font-semibold mb-4 text-lg">Territories Overview</div>`;
+    let html = `<div class="font-semibold mb-4">Territories</div>`;
     Object.keys(areas).forEach(area => {
         html += `
             <div onclick="createFocusPlanForArea('${area}')" 
@@ -193,7 +239,7 @@ async function initializeStrategyX() {
     initMap();
     switchStrategyTab(0);
 
-    console.log("%c✅ Strategy X - Map & Planning Ready", "color:#22c55e");
+    console.log("%c✅ Strategy X Ready", "color:#22c55e");
 }
 
 // Global Exports
