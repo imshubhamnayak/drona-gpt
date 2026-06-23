@@ -61,16 +61,29 @@ function initMap() {
 }
 
 function drawPerformanceCircles() {
-    if (!currentMap || !allRetailers.length) return;
+    if (!currentMap || !allRetailers.length) {
+        console.warn("No retailers or map not ready");
+        return;
+    }
 
+    let hasValidLocation = false;
     const areaData = {};
+
     allRetailers.forEach(r => {
+        if (!r.lat || !r.lng) return; // Skip if no coordinates
+
+        hasValidLocation = true;
         if (!areaData[r.area]) {
             areaData[r.area] = {count: 0, totalOS: 0, lat: r.lat, lng: r.lng};
         }
         areaData[r.area].count++;
         areaData[r.area].totalOS += (r.outstanding || 0);
     });
+
+    if (!hasValidLocation) {
+        console.error("No retailers have lat/lng coordinates");
+        return;
+    }
 
     Object.keys(areaData).forEach(area => {
         const d = areaData[area];
