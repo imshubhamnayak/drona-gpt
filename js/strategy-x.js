@@ -9,8 +9,6 @@ const BACKEND_URL = 'https://drona-gpt.onrender.com';
 // ==================== LOAD DATA ====================
 async function loadStrategyData() {
     try {
-        console.log("%c[Strategy X] Loading retailers...", "color:#eab308");
-
         const [masterRes, osRes] = await Promise.all([
             fetch('data/retailers-master.json'),
             fetch('data/retailers-outstanding.json')
@@ -29,10 +27,9 @@ async function loadStrategyData() {
             };
         });
 
-        console.log(`%c✅ Strategy X: Loaded ${allRetailers.length} retailers`, 'color:#22c55e');
+        console.log(`✅ Loaded ${allRetailers.length} retailers for map`);
     } catch (e) {
-        console.error("Strategy X data load failed", e);
-        allRetailers = [];
+        console.error("Data load failed", e);
     }
 }
 
@@ -41,49 +38,27 @@ function initMap() {
     if (currentMap) currentMap.remove();
 
     const mapEl = document.getElementById('strategy-map');
-    if (!mapEl) {
-        console.error("Map container not found");
-        return;
-    }
+    if (!mapEl) return console.error("Map element not found");
 
-    currentMap = L.map('strategy-map', {
-        zoomControl: true,
-        attributionControl: false
-    }).setView([12.92, 77.60], 11.5);
+    currentMap = L.map('strategy-map', { zoomControl: true, attributionControl: false })
+        .setView([12.92, 77.60], 11.5);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(currentMap);
 
     drawPerformanceCircles();
-
-    setTimeout(() => {
-        if (currentMap) currentMap.invalidateSize();
-    }, 400);
+    setTimeout(() => currentMap.invalidateSize(), 400);
 }
 
 function drawPerformanceCircles() {
-    if (!currentMap || !allRetailers.length) {
-        console.warn("No retailers or map not ready");
-        return;
-    }
+    if (!currentMap || !allRetailers.length) return;
 
-    let hasValidLocation = false;
     const areaData = {};
-
     allRetailers.forEach(r => {
-        if (!r.lat || !r.lng) return; // Skip if no coordinates
-
-        hasValidLocation = true;
-        if (!areaData[r.area]) {
-            areaData[r.area] = {count: 0, totalOS: 0, lat: r.lat, lng: r.lng};
-        }
+        if (!r.lat || !r.lng) return;
+        if (!areaData[r.area]) areaData[r.area] = {count:0, totalOS:0, lat:r.lat, lng:r.lng};
         areaData[r.area].count++;
         areaData[r.area].totalOS += (r.outstanding || 0);
     });
-
-    if (!hasValidLocation) {
-        console.error("No retailers have lat/lng coordinates");
-        return;
-    }
 
     Object.keys(areaData).forEach(area => {
         const d = areaData[area];
