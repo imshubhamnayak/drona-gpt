@@ -54,16 +54,20 @@
     </div>
 </div>
 
-<!-- Strategy X View -->
+<!-- Strategy X View (Admin) -->
 <div id="strategy-view" class="hidden flex flex-col h-[calc(100vh-64px)]">
     <div class="flex-1 flex overflow-hidden">
-        <div class="flex-1 relative" style="min-width:60%;">
-            <div id="strategy-map" class="absolute inset-0"></div>
+        <!-- Map -->
+        <div class="flex-1 relative" style="min-width: 60%;">
+            <div id="strategy-map" class="absolute inset-0 bg-slate-900"></div>
         </div>
+
+        <!-- Sidebar -->
         <div class="w-96 bg-slate-900 border-l border-slate-700 flex flex-col">
             <div class="p-4 border-b flex gap-1 bg-slate-800">
-                <button onclick="switchStrategyTab(0)" id="stab-0" class="tab-active flex-1 py-3 text-sm">Focus Plans</button>
-                <button onclick="switchStrategyTab(1)" id="stab-1" class="flex-1 py-3 text-sm">Targets</button>
+                <button onclick="switchStrategyTab(0)" id="stab-0" class="tab-active flex-1 py-3 text-sm font-medium">Focus Plans</button>
+                <button onclick="switchStrategyTab(1)" id="stab-1" class="flex-1 py-3 text-sm font-medium">Targets</button>
+                <button onclick="switchStrategyTab(2)" id="stab-2" class="flex-1 py-3 text-sm font-medium">Territories</button>
             </div>
             <div id="strategy-tab-content" class="flex-1 overflow-auto p-4"></div>
         </div>
